@@ -37,7 +37,19 @@
     <Compile Include="..\..\Master.AssemblyInfo.cs">
       <Link>Master.AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BusinessLogic\CardRenewalDateLogic.cs" />
+    <Compile Include="LeisureCardRegistrationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
+      <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
+      <Name>GRG.LeisureCards.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GRG.LeisureCards.Persistence\GRG.LeisureCards.Persistence.csproj">
+      <Project>{a5f85b9f-16b6-4573-a9b4-2fd29e416947}</Project>
+      <Name>GRG.LeisureCards.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

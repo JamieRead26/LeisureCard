@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.Service", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.API", "GRG.LeisureCards.API\GRG.LeisureCards.API.csproj", "{424F031F-A123-4C7F-B6FC-F7D611765773}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.Service.UnitTests", "GRG.LeisureCards.Service.UnitTests\GRG.LeisureCards.Service.UnitTests.csproj", "{1E9EC62A-B97B-4D13-A405-F2F63CE1D807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.Service.IntegrationTests", "GRG.LeisureCards.Service.IntegrationTests\GRG.LeisureCards.Service.IntegrationTests.csproj", "{23FEF0F6-2EB5-436A-8DB2-AE628CBC217A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,14 @@ Global
 		{424F031F-A123-4C7F-B6FC-F7D611765773}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{424F031F-A123-4C7F-B6FC-F7D611765773}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{424F031F-A123-4C7F-B6FC-F7D611765773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E9EC62A-B97B-4D13-A405-F2F63CE1D807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E9EC62A-B97B-4D13-A405-F2F63CE1D807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E9EC62A-B97B-4D13-A405-F2F63CE1D807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E9EC62A-B97B-4D13-A405-F2F63CE1D807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23FEF0F6-2EB5-436A-8DB2-AE628CBC217A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23FEF0F6-2EB5-436A-8DB2-AE628CBC217A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23FEF0F6-2EB5-436A-8DB2-AE628CBC217A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23FEF0F6-2EB5-436A-8DB2-AE628CBC217A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +74,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1F88EF56-CF88-4E6E-A689-781737F2B00F} = {097F45CE-44C5-475E-9E7C-BD5B08916460}
 		{AA36DFC8-B323-4CAB-AF38-84E962F39B31} = {056C6F24-1BB4-40D1-9793-FA61E286B576}
+		{1E9EC62A-B97B-4D13-A405-F2F63CE1D807} = {097F45CE-44C5-475E-9E7C-BD5B08916460}
+		{23FEF0F6-2EB5-436A-8DB2-AE628CBC217A} = {097F45CE-44C5-475E-9E7C-BD5B08916460}
 	EndGlobalSection
 EndGlobal

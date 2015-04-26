@@ -73,6 +73,14 @@
       <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
       <Name>GRG.LeisureCards.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GRG.LeisureCards.Persistence.NHibernate\GRG.LeisureCards.Persistence.NHibernate.csproj">
+      <Project>{64BA8A8F-C727-4868-A8B7-FC3A99C9A639}</Project>
+      <Name>GRG.LeisureCards.Persistence.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GRG.LeisureCards.Persistence\GRG.LeisureCards.Persistence.csproj">
+      <Project>{A5F85B9F-16B6-4573-A9B4-2FD29E416947}</Project>
+      <Name>GRG.LeisureCards.Persistence</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.Service\GRG.LeisureCards.Service.csproj">
       <Project>{ECCC96DA-8CE4-4926-A958-FF98DF25A83F}</Project>
       <Name>GRG.LeisureCards.Service</Name>

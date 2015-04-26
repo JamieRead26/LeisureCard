@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NHibernate;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
     public class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
     {
+        protected ISession Session { get { return NhUnitOfWork.Current.Session; } }
 
         public TEntity SaveOrUpdate(TEntity entity)
         {

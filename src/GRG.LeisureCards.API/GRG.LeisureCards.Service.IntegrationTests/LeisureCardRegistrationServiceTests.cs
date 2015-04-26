@@ -1,4 +1,5 @@
-﻿using GRG.LeisureCards.Service.BusinessLogic;
+﻿using GRG.LeisureCards.Persistence.NHibernate;
+using GRG.LeisureCards.Service.BusinessLogic;
 using NUnit.Framework;
 
 namespace GRG.LeisureCards.Service.IntegrationTests

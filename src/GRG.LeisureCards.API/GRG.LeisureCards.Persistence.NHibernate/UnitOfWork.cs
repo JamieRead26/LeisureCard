@@ -39,7 +39,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         /// Creates a new instance of NhUnitOfWork.
         /// </summary>
         /// <param name="sessionFactory"></param>
-        public NhUnitOfWork(ISessionFactory sessionFactory)
+        public UnitOfWork(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }

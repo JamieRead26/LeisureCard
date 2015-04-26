@@ -39,8 +39,15 @@
     </Compile>
     <Compile Include="ILeisureCardRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="ISettingRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
+      <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
+      <Name>GRG.LeisureCards.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

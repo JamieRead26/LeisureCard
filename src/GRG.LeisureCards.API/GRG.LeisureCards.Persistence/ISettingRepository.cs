@@ -2,7 +2,7 @@
 
 namespace GRG.LeisureCards.Persistence
 {
-    public interface ILeisureCardRepository : IRepository<LeisureCard,string>
+    public interface ISettingRepository : IRepository<Setting, string>
     {
     }
 }

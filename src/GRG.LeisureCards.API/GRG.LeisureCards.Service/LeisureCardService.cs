@@ -31,7 +31,6 @@ namespace GRG.LeisureCards.Service
             _leisureCardRepository = leisureCardRepository;
         }
 
-        //TODO: make atomic
         public LeisureCardRegistrationResponse Register(string cardCode)
         {
             var leisureCard = _leisureCardRepository.Get(cardCode);

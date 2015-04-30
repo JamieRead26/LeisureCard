@@ -7,6 +7,7 @@ src\GRG.LeisureCards.API\GRG.LeisureCards.API.IntegrationTests.sln: An integrati
 src\GRG.LeisureCards.UI\GRG.LeisureCards.UI.sln: The MVC web application for the UI
 
 1) Open src\GRG.LeisureCards.API\GRG.LeisureCards.API.sln
+2) Open the properties page of the GRG.LeisureCards.WebAPI project and on the web tab set the specific start up page to LeisureCard/Register/12345
 2) Open GRG.LeisureCards.Data.Database class and set the configuration for your target database
 3) Hit F5
 4) Observe the following XML in a browser:

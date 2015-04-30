@@ -15,9 +15,19 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Reflection;
+using Castle.DynamicProxy;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using GRG.LeisureCards.Data;
+using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Persistence.NHibernate;
+using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
+using GRG.LeisureCards.Service;
+using GRG.LeisureCards.WebAPI.Interceptors;
+
 namespace GRG.LeisureCards.WebAPI.DependencyResolution {
     using StructureMap.Configuration.DSL;
-    using StructureMap.Graph;
 	
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
@@ -26,12 +36,44 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution {
             Scan(
                 scan => {
                     scan.Assembly("GRG.LeisureCards.Service");
-                    scan.Assembly("GRG.LeisureCards.Persistence.NHibernate");
+                    //scan.Assembly("GRG.LeisureCards.Persistence.NHibernate");
                     scan.Assembly("GRG.LeisureCards.WebAPI");
-                    //scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
                 });
-            //For<IExample>().Use<Example>();
+
+            var classMapAssembly = Assembly.GetAssembly(typeof (LeisureCardClassMap));
+
+            var sessionFactory = Fluently.Configure()
+                .Database(Database.GetPersistenceConfigurer)
+                .Mappings(m => m.FluentMappings.AddFromAssembly(classMapAssembly))
+                .BuildSessionFactory();
+
+            var proxyGenerator = new ProxyGenerator();
+
+            var interceptor = new UnitOfWorkInterceptor(sessionFactory);
+
+            ConfigureIntercepts(proxyGenerator, interceptor);
+        }
+
+        private void ConfigureIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
+        {
+            ConfigureRepositoryIntercepts(proxyGenerator, interceptor);
+            ConfigureServiceIntercepts(proxyGenerator, interceptor);
+        }
+
+        private void ConfigureRepositoryIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
+        {
+            For<ILeisureCardRepository>().Use<LeisureCardRepository>()
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+
+            For<ISettingRepository>().Use<SettingRepository>()
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+        }
+
+        private void ConfigureServiceIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
+        {
+            For<ILeisureCardService>().Use<LeisureCardService>()
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
         }
 
         #endregion

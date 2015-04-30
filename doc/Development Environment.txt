@@ -1,0 +1,25 @@
+The are three Visual Studio 2013 solutions in the repo:
+
+src\GRG.LeisureCards.API\GRG.LeisureCards.API.sln: The REST API web application
+
+src\GRG.LeisureCards.API\GRG.LeisureCards.API.IntegrationTests.sln: An integration test suite for the The REST API web application
+
+src\GRG.LeisureCards.UI\GRG.LeisureCards.UI.sln: The MVC web application for the UI
+
+1) Open src\GRG.LeisureCards.API\GRG.LeisureCards.API.sln
+2) Open GRG.LeisureCards.Data.Database class and set the configuration for your target database
+3) Hit F5
+4) Observe the following XML in a browser:
+
+<LeisureCardRegistrationResponse xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/GRG.LeisureCards.Model">
+<LeisureCard i:nil="true"/>
+<Status>CodeNotFound</Status>
+</LeisureCardRegistrationResponse>
+
+5) Open src\GRG.LeisureCards.API\GRG.LeisureCards.API.IntegrationTests.sln
+6) Run the integration test suite in Visual Studio
+7) Observe all tests are green.
+
+At this the WebAPI app is running and is proven to work. The tests in the integration test suite currently serve as documentation for the REST API
+
+8) Open src\GRG.LeisureCards.UI\GRG.LeisureCards.UI.sln and develop the LeisureCard UI :)

@@ -1,5 +1,6 @@
-﻿using GRG.LeisureCards.Persistence.NHibernate;
-using GRG.LeisureCards.Service.BusinessLogic;
+﻿using System.Reflection;
+using GRG.LeisureCards.Data;
+using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using NUnit.Framework;
 
 namespace GRG.LeisureCards.Service.IntegrationTests
@@ -10,7 +11,7 @@ namespace GRG.LeisureCards.Service.IntegrationTests
         [TestFixtureSetUp]
         public void FixtureSetup()
         {
-            DataBootstrap.PrepDb();
+            DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)));
         }
 
         [Test]

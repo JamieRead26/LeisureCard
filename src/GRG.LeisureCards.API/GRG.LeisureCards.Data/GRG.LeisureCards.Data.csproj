@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{23FEF0F6-2EB5-436A-8DB2-AE628CBC217A}</ProjectGuid>
+    <ProjectGuid>{9E05D18C-6775-4095-B382-183240174BFA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GRG.LeisureCards.Service.IntegrationTests</RootNamespace>
-    <AssemblyName>GRG.LeisureCards.Service.IntegrationTests</AssemblyName>
+    <RootNamespace>GRG.LeisureCards.Data</RootNamespace>
+    <AssemblyName>GRG.LeisureCards.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,64 +30,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bootstrap4NHibernate">
-      <HintPath>..\packages\Bootstrap4NHibernate.1.0.2\lib\net45\Bootstrap4NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Bootstrap4NHibernate.Data">
-      <HintPath>..\packages\Bootstrap4NHibernate.1.0.2\lib\net45\Bootstrap4NHibernate.Data.dll</HintPath>
-    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="MPM.PDAG">
-      <HintPath>..\packages\MPM.PDAG.2.0.0\lib\net45\MPM.PDAG.dll</HintPath>
-    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.4.0.0.4000\lib\net40\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataFixtures\LeisureCardDataFixture.cs" />
-    <Compile Include="LeisureCardRegistrationServiceTests.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GRG.LeisureCards.Data.Test\GRG.LeisureCards.Data.Test.csproj">
-      <Project>{aa36dfc8-b323-4cab-af38-84e962f39b31}</Project>
-      <Name>GRG.LeisureCards.Data.Test</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
-      <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
-      <Name>GRG.LeisureCards.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GRG.LeisureCards.Persistence.NHibernate\GRG.LeisureCards.Persistence.NHibernate.csproj">
-      <Project>{64BA8A8F-C727-4868-A8B7-FC3A99C9A639}</Project>
-      <Name>GRG.LeisureCards.Persistence.NHibernate</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GRG.LeisureCards.Persistence\GRG.LeisureCards.Persistence.csproj">
-      <Project>{A5F85B9F-16B6-4573-A9B4-2FD29E416947}</Project>
-      <Name>GRG.LeisureCards.Persistence</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GRG.LeisureCards.Service\GRG.LeisureCards.Service.csproj">
-      <Project>{ECCC96DA-8CE4-4926-A958-FF98DF25A83F}</Project>
-      <Name>GRG.LeisureCards.Service</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

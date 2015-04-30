@@ -2,11 +2,7 @@
 using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
-using GRG.LeisureCards.WebAPI.App_Start;
-using GRG.LeisureCards.WebAPI.DependencyResolution;
-using Microsoft.Owin.Hosting;
 using NUnit.Framework;
-using OwinSelfhostSample;
 using RestSharp;
 
 namespace GRG.LeisureCards.API.IntegrationTests
@@ -19,9 +15,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
-            DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)));
-
-          //  WebApp.Start<Startup>(BaseAddress);
+            DataBootstrap.PrepDb(Assembly.GetAssembly(typeof (LeisureCardClassMap)));
         }
 
         [Test]

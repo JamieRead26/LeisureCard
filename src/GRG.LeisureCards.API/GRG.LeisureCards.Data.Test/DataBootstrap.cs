@@ -1,6 +1,4 @@
 ﻿using System.Reflection;
-using Bootstrap4NHibernate;
-using FluentNHibernate.Cfg.Db;
 
 namespace GRG.LeisureCards.Data
 {
@@ -16,14 +14,7 @@ namespace GRG.LeisureCards.Data
             {
                 if (Done) return;
 
-                var dbConf = PostgreSQLConfiguration.PostgreSQL82.ConnectionString(c => c
-                    .Database("LeisureCards")
-                    .Host("localhost")
-                    .Port(5432)
-                    .Username("postgres")
-                    .Password(""));
-
-                var database = new Database(dbConf, classMapAssembly, true);
+                var database = new Bootstrap4NHibernate.Database(Database.GetPersistenceConfigurer(), classMapAssembly, true) ;
 
                 database.Populate(Assembly.GetExecutingAssembly());
             }

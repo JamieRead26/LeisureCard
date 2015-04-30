@@ -63,6 +63,10 @@
     <Compile Include="SettingDataFixture.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GRG.LeisureCards.Data\GRG.LeisureCards.Data.csproj">
+      <Project>{9e05d18c-6775-4095-b382-183240174bfa}</Project>
+      <Name>GRG.LeisureCards.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
       <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
       <Name>GRG.LeisureCards.Model</Name>

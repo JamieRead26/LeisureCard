@@ -1,0 +1,45 @@
+@import 'mixin.scss';
+
+header {
+    background: $site-color;
+    margin-bottom: 30px;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+    z-index: 100;
+    min-width: 320px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+    a.logo {
+        width: $logo-width;
+        height: $logo-height;
+        margin: 0 0 0 10px;
+        text-indent: -999px;
+        float: left;
+        background: $logo;
+    }
+    nav {
+        float: left;
+        margin: 0 0 0 40px;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            float: left;
+            li {
+                display: inline-block;
+                margin-right: 10px;
+                color: #fff;
+                a {
+                    display: inline-block;
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: bold;
+                    padding: 7px 6px;
+                    margin: 5px 7px 0 0;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

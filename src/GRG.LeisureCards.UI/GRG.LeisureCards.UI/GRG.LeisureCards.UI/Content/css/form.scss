@@ -1,0 +1,131 @@
+@import 'mixin.scss';
+
+body div.content {
+    input, textarea {
+       outline: none;
+       background: #FAFAFA;
+       border: 1px solid #A7A7A7;
+       padding: 8px 11px;
+       width: 100%;
+       &.errors {
+          border: 1px solid $site-color !important;
+       }
+    }
+    input[type=text], input[type=password] {
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        appearance:none;
+    }
+    textarea {
+        min-height: 80px;
+        resize: vertical;
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        appearance:none;
+    }
+    .field {
+        margin-bottom: 5px;
+    }
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        color: $site-color;
+    }
+    input[type=checkbox]{
+        width: auto;
+        display: inline-block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    input[type=submit]{
+        width: auto; 
+        padding: 10px 15px;
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        background: $site-color;
+        cursor: pointer;
+        text-decoration: none;
+        @include border-radius(5px);
+        &:hover {
+            background: #222;
+            @include ease(0.2s);
+        }    
+    }
+    form {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: 15px 0;
+        margin: 20px 0;
+        &.home {
+            margin: 50px 0;
+            padding: 60px 40px;
+            border-radius: 5px;
+            background: $site-color2;
+            border: none;            
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            label {
+                color: #fff;
+            }
+            input[type=submit]{
+                background: $site-color2-alt;
+                &:hover {
+                    background: #222;
+                }
+            }
+        }
+    }
+    form.inline {
+        label {
+            display: inline-block;
+            width: 30%;
+            padding-right: 20px;
+            margin-top: 7px;
+            text-align: right;
+            vertical-align: top;
+            @include breakpoint(smart-phone){
+                width: auto;
+                display: block;
+                text-align: left;
+            }
+        }
+        .field {
+            margin-bottom: 10px;
+        }
+        input[type=password], input[type=text], input[type=file], input[type=email], textarea {
+            display: inline-block;
+            width: 69%;
+            @include breakpoint(smart-phone){
+                width: 100%; 
+            }
+        }
+        div.checkboxes {
+            label {
+                width: 88%;
+                text-align: left;
+            }
+        }
+        ul.errorlist, input[type=submit] {
+            margin-left: 30.5%;
+            @include breakpoint(small-screen){
+                margin-left: 0;
+            }
+        }
+    }
+    ul.errorlist {
+        margin: 0;
+        padding: 5px;
+       box-sizing: border-box;
+       -webkit-box-sizing:border-box;
+       -moz-box-sizing: border-box;
+        li {
+            color: #f00;
+            margin: 0 0 5px 0 !important;
+            padding: 0;
+            &:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+}

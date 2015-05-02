@@ -18,7 +18,6 @@
 using System.Reflection;
 using Castle.DynamicProxy;
 using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
@@ -36,7 +35,6 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution {
             Scan(
                 scan => {
                     scan.Assembly("GRG.LeisureCards.Service");
-                    //scan.Assembly("GRG.LeisureCards.Persistence.NHibernate");
                     scan.Assembly("GRG.LeisureCards.WebAPI");
                     scan.WithDefaultConventions();
                 });
@@ -46,6 +44,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution {
             var sessionFactory = Fluently.Configure()
                 .Database(Database.GetPersistenceConfigurer)
                 .Mappings(m => m.FluentMappings.AddFromAssembly(classMapAssembly))
+#if DEBUG  
+                .ExposeConfiguration( x=> x.SetInterceptor(new SqlStatementInterceptor()))
+#endif
                 .BuildSessionFactory();
 
             var proxyGenerator = new ProxyGenerator();
@@ -68,11 +69,17 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution {
 
             For<ISettingRepository>().Use<SettingRepository>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+
+            For<IRedLetterProductRepository>().Use<RedLetterRepository>()
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
         }
 
         private void ConfigureServiceIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
         {
             For<ILeisureCardService>().Use<LeisureCardService>()
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+
+            For<ITestService>().Use<TestService>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
         }
 

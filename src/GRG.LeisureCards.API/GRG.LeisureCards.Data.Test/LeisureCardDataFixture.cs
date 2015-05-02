@@ -8,10 +8,15 @@ namespace GRG.LeisureCards.Data.Test
     {
         public override object[] GetEntities(IFixtureContainer fixtureContainer)
         {
-            return new object[]
+            return new[]
             {
                 new LeisureCard {Code = "Unregistered"},
-                new LeisureCard {Code = "Registered", RenewalDate = DateTime.Now + TimeSpan.FromDays(365), Registered = DateTime.Now},
+                new LeisureCard
+                {
+                    Code = "Registered",
+                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    Registered = DateTime.Now
+                },
                 new LeisureCard {Code = "Suspended", Suspended = true}
             };
         }

@@ -38,6 +38,7 @@
       <Link>Master.AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ILeisureCardRepository.cs" />
+    <Compile Include="IRedLetterProductRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISettingRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />

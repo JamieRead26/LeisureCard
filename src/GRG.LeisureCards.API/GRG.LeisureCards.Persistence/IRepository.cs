@@ -8,6 +8,8 @@
 
         void Delete(TKey entityKey);
 
+        void Delete(TEntity entity);
+
         TEntity Get(TKey key);
     }
 }

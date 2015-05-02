@@ -14,7 +14,8 @@ namespace GRG.LeisureCards.Data
             {
                 if (Done) return;
 
-                var database = new Bootstrap4NHibernate.Database(Database.GetPersistenceConfigurer(), classMapAssembly, true) ;
+                var database = new Bootstrap4NHibernate.Database(Database.GetPersistenceConfigurer(), classMapAssembly,
+                    configuration => { }, true);
 
                 database.Populate(Assembly.GetExecutingAssembly());
             }

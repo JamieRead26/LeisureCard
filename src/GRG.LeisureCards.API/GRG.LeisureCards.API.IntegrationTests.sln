@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.Data.Test"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.Persistence", "GRG.LeisureCards.Persistence\GRG.LeisureCards.Persistence.csproj", "{A5F85B9F-16B6-4573-A9B4-2FD29E416947}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deps", "Deps", "{6D0BEA26-FDD1-4088-9027-6AF1183A7C9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1373BA44-72CE-45FC-A1D0-6DE5346089C8} = {6D0BEA26-FDD1-4088-9027-6AF1183A7C9F}
+		{64BA8A8F-C727-4868-A8B7-FC3A99C9A639} = {6D0BEA26-FDD1-4088-9027-6AF1183A7C9F}
+		{AA36DFC8-B323-4CAB-AF38-84E962F39B31} = {6D0BEA26-FDD1-4088-9027-6AF1183A7C9F}
+		{A5F85B9F-16B6-4573-A9B4-2FD29E416947} = {6D0BEA26-FDD1-4088-9027-6AF1183A7C9F}
 	EndGlobalSection
 EndGlobal

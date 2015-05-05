@@ -4,20 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebApplication1.Controllers
+namespace GRG.LeisureCards.UI.Controllers
 {
-    public class HomeController : Controller
+    public class OffersController : Controller
     {
         public ActionResult Index()
         {
             return View();
         }
-
-        [Route("about")]
-        public ActionResult About()
-        {
-            return View();
-        }
-
     }
 }

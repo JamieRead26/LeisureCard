@@ -1,8 +1,4 @@
-﻿.container {
-  padding-left: 20px;
-  padding-right: 20px; }
-
-.row {
+﻿.row {
   width: 100%;
   max-width: 1140px;
   min-width: 320px;

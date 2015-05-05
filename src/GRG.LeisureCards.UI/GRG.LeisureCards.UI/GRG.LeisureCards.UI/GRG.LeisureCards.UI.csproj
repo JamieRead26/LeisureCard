@@ -167,6 +167,7 @@
     <Content Include="Content\img\bxslider\bx_loader.gif" />
     <Content Include="Content\img\bxslider\controls.png" />
     <Content Include="Content\img\logo.png" />
+    <Content Include="Content\js\angular.resource.js" />
     <Content Include="Content\js\html5shiv.min.js" />
     <Content Include="Content\js\respond.min.js" />
     <Content Include="Global.asax" />
@@ -178,11 +179,14 @@
     <Content Include="Content\css\form.scss" />
     <Content Include="Content\css\header.scss" />
     <Content Include="Content\css\mixin.scss" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
+    <None Include="Scripts\angular.intellisense.js" />
     <Content Include="Scripts\jquery.bxslider.min.js" />
     <Content Include="Scripts\site.angular.js" />
     <Content Include="Scripts\site.base.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -191,6 +195,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OffersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -204,7 +209,7 @@
     <Content Include="Content\font\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\font\glyphicons-halflings-regular.woff" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Offers\Index.cshtml" />
     <Content Include="Content\js\angular.min.js.map" />
     <Content Include="Content\css\site.scss" />
     <None Include="Web.Debug.config">
@@ -217,6 +222,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Offers\241\" />
+    <Folder Include="Views\Offers\Discount\" />
+    <Folder Include="Views\Offers\Experience\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

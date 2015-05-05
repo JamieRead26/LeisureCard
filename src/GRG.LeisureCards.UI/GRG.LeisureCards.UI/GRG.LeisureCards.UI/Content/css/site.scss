@@ -32,6 +32,12 @@ body {
         color: $links;
     }
     div.content {
+        .container {
+            padding: 30px 0;
+            &.white {
+                background: #fff;
+            }
+        }
         h1 {
             color: $site-color;
             font-size: 24px;

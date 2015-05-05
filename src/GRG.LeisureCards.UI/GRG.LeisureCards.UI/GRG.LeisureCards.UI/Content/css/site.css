@@ -40,6 +40,10 @@ body {
     width: 49%; }
   body a {
     color: #000; }
+  body div.content .container {
+    padding: 30px 0; }
+    body div.content .container.white {
+      background: #fff; }
   body div.content h1 {
     color: #49C390;
     font-size: 24px;

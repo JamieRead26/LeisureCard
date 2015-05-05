@@ -12,6 +12,7 @@ namespace GRG.LeisureCards.WebAPI
     {
         public void Application_Start()
         {
+
 #if DEBUG
             DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)));
 #endif

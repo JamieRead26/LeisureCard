@@ -10,8 +10,6 @@ namespace GRG.LeisureCards.API.IntegrationTests
     [TestFixture]
     public class LeisureCardControllerTests
     {
-        private const string BaseAddress = "http://localhost:1623";
-
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
@@ -44,7 +42,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
         public void RegistrationTest(string code, string expectedStatus)
         {
-            var client = new RestClient(BaseAddress);
+            var client = new RestClient(Config.BaseAddress);
 
             var request = new RestRequest("LeisureCard/Register/{code}", Method.GET);
             request.AddParameter("code", code);

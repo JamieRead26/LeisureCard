@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Master.AssemblyInfo.cs">
@@ -40,7 +41,16 @@
     <Compile Include="LeisureCard.cs" />
     <Compile Include="LeisureCardRegistrationResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RedLetterFact.cs" />
+    <Compile Include="RedLetterKeyword.cs" />
+    <Compile Include="RedLetterProduct.cs" />
+    <Compile Include="RedLetterProducts.cs" />
+    <Compile Include="RedLetterProductSummary.cs" />
+    <Compile Include="RedLetterVenue.cs" />
     <Compile Include="Setting.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RedLetterExample.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

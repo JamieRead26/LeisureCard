@@ -7,7 +7,7 @@ namespace GRG.LeisureCards.Data.Test
     {
         public override object[] GetEntities(IFixtureContainer fixtureContainer)
         {
-            return new object[]{new Setting{Key = "RenewalPeriodDays", Value="365"}};
+            return new []{new Setting{Key = "RenewalPeriodDays", Value="365"}};
         }
     }
 }

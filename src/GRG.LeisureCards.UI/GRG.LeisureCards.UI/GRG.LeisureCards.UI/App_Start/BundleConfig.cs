@@ -22,10 +22,20 @@ namespace GRG.LeisureCards.UI
 
             BundleResolver.Current = new CustomBundleResolver();
 
-            var commonScriptsBundle = new Bundle("~/bundles/js");
+            var appScriptsBundle = new Bundle("~/bundles/appjs");
+            appScriptsBundle.Include(
+                        "~/Scripts/app/app.js",
+                        "~/Scripts/app/loginController.js",
+                        "~/Scripts/site.angular.js");
+
+            appScriptsBundle.Builder = nullBuilder;
+            appScriptsBundle.Transforms.Add(scriptTransformer);
+            appScriptsBundle.Orderer = nullOrderer;
+            bundles.Add(appScriptsBundle);
+
+            var commonScriptsBundle = new Bundle("~/bundles/sitejs");
             commonScriptsBundle.Include(
                         "~/Scripts/jquery.bxslider.min.js",
-                        "~/Scripts/site.angular.js",
                         "~/Scripts/site.base.js");
 
             commonScriptsBundle.Builder = nullBuilder;

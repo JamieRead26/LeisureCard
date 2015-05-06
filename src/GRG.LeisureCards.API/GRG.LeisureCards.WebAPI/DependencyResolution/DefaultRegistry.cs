@@ -72,6 +72,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution {
 
             For<IRedLetterProductRepository>().Use<RedLetterRepository>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+
+            For<IDataImportJournalEntryRepository>().Use<DataImportJournalEntryRepository>()
+               .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
         }
 
         private void ConfigureServiceIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
@@ -80,6 +83,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution {
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
 
             For<ITestService>().Use<TestService>()
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+
+            For<IDataImportService>().Use<DataImportService>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
         }
 

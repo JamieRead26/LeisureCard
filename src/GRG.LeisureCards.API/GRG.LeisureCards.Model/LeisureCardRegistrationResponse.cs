@@ -4,5 +4,7 @@
     {
         public string Status { get; set; }
         public LeisureCard LeisureCard { get; set; }
+
+        public string SessionToken { get; set; }
     }
 }

@@ -3,9 +3,11 @@ using System.Linq;
 using System.Web.Http;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
+    [SessionAuthFilter]
     public class RedLetterController : ApiController
     {
         private readonly IRedLetterProductRepository _redLetterProductRepository;

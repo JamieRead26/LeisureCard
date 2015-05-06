@@ -10,12 +10,13 @@ namespace GRG.LeisureCards.Service
         CodeNotFound,
         CardAlreadyRegistered,
         CardSuspended,
-        Ok
+        Ok,
+        CardExpired
     }
 
     public interface ILeisureCardService
     {
-        LeisureCardRegistrationResponse Register(string cardCode);
+        LeisureCardRegistrationResponse Login(string cardCode);
     }
 
     public class LeisureCardService : ILeisureCardService
@@ -31,18 +32,18 @@ namespace GRG.LeisureCards.Service
             _leisureCardRepository = leisureCardRepository;
         }
 
-        public LeisureCardRegistrationResponse Register(string cardCode)
+        public LeisureCardRegistrationResponse Login(string cardCode)
         {
             var leisureCard = _leisureCardRepository.Get(cardCode);
 
             if (leisureCard == null)
                 return new LeisureCardRegistrationResponse {Status = RegistrationResult.CodeNotFound.ToString()};
 
-            if (leisureCard.Registered!=null)
-                return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardAlreadyRegistered.ToString() };
-
             if (leisureCard.Suspended)
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardSuspended.ToString() };
+
+            if (leisureCard.RenewalDate<DateTime.UtcNow)
+                return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardExpired.ToString() };
 
             leisureCard.RenewalDate = _cardRenewalLogic.GetRenewalDate(DateTime.Now);
 

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1F88EF56-CF88-4E6E-A689-781737F2B00F}</ProjectGuid>
+    <ProjectGuid>{33B112DA-61D0-49E0-9DEB-665CD0621AEB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GRG.LeisureCards.API.IntegrationTests</RootNamespace>

@@ -55,7 +55,7 @@ namespace GRG.LeisureCards.Data.Test
                         ImageUrl = productNode.SelectSingleNode("ImageUrl").InnerText,
                         ThumbnailUrl = productNode.SelectSingleNode("ThumbnailUrl").InnerText,
                         LargeImageName = productNode.SelectSingleNode("LargeImageName").InnerText,
-                        IsSpecialOffer = bool.Parse(productNode.SelectSingleNode("IsSpecialOffer").InnerText),
+                        IsSpecialOffer = true,// bool.Parse(productNode.SelectSingleNode("IsSpecialOffer").InnerText),
                         DeliveryTime = productNode.SelectSingleNode("DeliveryTime").InnerText,
                         DeliveryCost = productNode.SelectSingleNode("DeliveryCost").InnerText
                     };

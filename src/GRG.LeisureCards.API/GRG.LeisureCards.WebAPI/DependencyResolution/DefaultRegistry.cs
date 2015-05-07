@@ -25,29 +25,33 @@ using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Interceptors;
 
-namespace GRG.LeisureCards.WebAPI.DependencyResolution {
+namespace GRG.LeisureCards.WebAPI.DependencyResolution
+{
     using StructureMap.Configuration.DSL;
-	
-    public class DefaultRegistry : Registry {
+
+    public class DefaultRegistry : Registry
+    {
         #region Constructors and Destructors
 
-        public DefaultRegistry() {
+        public DefaultRegistry()
+        {
             Scan(
-                scan => {
+                scan =>
+                {
                     scan.Assembly("GRG.LeisureCards.Service");
                     scan.Assembly("GRG.LeisureCards.WebAPI");
                     scan.WithDefaultConventions();
                 });
 
-            var classMapAssembly = Assembly.GetAssembly(typeof (LeisureCardClassMap));
+            var classMapAssembly = Assembly.GetAssembly(typeof(LeisureCardClassMap));
 
             var sessionFactory = Fluently.Configure()
                 .Database(Database.GetPersistenceConfigurer)
                 .Mappings(m => m.FluentMappings.AddFromAssembly(classMapAssembly))
-#if DEBUG  
-                .ExposeConfiguration( x=> x.SetInterceptor(new SqlStatementInterceptor()))
+#if DEBUG
+.ExposeConfiguration(x => x.SetInterceptor(new SqlStatementInterceptor()))
 #endif
-                .BuildSessionFactory();
+.BuildSessionFactory();
 
             var proxyGenerator = new ProxyGenerator();
 
@@ -74,6 +78,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution {
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
 
             For<IDataImportJournalEntryRepository>().Use<DataImportJournalEntryRepository>()
+               .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+
+            For<ITwoForOneRepository>().Use<TwoForOneRepository>()
                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
         }
 

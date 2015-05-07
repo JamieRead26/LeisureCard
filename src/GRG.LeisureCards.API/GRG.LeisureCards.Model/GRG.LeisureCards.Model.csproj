@@ -49,6 +49,7 @@
     <Compile Include="RedLetterProductSummary.cs" />
     <Compile Include="RedLetterVenue.cs" />
     <Compile Include="Setting.cs" />
+    <Compile Include="TwoForOneOffer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RedLetterExample.xml" />

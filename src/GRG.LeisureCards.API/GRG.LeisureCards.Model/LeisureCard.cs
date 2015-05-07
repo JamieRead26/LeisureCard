@@ -10,7 +10,7 @@ namespace GRG.LeisureCards.Model
         [DataMember]
         public virtual string Code { get; set; }
         [DataMember]
-        public virtual DateTime RenewalDate { get; set; }
+        public virtual DateTime? RenewalDate { get; set; }
         [DataMember]
         public virtual bool Suspended { get; set; }
         [DataMember]

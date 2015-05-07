@@ -158,6 +158,7 @@
     <Compile Include="Controllers\LeisureCardController.cs" />
     <Compile Include="Controllers\RedLetterController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TwoForOneController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />

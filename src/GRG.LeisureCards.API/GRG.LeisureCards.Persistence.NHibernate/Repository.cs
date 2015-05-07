@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using NHibernate;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
-    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
+    public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class
     {
         protected ISession Session { get { return UnitOfWork.Current.Session; } }
+
+        public IEnumerable<TEntity> GetAll()
+        {
+            return Session.QueryOver<TEntity>().List();
+        }
 
         public TEntity SaveOrUpdate(TEntity entity)
         {

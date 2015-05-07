@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Bootstrap4NHibernate.1.0.3\lib\net45\Bootstrap4NHibernate.Data.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper">
+      <HintPath>..\packages\CsvHelper.2.13.0.0\lib\net40-client\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -85,6 +88,7 @@
     <Compile Include="SettingDataFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TwoForOneOfferDataFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GRG.LeisureCards.Data\GRG.LeisureCards.Data.csproj">
@@ -97,6 +101,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="241_Sample_Data_v1.0.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

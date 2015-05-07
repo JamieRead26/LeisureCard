@@ -42,7 +42,7 @@ namespace GRG.LeisureCards.Service
             if (leisureCard.Suspended)
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardSuspended.ToString() };
 
-            if (leisureCard.RenewalDate<DateTime.UtcNow)
+            if (leisureCard.RenewalDate!=null && leisureCard.RenewalDate < DateTime.UtcNow)
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardExpired.ToString() };
 
             leisureCard.RenewalDate = _cardRenewalLogic.GetRenewalDate(DateTime.Now);

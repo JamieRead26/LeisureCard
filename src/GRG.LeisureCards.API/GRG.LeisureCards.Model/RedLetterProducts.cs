@@ -1,5 +1,4 @@
-﻿
-namespace GRG.LeisureCards.Model
+﻿namespace GRG.LeisureCards.Model
 {
     public class RedLetterProductSummaries
     {

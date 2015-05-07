@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using GRG.LeisureCards.Model;
 using NHibernate;
 using NHibernate.Linq;
@@ -8,7 +10,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
 {
     public class RedLetterRepository : Repository<RedLetterProduct, int>, IRedLetterProductRepository
     {
-        public ICollection<RedLetterProduct> Find(string keyword)
+        public ICollection<RedLetterProduct> FindByKeyword(string keyword)
         {
             var rlKeyword = Session.Query<RedLetterKeyword>().SingleOrDefault(x => x.Keyword == keyword);
 
@@ -26,6 +28,11 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             NHibernateUtil.Initialize(product.Venues);
             
             return product;
+        }
+
+        public ICollection<RedLetterProduct> Find(Expression<Func<RedLetterProduct, bool>> predicate)
+        {
+            return Session.Query<RedLetterProduct>().Where(predicate).ToArray();
         }
     }
 }

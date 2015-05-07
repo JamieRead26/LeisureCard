@@ -8,6 +8,7 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("")]
         public ActionResult Index()
         {
             return View();
@@ -17,6 +18,11 @@ namespace WebApplication1.Controllers
         public ActionResult About()
         {
             return View();
+        }
+
+        [Route("partial/{name}")]
+        public ActionResult Partial(string name) {
+            return View("Partials/" + name);
         }
 
     }

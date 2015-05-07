@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "";
+}
+@{
+    Layout = "";
+}
+
+<div class="twelvecol">
+    <ul ng-controller="offersExperienceController" class="experience-offers">
+        <li ng-repeat="c in cateogies">
+            <a href="//www.redletterdays.co.uk{{ c.link }}" target="_blank">
+                <span>{{ c.name }}</span>
+                <p>{{ c.description }}</p>
+            </a>
+        </li>
+    </ul>
+<div class="clear"></div>
+</div>

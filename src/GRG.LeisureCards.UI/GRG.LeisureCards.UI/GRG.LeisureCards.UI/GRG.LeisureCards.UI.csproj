@@ -151,6 +151,13 @@
     <Content Include="Content\css\mixin.min.css">
       <DependentUpon>mixin.css</DependentUpon>
     </Content>
+    <None Include="Content\css\offers.scss" />
+    <Content Include="Content\css\offers.css">
+      <DependentUpon>offers.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\css\offers.min.css">
+      <DependentUpon>offers.css</DependentUpon>
+    </Content>
     <Content Include="Content\css\presets.css">
       <DependentUpon>presets.scss</DependentUpon>
     </Content>
@@ -171,6 +178,9 @@
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.resource.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\offersExperienceController.js" />
+    <Content Include="Scripts\app\offers241Controller.js" />
+    <Content Include="Scripts\app\offersHomeController.js" />
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Global.asax" />
@@ -183,6 +193,10 @@
     <Content Include="Content\css\header.scss" />
     <Content Include="Content\css\mixin.scss" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Partials\login.cshtml" />
+    <Content Include="Views\Home\Partials\offers_discount.cshtml" />
+    <Content Include="Views\Home\Partials\offers_241.cshtml" />
+    <Content Include="Views\Home\Partials\offers_experience.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />
@@ -198,7 +212,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OffersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,14 +220,15 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Content\font\glyphicons-halflings-regular.eot" />
     <Content Include="Content\font\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\font\glyphicons-halflings-regular.woff" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Offers\Index.cshtml" />
+    <Content Include="Views\Home\Partials\offers.cshtml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Content\css\site.scss" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -225,9 +239,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Offers\241\" />
-    <Folder Include="Views\Offers\Discount\" />
-    <Folder Include="Views\Offers\Experience\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

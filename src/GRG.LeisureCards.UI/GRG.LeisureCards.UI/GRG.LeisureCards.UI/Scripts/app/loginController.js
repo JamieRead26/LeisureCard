@@ -1,10 +1,22 @@
+var loginController = angular.module('loginController', []);
 
-app.factory('Login', function ($resource) {
+loginController.factory('Login', function ($resource) {
     return $resource(root + '/LeisureCard/Login/:id');
 });
 
-app.controller('LoginController', function ($scope, $cookies, $location, Login) {
-    $scope.list = [];
+loginController.controller('LoginController', function ($scope, $cookies, $location, Login) {
+
+    $scope.parentobj.slideshow = [
+        {
+            img: 'http://placehold.it/1140x300',
+            link: 'http://google.co.uk'
+        },
+        {
+            img: 'http://placehold.it/1140x300',
+            link: 'http://google.co.uk'
+        }
+    ];
+
     $scope.card_number = '';
     $scope.submit = function () {
 
@@ -27,21 +39,3 @@ app.controller('LoginController', function ($scope, $cookies, $location, Login) 
 
     };
 });
-
-/*
-function myCrtl($scope) {
-    $scope.firstName = "John";
-    $scope.lastName = "Doe";
-}
-myCrtl.$inject = ['$scope'];
-app.controller('myCtrl', myCrtl);
-*/
-
-/*
-app.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/list', {
-        controller: 'listController',
-        templateUrl: 'list.html'
-    })
-}]);
-*/

@@ -10,3 +10,6 @@
 /// <reference path="app/logincontroller.js" />
 /// <reference path="angular-cookies.js" />
 /// <reference path="angular-route.js" />
+/// <reference path="app/offersexperiencecontroller.js" />
+/// <reference path="app/offers241controller.js" />
+/// <reference path="app/offershomecontroller.js" />

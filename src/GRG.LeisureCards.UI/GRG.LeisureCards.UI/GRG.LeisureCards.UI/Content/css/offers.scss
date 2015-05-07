@@ -1,0 +1,55 @@
+﻿@import 'mixin.scss';
+
+body .content {
+    a.offer {
+        background: $site-color2;
+        height: 300px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        h2 {
+            font-size: 20px;
+            color: #fff;
+        }
+    }
+    .experience-offers {
+        float: left;
+        width: 100%;
+        list-style: none;
+        li {
+            width: 15.6%;
+            float: left;
+            margin: 0.5%;
+            @include breakpoint(site-width){
+                width: 24%
+            }
+            @include breakpoint(small-screen){
+                width: 100%;
+                margin: 0 0 10px 0;
+            }
+            a {
+                padding: 20px;
+                border-radius: 5px;
+                background: $site-color2;
+                font-size: 16px;
+                display: block;
+                color: #fff;
+                text-align: center;
+                text-decoration: none;
+                min-height: 85px;
+                &:hover {
+                    background: #222;
+                    @include ease(0.2s);
+                }
+                span {
+                    font-size: 17px;
+                    display: block;
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+}

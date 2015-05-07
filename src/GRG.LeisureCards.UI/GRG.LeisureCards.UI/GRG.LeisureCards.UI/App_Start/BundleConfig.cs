@@ -24,9 +24,11 @@ namespace GRG.LeisureCards.UI
 
             var appScriptsBundle = new Bundle("~/bundles/appjs");
             appScriptsBundle.Include(
-                        "~/Scripts/app/app.js",
                         "~/Scripts/app/loginController.js",
-                        "~/Scripts/site.angular.js");
+                        "~/Scripts/app/offersHomeController.js",
+                        "~/Scripts/app/offers241Controller.js",
+                        "~/Scripts/app/offersExperienceController.js",
+                        "~/Scripts/app/app.js");
 
             appScriptsBundle.Builder = nullBuilder;
             appScriptsBundle.Transforms.Add(scriptTransformer);
@@ -49,6 +51,7 @@ namespace GRG.LeisureCards.UI
                         "~/Content/css/footer.scss",
                         "~/Content/css/header.scss",
                         "~/Content/css/form.scss",
+                        "~/Content/css/offers.scss",
                         "~/Content/css/bxslider.scss",
                         "~/Content/css/site.scss");
 

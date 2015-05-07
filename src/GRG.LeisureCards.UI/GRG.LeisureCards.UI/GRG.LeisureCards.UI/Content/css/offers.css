@@ -1,0 +1,48 @@
+﻿body .content a.offer {
+  background: #53AECF;
+  height: 300px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px; }
+  body .content a.offer h2 {
+    font-size: 20px;
+    color: #fff; }
+
+body .content .experience-offers {
+  float: left;
+  width: 100%;
+  list-style: none; }
+  body .content .experience-offers li {
+    width: 15.6%;
+    float: left;
+    margin: 0.5%; }
+    @media only screen and (max-width: 1140px) {
+      body .content .experience-offers li {
+        width: 24%; } }
+    @media only screen and (max-width: 768px) {
+      body .content .experience-offers li {
+        width: 100%;
+        margin: 0 0 10px 0; } }
+    body .content .experience-offers li a {
+      padding: 20px;
+      border-radius: 5px;
+      background: #53AECF;
+      font-size: 16px;
+      display: block;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      min-height: 85px; }
+      body .content .experience-offers li a:hover {
+        background: #222;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out; }
+      body .content .experience-offers li a span {
+        font-size: 17px;
+        display: block;
+        margin-bottom: 5px; }

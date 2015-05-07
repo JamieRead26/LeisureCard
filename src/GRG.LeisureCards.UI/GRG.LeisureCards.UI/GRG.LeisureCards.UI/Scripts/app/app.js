@@ -1,16 +1,27 @@
-﻿
-var app = angular.module('leisure', ['ngResource', 'ngRoute', 'ngCookies']);
+﻿var app = angular.module('leisureApp', [
+    'ngResource',
+    'ngRoute',
+    'ngCookies',
+    'offersExperienceController',
+    'offers241Controller',
+    'offersHomeController',
+    'slideController',
+    'loginController'
+]);
+
 var root = '//localhost:1623';
 
 app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $timeout) {
     return {
         request: function (config) {
             delete $rootScope.errorKey;
-         
+
             config.headers = config.headers || {};
             if ($cookies.SessionToken) {
-                debugger;
                 config.headers['SessionToken'] = $cookies.SessionToken;
+            }
+            else {
+                $location.path('/');
             }
             return config;
         },
@@ -43,24 +54,59 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
     };
 });
 
+var slideController = angular.module('slideController', []);
+slideController.controller('slideshowCtrl', function ($scope) {
+    $scope.parentobj = {};
+    $scope.parentobj.slideshow = [];
+});
+
+app.directive('slideit', function () {
+    return {
+        restrict: 'A',
+        replace: true,
+        scope: {
+            slideit: '='
+        },
+        template: '<ul class="bxslider">' +
+                    '<li ng-repeat="s in slides">' +
+                        '<a href="{{ s.link }}" target="_blank">' +
+                            '<img ng-src="{{ s.img }}" />' +
+                        '</a>' +
+                    '</li>' +
+                   '</ul>',
+        link: function (scope, elm, attrs) {
+            elm.ready(function () {
+                scope.$apply(function () {
+                    scope.slides = scope.slideit;
+                });
+
+                $('.bxslider').bxSlider({
+                    adaptiveHeight: true,
+                    mode: 'fade'
+                });
+            });
+        }
+    };
+});
+
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
+        when('/', {
+            templateUrl: 'partial/login',
+            controller: 'LoginController'
+        }).
         when('/offers', {
-            templateUrl: 'partials/phone-list.html',
-            controller: 'OffersListCtrl'
+            templateUrl: 'partial/offers',
+            controller: 'OffersHomeController'
+        }).
+        when('/offers/experience', {
+            templateUrl: 'partial/offers_experience',
+            controller: 'offersExperienceController'
         }).
         otherwise({
-            redirectTo: '/offers'
+            redirectTo: '/'
         });
 }]);
-
-app.factory('OffersList', function ($resource) {
-    return $resource(root + '/LeisureCard/Get/:id');
-});
-
-app.controller('OffersListCtrl', function ($scope, OffersList) {
-
-});
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');

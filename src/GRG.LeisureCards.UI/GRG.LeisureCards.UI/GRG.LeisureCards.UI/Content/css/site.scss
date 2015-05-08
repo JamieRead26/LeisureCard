@@ -58,6 +58,27 @@ body {
             margin-bottom: 10px;
             font-weight: lighter;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            tr {
+                th, td {
+                    padding: 5px;
+                    font-weight: normal;
+                    text-align: left;
+                }
+                th {
+                    background: $site-color2;
+                    color: #fff;
+                }
+                td {
+                    background: #F3F3F3;
+                    vertical-align: top;
+                    border-bottom: 1px solid #D5D5D5;
+                }
+            }          
+        }
     }
 }
 

@@ -2,34 +2,50 @@
     Layout = "";
 }
 
-<h2>241 Offers</h2>
+<h1>241 Offers</h1>
 
-<div class="fourcol">
+<div ng-controller="offers241Controller">
+    <div class="fourcol">
 
-    <form ng-controller="Offers241Form" ng-submit="submit()">
-        <div class="field">
-            <label>Please enter address<br /> either full, town, county or jsut postcode</label>
-            <input type="text" placeholder="enter search term" ng-model="keyword" />
-        </div>
-        <div class="field">
-            <label>Distance</label>
-            <select ng-modal="distance">
-                <option value="0.5">half a mile</option>
-                <option value="1">1 mile</option>
-                <option value="5" selected>5 miles</option>
-                <option value="10">10 miles</option>
-                <option value="25">25 miles</option>
-                <option value="all">all</option>
-            </select>
-        </div>
-        <div class="errors" ng-show="errors != null">{{ errors }}</div>
-        <input type="submit" value="Submit" />
-    </form>
+        <form ng-submit="submit()">
+            <div class="field">
+                <label>Please enter address<br /> either full, town, county or jsut postcode</label>
+                <input type="text" placeholder="enter search term" ng-model="keyword" />
+            </div>
+            <div class="field">
+                <label>Distance</label>
+                <select ng-modal="distance">
+                    <option value="0.5">half a mile</option>
+                    <option value="1">1 mile</option>
+                    <option value="5" selected>5 miles</option>
+                    <option value="10">10 miles</option>
+                    <option value="25">25 miles</option>
+                    <option value="all">all</option>
+                </select>
+            </div>
+            <div class="errors" ng-show="errors != null">{{ errors }}</div>
+            <input type="submit" value="Submit" />
+        </form>
 
+    </div>
+    <div class="eightcol last">
+
+        <table class="results">
+            <tr>
+                <th>Name</th>
+                <th>Info</th>
+                <th>Town/City</th>
+                <th>Distance (miles)</th>
+                <th>Details</th>
+            </tr>
+            <tr ng-repeat="o in offers">
+                <td>{{ o.OutletName }}</td>
+                <td>{{ o.Description }}</td>
+                <td>{{ o.TownCity }}</td>
+                <td>{{ o.Postcode }}</td>
+                <td><a href="//:{{ o.Website }}" ng-if="o.Website" target="_blank">Website</a></td>
+            </tr>
+        </table>
+
+    </div>
 </div>
-<div class="eightcol last">
-
-
-
-</div>
-

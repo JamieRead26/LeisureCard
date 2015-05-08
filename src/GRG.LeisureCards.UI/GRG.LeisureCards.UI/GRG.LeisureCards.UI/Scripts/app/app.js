@@ -23,7 +23,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
     return {
         request: function (config) {
             delete $rootScope.errorKey;
-
+    
             config.headers = config.headers || {};
             if ($cookies.SessionToken) {
                 config.headers['SessionToken'] = $cookies.SessionToken;
@@ -40,8 +40,9 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
             if (status === 401) {
                 $rootScope.errorKey = 'global.errors.unauthorized';
                 $timeout(function () {
+                    $cookies.SessionToken = '';
                     $location.path('/');
-                }, 3000);
+                }, 1000);
 
                 // ignore form validation errors because there are handled in the specific controller
             } else if (status !== 0 && angular.isUndefined(response.data.errors)) {
@@ -90,6 +91,10 @@ app.config(['$routeProvider', function ($routeProvider) {
         when('/offers/experience', {
             templateUrl: 'partial/offers_experience',
             controller: 'offersExperienceController'
+        }).
+        when('/offers/241', {
+            templateUrl: 'partial/offers_241',
+            controller: 'offers241Controller'
         }).
         otherwise({
             redirectTo: '/'

@@ -44,6 +44,11 @@ body .content {
                 }
                 a {
                     text-decoration: none;
+                    display: block;
+                    padding: 5px;
+                    &:hover {
+                        background: rgba(0,0,0,0.2);
+                    }
                     span {
                         text-decoration: underline;
                         margin-bottom: 10px;
@@ -51,8 +56,9 @@ body .content {
                     }
                 }
                 img {
-                    float: left;
                     margin: 0 10px 10px 0;
+                    border-radius: 3px;
+                    min-width: 163px;
                 }
             }
         }
@@ -95,6 +101,15 @@ body .content {
                     display: block;
                     margin-bottom: 5px;
                 }
+            }
+        }
+    }
+    .results {
+        div {
+            padding: 20px;
+            img {
+                float: left;
+                margin: 0 20px 20px 0;
             }
         }
     }

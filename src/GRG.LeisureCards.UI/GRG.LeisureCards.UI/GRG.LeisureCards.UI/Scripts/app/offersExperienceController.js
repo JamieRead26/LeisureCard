@@ -1,16 +1,10 @@
 ﻿var offersExperienceController = angular.module('offersExperienceController', []);
 
-/*
-offersExperienceController.factory('RedLetterGet', function ($resource) {
-    return $resource(root + '/RedLetter/Get/:id');
+offersExperienceController.factory('RedLetterGetSpecialOffers', function ($resource, config) {
+    return $resource(config.apiUrl + '/RedLetter/GetRandomSpecialOffers/:count');
 });
 
-offersExperienceController.factory('RedLetterKeyword', function ($resource) {
-    return $resource(root + '/RedLetter/Keyword/:keyword');
-});
-*/
-
-offersExperienceController.controller('offersExperienceController', function ($scope) {
+offersExperienceController.controller('offersExperienceController', function ($scope, RedLetterGetSpecialOffers) {
     $scope.global.slideshow = [
         {
             img:  'http://placehold.it/1140x300',
@@ -18,44 +12,9 @@ offersExperienceController.controller('offersExperienceController', function ($s
         }
     ];
 
-    $scope.special_offers = [
-        {
-            name: 'Driving',
-            description: 'description field',
-            img: 'http://placehold.it/50x50',
-            link: '/Home?source=rld&affid=212&dealid=28582'
-        },
-        {
-            name: 'Famous Circuits',
-            description: 'description field',
-            img: 'http://placehold.it/50x50',
-            link: '/Experience/Famous-Circuits?source=rld&affid=212&dealid=28582'
-        },
-        {
-            name: 'Couples',
-            description: 'description field',
-            img: 'http://placehold.it/50x50',
-            link: '/Experience/Gourmet?source=rld&affid=212&dealid=28582'
-        },
-        {
-            name: 'Gourmet',
-            description: 'description field',
-            img: 'http://placehold.it/50x50',
-            link: '/Experience/Gourmet?source=rld&affid=212&dealid=28582'
-        },
-        {
-            name: 'Short Breaks',
-            description: 'description field',
-            img: 'http://placehold.it/50x50',
-            link: '/Experience/Short-Breaks?source=rld&affid=212&dealid=28582'
-        },
-        {
-            name: 'Short Breaks',
-            description: 'description field',
-            img: 'http://placehold.it/50x50',
-            link: '/Experience/Short-Breaks?source=rld&affid=212&dealid=28582'
-        }
-    ];
+    RedLetterGetSpecialOffers.get({ count: 6 }, function(data) {
+        $scope.special_offers = data.$values;
+    });
 
     $scope.cateogies = [
         {

@@ -1,9 +1,6 @@
 ﻿@{
     Layout = "";
 }
-@{
-    Layout = "";
-}
 
 <div class="twelvecol" ng-controller="offersExperienceController">
 
@@ -12,10 +9,10 @@
 
         <ul>
             <li ng-repeat="s in special_offers">
-                <a href="//www.redletterdays.co.uk{{ s.link }}" target="_blank">
-                    <img ng-src="{{ s.img }}" />
-                    <span>{{ s.name }}</span>
-                    <p>{{ s.description }}</p>
+                <a href="//www.redletterdays.co.uk{{ s.Url }}" target="_blank">
+                    <img ng-src="{{ s.ThumbnailUrl }}" />
+                    <span>{{ s.Title }}</span>
+                    <p>{{ s.InspirationalDescription }}</p>
                 </a>
             </li>
         </ul>

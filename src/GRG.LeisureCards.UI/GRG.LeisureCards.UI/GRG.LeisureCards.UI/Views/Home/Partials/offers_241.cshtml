@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "";
+}
+
+<h1>241 Offers</h1>
+
+<div ng-controller="offers241Controller">
+    <div class="fourcol">
+
+        <form ng-submit="submit()">
+            <div class="field">
+                <label>Please enter address<br /> either full, town, county or just postcode</label>
+                <input type="text" placeholder="enter search term" ng-model="keyword" />
+            </div>
+            <div class="field">
+                <label>Distance</label>
+                <select ng-modal="distance">
+                    <option value="0.5">half a mile</option>
+                    <option value="1">1 mile</option>
+                    <option value="5" selected>5 miles</option>
+                    <option value="10">10 miles</option>
+                    <option value="25">25 miles</option>
+                    <option value="all">all</option>
+                </select>
+            </div>
+            <div class="errors" ng-show="errors != null">{{ errors }}</div>
+            <input type="submit" value="Submit" />
+        </form>
+
+    </div>
+    <div class="eightcol last scroll-h">
+
+        <table class="results">
+            <tr>
+                <th>Name</th>
+                <th>Info</th>
+                <th>Town/City</th>
+                <th>Distance (miles)</th>
+                <th>Details</th>
+            </tr>
+            <tr ng-repeat="o in offers | filter:criteriaMatch(searchText)">
+                <td>{{ o.OutletName }}</td>
+                <td>{{ o.Description }}</td>
+                <td>{{ o.TownCity }}</td>
+                <td>{{ o.PostCode }}</td>
+                <td><a href="/#/offers/241/{{ o.Id }}">Details</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>

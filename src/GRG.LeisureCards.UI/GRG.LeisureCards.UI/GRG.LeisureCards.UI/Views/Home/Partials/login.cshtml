@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "";
+}
+
+<div class="twocol"></div>
+<div class="eightcol">
+
+    <form ng-controller="LoginController" ng-submit="submit()" class="home">
+        <label>Please enter card number</label>
+        <div class="field">
+            <input type="text" placeholder="e.g 123456" ng-model="card_number" />
+            <div class="errors" ng-show="errors != null">{{ errors }}</div>
+            <input type="submit" value="Enter" />
+        </div>
+    </form>
+
+</div>
+<div class="clear"></div>

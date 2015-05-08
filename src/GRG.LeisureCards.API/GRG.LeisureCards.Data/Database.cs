@@ -13,7 +13,7 @@ namespace GRG.LeisureCards.Data
                     .Host("localhost")
                     .Port(5432)
                     .Username("postgres")
-                    .Password(""));
+                    .Password("tripod26"));
 
             //return MsSqlConfiguration.MsSql2008
             //    .ConnectionString(c => c

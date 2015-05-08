@@ -154,6 +154,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Authentication\LeisureCardPrincipal.cs" />
     <Compile Include="Controllers\DataImportController.cs" />
     <Compile Include="Controllers\LeisureCardController.cs" />
     <Compile Include="Controllers\RedLetterController.cs" />

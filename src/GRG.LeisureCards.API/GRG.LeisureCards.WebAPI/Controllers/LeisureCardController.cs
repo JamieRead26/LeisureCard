@@ -1,6 +1,8 @@
 ﻿using System.Web.Http;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Service;
+using GRG.LeisureCards.WebAPI.Authentication;
+using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
@@ -22,9 +24,21 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             var result = _leisureCardService.Login(code);
 
             if (result.Status == "Ok")
-                result.SessionToken = _userSessionService.GetToken(result.LeisureCard);
+                result.SessionInfo = new SessionInfo
+                {
+                    CardRenewalDate = result.LeisureCard.RenewalDate.Value.ToShortDateString(),
+                    SessionToken = _userSessionService.GetToken(result.LeisureCard)
+                };
 
             return result;
+        }
+
+        [HttpGet]
+        [SessionAuthFilter]
+        [Route("LeisureCard/GetSessionInfo")]
+        public SessionInfo GetSessionInfo()
+        {
+            return ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
         }
     }
 }

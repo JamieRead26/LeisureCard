@@ -42,7 +42,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
             var shuffled = Shuffle(products.ToArray(), count);
 
-            return shuffled.Select(p => new RedLetterProductSummary(p));
+            var summaries = shuffled.Select(p => new RedLetterProductSummary(p));
+
+            return summaries;
         }
 
         static T[] Shuffle<T>(T[] array, int max = -1)

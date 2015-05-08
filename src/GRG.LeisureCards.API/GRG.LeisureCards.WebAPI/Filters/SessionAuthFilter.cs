@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
+using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Service;
+using GRG.LeisureCards.WebAPI.Authentication;
 
 namespace GRG.LeisureCards.WebAPI.Filters
 {
@@ -36,8 +37,8 @@ namespace GRG.LeisureCards.WebAPI.Filters
                 context.ErrorResult = new AuthenticationFailureResult("", context.Request);
                 return;
             }
-            
-            context.Principal = new GenericPrincipal(new GenericIdentity("Code"), new string[0]);   
+
+            context.Principal = new LeisureCardPrincipal(card, new SessionInfo { SessionToken = _userSessionService.GetToken(card), CardRenewalDate = card.RenewalDate.Value.ToShortDateString()});
         }
 
         public async Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)

@@ -22,5 +22,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             return _dataImportService.ImportRedLetterOffers(Convert.FromBase64String(base64));
         }
+
+        [HttpPost]
+        [Route("DataImport/TwoForOne/")]
+        public DataImportJournalEntry ImportTwoForOneData([FromBody] string base64)
+        {
+            return _dataImportService.ImportTwoForOneOffers(Convert.FromBase64String(base64));
+        }
     }
 }

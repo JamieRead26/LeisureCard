@@ -19,7 +19,6 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
 
     $scope.card_number = '';
     $scope.submit = function () {
-
         if ($scope.card_number) {
             // login and store session
             Login.get({ id: $scope.card_number }, function (data) {

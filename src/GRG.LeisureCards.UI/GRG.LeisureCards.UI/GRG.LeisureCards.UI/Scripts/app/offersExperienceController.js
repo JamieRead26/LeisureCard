@@ -18,6 +18,45 @@ offersExperienceController.controller('offersExperienceController', function ($s
         }
     ];
 
+    $scope.special_offers = [
+        {
+            name: 'Driving',
+            description: 'description field',
+            img: 'http://placehold.it/50x50',
+            link: '/Home?source=rld&affid=212&dealid=28582'
+        },
+        {
+            name: 'Famous Circuits',
+            description: 'description field',
+            img: 'http://placehold.it/50x50',
+            link: '/Experience/Famous-Circuits?source=rld&affid=212&dealid=28582'
+        },
+        {
+            name: 'Couples',
+            description: 'description field',
+            img: 'http://placehold.it/50x50',
+            link: '/Experience/Gourmet?source=rld&affid=212&dealid=28582'
+        },
+        {
+            name: 'Gourmet',
+            description: 'description field',
+            img: 'http://placehold.it/50x50',
+            link: '/Experience/Gourmet?source=rld&affid=212&dealid=28582'
+        },
+        {
+            name: 'Short Breaks',
+            description: 'description field',
+            img: 'http://placehold.it/50x50',
+            link: '/Experience/Short-Breaks?source=rld&affid=212&dealid=28582'
+        },
+        {
+            name: 'Short Breaks',
+            description: 'description field',
+            img: 'http://placehold.it/50x50',
+            link: '/Experience/Short-Breaks?source=rld&affid=212&dealid=28582'
+        }
+    ];
+
     $scope.cateogies = [
         {
             name: 'Driving',

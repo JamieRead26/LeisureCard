@@ -178,6 +178,7 @@
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular.resource.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\directives.js" />
     <Content Include="Scripts\app\offersExperienceController.js" />
     <Content Include="Scripts\app\offers241Controller.js" />
     <Content Include="Scripts\app\offersHomeController.js" />
@@ -197,6 +198,7 @@
     <Content Include="Views\Home\Partials\offers_discount.cshtml" />
     <Content Include="Views\Home\Partials\offers_241.cshtml" />
     <Content Include="Views\Home\Partials\offers_experience.cshtml" />
+    <Content Include="Views\Home\Partials\breadcrumbs.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />

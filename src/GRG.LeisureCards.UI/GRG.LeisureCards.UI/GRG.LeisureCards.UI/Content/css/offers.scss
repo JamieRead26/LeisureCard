@@ -15,10 +15,53 @@ body .content {
             color: #fff;
         }
     }
+    .spcial-offers {
+        background: $special-offer-bg;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 40px;
+        h2 {
+            color: $special-offer-text;
+        }
+        ul {
+            float: left;
+            list-style: none;
+            width: 100%;
+            li {
+                float: left;
+                width: 15.5%;
+                margin: 0.5%;
+                @include breakpoint(site-width){
+                    width: 24%
+                }
+                @include breakpoint(small-screen){
+                    width: 100%;
+                    margin: 0 0 10px 0;
+                }
+                span, a, p {
+                    color: $special-offer-text;
+                    margin: 0;
+                }
+                a {
+                    text-decoration: none;
+                    span {
+                        text-decoration: underline;
+                        margin-bottom: 10px;
+                        display: block;
+                    }
+                }
+                img {
+                    float: left;
+                    margin: 0 10px 10px 0;
+                }
+            }
+        }
+    }
     .experience-offers {
         float: left;
         width: 100%;
         list-style: none;
+        margin-top: 30px;
         li {
             width: 15.6%;
             float: left;
@@ -36,10 +79,13 @@ body .content {
                 background: $site-color2;
                 font-size: 16px;
                 display: block;
-                color: #fff;
+                color: $experience-offer-text;
                 text-align: center;
                 text-decoration: none;
                 min-height: 85px;
+                p {
+                    margin: 0;       
+                }
                 &:hover {
                     background: #222;
                     @include ease(0.2s);

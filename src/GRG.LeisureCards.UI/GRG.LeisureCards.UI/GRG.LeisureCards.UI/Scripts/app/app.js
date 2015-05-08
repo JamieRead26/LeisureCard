@@ -1,6 +1,7 @@
 ﻿var app = angular.module('leisureApp', [
     'ngResource',
     'ngRoute',
+    'ui.router',
     'ngCookies',
     'offersExperienceController',
     'offers241Controller',
@@ -54,40 +55,55 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
     };
 });
 
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+});
+
 var slideController = angular.module('slideController', []);
 slideController.controller('slideshowCtrl', function ($scope) {
     $scope.parentobj = {};
     $scope.parentobj.slideshow = [];
 });
 
-app.directive('slideit', function () {
-    return {
-        restrict: 'A',
-        replace: true,
-        scope: {
-            slideit: '='
-        },
-        template: '<ul class="bxslider">' +
-                    '<li ng-repeat="s in slides">' +
-                        '<a href="{{ s.link }}" target="_blank">' +
-                            '<img ng-src="{{ s.img }}" />' +
-                        '</a>' +
-                    '</li>' +
-                   '</ul>',
-        link: function (scope, elm, attrs) {
-            elm.ready(function () {
-                scope.$apply(function () {
-                    scope.slides = scope.slideit;
-                });
 
-                $('.bxslider').bxSlider({
-                    adaptiveHeight: true,
-                    mode: 'fade'
-                });
-            });
-        }
-    };
+
+/*
+app.config(function ($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+        .state('home', {
+            url: '/',
+            templateUrl: 'partial/login',
+            controller: 'LoginController',
+            data: {
+                displayName: 'Home'
+            }
+        })
+        .state('home.offers', {
+            url: 'offers',
+
+                    templateUrl: 'partial/offers',
+                    controller: 'OffersHomeController',
+
+            data: {
+                displayName: 'Offers'
+            }
+        })
+        .state('home.offers.experience', {
+            url: 'offers/experience',
+
+            templateUrl: 'partial/offers_experience',
+            controller: 'offersExperienceController',
+
+            data: {
+                displayName: 'Experience Offers'
+            }
+        });
 });
+*/
+
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
@@ -108,6 +124,3 @@ app.config(['$routeProvider', function ($routeProvider) {
         });
 }]);
 
-app.config(function ($httpProvider) {
-    $httpProvider.interceptors.push('authInterceptor');
-});

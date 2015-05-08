@@ -13,3 +13,5 @@
 /// <reference path="app/offersexperiencecontroller.js" />
 /// <reference path="app/offers241controller.js" />
 /// <reference path="app/offershomecontroller.js" />
+/// <reference path="app/directives.js" />
+/// <reference path="angular-ui-router.js" />

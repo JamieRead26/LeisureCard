@@ -25,7 +25,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void Registration_CardAlreadyRegistered()
         {
-            RegistrationTest("Registered", "CardAlreadyRegistered");
+            RegistrationTest("Registered", "Ok");
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         {
             var client = new RestClient(Config.BaseAddress);
 
-            var request = new RestRequest("LeisureCard/Register/{code}", Method.GET);
+            var request = new RestRequest("LeisureCard/Login/{code}", Method.GET);
             request.AddParameter("code", code);
             request.AddHeader("accepts", "application/json");
 

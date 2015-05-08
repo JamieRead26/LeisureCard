@@ -10,10 +10,21 @@ namespace GRG.LeisureCards.Model
         [DataMember]
         public virtual string Code { get; set; }
         [DataMember]
-        public virtual DateTime RenewalDate { get; set; }
+        public virtual DateTime? RenewalDate { get; set; }
         [DataMember]
         public virtual bool Suspended { get; set; }
         [DataMember]
         public virtual DateTime? Registered { get; set; }
+
+        [DataMember]
+        public virtual bool IsAdmin
+        {
+            get { return false; }
+        }
+    }
+
+    public class AdminLeisureCard : LeisureCard
+    {
+        public override bool IsAdmin { get { return true; } }
     }
 }

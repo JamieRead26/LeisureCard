@@ -1,22 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Xml;
-using Bootstrap4NHibernate.Data;
 using GRG.LeisureCards.Model;
+using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Persistence.NHibernate;
 
-namespace GRG.LeisureCards.Data.Test
+namespace GRG.LeisureCards.Service
 {
-    public class RedLetterProductDataFixture : DataFixture
+    public interface IDataImportService
     {
-        public readonly IList<RedLetterProduct> Products = new List<RedLetterProduct>();
-        private readonly IDictionary<string, RedLetterKeyword> _keywords = new Dictionary<string, RedLetterKeyword>();
+        DataImportJournalEntry ImportRedLetterOffers(byte[] file);
+    }
 
-        public RedLetterProductDataFixture()
+    public class DataImportService : IDataImportService
+    {
+        private readonly IDataImportJournalEntryRepository _dataImportJournalEntryRepository;
+        private readonly IRedLetterProductRepository _redLetterProductRepository;
+
+        public DataImportService(
+            IDataImportJournalEntryRepository dataImportJournalEntryRepository, 
+            IRedLetterProductRepository redLetterProductRepository)
         {
-            using (var xmlStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("GRG.LeisureCards.Data.Test.RedLetter_Products.xml"))
-            using (var txtReader = new StreamReader(xmlStream))
+            _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
+            _redLetterProductRepository = redLetterProductRepository;
+        }
+
+        [UnitOfWork]
+        public DataImportJournalEntry ImportRedLetterOffers(byte[] file)
+        {
+            var keywords = new Dictionary<string, RedLetterKeyword>();
+
+            using (var stream = new MemoryStream(file))
+            using (var txtReader = new StreamReader(stream))
             {
                 var xmlDoc = new XmlDocument();
 
@@ -24,7 +41,8 @@ namespace GRG.LeisureCards.Data.Test
 
                 foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("RedLetterProduct"))
                 {
-                    var product = new RedLetterProduct{
+                    var product = new RedLetterProduct
+                    {
                         Id = int.Parse(productNode.SelectSingleNode("Id").InnerText),
                         Title = productNode.SelectSingleNode("Title").InnerText,
                         InspirationalDescription = productNode.SelectSingleNode("InspirationalDescription").InnerText,
@@ -55,27 +73,51 @@ namespace GRG.LeisureCards.Data.Test
                         ImageUrl = productNode.SelectSingleNode("ImageUrl").InnerText,
                         ThumbnailUrl = productNode.SelectSingleNode("ThumbnailUrl").InnerText,
                         LargeImageName = productNode.SelectSingleNode("LargeImageName").InnerText,
-                        IsSpecialOffer = true,// bool.Parse(productNode.SelectSingleNode("IsSpecialOffer").InnerText),
+                        IsSpecialOffer = bool.Parse(productNode.SelectSingleNode("IsSpecialOffer").InnerText),
                         DeliveryTime = productNode.SelectSingleNode("DeliveryTime").InnerText,
                         DeliveryCost = productNode.SelectSingleNode("DeliveryCost").InnerText
                     };
-                
-                    Products.Add(product);
 
                     foreach (var keyword in productNode.SelectSingleNode("Keywords").InnerText.Split(",".ToCharArray()))
                     {
-                        if (!_keywords.ContainsKey(keyword))
-                            _keywords.Add(keyword, new RedLetterKeyword { Keyword = keyword });
+                        if (!keywords.ContainsKey(keyword))
+                            keywords.Add(keyword, new RedLetterKeyword { Keyword = keyword });
 
-                        product.AddKeyword(_keywords[keyword]);
+                        product.AddKeyword(keywords[keyword]);
                     }
-                }
-            }
-        }
 
-        public override object[] GetEntities(IFixtureContainer container)
-        {
-            return Products.ToArray();
+                    foreach (XmlNode venueNode in productNode.SelectSingleNode("Venues").ChildNodes)
+                    {
+                        product.AddVenue(new RedLetterVenue
+                        {
+                            RedLetterId = int.Parse(venueNode.SelectSingleNode("Id").InnerText),
+                            Name = venueNode.SelectSingleNode("Name").InnerText,
+                            County = venueNode.SelectSingleNode("County").InnerText,
+                            Town = venueNode.SelectSingleNode("Town").InnerText,
+                            PostCode = venueNode.SelectSingleNode("PostCode").InnerText,
+                            Latitude = decimal.Parse(venueNode.SelectSingleNode("Latitude").InnerText),
+                            Longitude = decimal.Parse(venueNode.SelectSingleNode("Longitude").InnerText)
+                        });
+                    }
+
+                    foreach (var fact in from XmlNode factNode in productNode.SelectSingleNode("Facts").ChildNodes
+                        select new RedLetterFact {Fact = factNode.InnerText})
+                        product.AddFact(fact);
+                    
+
+                    _redLetterProductRepository.SaveOrUpdate(product);
+                }
+
+                var journalEntry = new DataImportJournalEntry
+                {
+                    ImportedUtc = DateTime.UtcNow,
+                    Key = "Red Letter Offers"
+                };
+
+                _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+                return journalEntry;
+            }
         }
     }
 }

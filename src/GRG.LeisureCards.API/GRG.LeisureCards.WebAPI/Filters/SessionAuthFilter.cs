@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http;
 using System.Web.Http.Filters;
 using GRG.LeisureCards.Service;
 
@@ -46,33 +43,6 @@ namespace GRG.LeisureCards.WebAPI.Filters
         public async Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
         {
             return;
-        }
-    }
-
-    public class AuthenticationFailureResult : IHttpActionResult
-    {
-        public AuthenticationFailureResult(string reasonPhrase, HttpRequestMessage request)
-        {
-            ReasonPhrase = reasonPhrase;
-            Request = request;
-        }
-
-        public string ReasonPhrase { get; private set; }
-
-        public HttpRequestMessage Request { get; private set; }
-
-        public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
-        {
-            return Task.FromResult(Execute());
-        }
-
-        private HttpResponseMessage Execute()
-        {
-            return new HttpResponseMessage(HttpStatusCode.Unauthorized)
-            {
-                RequestMessage = Request,
-                ReasonPhrase = ReasonPhrase
-            };
         }
     }
 }

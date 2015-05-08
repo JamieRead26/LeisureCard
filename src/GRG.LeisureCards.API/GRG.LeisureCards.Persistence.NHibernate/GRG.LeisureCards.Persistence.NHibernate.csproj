@@ -49,6 +49,7 @@
     <Compile Include="..\..\Master.AssemblyInfo.cs">
       <Link>Master.AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ClassMaps\DataImportJounalEntryClassMap.cs" />
     <Compile Include="ClassMaps\LeisureCardClassMap.cs" />
     <Compile Include="ClassMaps\RedLetterFactClassMap.cs">
       <SubType>Code</SubType>
@@ -61,11 +62,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ClassMaps\SettingClassMap.cs" />
+    <Compile Include="ClassMaps\TwoForOneClassMap.cs" />
+    <Compile Include="DataImportJournalEntryRepository.cs" />
     <Compile Include="LeisureCardRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedLetterRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="SettingRepository.cs" />
+    <Compile Include="TwoForOneRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkAttribute.cs" />
   </ItemGroup>

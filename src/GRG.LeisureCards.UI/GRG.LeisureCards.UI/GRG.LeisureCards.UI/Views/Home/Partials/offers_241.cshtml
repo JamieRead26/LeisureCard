@@ -9,7 +9,7 @@
 
         <form ng-submit="submit()">
             <div class="field">
-                <label>Please enter address<br /> either full, town, county or jsut postcode</label>
+                <label>Please enter address<br /> either full, town, county or just postcode</label>
                 <input type="text" placeholder="enter search term" ng-model="keyword" />
             </div>
             <div class="field">
@@ -28,7 +28,7 @@
         </form>
 
     </div>
-    <div class="eightcol last">
+    <div class="eightcol last scroll-h">
 
         <table class="results">
             <tr>
@@ -38,12 +38,12 @@
                 <th>Distance (miles)</th>
                 <th>Details</th>
             </tr>
-            <tr ng-repeat="o in offers">
+            <tr ng-repeat="o in offers | filter:criteriaMatch(searchText)">
                 <td>{{ o.OutletName }}</td>
                 <td>{{ o.Description }}</td>
                 <td>{{ o.TownCity }}</td>
-                <td>{{ o.Postcode }}</td>
-                <td><a href="//:{{ o.Website }}" ng-if="o.Website" target="_blank">Website</a></td>
+                <td>{{ o.PostCode }}</td>
+                <td><a href="/#/offers/241/{{ o.Id }}">Details</a></td>
             </tr>
         </table>
 

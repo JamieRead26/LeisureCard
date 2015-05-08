@@ -180,6 +180,7 @@
     <Content Include="Scripts\angular.resource.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\directives.js" />
+    <Content Include="Scripts\app\offers241DetailsController.js" />
     <Content Include="Scripts\app\offersExperienceController.js" />
     <Content Include="Scripts\app\offers241Controller.js" />
     <Content Include="Scripts\app\offersHomeController.js" />
@@ -200,11 +201,12 @@
     <Content Include="Views\Home\Partials\offers_241.cshtml" />
     <Content Include="Views\Home\Partials\offers_experience.cshtml" />
     <Content Include="Views\Home\Partials\breadcrumbs.cshtml" />
+    <Content Include="Views\Home\Partials\offers_241_details.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />
     <Content Include="Scripts\jquery.bxslider.min.js" />
-    <Content Include="Scripts\app\loginController.js" />
+    <Content Include="Scripts\app\authController.js" />
     <Content Include="Scripts\site.base.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config">

@@ -4,7 +4,7 @@ loginController.factory('Login', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/Login/:id');
 });
 
-loginController.controller('LoginController', function ($scope, $cookies, $location, user, Login) {
+loginController.controller('LoginController', function ($scope, $cookies, $location, Login) {
 
     $scope.global.slideshow = [
         {
@@ -39,4 +39,15 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
         }
 
     };
+});
+
+var logoutController = angular.module('logoutController', []);
+logoutController.controller('logoutController', function ($scope, $cookies, $location, $timeout) {
+   
+    $scope.user.card = {};
+    $cookies.SessionToken = '';
+
+    $timeout(function () {
+        $location.path('/');
+    },100);
 });

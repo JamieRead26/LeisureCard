@@ -24,9 +24,10 @@ namespace GRG.LeisureCards.UI
 
             var appScriptsBundle = new Bundle("~/bundles/appjs");
             appScriptsBundle.Include(
-                        "~/Scripts/app/loginController.js",
+                        "~/Scripts/app/authController.js",
                         "~/Scripts/app/offersHomeController.js",
                         "~/Scripts/app/offers241Controller.js",
+                        "~/Scripts/app/offers241DetailsController.js",
                         "~/Scripts/app/offersExperienceController.js",
                         "~/Scripts/app/app.js",
                         "~/Scripts/app/directives.js");

@@ -1,13 +1,15 @@
 ﻿var app = angular.module('leisureApp', [
     'ngResource',
     'ngRoute',
-    'ui.router',
     'ngCookies',
+    'ng-breadcrumbs',
     'offersExperienceController',
     'offers241Controller',
     'offersHomeController',
     'slideController',
     'globalController',
+    'offers241DetailsController',
+    'logoutController',
     'loginController'
 ]);
 
@@ -68,8 +70,9 @@ app.config(function ($httpProvider) {
 });
 
 var globalController = angular.module('globalController', []);
-globalController.controller('globalCtrl', function ($scope, user) {
+globalController.controller('globalCtrl', function ($scope, breadcrumbs, user) {
     $scope.user = user;
+    $scope.breadcrumbs = breadcrumbs;
 });
 
 var slideController = angular.module('slideController', []);
@@ -82,19 +85,32 @@ app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
         when('/', {
             templateUrl: 'partial/login',
-            controller: 'LoginController'
+            controller: 'LoginController',
+            label: 'Home'
         }).
         when('/offers', {
             templateUrl: 'partial/offers',
-            controller: 'OffersHomeController'
+            controller: 'OffersHomeController',
+            label: 'Offers'
         }).
         when('/offers/experience', {
             templateUrl: 'partial/offers_experience',
-            controller: 'offersExperienceController'
+            controller: 'offersExperienceController',
+            label: 'Experiences'
         }).
         when('/offers/241', {
             templateUrl: 'partial/offers_241',
-            controller: 'offers241Controller'
+            controller: 'offers241Controller',
+            label: '241'
+        }).
+        when('/offers/241/:id', {
+            templateUrl: 'partial/offers_241_details',
+            controller: 'offers241DetailsController',
+            label: 'Offer Details'
+        }).
+        when('/logout', {
+            template: '',
+            controller: 'logoutController'
         }).
         otherwise({
             redirectTo: '/'

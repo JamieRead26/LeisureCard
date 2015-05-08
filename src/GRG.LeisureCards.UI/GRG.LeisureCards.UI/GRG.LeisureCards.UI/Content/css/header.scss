@@ -50,3 +50,27 @@ header {
         }
     }
 }
+.auth {
+    padding: 10px;
+    background: $breadcrumbs-bg;
+    .breadcrumb {
+        li {
+            display: inline-block;
+            margin-right: 20px;
+            a {
+               color: $breadcrumbs-color;    
+               position: relative;
+               &:after {
+                    content: '>';
+                    position: absolute;
+                    right: -17px;
+                    top: 2px;
+                    color: #222;
+               }
+            }
+        }
+    }
+    .last {
+        text-align: right;
+    }
+}

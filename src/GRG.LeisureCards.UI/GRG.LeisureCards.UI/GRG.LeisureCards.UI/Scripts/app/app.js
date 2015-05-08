@@ -7,10 +7,17 @@
     'offers241Controller',
     'offersHomeController',
     'slideController',
+    'globalController',
     'loginController'
 ]);
 
-var root = '//localhost:1623';
+app.constant('config', {
+    apiUrl: '//localhost:1623'
+});
+
+app.value('user', {
+    card: {}
+});
 
 app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $timeout) {
     return {
@@ -59,51 +66,16 @@ app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
 });
 
+var globalController = angular.module('globalController', []);
+globalController.controller('globalCtrl', function ($scope, user) {
+    $scope.user = user;
+});
+
 var slideController = angular.module('slideController', []);
 slideController.controller('slideshowCtrl', function ($scope) {
-    $scope.parentobj = {};
-    $scope.parentobj.slideshow = [];
+    $scope.global = {};
+    $scope.global.slideshow = [];
 });
-
-
-
-/*
-app.config(function ($stateProvider, $urlRouterProvider) {
-
-    $urlRouterProvider.otherwise('/');
-
-    $stateProvider
-        .state('home', {
-            url: '/',
-            templateUrl: 'partial/login',
-            controller: 'LoginController',
-            data: {
-                displayName: 'Home'
-            }
-        })
-        .state('home.offers', {
-            url: 'offers',
-
-                    templateUrl: 'partial/offers',
-                    controller: 'OffersHomeController',
-
-            data: {
-                displayName: 'Offers'
-            }
-        })
-        .state('home.offers.experience', {
-            url: 'offers/experience',
-
-            templateUrl: 'partial/offers_experience',
-            controller: 'offersExperienceController',
-
-            data: {
-                displayName: 'Experience Offers'
-            }
-        });
-});
-*/
-
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
@@ -123,4 +95,45 @@ app.config(['$routeProvider', function ($routeProvider) {
             redirectTo: '/'
         });
 }]);
+
+
+/*
+// this is for breadcrumbs... to-do
+app.config(function ($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider
+        .state('home', {
+            url: '/',
+            templateUrl: 'partial/login',
+            controller: 'LoginController',
+            data: {
+                displayName: 'Home'
+            }
+        })
+        .state('home.offers', {
+            url: 'offers',
+
+                    templateUrl: 'partial/offers',
+
+                    controller: 'OffersHomeController',
+
+            data: {
+                displayName: 'Offers'
+            }
+        })
+        .state('home.offers.experience', {
+            url: 'offers/experience',
+
+            templateUrl: 'partial/offers_experience',
+            controller: 'offersExperienceController',
+
+            data: {
+                displayName: 'Experience Offers'
+            }
+        });
+});
+*/
+
 

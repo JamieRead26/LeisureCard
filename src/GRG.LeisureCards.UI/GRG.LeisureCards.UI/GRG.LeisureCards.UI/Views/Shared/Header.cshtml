@@ -3,13 +3,9 @@
 		 
         <a href="/#/" class="logo">Leisure Card</a>
 		
-        <nav>
-            
-            <ul>
-            	<li><a href="/">menu</a></li>
-            </ul>
-
-        </nav>
+        <div class="end-date" ng-if="user.card.RenewalDate != null">
+            End Date <span ng-bind="user.card.RenewalDate | date:'MM/dd/yyyy'"></span>
+        </div>
        
 		<div class="clear"></div>
 		

@@ -19,18 +19,17 @@
     <![endif]-->
 
 </head>
-<body ng-app="leisureApp">
+<body ng-app="leisureApp" ng-controller="globalCtrl">
 
     @{Html.RenderPartial("Header");}
 
-
     <div class="content" ng-controller="slideshowCtrl">
 
-        <div class="container white" ng-if="parentobj.slideshow != null">
+        <div class="container white" ng-if="global.slideshow != null">
             <div class="row">
                 <div class="twelvecol last">
 
-                    <div slideit="parentobj.slideshow"></div>
+                    <div slideit="global.slideshow"></div>
 
                 </div>
             </div>

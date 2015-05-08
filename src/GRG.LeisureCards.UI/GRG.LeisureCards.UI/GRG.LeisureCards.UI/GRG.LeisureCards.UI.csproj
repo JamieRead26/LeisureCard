@@ -176,6 +176,7 @@
     <Content Include="Content\img\logo.png" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular.resource.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\directives.js" />

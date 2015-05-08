@@ -16,6 +16,14 @@ header {
         float: left;
         background: $logo;
     }
+    .end-date {
+        float: right;
+        color: #fff;
+        margin-top: 7px;
+        span {
+            font-weight: bold;
+        }
+    }
     nav {
         float: left;
         margin: 0 0 0 40px;

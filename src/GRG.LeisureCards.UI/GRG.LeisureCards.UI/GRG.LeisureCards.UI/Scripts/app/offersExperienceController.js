@@ -11,7 +11,7 @@ offersExperienceController.factory('RedLetterKeyword', function ($resource) {
 */
 
 offersExperienceController.controller('offersExperienceController', function ($scope) {
-    $scope.parentobj.slideshow = [
+    $scope.global.slideshow = [
         {
             img:  'http://placehold.it/1140x300',
             link: 'http://google.co.uk'

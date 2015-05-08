@@ -1,12 +1,12 @@
 var loginController = angular.module('loginController', []);
 
-loginController.factory('Login', function ($resource) {
-    return $resource(root + '/LeisureCard/Login/:id');
+loginController.factory('Login', function ($resource, config) {
+    return $resource(config.apiUrl + '/LeisureCard/Login/:id');
 });
 
-loginController.controller('LoginController', function ($scope, $cookies, $location, Login) {
+loginController.controller('LoginController', function ($scope, $cookies, $location, user, Login) {
 
-    $scope.parentobj.slideshow = [
+    $scope.global.slideshow = [
         {
             img: 'http://placehold.it/1140x300',
             link: 'http://google.co.uk'
@@ -27,8 +27,10 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
                     $scope.errors = 'Card number not found.';
                 }
                 else if (data.Status == 'Ok') {
-                    $cookies['SessionToken'] = data.SessionToken
+                    $cookies['SessionToken'] = data.SessionToken;
+                    $scope.user.card = data.LeisureCard;
                     $location.path('/offers');
+                    // $state.go('home.offers');
                 }
 
             });

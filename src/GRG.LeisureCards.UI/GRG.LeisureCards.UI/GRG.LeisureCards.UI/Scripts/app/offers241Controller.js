@@ -48,3 +48,29 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
         }
     };
 });
+
+
+offers241Controller.controller('offers241DetailsController', function ($scope, $routeParams) {
+
+    //$scope.googleUrl = '//maps.googleapis.com/maps/api/js?key=' + config.googleApiKey;
+
+    $scope.id = $routeParams.id;
+    $scope.offer = {
+        $id: "2",
+        Address1: "Aden Country Park",
+        Address2: "Mintlaw",
+        County: "Aberdeenshire,",
+        Description: "",
+        DisabledAccess: "",
+        trueId: 1,
+        OutletName: "Aberdeenshire Farming Museum",
+        Phone: "01771 624 590",
+        PostCode: "AB42 5FQ",
+        TownCity: "Peterhead",
+        Website: ""
+    };
+
+    delete $scope.offer['$id'];
+    delete $scope.offer['trueId'];
+
+});

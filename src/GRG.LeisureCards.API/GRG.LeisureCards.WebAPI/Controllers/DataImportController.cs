@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using GRG.LeisureCards.Model;
+using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Filters;
 
@@ -10,10 +12,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
     public class DataImportController : ApiController
     {
         private readonly IDataImportService _dataImportService;
+        private readonly IDataImportJournalEntryRepository _dataImportJournalEntryRepository;
 
-        public DataImportController(IDataImportService dataImportService)
+        public DataImportController(IDataImportService dataImportService, IDataImportJournalEntryRepository dataImportJournalEntryRepository)
         {
             _dataImportService = dataImportService;
+            _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
         }
 
         [HttpPost]
@@ -28,6 +32,25 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         public DataImportJournalEntry ImportTwoForOneData([FromBody] string base64)
         {
             return _dataImportService.ImportTwoForOneOffers(Convert.FromBase64String(base64));
+        }
+
+        [HttpGet]
+        [Route("DataImport/GetRedLetterImportJournal/{count}/{toId}")]
+        public IEnumerable<DataImportJournalEntry> GetRedLetterImportJournal(int count, int toId)
+        {
+            return GetImportJournal(DataImportKey.RedLetter, count, toId);
+        }
+
+        [HttpGet]
+        [Route("DataImport/GetTwoForOneImportJournal/{count}/{toId}")]
+        public IEnumerable<DataImportJournalEntry> GetTwoForOneImportJournal(int count, int toId)
+        {
+            return GetImportJournal(DataImportKey.TwoForOne, count, toId);
+        }
+
+        private IEnumerable<DataImportJournalEntry> GetImportJournal(DataImportKey importKey, int count, int toId)
+        {
+            return _dataImportJournalEntryRepository.Get(importKey, count, toId);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -6,6 +7,7 @@ using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using GRG.LeisureCards.TestResources;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
 
@@ -40,8 +42,19 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var response = client.Execute<DataImportJournalEntry>(request);
 
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                Assert.AreEqual("Red Letter Days", response.Data.Key);
+                Assert.AreEqual(DataImportKey.RedLetter.Key, response.Data.Key);
                 Assert.IsTrue(response.Data.Success);
+
+                request = new RestRequest("DataImport/GetRedLetterImportJournal/{count}/{toId}", Method.GET);
+                request.AddParameter("count", 10);
+                request.AddParameter("toId", 0);
+                request.AddHeader("accepts", "application/json");
+                request.AddHeader("AdminCode", "12345-54321");
+
+                var content = client.Execute(request).Content;
+
+                Assert.AreEqual(1,
+                    JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).Count);
             }
         }
 
@@ -65,8 +78,19 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var response = client.Execute<DataImportJournalEntry>(request);
 
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                Assert.AreEqual("2-4-1 Offers", response.Data.Key);
+                Assert.AreEqual(DataImportKey.TwoForOne.Key, response.Data.Key);
                 Assert.IsTrue(response.Data.Success);
+
+                request = new RestRequest("DataImport/GetTwoForOneImportJournal/{count}/{toId}", Method.GET);
+                request.AddParameter("count", 10);
+                request.AddParameter("toId", 0);
+                request.AddHeader("accepts", "application/json");
+                request.AddHeader("AdminCode", "12345-54321");
+
+                var content = client.Execute(request).Content;
+
+                Assert.AreEqual(1,
+                    JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).Count);
             }
         }
     }

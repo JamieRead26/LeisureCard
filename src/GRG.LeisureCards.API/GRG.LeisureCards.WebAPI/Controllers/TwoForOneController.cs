@@ -22,5 +22,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             return _repository.GetAll();
         }
+
+        [HttpGet]
+        [Route("TwoForOne/Get/{Id}")]
+        public TwoForOneOffer Get(int id)
+        {
+            return _repository.Get(id);
+        }
     }
 }

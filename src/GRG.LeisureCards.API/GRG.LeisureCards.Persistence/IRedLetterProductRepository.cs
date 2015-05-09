@@ -9,5 +9,7 @@ namespace GRG.LeisureCards.Persistence
     {
         ICollection<RedLetterProduct> FindByKeyword(string keyword);
         ICollection<RedLetterProduct> Find(Expression<Func<RedLetterProduct, bool>> predicate);
+
+        ICollection<RedLetterKeyword> GetAllKeywords();
     }
 }

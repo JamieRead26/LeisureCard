@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using GRG.LeisureCards.Model;
-using NHibernate.Linq;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
@@ -9,14 +7,16 @@ namespace GRG.LeisureCards.Persistence.NHibernate
     {
         public IEnumerable<DataImportJournalEntry> Get(DataImportKey importKey, int count, int toId)
         {
-            var query = Session.Query<DataImportJournalEntry>()
-                .Take(count)
-                .Where(j => j.Key == importKey.Key);
+            var query = Session.QueryOver<DataImportJournalEntry>();
 
             if (toId > 0)
-                query.Where(j => j.Id <= toId);
+                query.Where(j => j.Id < toId);
 
-            var result = query.ToArray();
+            query.Where(j => j.Key == importKey.Key)
+                .OrderBy(x => x.Id).Desc
+                .Take(count);
+
+            var result = query.List();
 
             return result;
         }

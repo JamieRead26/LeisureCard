@@ -39,8 +39,10 @@
     </Compile>
     <Compile Include="IDataImportJournalEntryRepository.cs" />
     <Compile Include="ILeisureCardRepository.cs" />
+    <Compile Include="ILeisureCardUsageRepository.cs" />
     <Compile Include="IRedLetterProductRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="ISelectedOfferRepository.cs" />
     <Compile Include="ISettingRepository.cs" />
     <Compile Include="ITwoForOneRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />

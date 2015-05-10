@@ -157,6 +157,7 @@
     <Compile Include="Authentication\LeisureCardPrincipal.cs" />
     <Compile Include="Controllers\DataImportController.cs" />
     <Compile Include="Controllers\LeisureCardController.cs" />
+    <Compile Include="Controllers\LoginHistoryController.cs" />
     <Compile Include="Controllers\RedLetterController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TwoForOneController.cs" />

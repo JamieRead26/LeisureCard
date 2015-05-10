@@ -68,9 +68,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBootstrap.cs" />
+    <Compile Include="DataImportJournalEntryDataFixture.cs" />
     <Compile Include="LeisureCardDataFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeisureCardUsageDataFixture.cs" />
+    <Compile Include="MembershipTierDataFixture.cs" />
+    <Compile Include="OfferCategoryDataFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedLetterFactDataFixture.cs">
       <SubType>Code</SubType>

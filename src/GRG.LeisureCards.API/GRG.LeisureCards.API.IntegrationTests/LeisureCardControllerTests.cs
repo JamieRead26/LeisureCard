@@ -31,7 +31,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void Registration_CardSuspended()
         {
-            RegistrationTest("Suspended", "CardSuspended");
+            RegistrationTest("Cancelled", "CardSuspended");
         }
 
         [Test]

@@ -4,7 +4,7 @@ loginController.factory('Login', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/Login/:id');
 });
 
-loginController.controller('LoginController', function ($scope, $cookies, $location, Login) {
+loginController.controller('LoginController', function ($scope, $cookies, $location, $localStorage, Login) {
 
     $scope.global.slideshow = [
         {
@@ -27,13 +27,13 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
                     $scope.errors = 'Card number not found.';
                 }
                 else if (data.Status == 'Ok') {
-                    $cookies['SessionToken'] = data.SessionToken;
-                    $scope.user.card = data.LeisureCard;
+                    $cookies['SessionToken'] = data.SessionInfo.SessionToken;
+                    $localStorage.user = data.LeisureCard;
                     $location.path('/offers');
-                    // $state.go('home.offers');
                 }
 
             });
+
         } else {
             $scope.errors = 'You must provide a card number.';
         }
@@ -42,10 +42,10 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
 });
 
 var logoutController = angular.module('logoutController', []);
-logoutController.controller('logoutController', function ($scope, $cookies, $location, $timeout) {
+logoutController.controller('logoutController', function ($scope, $cookies, $location, $timeout, $localStorage) {
    
-    $scope.user.card = {};
     $cookies.SessionToken = '';
+    $localStorage.$reset();
 
     $timeout(function () {
         $location.path('/');

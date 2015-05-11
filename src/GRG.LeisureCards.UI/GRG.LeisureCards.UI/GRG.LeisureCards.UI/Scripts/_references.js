@@ -15,5 +15,6 @@
 /// <reference path="app/directives.js" />
 /// <reference path="angular-ui-router.js" />
 /// <reference path="app/authcontroller.js" />
-/// <reference path="ng-breadcrumbs.js" />
 /// <reference path="app/config.js" />
+/// <reference path="angular-ng-storage.js" />
+/// <reference path="angular-ng-breadcrumbs.js" />

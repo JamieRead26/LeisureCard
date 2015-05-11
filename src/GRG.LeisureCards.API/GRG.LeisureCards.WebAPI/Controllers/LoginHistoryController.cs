@@ -17,6 +17,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _leisureCardUsageRepository = leisureCardUsageRepository;
         }
 
+        /// <summary>
+        /// Pagable login history in reverse chronalogical order.  Pass 0 for toId to get the latest history.
+        /// </summary>
+        /// <param name="count">Number of records to return</param>
+        /// <param name="toId">The max id to return.  When paging set this to the last id of the previous list return else set to 0 for most recent history.</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("LoginHistory/Get/{count}/{toId}")]
         public IEnumerable<LeisureCardUsage> Get(int count, int toId)

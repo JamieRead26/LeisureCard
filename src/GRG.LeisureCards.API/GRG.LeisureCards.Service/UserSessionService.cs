@@ -32,11 +32,9 @@ namespace GRG.LeisureCards.Service
             {
                 var session = _tokenCards.SingleOrDefault(c => c.LeisureCard.Code == card.Code);
 
-                if (session != null)
-                    _tokenCards.Remove(session);
-
+                if (session != null) return session.Token;
+                
                 session = new Session(_sessionDuration, card);
-
                 _tokenCards.Add(session);
 
                 return session.Token;
@@ -47,7 +45,7 @@ namespace GRG.LeisureCards.Service
         {
             lock (token)
             {
-                var session = _tokenCards.First(t => t.Token == token);
+                var session = _tokenCards.FirstOrDefault(t => t.Token == token);
 
                 if (session == null)
                     return null;

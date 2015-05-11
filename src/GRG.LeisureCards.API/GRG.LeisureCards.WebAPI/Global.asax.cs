@@ -6,6 +6,7 @@ using System.Web.Http;
 using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using System.Web;
+using System.Web.Mvc;
 
 namespace GRG.LeisureCards.WebAPI
 {
@@ -13,7 +14,7 @@ namespace GRG.LeisureCards.WebAPI
     {
         public void Application_Start()
         {
-
+            AreaRegistration.RegisterAllAreas();
 #if DEBUG
             DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)));
 #endif

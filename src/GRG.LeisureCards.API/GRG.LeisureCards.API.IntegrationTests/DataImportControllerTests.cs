@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using GRG.LeisureCards.Data;
@@ -8,6 +9,7 @@ using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using GRG.LeisureCards.TestResources;
 using Newtonsoft.Json;
+using NHibernate.Util;
 using NUnit.Framework;
 using RestSharp;
 
@@ -53,8 +55,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
                 var content = client.Execute(request).Content;
 
-                Assert.AreEqual(1,
-                    JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).Count);
+                Assert.AreEqual(response.Data.Id,JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
             }
         }
 
@@ -89,8 +90,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
                 var content = client.Execute(request).Content;
 
-                Assert.AreEqual(1,
-                    JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).Count);
+                Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
             }
         }
     }

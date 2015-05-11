@@ -12,6 +12,14 @@ offers241Controller.factory('Offer241GetAll', function ($resource, config) {
     return $resource(config.apiUrl + '/TwoForOne/GetAll');
 });
 
+offers241Controller.factory('Offer241GetById', function ($resource, config) {
+    return $resource(config.apiUrl + '/TwoForOne/Get/:id');
+});
+
+offers241Controller.factory('Offer241Claim', function ($resource, config) {
+    return $resource(config.apiUrl + '/TwoForOne/ClaimOffer/:id');
+});
+
 offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll) {
 
     $scope.offers = {};
@@ -49,28 +57,43 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     };
 });
 
-
-offers241Controller.controller('offers241DetailsController', function ($scope, $routeParams) {
-
-    //$scope.googleUrl = '//maps.googleapis.com/maps/api/js?key=' + config.googleApiKey;
+offers241Controller.controller('offers241DetailsController', function ($scope, $routeParams, Offer241GetById) {
 
     $scope.id = $routeParams.id;
-    $scope.offer = {
-        $id: "2",
-        Address1: "Aden Country Park",
-        Address2: "Mintlaw",
-        County: "Aberdeenshire,",
-        Description: "",
-        DisabledAccess: "",
-        trueId: 1,
-        OutletName: "Aberdeenshire Farming Museum",
-        Phone: "01771 624 590",
-        PostCode: "AB42 5FQ",
-        TownCity: "Peterhead",
-        Website: ""
-    };
+    $scope.offer = {};
+    $scope.global.slideshow = [
+        {
+            img: 'http://placehold.it/1140x300',
+            link: 'http://google.co.uk'
+        }
+    ];
 
-    delete $scope.offer['$id'];
-    delete $scope.offer['trueId'];
+    Offer241GetById.get({ id: $scope.id }, function (data) {
+        $scope.offer = {
+            Address1: data.Address1,
+            Address2: data.Address2,
+            County: data.County,
+            Description: data.Description,
+            DisabledAccess: data.DisabledAccess,
+            OutletName: data.OutletName,
+            Phone: data.Phone,
+            PostCode: data.PostCode,
+            TownCity: data.TownCity,
+            Website: data.Website
+        };
+    });
+    
+});
+
+offers241Controller.controller('offers241ClaimController', function ($scope, $routeParams, Offer241Claim) {
+
+    $scope.id = $routeParams.id;
+    $scope.offer = {};
+    $scope.global.slideshow = [];
+
+    //Offer241Claim.get({ id: $scope.id }, function (data) {
+    //});
+
 
 });
+

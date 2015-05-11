@@ -26,7 +26,7 @@ namespace GRG.LeisureCards.WebAPI.Filters
 
             if (!context.Request.Headers.TryGetValues("SessionToken", out vals))
             {
-                context.ErrorResult = new AuthenticationFailureResult("", context.Request);
+                context.ErrorResult = new AuthenticationFailureResult("No SessionToken header", context.Request);
                 return;
             }
 
@@ -34,11 +34,11 @@ namespace GRG.LeisureCards.WebAPI.Filters
 
             if (card == null)
             {
-                context.ErrorResult = new AuthenticationFailureResult("", context.Request);
+                context.ErrorResult = new AuthenticationFailureResult("No session matching token", context.Request);
                 return;
             }
 
-            context.Principal = new LeisureCardPrincipal(card, new SessionInfo { SessionToken = _userSessionService.GetToken(card), CardRenewalDate = card.RenewalDate.Value.ToShortDateString()});
+            context.Principal = new LeisureCardPrincipal(card, new SessionInfo { SessionToken = _userSessionService.GetToken(card), CardRenewalDate = card.RenewalDate.Value});
         }
 
         public async Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)

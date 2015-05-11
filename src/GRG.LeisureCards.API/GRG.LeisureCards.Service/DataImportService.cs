@@ -186,7 +186,7 @@ namespace GRG.LeisureCards.Service
         {
             var journalEntry = new DataImportJournalEntry
             {
-                ImportedUtc = DateTime.UtcNow,
+                ImportedDateTime = DateTime.Now,
                 Key = key.Key
             };
 

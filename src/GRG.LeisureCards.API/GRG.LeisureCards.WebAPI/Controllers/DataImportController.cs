@@ -45,7 +45,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("DataImport/GetTwoForOneImportJournal/{count}/{toId}")]
         public IEnumerable<DataImportJournalEntry> GetTwoForOneImportJournal(int count, int toId)
         {
-            return GetImportJournal(DataImportKey.TwoForOne, count, toId);
+            var results = GetImportJournal(DataImportKey.TwoForOne, count, toId);
+
+            return results;
         }
 
         private IEnumerable<DataImportJournalEntry> GetImportJournal(DataImportKey importKey, int count, int toId)

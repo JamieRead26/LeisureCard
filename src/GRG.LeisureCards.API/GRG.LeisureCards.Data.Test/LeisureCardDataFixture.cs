@@ -6,19 +6,44 @@ namespace GRG.LeisureCards.Data.Test
 {
     public class LeisureCardDataFixture : DataFixture
     {
+        public LeisureCard[] Cards;
+
         public override object[] GetEntities(IFixtureContainer fixtureContainer)
         {
-            return new[]
+            var offerCategoryFixture = fixtureContainer.Get<OfferCategoryDataFixture>();
+            var membershipTierDataFixture = fixtureContainer.Get<MembershipTierDataFixture>();
+            
+            Cards = new[]
             {
                 new LeisureCard {Code = "Unregistered"},
                 new LeisureCard
                 {
                     Code = "Registered",
                     RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
-                    Registered = DateTime.Now
+                    RegistrationDate = DateTime.Now,
+                    UploadedDate = DateTime.Now,
+                    MembershipTier = membershipTierDataFixture.Gold
                 },
-                new LeisureCard {Code = "Suspended", Suspended = true}
+                new LeisureCard {Code = "Cancelled", CancellationDate = true}
             };
+
+            foreach (var leisureCard in Cards)
+                foreach (var offerCategory in offerCategoryFixture.All)
+                    leisureCard.AddOfferCategory(offerCategory);
+
+            return Cards;
+        }
+
+        public override Type[] Dependencies
+        {
+            get
+            {
+                return new[]
+                {
+                    typeof(OfferCategoryDataFixture),
+                    typeof(MembershipTierDataFixture)
+                };  
+            } 
         }
     }
 }

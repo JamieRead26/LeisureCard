@@ -92,6 +92,7 @@ app.directive('googleMap', ['$rootScope', 'loadGoogleMapAPI',
 
                         function codeAddress() {
                             var geocoder = new google.maps.Geocoder();
+
                             geocoder.geocode({ 'address': $scope.postcode }, function (results, status) {
                                 if (status == google.maps.GeocoderStatus.OK) {
                                     $scope.map.setCenter(results[0].geometry.location);
@@ -100,11 +101,14 @@ app.directive('googleMap', ['$rootScope', 'loadGoogleMapAPI',
                                         position: results[0].geometry.location
                                     });
                                 } else {
-                                    alert('Geocode was not successful for the following reason: ' + status);
+                                    console.error('Geocode was not successful for the following reason: ' + status);
                                 }
                             });
                         }
-                        codeAddress();
+
+                        setTimeout(function () {
+                            codeAddress();
+                        }, 100);
                     }
 
                     // Loads google map script

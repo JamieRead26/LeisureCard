@@ -106,6 +106,11 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'offers241DetailsController',
             label: '241 Offer Details'
         }).
+        when('/offers/241/claim/:id', {
+            templateUrl: 'partial/offers_241_claim',
+            controller: 'offers241ClaimController',
+            label: '241 Offer Claim'
+        }).
         when('/logout', {
             template: '',
             controller: 'logoutController'

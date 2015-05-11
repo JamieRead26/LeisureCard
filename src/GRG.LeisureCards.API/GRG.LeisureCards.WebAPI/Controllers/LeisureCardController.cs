@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
@@ -24,11 +25,15 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             var result = _leisureCardService.Login(code);
 
             if (result.Status == "Ok")
+            {
                 result.SessionInfo = new SessionInfo
                 {
-                    CardRenewalDate = result.LeisureCard.RenewalDate.Value.ToShortDateString(),
+                    CardRenewalDate = result.LeisureCard.RenewalDate.Value,
                     SessionToken = _userSessionService.GetToken(result.LeisureCard)
                 };
+
+                result.LeisureCard.AddUsage(new LeisureCardUsage {LoginDateTime = DateTime.Now});
+            }
 
             return result;
         }

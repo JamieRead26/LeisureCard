@@ -4,11 +4,15 @@
 
 <div class="twelvecol" ng-controller="offers241DetailsController">
  
-    <h1>241 Offers</h1>
+    <h1>{{ offer.OutletName }}</h1>
 
     <div class="sixcol">
 
         <p ng-repeat="(key, value) in offer">{{ key }}: {{ value }}</p>
+
+        <p><a ng-href="/#/offers/241/claim/{{ id }}" class="button">Claim Code</a></p>
+
+        <a href="/#/offers/241">Go back to list</a>
 
     </div>
     <div class="sixcol last">

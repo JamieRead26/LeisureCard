@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml;
 using Bootstrap4NHibernate.Data;
 using GRG.LeisureCards.Model;
+using GRG.LeisureCards.TestResources;
 using NHibernate.Util;
 
 namespace GRG.LeisureCards.Data.Test
@@ -21,8 +22,7 @@ namespace GRG.LeisureCards.Data.Test
 
         public RedLetterFactDataFixture()
         {
-            using (var xmlStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("GRG.LeisureCards.Data.Test.RedLetter_Products.xml"))
-            using (var txtReader = new StreamReader(xmlStream))
+            using (var txtReader = new StreamReader(ResourceStreams.GetRedLetterDataStream()))
             {
                 var xmlDoc = new XmlDocument();
 
@@ -30,7 +30,7 @@ namespace GRG.LeisureCards.Data.Test
 
                 foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("RedLetterProduct"))
                 {
-                    var productId = int.Parse(productNode.SelectSingleNode("Id").InnerText);
+                    var productId = int.Parse(productNode.SelectSingleNode("Key").InnerText);
                     var facts = (from XmlNode factNode in productNode.SelectSingleNode("Facts").ChildNodes select new RedLetterFact {Fact = factNode.InnerText}).ToList();
 
                     if (EnumerableExtensions.Any(facts))

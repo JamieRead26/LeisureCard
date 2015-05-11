@@ -47,10 +47,23 @@ namespace GRG.LeisureCards.API.IntegrationTests
             var request = new RestRequest("LeisureCard/Login/{code}", Method.GET);
             request.AddParameter("code", code);
             request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetSessionToken());
 
             var response = client.Execute<LeisureCardRegistrationResponse>(request);
 
             Assert.AreEqual(expectedStatus, response.Data.Status);
+        }
+
+        [Test]
+        public void GetSessionInfoTest()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("LeisureCard/GetSessionInfo", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetSessionToken());
+
+            Assert.IsNotNull(client.Execute<SessionInfo>(request).Data.CardRenewalDate);
         }
     }
 }

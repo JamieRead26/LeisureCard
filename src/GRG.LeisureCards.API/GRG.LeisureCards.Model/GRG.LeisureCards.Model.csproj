@@ -39,6 +39,7 @@
       <Link>Master.AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DataImportJournalEntry.cs" />
+    <Compile Include="DataImportKeys.cs" />
     <Compile Include="LeisureCard.cs" />
     <Compile Include="LeisureCardRegistrationResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="RedLetterProducts.cs" />
     <Compile Include="RedLetterProductSummary.cs" />
     <Compile Include="RedLetterVenue.cs" />
+    <Compile Include="SessionInfo.cs" />
     <Compile Include="Setting.cs" />
     <Compile Include="TwoForOneOffer.cs" />
   </ItemGroup>

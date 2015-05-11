@@ -34,5 +34,10 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             return Session.Query<RedLetterProduct>().Where(predicate).ToArray();
         }
+
+        public ICollection<RedLetterKeyword> GetAllKeywords()
+        {
+            return Session.QueryOver<RedLetterKeyword>().List();
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Xml;
 using Bootstrap4NHibernate.Data;
 using GRG.LeisureCards.Model;
+using GRG.LeisureCards.TestResources;
 
 namespace GRG.LeisureCards.Data.Test
 {
@@ -15,8 +16,7 @@ namespace GRG.LeisureCards.Data.Test
 
         public RedLetterProductDataFixture()
         {
-            using (var xmlStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("GRG.LeisureCards.Data.Test.RedLetter_Products.xml"))
-            using (var txtReader = new StreamReader(xmlStream))
+            using (var txtReader = new StreamReader(ResourceStreams.GetRedLetterDataStream()))
             {
                 var xmlDoc = new XmlDocument();
 
@@ -25,7 +25,7 @@ namespace GRG.LeisureCards.Data.Test
                 foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("RedLetterProduct"))
                 {
                     var product = new RedLetterProduct{
-                        Id = int.Parse(productNode.SelectSingleNode("Id").InnerText),
+                        Id = int.Parse(productNode.SelectSingleNode("Key").InnerText),
                         Title = productNode.SelectSingleNode("Title").InnerText,
                         InspirationalDescription = productNode.SelectSingleNode("InspirationalDescription").InnerText,
                         VoucherText = productNode.SelectSingleNode("VoucherText").InnerText,

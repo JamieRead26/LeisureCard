@@ -8,7 +8,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
     {
         public TwoForOneClassMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Id).GeneratedBy.Assigned();
             Map(x => x.OutletName).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
             Map(x => x.Address1);
             Map(x => x.Address2);

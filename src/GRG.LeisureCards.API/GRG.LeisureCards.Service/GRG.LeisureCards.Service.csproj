@@ -47,6 +47,10 @@
     <Compile Include="UserSessionService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GRG.LeisureCards.CSV\GRG.LeisureCards.CSV.csproj">
+      <Project>{149F627D-3AF1-4CB3-BED5-89B41F5AFB33}</Project>
+      <Name>GRG.LeisureCards.CSV</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
       <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
       <Name>GRG.LeisureCards.Model</Name>

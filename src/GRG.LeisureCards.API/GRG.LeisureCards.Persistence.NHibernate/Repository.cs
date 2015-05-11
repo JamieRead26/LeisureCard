@@ -30,6 +30,12 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             Session.Delete(entity);
         }
 
+        public void Purge()
+        {
+            foreach(var entity in GetAll())
+                Delete(entity);
+        }
+
         public virtual TEntity Get(TKey key)
         {
             return Session.Get<TEntity>(key);

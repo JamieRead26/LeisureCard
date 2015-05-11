@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Model;
 
 namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
@@ -10,6 +11,8 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Id(x => x.Id);
             Map(x => x.ImportedUtc);
             Map(x => x.Key);
+            Map(x => x.Message);
+            Map(x => x.StackTrace).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
         }
     }
 }

@@ -2,7 +2,9 @@
 
 namespace GRG.LeisureCards.Persistence
 {
-    public interface IRepository { }
+    public interface IRepository {
+        void Purge();
+    }
 
     public interface IRepository<TEntity, in TKey> : IRepository
     {

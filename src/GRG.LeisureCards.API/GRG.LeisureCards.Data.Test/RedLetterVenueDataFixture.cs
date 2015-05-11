@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml;
 using Bootstrap4NHibernate.Data;
 using GRG.LeisureCards.Model;
+using GRG.LeisureCards.TestResources;
 
 namespace GRG.LeisureCards.Data.Test
 {
@@ -20,8 +21,7 @@ namespace GRG.LeisureCards.Data.Test
 
         public RedLetterVenueDataFixture()
         {
-            using (var xmlStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("GRG.LeisureCards.Data.Test.RedLetter_Products.xml"))
-            using (var txtReader = new StreamReader(xmlStream))
+            using (var txtReader = new StreamReader(ResourceStreams.GetRedLetterDataStream()))
             {
                 var xmlDoc = new XmlDocument();
 
@@ -29,7 +29,7 @@ namespace GRG.LeisureCards.Data.Test
 
                 foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("RedLetterProduct"))
                 {
-                    var productId = int.Parse(productNode.SelectSingleNode("Id").InnerText);
+                    var productId = int.Parse(productNode.SelectSingleNode("Key").InnerText);
 
                     var venues = new List<RedLetterVenue>();
 
@@ -37,7 +37,7 @@ namespace GRG.LeisureCards.Data.Test
                     {
                         venues.Add(new RedLetterVenue
                         {
-                            RedLetterId = int.Parse(venueNode.SelectSingleNode("Id").InnerText),
+                            RedLetterId = int.Parse(venueNode.SelectSingleNode("Key").InnerText),
                             Name = venueNode.SelectSingleNode("Name").InnerText,
                             County = venueNode.SelectSingleNode("County").InnerText,
                             Town = venueNode.SelectSingleNode("Town").InnerText,

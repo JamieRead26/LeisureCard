@@ -57,10 +57,11 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     };
 });
 
-offers241Controller.controller('offers241DetailsController', function ($scope, $routeParams, Offer241GetById) {
+offers241Controller.controller('offers241DetailsController', function ($scope, $routeParams, Offer241GetById, Offer241Claim) {
 
     $scope.id = $routeParams.id;
     $scope.offer = {};
+    $scope.claimed = false;
     $scope.global.slideshow = [
         {
             img: 'http://placehold.it/1140x300',
@@ -83,17 +84,13 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
         };
     });
     
-});
-
-offers241Controller.controller('offers241ClaimController', function ($scope, $routeParams, Offer241Claim) {
-
-    $scope.id = $routeParams.id;
-    $scope.offer = {};
-    $scope.global.slideshow = [];
-
-    //Offer241Claim.get({ id: $scope.id }, function (data) {
-    //});
-
+    $scope.claim = function () {
+        Offer241Claim.get({ id: $scope.id }, function (data) {
+            if(data.$resolved){
+                $scope.claimed = true;
+            }
+        });
+    };
 
 });
 

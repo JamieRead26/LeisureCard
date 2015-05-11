@@ -35,8 +35,8 @@
 });
 
 // Lazy loading of Google Map API
-app.service('loadGoogleMapAPI', ['$window', '$q',
-    function ($window, $q) {
+app.service('loadGoogleMapAPI', ['$window', '$q', 'config',
+    function ($window, $q, config) {
 
         var deferred = $q.defer();
 
@@ -44,7 +44,7 @@ app.service('loadGoogleMapAPI', ['$window', '$q',
         function loadScript() {
             // Use global document since Angular's $document is weak
             var script = document.createElement('script');
-            script.src = '//maps.googleapis.com/maps/api/js?sensor=false&language=en&callback=initMap';
+            script.src = '//maps.googleapis.com/maps/api/js?sensor=false&language=en&callback=initMap&key=' + config.googleAPiKey;
 
             document.body.appendChild(script);
         }
@@ -108,7 +108,7 @@ app.directive('googleMap', ['$rootScope', 'loadGoogleMapAPI',
 
                         setTimeout(function () {
                             codeAddress();
-                        }, 100);
+                        }, 1000);
                     }
 
                     // Loads google map script

@@ -179,12 +179,13 @@
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular.resource.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\app\directives.js" />
-    <Content Include="Scripts\app\offers241DetailsController.js" />
     <Content Include="Scripts\app\offersExperienceController.js" />
     <Content Include="Scripts\app\offers241Controller.js" />
     <Content Include="Scripts\app\offersHomeController.js" />
     <Content Include="Scripts\html5shiv.min.js" />
+    <Content Include="Scripts\ng-breadcrumbs.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular-mocks.js" />

@@ -2,8 +2,20 @@
     Layout = "";
 }
 
-<h1>241 Offers</h1>
-
 <div class="twelvecol" ng-controller="offers241DetailsController">
  
+    <h1>241 Offers</h1>
+
+    <div class="sixcol">
+
+        <p ng-repeat="(key, value) in offer">{{ key }}: {{ value }}</p>
+
+    </div>
+    <div class="sixcol last">
+
+        <div id="map241Offer" class="google-map" postcode="{{ offer.PostCode }}"></div>
+
+    </div>
+    <div class="clear"></div>
+
 </div>

@@ -15,5 +15,5 @@
 /// <reference path="app/directives.js" />
 /// <reference path="angular-ui-router.js" />
 /// <reference path="app/authcontroller.js" />
-/// <reference path="app/offers241detailscontroller.js" />
 /// <reference path="ng-breadcrumbs.js" />
+/// <reference path="app/config.js" />

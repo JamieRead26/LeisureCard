@@ -2,8 +2,32 @@
     Layout = "";
 }
 
-<h1>241 Offers</h1>
-
 <div class="twelvecol" ng-controller="offers241DetailsController">
  
+    <h1>{{ offer.OutletName }}</h1>
+
+    <div ng-show="!claimed">
+        <div class="sixcol">
+
+            <p ng-repeat="(key, value) in offer">{{ key }}: {{ value }}</p>
+
+            <p><buton ng-click="claim()" class="button">Claim Code</button></p>
+
+            <a href="/#/offers/241">Go back to list</a>
+
+        </div>
+        <div class="sixcol last">
+
+            <div id="map241Offer" class="google-map" postcode="{{ offer.PostCode }}"></div>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div ng-show="claimed">
+        <p>Your claim code is: </p>
+        <p><a ng-href="http://{{ offer.Website }}" target="_blank" class="button">Claim Reward</a></p>
+    </div>
+
+
 </div>

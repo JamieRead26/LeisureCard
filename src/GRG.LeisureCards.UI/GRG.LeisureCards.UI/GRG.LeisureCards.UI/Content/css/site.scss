@@ -38,6 +38,14 @@ body {
         margin-bottom: 15px;
         font-size: 15px;       
     }
+    .button {
+        display: inline-block;
+    }
+    .google-map  {
+        height: 450px;
+        border: 2px solid #fff;
+        width: 100%;
+    }
     .scroll-h {
         max-height: 600px;
         overflow-y: scroll;

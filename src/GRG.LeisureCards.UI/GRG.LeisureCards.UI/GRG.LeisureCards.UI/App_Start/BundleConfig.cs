@@ -27,10 +27,10 @@ namespace GRG.LeisureCards.UI
                         "~/Scripts/app/authController.js",
                         "~/Scripts/app/offersHomeController.js",
                         "~/Scripts/app/offers241Controller.js",
-                        "~/Scripts/app/offers241DetailsController.js",
                         "~/Scripts/app/offersExperienceController.js",
                         "~/Scripts/app/app.js",
-                        "~/Scripts/app/directives.js");
+                        "~/Scripts/app/directives.js",
+                        "~/Scripts/app/config.js");
 
             appScriptsBundle.Builder = nullBuilder;
             appScriptsBundle.Transforms.Add(scriptTransformer);

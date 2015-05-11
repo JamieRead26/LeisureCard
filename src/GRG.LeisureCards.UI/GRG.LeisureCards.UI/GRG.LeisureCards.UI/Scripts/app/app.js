@@ -1,6 +1,7 @@
 ﻿var app = angular.module('leisureApp', [
     'ngResource',
     'ngRoute',
+    'ngStorage',
     'ngCookies',
     'ng-breadcrumbs',
     'offersExperienceController',
@@ -8,20 +9,11 @@
     'offersHomeController',
     'slideController',
     'globalController',
-    'offers241DetailsController',
     'logoutController',
     'loginController'
 ]);
 
-app.constant('config', {
-    apiUrl: '//localhost:1623'
-});
-
-app.value('user', {
-    card: {}
-});
-
-app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $timeout) {
+app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $timeout, $localStorage) {
     return {
         request: function (config) {
             delete $rootScope.errorKey;
@@ -29,6 +21,11 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
             config.headers = config.headers || {};
             if ($cookies.SessionToken) {
                 config.headers['SessionToken'] = $cookies.SessionToken;
+                
+                if (config.url == 'partial/login') {
+                    $location.path('/offers');
+                }
+
             }
             else {
                 $location.path('/');
@@ -43,6 +40,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
                 $rootScope.errorKey = 'global.errors.unauthorized';
                 $timeout(function () {
                     $cookies.SessionToken = '';
+                    $localStorage.$reset();
                     $location.path('/');
                 }, 1000);
 
@@ -70,8 +68,8 @@ app.config(function ($httpProvider) {
 });
 
 var globalController = angular.module('globalController', []);
-globalController.controller('globalCtrl', function ($scope, breadcrumbs, user) {
-    $scope.user = user;
+globalController.controller('globalCtrl', function ($scope, breadcrumbs, $localStorage) {
+    $scope.$storage = $localStorage;
     $scope.breadcrumbs = breadcrumbs;
 });
 
@@ -101,12 +99,12 @@ app.config(['$routeProvider', function ($routeProvider) {
         when('/offers/241', {
             templateUrl: 'partial/offers_241',
             controller: 'offers241Controller',
-            label: '241'
+            label: '241 Offers'
         }).
         when('/offers/241/:id', {
             templateUrl: 'partial/offers_241_details',
             controller: 'offers241DetailsController',
-            label: 'Offer Details'
+            label: '241 Offer Details'
         }).
         when('/logout', {
             template: '',
@@ -116,45 +114,3 @@ app.config(['$routeProvider', function ($routeProvider) {
             redirectTo: '/'
         });
 }]);
-
-
-/*
-// this is for breadcrumbs... to-do
-app.config(function ($stateProvider, $urlRouterProvider) {
-
-    $urlRouterProvider.otherwise('/');
-
-    $stateProvider
-        .state('home', {
-            url: '/',
-            templateUrl: 'partial/login',
-            controller: 'LoginController',
-            data: {
-                displayName: 'Home'
-            }
-        })
-        .state('home.offers', {
-            url: 'offers',
-
-                    templateUrl: 'partial/offers',
-
-                    controller: 'OffersHomeController',
-
-            data: {
-                displayName: 'Offers'
-            }
-        })
-        .state('home.offers.experience', {
-            url: 'offers/experience',
-
-            templateUrl: 'partial/offers_experience',
-            controller: 'offersExperienceController',
-
-            data: {
-                displayName: 'Experience Offers'
-            }
-        });
-});
-*/
-
-

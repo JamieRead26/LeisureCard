@@ -202,6 +202,7 @@
     <Content Include="Views\Home\Partials\offers_experience.cshtml" />
     <Content Include="Views\Home\Partials\breadcrumbs.cshtml" />
     <Content Include="Views\Home\Partials\offers_241_details.cshtml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />

@@ -16,12 +16,16 @@ namespace GRG.LeisureCards.WebAPI.Controllers
     {
         private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
+        private readonly IOfferCategoryRepository _offerCategoryRepository;
         private readonly UserSessionService _userSessionService;
 
-        public RedLetterController(IRedLetterProductRepository redLetterProductRepository, ISelectedOfferRepository selectedOfferRepository)
+        public RedLetterController(IRedLetterProductRepository redLetterProductRepository,
+            ISelectedOfferRepository selectedOfferRepository,
+            IOfferCategoryRepository offerCategoryRepository)
         {
             _redLetterProductRepository = redLetterProductRepository;
             _selectedOfferRepository = selectedOfferRepository;
+            _offerCategoryRepository = offerCategoryRepository;
             _userSessionService = UserSessionService.Instance;
         }
 
@@ -65,7 +69,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
             {
                 LeisureCard = card,
-                OfferCategory = _redLetterProductRepository.OfferCategory,
+                OfferCategory = _offerCategoryRepository.RedLetter,
                 OfferId = id.ToString(),
                 OfferTitle = offer.Title
             });
@@ -81,7 +85,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
             {
                 LeisureCard = card,
-                OfferCategory = _redLetterProductRepository.OfferCategory,
+                OfferCategory = _offerCategoryRepository.RedLetter,
                 OfferTitle = category
             });
         }

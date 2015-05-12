@@ -13,6 +13,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.RenewalDate);
             Map(x => x.ExpiryDate);
             Map(x => x.UploadedDate);
+            Map(x => x.IsAdmin);
             References(x => x.MembershipTier);
             HasManyToMany(x => x.OfferCategories)
                .Cascade.All()

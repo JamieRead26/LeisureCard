@@ -5,6 +5,5 @@ namespace GRG.LeisureCards.Persistence
 {
     public interface ITwoForOneRepository : IRepository<TwoForOneOffer,int>
     {
-        OfferCategory OfferCategory { get; }
     }
 }

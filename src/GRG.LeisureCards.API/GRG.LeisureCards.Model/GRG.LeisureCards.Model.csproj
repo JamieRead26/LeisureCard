@@ -40,6 +40,7 @@
     </Compile>
     <Compile Include="DataImportJournalEntry.cs" />
     <Compile Include="DataImportKeys.cs" />
+    <Compile Include="DateRange.cs" />
     <Compile Include="LeisureCard.cs" />
     <Compile Include="LeisureCardRegistrationResponse.cs" />
     <Compile Include="LeisureCardUsage.cs" />

@@ -8,7 +8,7 @@ using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
-    [AdminSessionAuthFilter]
+    [SessionAuthFilter(true)]
     public class DataImportController : ApiController
     {
         private readonly IDataImportService _dataImportService;

@@ -13,7 +13,7 @@ namespace GRG.LeisureCards.Model
             OfferCategories = new List<OfferCategory>();
             LoginHistory = new List<LeisureCardUsage>();
         }
-        
+
         public virtual IList<LeisureCardUsage> LoginHistory { get; set; }
 
         [DataMember]
@@ -21,16 +21,16 @@ namespace GRG.LeisureCards.Model
 
         [DataMember]
         public virtual DateTime UploadedDate { get; set; }
-        
+
         [DataMember]
         public virtual DateTime? ExpiryDate { get; set; }
-        
+
         [DataMember]
         public virtual DateTime? RenewalDate { get; set; }
-        
+
         [DataMember]
         public virtual bool CancellationDate { get; set; }
-        
+
         [DataMember]
         public virtual DateTime? RegistrationDate { get; set; }
 
@@ -39,10 +39,7 @@ namespace GRG.LeisureCards.Model
         public virtual IList<OfferCategory> OfferCategories { get; set; }
 
         [DataMember]
-        public virtual bool IsAdmin
-        {
-            get { return false; }
-        }
+        public virtual bool IsAdmin { get; set; }
 
         public virtual void AddOfferCategory(OfferCategory offerCategory)
         {
@@ -55,10 +52,5 @@ namespace GRG.LeisureCards.Model
             leisureCardUsage.LeisureCard = this;
             LoginHistory.Add(leisureCardUsage);
         }
-    }
-
-    public class AdminLeisureCard : LeisureCard
-    {
-        public override bool IsAdmin { get { return true; } }
     }
 }

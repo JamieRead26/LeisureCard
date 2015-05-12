@@ -95,9 +95,10 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
             For<ILeisureCardService>().Use<LeisureCardService>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
 
+#if DEBUG
             For<ITestService>().Use<TestService>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
-
+#endif
             For<IDataImportService>().Use<DataImportService>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
         }

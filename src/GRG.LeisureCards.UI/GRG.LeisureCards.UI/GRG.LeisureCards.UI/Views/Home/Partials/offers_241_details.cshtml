@@ -9,7 +9,9 @@
     <div ng-show="!claimed">
         <div class="sixcol">
 
-            <p ng-repeat="(key, value) in offer">{{ key }}: {{ value }}</p>
+            <p ng-repeat="(key, value) in offer">
+                {{ key }}: <span ng-bind-html="value"></span>
+            </p>
 
             <p><buton ng-click="claim()" class="button">Claim Code</button></p>
 

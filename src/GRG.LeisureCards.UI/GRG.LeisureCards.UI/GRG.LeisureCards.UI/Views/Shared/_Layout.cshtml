@@ -11,6 +11,7 @@
     <script src="~/Scripts/angular-route.js" type="text/javascript"></script>
     <script src="~/Scripts/angular-ng-breadcrumbs.js" type="text/javascript"></script>
     <script src="~/Scripts/angular-ng-storage.js" type="text/javascript"></script>
+    <script src="~/Scripts/angular-sanitize.js" type="text/javascript"></script>
 
     @Styles.Render("~/bundles/css")
 
@@ -24,8 +25,7 @@
 
     @{Html.RenderPartial("Header");}
 
-    <div class="content" ng-controller="slideshowCtrl">
-
+    <div class="content">
         <div class="container white" ng-show="global.slideshow.length != 0">
             <div class="row">
                 <div class="twelvecol last">

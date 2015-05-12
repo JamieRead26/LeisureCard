@@ -14,12 +14,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [Route("about")]
-        public ActionResult About()
-        {
-            return View();
-        }
-
         [Route("partial/{name}")]
         public ActionResult Partial(string name) {
             return View("Partials/" + name);

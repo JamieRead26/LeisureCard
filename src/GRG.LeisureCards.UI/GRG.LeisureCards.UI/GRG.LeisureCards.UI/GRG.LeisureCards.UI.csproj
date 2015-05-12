@@ -177,8 +177,10 @@
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-ng-storage.js" />
     <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular.resource.js" />
+    <Content Include="Scripts\app\adminController.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\app\directives.js" />
@@ -204,6 +206,9 @@
     <Content Include="Views\Home\Partials\offers_experience.cshtml" />
     <Content Include="Views\Home\Partials\breadcrumbs.cshtml" />
     <Content Include="Views\Home\Partials\offers_241_details.cshtml" />
+    <Content Include="Views\Home\Partials\about.cshtml" />
+    <Content Include="Views\Home\Partials\terms.cshtml" />
+    <Content Include="Views\Home\Partials\admin.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />
@@ -230,7 +235,6 @@
     <Content Include="Content\font\glyphicons-halflings-regular.eot" />
     <Content Include="Content\font\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\font\glyphicons-halflings-regular.woff" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Partials\offers.cshtml" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Content\css\site.scss" />

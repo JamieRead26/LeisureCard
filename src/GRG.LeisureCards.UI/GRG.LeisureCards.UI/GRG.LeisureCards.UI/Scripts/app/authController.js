@@ -29,6 +29,11 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
                 else if (data.Status == 'Ok') {
                     $cookies['SessionToken'] = data.SessionInfo.SessionToken;
                     $localStorage.user = data.LeisureCard;
+                    
+                    if (data.LeisureCard.IsAdmin) {
+                        $location.path('/admin');
+                    }
+
                     $location.path('/offers');
                 }
 

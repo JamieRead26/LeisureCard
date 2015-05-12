@@ -18,3 +18,5 @@
 /// <reference path="app/config.js" />
 /// <reference path="angular-ng-storage.js" />
 /// <reference path="angular-ng-breadcrumbs.js" />
+/// <reference path="angular-sanitize.js" />
+/// <reference path="app/admincontroller.js" />

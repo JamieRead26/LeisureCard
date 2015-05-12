@@ -57,7 +57,7 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     };
 });
 
-offers241Controller.controller('offers241DetailsController', function ($scope, $routeParams, Offer241GetById, Offer241Claim) {
+offers241Controller.controller('offers241DetailsController', function ($scope, $sce, $routeParams, Offer241GetById, Offer241Claim) {
 
     $scope.id = $routeParams.id;
     $scope.offer = {};
@@ -80,7 +80,7 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
             Phone: data.Phone,
             PostCode: data.PostCode,
             TownCity: data.TownCity,
-            Website: data.Website
+            Website: $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>')
         };
     });
     

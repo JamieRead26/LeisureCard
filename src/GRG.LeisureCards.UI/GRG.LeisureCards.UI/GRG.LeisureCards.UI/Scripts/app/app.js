@@ -3,21 +3,22 @@
     'ngRoute',
     'ngStorage',
     'ngCookies',
+    'ngSanitize',
     'ng-breadcrumbs',
     'offersExperienceController',
     'offers241Controller',
     'offersHomeController',
-    'slideController',
     'globalController',
     'logoutController',
-    'loginController'
+    'loginController',
+    'adminController'
 ]);
 
 app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $timeout, $localStorage) {
     return {
         request: function (config) {
             delete $rootScope.errorKey;
-    
+
             config.headers = config.headers || {};
             if ($cookies.SessionToken) {
                 config.headers['SessionToken'] = $cookies.SessionToken;
@@ -25,6 +26,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
                 if (config.url == 'partial/login') {
                     $location.path('/offers');
                 }
+
+                // check if admin and redirect if not
 
             }
             else {
@@ -71,10 +74,6 @@ var globalController = angular.module('globalController', []);
 globalController.controller('globalCtrl', function ($scope, breadcrumbs, $localStorage) {
     $scope.$storage = $localStorage;
     $scope.breadcrumbs = breadcrumbs;
-});
-
-var slideController = angular.module('slideController', []);
-slideController.controller('slideshowCtrl', function ($scope) {
     $scope.global = {};
     $scope.global.slideshow = [];
 });
@@ -85,6 +84,19 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partial/login',
             controller: 'LoginController',
             label: 'Home'
+        }).
+        when('/admin', {
+            templateUrl: 'partial/admin',
+            controller: 'AdminController',
+            label: 'Admin'
+        }).
+        when('/about', {
+            templateUrl: 'partial/about',
+            label: 'About'
+        }).
+        when('/terms', {
+            templateUrl: 'partial/terms',
+            label: 'Terms'
         }).
         when('/offers', {
             templateUrl: 'partial/offers',

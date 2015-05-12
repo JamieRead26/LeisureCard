@@ -125,6 +125,8 @@
     <Content Include="Content\css\bxslider.min.css">
       <DependentUpon>bxslider.css</DependentUpon>
     </Content>
+    <None Include="Content\css\picker.classic.date.scss" />
+    <None Include="Content\css\picker.default.scss" />
     <Content Include="Content\css\footer.css">
       <DependentUpon>footer.scss</DependentUpon>
     </Content>

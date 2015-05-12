@@ -55,6 +55,8 @@ namespace GRG.LeisureCards.UI
                         "~/Content/css/header.scss",
                         "~/Content/css/form.scss",
                         "~/Content/css/offers.scss",
+                        "~/Content/css/picker.default.scss",
+                        "~/Content/css/picker.classic.date.scss",
                         "~/Content/css/bxslider.scss",
                         "~/Content/css/site.scss");
 

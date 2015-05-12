@@ -46,7 +46,7 @@ namespace GRG.LeisureCards.WebAPI.Filters
                 return;
             }
 
-            context.Principal = new LeisureCardPrincipal(card, new SessionInfo { SessionToken = _userSessionService.GetToken(card), CardRenewalDate = card.RenewalDate.Value});
+            context.Principal = new LeisureCardPrincipal(card, new SessionInfo { SessionToken = _userSessionService.GetToken(card), CardRenewalDate = card.RenewalDate.Value, IsAdmin = card.IsAdmin});
         }
 
         public async Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)

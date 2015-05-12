@@ -25,7 +25,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void Registration_CardAlreadyRegistered()
         {
-            RegistrationTest("Registered", "Ok");
+            RegistrationTest("Registered1", "Ok");
         }
 
         [Test]
@@ -62,6 +62,8 @@ namespace GRG.LeisureCards.API.IntegrationTests
             var request = new RestRequest("LeisureCard/GetSessionInfo", Method.GET);
             request.AddHeader("accepts", "application/json");
             request.AddHeader("SessionToken", Config.GetSessionToken());
+
+            var response = client.Execute(request).Content;
 
             Assert.IsNotNull(client.Execute<SessionInfo>(request).Data.CardRenewalDate);
         }

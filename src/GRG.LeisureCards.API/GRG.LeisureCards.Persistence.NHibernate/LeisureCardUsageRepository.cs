@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GRG.LeisureCards.Model;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
@@ -35,6 +36,15 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             var result = query.List();
 
             return result;
+        }
+
+        public IEnumerable<LeisureCardUsage> Get(DateTime @from, DateTime to)
+        {
+            return Session.QueryOver<LeisureCardUsage>()
+                .Where(u => u.LoginDateTime >= from)
+                .Where(u => u.LoginDateTime <= to)
+                .OrderBy(u=>u.LoginDateTime).Desc
+                .List();
         }
     }
 }

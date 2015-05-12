@@ -18,7 +18,31 @@ namespace GRG.LeisureCards.Data.Test
                 new LeisureCard {Code = "Unregistered"},
                 new LeisureCard
                 {
-                    Code = "Registered",
+                    Code = "Registered1",
+                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RegistrationDate = DateTime.Now,
+                    UploadedDate = DateTime.Now,
+                    MembershipTier = membershipTierDataFixture.Gold
+                },
+                new LeisureCard
+                {
+                    Code = "Registered2",
+                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RegistrationDate = DateTime.Now,
+                    UploadedDate = DateTime.Now,
+                    MembershipTier = membershipTierDataFixture.Gold
+                },
+                new LeisureCard
+                {
+                    Code = "Registered3",
+                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RegistrationDate = DateTime.Now,
+                    UploadedDate = DateTime.Now,
+                    MembershipTier = membershipTierDataFixture.Gold
+                },
+                new LeisureCard
+                {
+                    Code = "Registered4",
                     RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now,
                     UploadedDate = DateTime.Now,

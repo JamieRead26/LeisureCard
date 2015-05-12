@@ -66,6 +66,7 @@
     <Compile Include="LoginHistoryControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedLetterControllerTests.cs" />
+    <Compile Include="ReportsControllerTests.cs" />
     <Compile Include="TestControllerTests.cs" />
     <Compile Include="TwoForControllerTests.cs" />
   </ItemGroup>

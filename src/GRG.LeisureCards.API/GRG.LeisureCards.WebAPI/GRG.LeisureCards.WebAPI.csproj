@@ -193,6 +193,7 @@
     <Compile Include="Controllers\LoginHistoryController.cs" />
     <Compile Include="Controllers\RedLetterController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\ShortBreaksController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TwoForOneController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -201,7 +202,6 @@
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapWebApiDependencyScope.cs" />
-    <Compile Include="Filters\AdminSessionAuthFilter.cs" />
     <Compile Include="Filters\AuthenticationFailureResult.cs" />
     <Compile Include="Filters\SessionAuthFilter.cs">
       <SubType>Code</SubType>

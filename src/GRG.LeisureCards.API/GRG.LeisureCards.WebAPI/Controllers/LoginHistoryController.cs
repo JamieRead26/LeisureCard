@@ -7,7 +7,7 @@ using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
-    [AdminSessionAuthFilter]
+    [SessionAuthFilter(true)]
     public class LoginHistoryController : ApiController
     {
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;

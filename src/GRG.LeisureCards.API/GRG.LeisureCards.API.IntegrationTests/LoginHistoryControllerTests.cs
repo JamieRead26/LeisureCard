@@ -27,7 +27,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
                 var request = new RestRequest(url, Method.GET);
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("AdminCode", "12345-54321");
+                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
                 var response = client.Execute(request);
                 var history = JsonConvert.DeserializeObject<List<LeisureCardUsage>>(response.Content);

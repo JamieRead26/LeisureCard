@@ -8,7 +8,7 @@ using NHibernate.Linq;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
-    public class RedLetterRepository : Repository<RedLetterProduct, int>, IRedLetterProductRepository
+    public class RedLetterProductRepository : Repository<RedLetterProduct, int>, IRedLetterProductRepository
     {
         public ICollection<RedLetterProduct> FindByKeyword(string keyword)
         {
@@ -38,11 +38,6 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         public ICollection<RedLetterKeyword> GetAllKeywords()
         {
             return Session.QueryOver<RedLetterKeyword>().List();
-        }
-
-        public OfferCategory OfferCategory
-        {
-            get { return Session.Query<OfferCategory>().SingleOrDefault(x => x.Key == "RL"); }
         }
     }
 }

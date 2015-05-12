@@ -12,10 +12,12 @@ namespace GRG.LeisureCards.WebAPI.Filters
 {
     public class SessionAuthFilter : Attribute, IAuthenticationFilter
     {
+        private readonly bool _admin;
         private readonly IUserSessionService _userSessionService;
 
-        public SessionAuthFilter()
+        public SessionAuthFilter(bool admin = false)
         {
+            _admin = admin;
             _userSessionService = UserSessionService.Instance;
         }
 
@@ -35,6 +37,12 @@ namespace GRG.LeisureCards.WebAPI.Filters
             if (card == null)
             {
                 context.ErrorResult = new AuthenticationFailureResult("No session matching token", context.Request);
+                return;
+            }
+
+            if (_admin&&!card.IsAdmin)
+            {
+                context.ErrorResult = new AuthenticationFailureResult("Admin access denied", context.Request);
                 return;
             }
 

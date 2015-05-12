@@ -39,7 +39,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var request = new RestRequest("DataImport/RedLetter/", Method.POST);
                 request.AddParameter("", base64);
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("AdminCode", "12345-54321");
+                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
                 var response = client.Execute<DataImportJournalEntry>(request);
 
@@ -51,7 +51,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 request.AddParameter("count", 10);
                 request.AddParameter("toId", 0);
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("AdminCode", "12345-54321");
+                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
                 var content = client.Execute(request).Content;
 
@@ -74,7 +74,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var request = new RestRequest("DataImport/TwoForOne/", Method.POST);
                 request.AddParameter("", base64);
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("AdminCode", "12345-54321");
+                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
                 var response = client.Execute<DataImportJournalEntry>(request);
 
@@ -86,7 +86,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 request.AddParameter("count", 10);
                 request.AddParameter("toId", 0);
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("AdminCode", "12345-54321");
+                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
                 var reponse = client.Execute(request);
 

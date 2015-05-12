@@ -13,14 +13,17 @@ namespace GRG.LeisureCards.WebAPI.Controllers
     {
         private readonly ITwoForOneRepository _twoForOneRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
+        private readonly IOfferCategoryRepository _offerCategoryRepository;
         private readonly IUserSessionService _userSessionService;
 
         public TwoForOneController(
             ITwoForOneRepository twoForOneRepository, 
-            ISelectedOfferRepository selectedOfferRepository)
+            ISelectedOfferRepository selectedOfferRepository,
+            IOfferCategoryRepository offerCategoryRepository)
         {
             _twoForOneRepository = twoForOneRepository;
             _selectedOfferRepository = selectedOfferRepository;
+            _offerCategoryRepository = offerCategoryRepository;
             _userSessionService = UserSessionService.Instance;
         }
 
@@ -49,7 +52,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
             {
                 LeisureCard = card,
-                OfferCategory = _twoForOneRepository.OfferCategory,
+                OfferCategory = _offerCategoryRepository.TwoForOne,
                 OfferId = id.ToString(),
                 OfferTitle = offer.Description
             });

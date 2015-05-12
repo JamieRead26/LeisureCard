@@ -9,7 +9,7 @@
 
         <ul>
             <li ng-repeat="s in special_offers">
-                <a href="//www.redletterdays.co.uk{{ s.Url }}" target="_blank">
+                <a href="{{ s.Url }}" target="_blank">
                     <img ng-src="{{ s.ThumbnailUrl }}" />
                     <span>{{ s.Title }}</span>
                     <p>{{ s.InspirationalDescription }}</p>

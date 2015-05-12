@@ -41,7 +41,7 @@ body div.content input[type=checkbox] {
   margin-top: 10px;
   margin-bottom: 10px; }
 
-body div.content input[type=submit] {
+body div.content input[type=submit], body div.content input[type=reset], body div.content .button, body div.content button {
   width: auto;
   padding: 10px 15px;
   border: none;
@@ -54,7 +54,7 @@ body div.content input[type=submit] {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
-  body div.content input[type=submit]:hover {
+  body div.content input[type=submit]:hover, body div.content input[type=reset]:hover, body div.content .button:hover, body div.content button:hover {
     background: #222;
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -62,12 +62,21 @@ body div.content input[type=submit] {
     transition: all 0.2s ease-in-out; }
 
 body div.content form {
-  margin: 20px 0;
+  margin: 0 0 20px 0;
   padding: 20px;
   border-radius: 5px;
   background: #f3f3f3;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #c3c3c3; }
+  body div.content form.one-line {
+    padding: 5px;
+    margin: 30px 0; }
+    body div.content form.one-line label, body div.content form.one-line input, body div.content form.one-line select {
+      display: inline-block; }
+    body div.content form.one-line input[type=submit], body div.content form.one-line input[type=reset] {
+      margin-top: 20px; }
+    body div.content form.one-line input[type=reset] {
+      margin-right: 10px; }
   body div.content form.home {
     margin: 20px 100px;
     padding: 0; }

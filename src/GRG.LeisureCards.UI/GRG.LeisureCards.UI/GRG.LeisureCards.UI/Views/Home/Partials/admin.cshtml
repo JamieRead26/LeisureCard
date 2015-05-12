@@ -2,5 +2,97 @@
     Layout = "";
 }
 
-<h1>Admin</h1>
+<div class="twelvecol" ng-controller="AdminController">
+    <h1>Admin</h1>
+
+    <table>
+        <tr>
+            <th>System</th>
+            <th>Last Run</th>
+            <th>Status</th>
+            <th>Error Message</th>
+            <th style="width: 120px;">Retrieve Data</th>
+            <th style="width: 120px;">Reload Data</th>
+            <th style="width: 120px;">Download File</th>
+            <th style="width: 120px;">Upload File</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><button>Retrieve</button></td>
+            <td><button>Reload</button></td>
+            <td><button>Download</button></td>
+            <td><button>Upload</button></td>
+        </tr>
+    </table>
+
+    <form class="one-line">
+        <div class="twocol">
+            <label>Card Number:</label>
+            <input type="text" />
+        </div>
+        <div class="twocol">
+            <label>Expiry Date:</label>
+            <input pick-a-date="date" type="text" />
+        </div>
+        <div class="twocol">
+            <label>Status:</label>
+            <select>
+                <option class="archive">Archive</option>
+            </select>
+        </div>
+        <div class="twocol">
+            <label>Renewal Date:</label>
+            <input type="text" />
+        </div>
+        <div class="fourcol last">
+            <input type="reset" class="Reset" />
+            <input type="submit" class="Update" />
+        </div>
+        <div class="clear"></div>
+    </form>
+
+    <div class="fourcol">
+        <h2>Search Critera</h2>
+
+        <div class="field">
+            <label>Report Type</label>
+            <select>
+                <option>Card Activation</option>
+                <option>Offers Claimed</option>
+                <option>Card Usage</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Date Range</label>
+            <input type="text" />
+            <input type="text" />
+        </div>
+
+        <input type="submit" value="Submit" />
+
+    </div>
+    <div class="eightcol last">
+
+        <table>
+            <tr>
+                <th>Card Number</th>
+                <th>Activation Date</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <button>Download Details</button>
+        <button>Print Results</button>
+
+    </div>
+    <div class="clear"></div>
+
+</div>
 

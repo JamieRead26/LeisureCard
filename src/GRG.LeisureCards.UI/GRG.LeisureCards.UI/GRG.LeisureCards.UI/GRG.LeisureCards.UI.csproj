@@ -176,6 +176,7 @@
     <Content Include="Content\img\bxslider\controls.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular-datepicker.js" />
     <Content Include="Scripts\angular-ng-storage.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-sanitize.js" />

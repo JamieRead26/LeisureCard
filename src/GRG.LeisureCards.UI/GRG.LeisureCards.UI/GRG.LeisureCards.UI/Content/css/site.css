@@ -29,7 +29,7 @@ body {
   font-family: 'Arial', sans-serif;
   font-weight: normal;
   overflow-y: scroll;
-  background: #F2F2F2; }
+  background: #E5E5E5; }
   body .clear {
     clear: both; }
   body .fl {
@@ -40,18 +40,47 @@ body {
     width: 49%; }
   body a {
     color: #000; }
+    body a:hover {
+      text-decoration: none; }
+  body p {
+    margin-bottom: 15px;
+    font-size: 15px; }
+  body .button, body button {
+    display: inline-block; }
+  body .google-map {
+    height: 450px;
+    border: 2px solid #fff;
+    width: 100%; }
+  body .scroll-h {
+    max-height: 600px;
+    overflow-y: scroll; }
   body div.content .container {
     padding: 30px 0; }
     body div.content .container.white {
       background: #fff; }
   body div.content h1 {
     color: #49C390;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: lighter;
     margin: 0 0 20px 0; }
   body div.content h2 {
     display: block;
-    color: #49C390;
-    font-size: 14px;
+    color: #53AECF;
+    font-size: 20px;
     margin-bottom: 10px;
     font-weight: lighter; }
+  body div.content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px; }
+    body div.content table tr th, body div.content table tr td {
+      padding: 5px;
+      font-weight: normal;
+      text-align: left; }
+    body div.content table tr th {
+      background: #53AECF;
+      color: #fff; }
+    body div.content table tr td {
+      background: #F3F3F3;
+      vertical-align: top;
+      border-bottom: 1px solid #D5D5D5; }

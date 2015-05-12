@@ -5,6 +5,7 @@
     'ngCookies',
     'ngSanitize',
     'ng-breadcrumbs',
+    'angular-datepicker',
     'offersExperienceController',
     'offers241Controller',
     'offersHomeController',

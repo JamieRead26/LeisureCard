@@ -4,29 +4,36 @@ using System.Linq;
 using System.Web.Http;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Service;
+using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
+    [RoutePrefix("RedLetter")]
     [SessionAuthFilter]
     public class RedLetterController : ApiController
     {
         private readonly IRedLetterProductRepository _redLetterProductRepository;
+        private readonly ISelectedOfferRepository _selectedOfferRepository;
+        private readonly UserSessionService _userSessionService;
 
-        public RedLetterController(IRedLetterProductRepository redLetterProductRepository)
+        public RedLetterController(IRedLetterProductRepository redLetterProductRepository, ISelectedOfferRepository selectedOfferRepository)
         {
             _redLetterProductRepository = redLetterProductRepository;
+            _selectedOfferRepository = selectedOfferRepository;
+            _userSessionService = UserSessionService.Instance;
         }
 
         [HttpGet]
-        [Route("RedLetter/FindByKeyword/{keyword}")]
+        [Route("FindByKeyword/{keyword}")]
         public List<RedLetterProductSummary> Find(string keyword)
         {
             return _redLetterProductRepository.FindByKeyword(keyword).Select(p => new RedLetterProductSummary(p)).ToList();
         }
 
         [HttpGet]
-        [Route("RedLetter/Get/{id}")]
+        [Route("Get/{id}")]
         public RedLetterProduct Get(int id)
         {
             var result =  _redLetterProductRepository.Get(id);
@@ -35,7 +42,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("RedLetter/GetRandomSpecialOffers/{count}")]
+        [Route("GetRandomSpecialOffers/{count}")]
         public IEnumerable<RedLetterProductSummary> GetRandomSpecialOffers(int count)
         {
             var products = _redLetterProductRepository.Find(product => product.IsSpecialOffer);
@@ -45,6 +52,38 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             var summaries = shuffled.Select(p => new RedLetterProductSummary(p));
 
             return summaries;
+        }
+
+        [HttpGet]
+        [Route("ClaimOffer/{Id}")]
+        public void ClaimOffer(int id)
+        {
+            var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
+            var card = _userSessionService.GetCard(sessionInfo.SessionToken);
+            var offer = _redLetterProductRepository.Get(id);
+
+            _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+            {
+                LeisureCard = card,
+                OfferCategory = _redLetterProductRepository.OfferCategory,
+                OfferId = id.ToString(),
+                OfferTitle = offer.Title
+            });
+        }
+
+        [HttpGet]
+        [Route("LogClickThrough/{category}")]
+        public void ClaimOffer(string category)
+        {
+            var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
+            var card = _userSessionService.GetCard(sessionInfo.SessionToken);
+
+            _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+            {
+                LeisureCard = card,
+                OfferCategory = _redLetterProductRepository.OfferCategory,
+                OfferTitle = category
+            });
         }
 
         static T[] Shuffle<T>(T[] array, int max = -1)

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -7,7 +6,6 @@ using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
 using NUnit.Framework;
 using RestSharp;
 

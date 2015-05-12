@@ -183,7 +183,6 @@
     <Content Include="Scripts\angular.resource.js" />
     <Content Include="Scripts\app\adminController.js" />
     <Content Include="Scripts\app\app.js" />
-    <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\app\directives.js" />
     <Content Include="Scripts\app\offersExperienceController.js" />
     <Content Include="Scripts\app\offers241Controller.js" />

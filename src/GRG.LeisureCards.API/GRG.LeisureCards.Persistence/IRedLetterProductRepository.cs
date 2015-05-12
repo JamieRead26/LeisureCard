@@ -11,5 +11,6 @@ namespace GRG.LeisureCards.Persistence
         ICollection<RedLetterProduct> Find(Expression<Func<RedLetterProduct, bool>> predicate);
 
         ICollection<RedLetterKeyword> GetAllKeywords();
+        OfferCategory OfferCategory { get; }
     }
 }

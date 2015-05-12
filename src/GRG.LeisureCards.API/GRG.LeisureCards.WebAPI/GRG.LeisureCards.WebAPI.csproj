@@ -192,6 +192,7 @@
     <Compile Include="Controllers\LeisureCardController.cs" />
     <Compile Include="Controllers\LoginHistoryController.cs" />
     <Compile Include="Controllers\RedLetterController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TwoForOneController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />

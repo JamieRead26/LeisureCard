@@ -39,5 +39,10 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             return Session.QueryOver<RedLetterKeyword>().List();
         }
+
+        public OfferCategory OfferCategory
+        {
+            get { return Session.Query<OfferCategory>().SingleOrDefault(x => x.Key == "RL"); }
+        }
     }
 }

@@ -16,11 +16,13 @@ namespace GRG.LeisureCards.Data.Test
         public override object[] GetEntities(IFixtureContainer fixtureContainer)
         {
             var usages = new List<LeisureCardUsage>();
-            var card = fixtureContainer.Get<LeisureCardDataFixture>().Cards.First(c => c.Code == "Registered");
-            var from = DateTime.Now - TimeSpan.FromDays(30);
+            foreach (var card in fixtureContainer.Get<LeisureCardDataFixture>().Cards)
+            {
+                var from = new DateTime(2000,1,1);
 
-            for (var i = 0; i < 25; i++)
-                usages.Add(new LeisureCardUsage{LeisureCard = card, LoginDateTime = from+TimeSpan.FromDays(i)});
+                for (var i = 0; i < 25; i++)
+                    usages.Add(new LeisureCardUsage { LeisureCard = card, LoginDateTime = from + TimeSpan.FromDays(i) });
+            }
 
             return usages.ToArray();
         }

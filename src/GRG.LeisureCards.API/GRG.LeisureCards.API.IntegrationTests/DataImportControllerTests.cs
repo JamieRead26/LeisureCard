@@ -88,9 +88,9 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 request.AddHeader("accepts", "application/json");
                 request.AddHeader("AdminCode", "12345-54321");
 
-                var content = client.Execute(request).Content;
+                var reponse = client.Execute(request);
 
-                Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
+                Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(reponse.Content).FirstOrDefault().Id);
             }
         }
     }

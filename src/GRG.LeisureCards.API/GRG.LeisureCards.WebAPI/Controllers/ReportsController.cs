@@ -7,7 +7,7 @@ using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
-    [SessionAuthFilter(true)]
+    [SessionAuthFilter]
     [RoutePrefix("Reports")]
     public class ReportsController : ApiController
     {

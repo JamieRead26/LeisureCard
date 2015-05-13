@@ -3,33 +3,25 @@
 }
 
 <div class="twelvecol" ng-controller="offers241DetailsController">
- 
+
     <h1>{{ offer.OutletName }}</h1>
 
-    <div ng-show="!claimed">
-        <div class="sixcol">
+    <div class="sixcol">
 
-            <p ng-repeat="(key, value) in offer">
-                {{ key }}: <span ng-bind-html="value"></span>
-            </p>
+        <p ng-repeat="(key, value) in offer">
+            {{ key }}: <span ng-bind-html="value"></span>
+        </p>
 
-            <p><buton ng-click="claim()" class="button">Claim Code</button></p>
+        <p><buton ng-click="claim()" class="button">Claim Code</button></p>
 
-            <a href="/#/offers/241">Go back to list</a>
+        <a href="/#/offers/241">Go back to list</a>
 
-        </div>
-        <div class="sixcol last">
-
-            <div id="map241Offer" class="google-map" postcode="{{ offer.PostCode }}"></div>
-
-        </div>
-        <div class="clear"></div>
     </div>
+    <div class="sixcol last">
 
-    <div ng-show="claimed">
-        <p>Your claim code is: </p>
-        <p><a ng-href="http://{{ offer.Website }}" target="_blank" class="button">Claim Reward</a></p>
+        <div id="map241Offer" class="google-map" postcode="{{ offer.PostCode }}"></div>
+
     </div>
-
+    <div class="clear"></div>
 
 </div>

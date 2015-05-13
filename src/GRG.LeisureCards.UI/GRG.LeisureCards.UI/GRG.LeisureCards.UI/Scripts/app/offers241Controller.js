@@ -57,18 +57,17 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     };
 });
 
-offers241Controller.controller('offers241DetailsController', function ($scope, $sce, $routeParams, Offer241GetById, Offer241Claim) {
+offers241Controller.controller('offers241DetailsController', function ($scope, $sce, $window, $routeParams, Offer241GetById, Offer241Claim) {
 
     $scope.id = $routeParams.id;
     $scope.offer = {};
-    $scope.claimed = false;
     $scope.global.slideshow = [
         {
             img: 'http://placehold.it/1140x300',
             link: 'http://google.co.uk'
         }
     ];
-
+  
     Offer241GetById.get({ id: $scope.id }, function (data) {
         $scope.offer = {
             Address1: data.Address1,
@@ -87,10 +86,31 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     $scope.claim = function () {
         Offer241Claim.get({ id: $scope.id }, function (data) {
             if(data.$resolved){
-                $scope.claimed = true;
+                $window.open('/#/offers/241/claim/' + $scope.id, '_blank');
+            } else {
+                alert('Something when wrong when claiming this offer.');
             }
         });
     };
 
 });
 
+offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, Offer241GetById) {
+
+    $scope.global.slideshow = [];
+    $scope.id = $routeParams.id;
+
+    Offer241GetById.get({ id: $scope.id }, function (data) {
+
+        var url = '';
+        if (data.Website) {
+            url = $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank" class="button">Claim Reward</a>')
+        }
+
+        $scope.offer = {
+            OutletName: data.OutletName,
+            Website: url
+        };
+    });
+
+});

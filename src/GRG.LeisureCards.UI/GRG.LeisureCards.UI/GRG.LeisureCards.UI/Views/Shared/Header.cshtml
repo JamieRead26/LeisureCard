@@ -12,7 +12,7 @@
     </div>
 </header>
 
-<div class="container auth" ng-if="$storage.user">
+<div class="container auth" ng-if="$storage.user" ng-hide="breadcrumbs.get()[breadcrumbs.get().length-1].label == 'hide'">
     <div class="row">
         <div class="sixcol">
             <ol class="ab-nav breadcrumb">

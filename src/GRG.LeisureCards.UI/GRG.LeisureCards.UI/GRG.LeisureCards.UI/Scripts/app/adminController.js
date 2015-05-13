@@ -57,12 +57,24 @@ adminController.controller('AdminController', function ($scope, GetLoginHistory,
             GetLoginHistory.get(search_data, function (data) {
 
                 $scope.reports_card_usage = data.$values;
+                $scope.currect_report = data.$values
 
                 if ($scope.reports_card_usage.length == 0) {
                     return $scope.report_error = 'No results to show.';
                 }
             });
         }
+    };
+
+    $scope.getCardActivationReport = function () {
+
+    };
+
+    $scope.getClaimedOffersReport = function () {
+
+    };
+
+    $scope.getCardUsageReport = function () {
 
     };
 

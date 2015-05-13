@@ -55,7 +55,7 @@ adminController.controller('AdminController', function ($scope, GetLoginHistory,
         }
         else if ($scope.report_type == 'card_usage') {
             GetLoginHistory.get(search_data, function (data) {
-                debugger;
+
                 $scope.reports_card_usage = data.$values;
 
                 if ($scope.reports_card_usage.length == 0) {

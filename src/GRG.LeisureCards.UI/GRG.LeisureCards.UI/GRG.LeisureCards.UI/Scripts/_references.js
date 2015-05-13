@@ -19,3 +19,4 @@
 /// <reference path="angular-ng-breadcrumbs.js" />
 /// <reference path="angular-sanitize.js" />
 /// <reference path="app/admincontroller.js" />
+/// <reference path="ng-csv.js" />

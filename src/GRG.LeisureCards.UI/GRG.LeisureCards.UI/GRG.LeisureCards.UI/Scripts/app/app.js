@@ -4,6 +4,7 @@
     'ngStorage',
     'ngCookies',
     'ngSanitize',
+    'ngCsv',
     'ng-breadcrumbs',
     'offersExperienceController',
     'offers241Controller',

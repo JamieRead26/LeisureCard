@@ -17,5 +17,7 @@ namespace GRG.LeisureCards.Model
         public virtual string Message { get; set; }
 
         public virtual string StackTrace { get; set; }
+
+        public virtual string FileKey { get; set; }
     }
 }

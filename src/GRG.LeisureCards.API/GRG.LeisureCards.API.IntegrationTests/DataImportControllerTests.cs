@@ -31,13 +31,13 @@ namespace GRG.LeisureCards.API.IntegrationTests
             using (var memStream = new MemoryStream())
             {
                 dataStream.CopyTo(memStream);
-
-                var base64 = Convert.ToBase64String(memStream.ToArray());
+                var fileBytes = memStream.ToArray();
 
                 var client = new RestClient(Config.BaseAddress);
 
+                dataStream.Position = 0;
                 var request = new RestRequest("DataImport/RedLetter/", Method.POST);
-                request.AddParameter("", base64);
+                request.AddFile("RedLetterData.csv", fileBytes, "RedLetterData.csv");
                 request.AddHeader("accepts", "application/json");
                 request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
@@ -66,13 +66,13 @@ namespace GRG.LeisureCards.API.IntegrationTests
             using (var memStream = new MemoryStream())
             {
                 dataStream.CopyTo(memStream);
-
-                var base64 = Convert.ToBase64String(memStream.ToArray());
+                var fileBytes = memStream.ToArray();
 
                 var client = new RestClient(Config.BaseAddress);
 
+                dataStream.Position = 0;
                 var request = new RestRequest("DataImport/TwoForOne/", Method.POST);
-                request.AddParameter("", base64);
+                request.AddFile("241Dta.csv", fileBytes, "241Dta.csv");
                 request.AddHeader("accepts", "application/json");
                 request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 

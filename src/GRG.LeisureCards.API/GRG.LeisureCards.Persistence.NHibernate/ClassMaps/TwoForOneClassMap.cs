@@ -19,6 +19,9 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.Website);
             Map(x => x.Description).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
             Map(x => x.DisabledAccess);
+            Map(x => x.BookingInstructions).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
+            Map(x => x.ClaimCode);
+            Map(x => x.Email);
         }
     }
 }

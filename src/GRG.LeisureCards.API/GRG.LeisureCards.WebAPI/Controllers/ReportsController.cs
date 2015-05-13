@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence;
@@ -42,9 +43,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetCardActivationHistory/{from}/{to}")]
-        public IEnumerable<LeisureCard> GetCardActivationHistory(DateTime from, DateTime to)
+        public IEnumerable<LeisureCardInfo> GetCardActivationHistory(DateTime from, DateTime to)
         {
-            return _leisureCardRepository.GetRegistrationHistory(from, to);
+            return _leisureCardRepository.GetRegistrationHistory(from, to).Select(c=>new LeisureCardInfo(c));
         }
     }
 }

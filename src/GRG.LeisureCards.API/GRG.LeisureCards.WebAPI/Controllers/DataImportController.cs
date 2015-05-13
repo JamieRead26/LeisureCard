@@ -76,6 +76,38 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("DataImport/GetLastGoodRedLetterImportJournal")]
+        public DataImportJournalEntry GetLastGoodRedLetterImportJournal()
+        {
+            return GetLastImportJournal(true, DataImportKey.RedLetter);
+        }
+        private DataImportJournalEntry GetLastImportJournal(bool good, DataImportKey importKey)
+        {
+            return _dataImportJournalEntryRepository.GetLast(good, importKey);
+        }
+
+        [HttpGet]
+        [Route("DataImport/GetLastBadRedLetterImportJournal")]
+        public DataImportJournalEntry GetLastBadRedLetterImportJournal()
+        {
+            return GetLastImportJournal(false,DataImportKey.RedLetter);
+        }
+
+        [HttpGet]
+        [Route("DataImport/GetLastGoodTwoForOneImportJournal")]
+        public DataImportJournalEntry GetLastGoodTwoForOneImportJournal()
+        {
+            return GetLastImportJournal(true,DataImportKey.TwoForOne);
+        }
+
+        [HttpGet]
+        [Route("DataImport/GetLastBadTwoForOneImportJournal")]
+        public DataImportJournalEntry GetLastBadTwoForOneImportJournal()
+        {
+            return GetLastImportJournal(false,DataImportKey.TwoForOne);
+        }
+
+        [HttpGet]
         [Route("DataImport/GetRedLetterImportJournal/{count}/{toId}")]
         public IEnumerable<DataImportJournalEntry> GetRedLetterImportJournal(int count, int toId)
         {

@@ -25,6 +25,58 @@ namespace GRG.LeisureCards.API.IntegrationTests
         }
 
         [Test]
+        public void GetLastGoodRedLetterImportJournal()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("DataImport/GetLastGoodRedLetterImportJournal/", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var result = client.Execute<DataImportJournalEntry>(request);
+            Assert.AreEqual("Red Letter", result.Data.Key);
+        }
+
+        [Test]
+        public void GetLastBadRedLetterImportJournal()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("DataImport/GetLastBadRedLetterImportJournal/", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var result = client.Execute<DataImportJournalEntry>(request);
+            Assert.IsNull(result.Data);
+        }
+
+        [Test]
+        public void GetLastGoodTwoForOneImportJournal()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("DataImport/GetLastGoodTwoForOneImportJournal/", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var result = client.Execute<DataImportJournalEntry>(request);
+            Assert.AreEqual("2-4-1", result.Data.Key);
+        }
+
+        [Test]
+        public void GetLastBadTwoForOneImportJournal()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("DataImport/GetLastBadTwoForOneImportJournal/", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var result = client.Execute<DataImportJournalEntry>(request);
+            Assert.IsNull(result.Data);
+        }
+
+        [Test]
         public void UploadRedLetterData()
         {
             using (var dataStream = ResourceStreams.GetRedLetterDataStream())

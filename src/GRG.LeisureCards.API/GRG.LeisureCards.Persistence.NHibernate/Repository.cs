@@ -8,7 +8,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
     {
         protected ISession Session { get { return UnitOfWork.Current.Session; } }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return Session.QueryOver<TEntity>().List();
         }

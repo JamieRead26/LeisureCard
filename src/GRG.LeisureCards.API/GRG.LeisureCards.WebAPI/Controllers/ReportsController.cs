@@ -41,7 +41,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("GetCardActivationHostry/{from}/{to}")]
+        [Route("GetCardActivationHistory/{from}/{to}")]
         public IEnumerable<LeisureCard> GetCardActivationHistory(DateTime from, DateTime to)
         {
             return _leisureCardRepository.GetRegistrationHistory(from, to);

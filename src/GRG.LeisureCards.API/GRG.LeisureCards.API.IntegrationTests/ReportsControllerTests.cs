@@ -59,7 +59,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
             var response = client.Execute(request).Content;
-            var history = JsonConvert.DeserializeObject<List<LeisureCard>>(response);
+            var history = JsonConvert.DeserializeObject<List<LeisureCardInfo>>(response);
 
             Assert.IsTrue(history.Count > 1);
             Assert.IsTrue(history.FirstOrDefault().RegistrationDate > history.LastOrDefault().RegistrationDate);

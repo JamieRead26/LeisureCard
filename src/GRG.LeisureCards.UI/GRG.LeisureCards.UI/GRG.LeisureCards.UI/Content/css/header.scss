@@ -1,13 +1,10 @@
 @import 'mixin.scss';
 
 header {
-    background: $site-color;
-    padding: 10px 0;
     position: relative;
     width: 100%;
     z-index: 100;
-    min-width: 320px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+    min-width: 320px; 
     a.logo {
         width: $logo-width;
         height: $logo-height;

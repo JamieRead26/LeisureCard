@@ -86,18 +86,17 @@ body div.content {
                 text-align: center;
             }
             input[type=text]{
-                border: 1px solid #b8b8b8;
+                border: 2px solid #ffffff;
                 background: #e5e5e5;
                 margin-bottom: 20px;
             }
             input[type=submit]{
-                background: $site-color2;
-                padding: 10px;
-                font-size: 16px;
-                margin: 0;
-                &:hover {
-                    background: #222;
-                }
+                border: 2px solid #ffffff;
+                background: #0971ce;
+                border-radius:0px;
+                padding:5px 100px 5px 5px;
+                background:url(/Content/img/buttonArrow.jpg) no-repeat;
+                background-position: 95% center;
             }
         }
     }

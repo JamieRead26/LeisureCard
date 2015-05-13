@@ -27,12 +27,14 @@
     <div class="content" ng-controller="slideshowCtrl">
 
         <div class="container white" ng-show="global.slideshow.length != 0">
+        <div class="container slideshowcont" ng-if="global.slideshow != null">
             <div class="row">
                 <div class="twelvecol last">
-
                     <div slideit="global.slideshow"></div>
-
                 </div>
+            </div>
+            <div class="slideshowmask">
+                <div><img src="/Content/img/carousel-mask.png" /></div>
             </div>
         </div>
 

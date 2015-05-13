@@ -16,7 +16,7 @@ body {
     font-family: 'Arial', sans-serif;
     font-weight: normal;
     overflow-y: scroll;
-    background: $main-bg;
+    background: #0971ce;
     .clear {
         clear: both;
     }
@@ -52,7 +52,6 @@ body {
     }
     div.content {
         .container {
-            padding: 30px 0;
             &.white {
                 background: #fff;
             }
@@ -89,8 +88,65 @@ body {
                     vertical-align: top;
                     border-bottom: 1px solid #D5D5D5;
                 }
-            }          
+            }
         }
+        .slideshowcont {
+            border-top:5px solid #ffffff;
+            margin:23px 0 0 0;
+            position:relative;
+            .slideshowmask {
+                width:100%;
+                position:absolute;
+                top:0px;
+                left:0px;
+            }
+            .slideshowmask div {
+                width:100%;
+                max-width:1140px;
+                margin:0 auto;
+            }
+            .row {
+                  margin: 0 auto 50px auto;
+            }
+            .row .twelvecol {
+                padding-left:0px;
+                padding-right:0px;
+            }
+        }
+        form.loginform {
+            background:none;
+            border:none;
+            box-shadow:none;
+            label {
+                background:none;
+            }
+            input[type=text] {
+                background:#0971ce;
+                color:#ffffff;
+            }
+            ::-webkit-input-placeholder {color:#91cbff;}
+            /* Firefox 18- */
+            :-moz-placeholder {color:#91cbff;}
+            /* Firefox 19+ */
+            ::-moz-placeholder {color:#91cbff;}
+            :-ms-input-placeholder {color:#91cbff;}
+        }                  
     }
 }
 
+.bx-wrapper {
+    margin:0px;
+}
+.bx-wrapper .bx-viewport {
+    border:none;
+}
+.bx-wrapper .bx-pager {
+    position:absolute;
+    bottom:0px;
+    right:30%;
+    z-index:9999;
+    width:auto;
+}
+.bx-controls-direction {
+    display:none;
+}

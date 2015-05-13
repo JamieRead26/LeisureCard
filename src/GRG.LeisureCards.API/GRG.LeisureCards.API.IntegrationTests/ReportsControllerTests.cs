@@ -23,7 +23,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
             var response = client.Execute(request);
-            var history = JsonConvert.DeserializeObject<List<LeisureCardUsage>>(response.Content);
+            var history = JsonConvert.DeserializeObject<List<LeisureCardUsageInfo>>(response.Content);
 
             Assert.IsTrue(history.Count>1);
             Assert.IsTrue(history.FirstOrDefault().LoginDateTime>history.LastOrDefault().LoginDateTime);
@@ -41,7 +41,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
             var response = client.Execute(request);
-            var history = JsonConvert.DeserializeObject<List<SelectedOffer>>(response.Content);
+            var history = JsonConvert.DeserializeObject<List<SelectedOfferInfo>>(response.Content);
 
             Assert.IsTrue(history.Count > 1);
             Assert.IsTrue(history.FirstOrDefault().SelectedDateTime > history.LastOrDefault().SelectedDateTime);

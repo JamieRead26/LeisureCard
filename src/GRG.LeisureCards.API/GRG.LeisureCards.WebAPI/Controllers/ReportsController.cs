@@ -28,17 +28,17 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetLoginHistory/{from}/{to}")]
-        public IEnumerable<LeisureCardUsage> GetLoginHistory(DateTime from, DateTime to)
+        public IEnumerable<LeisureCardUsageInfo> GetLoginHistory(DateTime from, DateTime to)
         {
-            return _leisureCardUsageRepository.Get(from, to);
+            return _leisureCardUsageRepository.Get(from, to).Select(c=>new LeisureCardUsageInfo(c));
         }
 
 
         [HttpGet]
         [Route("GetSelectedOfferHistory/{from}/{to}")]
-        public IEnumerable<SelectedOffer> GetSelectedOfferHistory(DateTime from, DateTime to)
+        public IEnumerable<SelectedOfferInfo> GetSelectedOfferHistory(DateTime from, DateTime to)
         {
-            return _selectedOfferRepository.Get(from, to);
+            return _selectedOfferRepository.Get(from, to).Select(c=>new SelectedOfferInfo(c));
         }
 
         [HttpGet]

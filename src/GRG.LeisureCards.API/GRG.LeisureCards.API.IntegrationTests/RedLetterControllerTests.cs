@@ -12,14 +12,9 @@ using RestSharp;
 namespace GRG.LeisureCards.API.IntegrationTests
 {
     [TestFixture]
-    public class RedLetterControllerTests
+    public class RedLetterControllerTests : ControllerTests
     {
-        [TestFixtureSetUp]
-        public void FixtureSetUp()
-        {
-            DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)));
-        }
-
+       
 
         [Test]
         public void FindByKeyword_401()

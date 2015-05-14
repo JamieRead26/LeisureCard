@@ -9,21 +9,14 @@ using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using GRG.LeisureCards.TestResources;
 using Newtonsoft.Json;
-using NHibernate.Util;
 using NUnit.Framework;
 using RestSharp;
 
 namespace GRG.LeisureCards.API.IntegrationTests
 {
     [TestFixture]
-    public class DataImportControllerTests
+    public class DataImportControllerTests : ControllerTests
     {
-        [TestFixtureSetUp]
-        public void FixtureSetUp()
-        {
-            DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)));
-        }
-
         [Test]
         public void GetLastGoodRedLetterImportJournal()
         {

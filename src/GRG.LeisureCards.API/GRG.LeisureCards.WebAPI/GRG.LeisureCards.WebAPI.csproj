@@ -200,6 +200,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Authentication\LeisureCardPrincipal.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Controllers\DataImportController.cs" />
     <Compile Include="Controllers\LeisureCardController.cs" />
     <Compile Include="Controllers\LoginHistoryController.cs" />

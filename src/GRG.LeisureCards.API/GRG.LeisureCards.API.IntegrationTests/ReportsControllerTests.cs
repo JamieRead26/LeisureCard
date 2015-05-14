@@ -9,7 +9,7 @@ using RestSharp;
 namespace GRG.LeisureCards.API.IntegrationTests
 {
     [TestFixture]
-    public class ReportsControllerTests
+    public class ReportsControllerTests : ControllerTests
     {
         [Test]
         public void GetLoginHistory()

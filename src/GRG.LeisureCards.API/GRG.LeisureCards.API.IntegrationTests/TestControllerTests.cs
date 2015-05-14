@@ -5,7 +5,7 @@ using RestSharp;
 namespace GRG.LeisureCards.API.IntegrationTests
 {
     [TestFixture]
-    public class TestControllerTests
+    public class TestControllerTests : ControllerTests
     {
         [Test]
         public void TestUnitOfwork()

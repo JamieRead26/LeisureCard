@@ -6,7 +6,7 @@ namespace GRG.LeisureCards.Data
     {
         public static object Lock = new object();
         public static bool Done;
-        public static void PrepDb(Assembly classMapAssembly)
+        public static void PrepDb(Assembly classMapAssembly, DbConnectionDetails connectionDetails = null)
         {
             if (Done) return;
 

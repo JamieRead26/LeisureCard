@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using FluentNHibernate.Mapping;
+using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Model;
+using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
@@ -12,8 +15,10 @@ using RestSharp;
 namespace GRG.LeisureCards.API.IntegrationTests
 {
     [TestFixture]
-    public class LoginHistoryControllerTests 
+    public class LoginHistoryControllerTests : ControllerTests
     {
+        
+
         [Test]
 
         public void Page()

@@ -46,7 +46,7 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
             var classMapAssembly = Assembly.GetAssembly(typeof(LeisureCardClassMap));
 
             var sessionFactory = Fluently.Configure()
-                .Database(Database.GetPersistenceConfigurer)
+                .Database(Database.GetPersistenceConfigurer(Config.DbConnectionDetails))
                 .Mappings(m => m.FluentMappings.AddFromAssembly(classMapAssembly))
 #if DEBUG
 .ExposeConfiguration(x => x.SetInterceptor(new SqlStatementInterceptor()))

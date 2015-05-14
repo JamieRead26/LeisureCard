@@ -8,14 +8,8 @@ using RestSharp;
 namespace GRG.LeisureCards.API.IntegrationTests
 {
     [TestFixture]
-    public class LeisureCardControllerTests
+    public class LeisureCardControllerTests : ControllerTests
     {
-        [TestFixtureSetUp]
-        public void FixtureSetUp()
-        {
-            DataBootstrap.PrepDb(Assembly.GetAssembly(typeof (LeisureCardClassMap)));
-        }
-
         [Test]
         public void Registration_Ok()
         {

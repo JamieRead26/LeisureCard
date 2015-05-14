@@ -57,6 +57,7 @@
       <HintPath>..\packages\RestSharp.105.1.0\lib\net45\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -76,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="ControllerTests.cs" />
     <Compile Include="DataImportControllerTests.cs" />
     <Compile Include="LeisureCardControllerTests.cs" />
     <Compile Include="LoginHistoryControllerTests.cs" />
@@ -93,6 +95,10 @@
     <ProjectReference Include="..\GRG.LeisureCards.Data.Test\GRG.LeisureCards.Data.Test.csproj">
       <Project>{aa36dfc8-b323-4cab-af38-84e962f39b31}</Project>
       <Name>GRG.LeisureCards.Data.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GRG.LeisureCards.Data\GRG.LeisureCards.Data.csproj">
+      <Project>{9e05d18c-6775-4095-b382-183240174bfa}</Project>
+      <Name>GRG.LeisureCards.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
       <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>

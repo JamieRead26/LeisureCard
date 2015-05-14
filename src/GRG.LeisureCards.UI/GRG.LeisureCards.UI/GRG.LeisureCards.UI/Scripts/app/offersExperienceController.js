@@ -4,13 +4,9 @@ offersExperienceController.factory('RedLetterGetSpecialOffers', function ($resou
     return $resource(config.apiUrl + '/RedLetter/GetRandomSpecialOffers/:count');
 });
 
-offersExperienceController.controller('offersExperienceController', function ($scope, RedLetterGetSpecialOffers) {
-    $scope.global.slideshow = [
-        {
-            img:  'http://placehold.it/1140x300',
-            link: 'http://google.co.uk'
-        }
-    ];
+offersExperienceController.controller('offersExperienceController', function ($scope, RedLetterGetSpecialOffers, slideshow) {
+
+    $scope.global.slideshow = slideshow.offerexperience;
 
     RedLetterGetSpecialOffers.get({ count: 6 }, function(data) {
         $scope.special_offers = data.$values;

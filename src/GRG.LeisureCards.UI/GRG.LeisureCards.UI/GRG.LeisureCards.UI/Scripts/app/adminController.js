@@ -12,7 +12,26 @@ adminController.factory('GetLoginHistory', function ($resource, config) {
     return $resource(config.apiUrl + '/Reports/GetLoginHistory/:from/:to');
 });
 
-adminController.controller('AdminController', function ($scope, GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory) {
+adminController.factory('GetLastGoodRedLetter', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/GetLastGoodRedLetterImportJournal');
+});
+adminController.factory('GetLastBadRedLetter', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/GetLastBadRedLetterImportJournal');
+});
+
+adminController.controller('AdminImportController', function ($scope, GetLastGoodRedLetter, GetLastBadRedLetter) {
+
+    GetLastGoodRedLetter.get(function (data) {
+        debugger;
+    });
+
+    GetLastBadRedLetter.get(function (data) {
+        debugger;
+    });
+
+});
+
+adminController.controller('AdminReportController', function ($scope, GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory) {
 
     $scope.global.slideshow = [];
     $scope.reports_card_activation = [];

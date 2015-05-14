@@ -72,7 +72,8 @@ app.config(function ($httpProvider) {
 });
 
 var globalController = angular.module('globalController', []);
-globalController.controller('globalCtrl', function ($scope, breadcrumbs, $localStorage) {
+globalController.controller('globalCtrl', function ($scope, breadcrumbs, $localStorage, config) {
+    $localStorage.tenant = config.tenant;
     $scope.$storage = $localStorage;
     $scope.breadcrumbs = breadcrumbs;
     $scope.global = {};
@@ -88,7 +89,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         }).
         when('/admin', {
             templateUrl: 'partial/admin',
-            controller: 'AdminController',
+            controller: 'AdminReportController',
             label: 'Admin'
         }).
         when('/about', {

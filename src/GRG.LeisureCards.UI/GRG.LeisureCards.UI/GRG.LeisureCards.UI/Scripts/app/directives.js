@@ -7,9 +7,10 @@
         },
         template: '<ul class="bxslider">' +
                     '<li ng-repeat="s in slides">' +
-                        '<a href="{{ s.link }}" target="_blank">' +
+                        '<a href="{{ s.link }}" target="_blank" ng-if="s.link">' +
                             '<img ng-src="{{ s.img }}" />' +
                         '</a>' +
+                        '<img ng-src="{{ s.img }}" ng-if="!s.link" />' +
                     '</li>' +
                    '</ul>',
         link: function (scope, elm, attrs) {

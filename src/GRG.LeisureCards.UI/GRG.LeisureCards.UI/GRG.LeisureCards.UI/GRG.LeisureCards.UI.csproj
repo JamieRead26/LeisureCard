@@ -125,7 +125,7 @@
     <Content Include="Content\base\css\bxslider.min.css">
       <DependentUpon>bxslider.css</DependentUpon>
     </Content>
-    <Content Include="Content\css\footer.css">
+    <Content Include="Content\base\css\footer.css">
       <DependentUpon>footer.scss</DependentUpon>
     </Content>
     <Content Include="Content\base\css\footer.min.css">

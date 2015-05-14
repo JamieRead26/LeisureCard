@@ -20,16 +20,11 @@ offers241Controller.factory('Offer241Claim', function ($resource, config) {
     return $resource(config.apiUrl + '/TwoForOne/ClaimOffer/:id');
 });
 
-offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll) {
+offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll, slideshow) {
 
     $scope.offers = {};
     $scope.searchText = '';
-    $scope.global.slideshow = [
-        {
-            img: 'http://placehold.it/1140x300',
-            link: 'http://google.co.uk'
-        }
-    ];
+    $scope.global.slideshow = slideshow.offer241;
 
     Offer241GetAll.get(function (data) {
         $scope.offers = data.$values;
@@ -61,12 +56,7 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
 
     $scope.id = $routeParams.id;
     $scope.offer = {};
-    $scope.global.slideshow = [
-        {
-            img: 'http://placehold.it/1140x300',
-            link: 'http://google.co.uk'
-        }
-    ];
+    $scope.global.slideshow = slideshow.offer241details;
   
     Offer241GetById.get({ id: $scope.id }, function (data) {
         $scope.offer = {
@@ -97,7 +87,7 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
 
 offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, Offer241GetById) {
 
-    $scope.global.slideshow = [];
+    $scope.global.slideshow = slideshow.offer241claim;
     $scope.id = $routeParams.id;
 
     Offer241GetById.get({ id: $scope.id }, function (data) {

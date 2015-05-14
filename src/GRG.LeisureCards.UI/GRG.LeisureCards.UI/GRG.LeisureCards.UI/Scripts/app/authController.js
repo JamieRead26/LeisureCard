@@ -4,19 +4,10 @@ loginController.factory('Login', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/Login/:id');
 });
 
-loginController.controller('LoginController', function ($scope, $cookies, $location, $localStorage, Login) {
+loginController.controller('LoginController', function ($scope, $cookies, $location, $localStorage, Login, slideshow) {
 
-    $scope.global.slideshow = [
-        {
-            img: '/Content/img/banner-1.jpg',
-            link: 'http://google.co.uk'
-        },
-        {
-            img: '/Content/img/banner-1.jpg',
-            link: 'http://google.co.uk'
-        }
-    ];
-
+    $scope.global.slideshow = slideshow.login;
+    
     $scope.card_number = '';
     $scope.submit = function () {
         if ($scope.card_number) {

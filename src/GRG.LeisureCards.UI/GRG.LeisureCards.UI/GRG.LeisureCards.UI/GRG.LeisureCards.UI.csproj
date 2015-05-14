@@ -125,8 +125,6 @@
     <Content Include="Content\css\bxslider.min.css">
       <DependentUpon>bxslider.css</DependentUpon>
     </Content>
-    <None Include="Content\css\picker.classic.date.scss" />
-    <None Include="Content\css\picker.default.scss" />
     <Content Include="Content\css\footer.css">
       <DependentUpon>footer.scss</DependentUpon>
     </Content>
@@ -178,7 +176,6 @@
     <Content Include="Content\img\bxslider\controls.png" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Scripts\angular-cookies.js" />
-    <Content Include="Scripts\angular-datepicker.js" />
     <Content Include="Scripts\angular-ng-storage.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-sanitize.js" />
@@ -192,6 +189,7 @@
     <Content Include="Scripts\app\offersHomeController.js" />
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\angular-ng-breadcrumbs.js" />
+    <Content Include="Scripts\ng-csv.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -213,6 +211,7 @@
     <Content Include="Views\Home\Partials\terms.cshtml" />
     <Content Include="Views\Home\Partials\admin.cshtml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="Views\Home\Partials\offers_241_claim.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />

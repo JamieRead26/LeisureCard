@@ -23,12 +23,10 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
             config.headers = config.headers || {};
             if ($cookies.SessionToken) {
                 config.headers['SessionToken'] = $cookies.SessionToken;
-                
-                if (config.url == 'partial/login') {
+
+                if (config.url == 'partial/login' || (config.url == 'partial/admin' && !$localStorage.user.IsAdmin)) {
                     $location.path('/offers');
                 }
-
-                // check if admin and redirect if not
 
             }
             else {

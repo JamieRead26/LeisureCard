@@ -1,4 +1,6 @@
-﻿namespace GRG.LeisureCards.Model
+﻿using System;
+
+namespace GRG.LeisureCards.Model
 {
     public class TwoForOneOffer
     {
@@ -15,5 +17,10 @@
         public virtual string Website { get; set; }
         public virtual string Description { get; set; }
         public virtual bool DisabledAccess { get; set; }
+
+        public virtual string ClaimCode { get; set; }
+        public virtual string BookingInstructions { get; set; }
+
+        public virtual string Email { get; set; }
     }
 }

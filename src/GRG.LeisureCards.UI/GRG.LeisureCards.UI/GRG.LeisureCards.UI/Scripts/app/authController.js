@@ -8,11 +8,11 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
 
     $scope.global.slideshow = [
         {
-            img: 'http://placehold.it/1140x300',
+            img: '/Content/img/banner-1.jpg',
             link: 'http://google.co.uk'
         },
         {
-            img: 'http://placehold.it/1140x300',
+            img: '/Content/img/banner-1.jpg',
             link: 'http://google.co.uk'
         }
     ];

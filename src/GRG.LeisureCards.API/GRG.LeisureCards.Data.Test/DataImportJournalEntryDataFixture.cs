@@ -20,6 +20,14 @@ namespace GRG.LeisureCards.Data.Test
                     Success = true
                 });
 
+            for (var i = 0; i < 25; i++)
+                journalEntries.Add(new DataImportJournalEntry
+                {
+                    Key = DataImportKey.TwoForOne.Key,
+                    ImportedDateTime = from + TimeSpan.FromDays(i),
+                    Success = true
+                });
+
             return journalEntries.ToArray();
         }
     }

@@ -11,8 +11,8 @@ namespace GRG.LeisureCards.Service
 {
     public interface IDataImportService
     {
-        DataImportJournalEntry ImportRedLetterOffers(byte[] file);
-        DataImportJournalEntry ImportTwoForOneOffers(byte[] file);
+        DataImportJournalEntry ImportRedLetterOffers(byte[] file, string fileKey);
+        DataImportJournalEntry ImportTwoForOneOffers(byte[] file, string fileKey);
     }
 
     public class DataImportService : IDataImportService
@@ -32,9 +32,9 @@ namespace GRG.LeisureCards.Service
         }
 
         [UnitOfWork]
-        public DataImportJournalEntry ImportRedLetterOffers(byte[] file)
+        public DataImportJournalEntry ImportRedLetterOffers(byte[] file, string fileKey)
         {
-            return ImportData(DataImportKey.RedLetter, () =>
+            return ImportData(DataImportKey.RedLetter, fileKey, () =>
             {
                 var allProducts = _redLetterProductRepository.GetAll().ToDictionary(p => p.Id, p => p);
                 var keywords = _redLetterProductRepository.GetAllKeywords().ToDictionary(k => k.Keyword, k => k);
@@ -141,9 +141,9 @@ namespace GRG.LeisureCards.Service
         }
 
         [UnitOfWork]
-        public DataImportJournalEntry ImportTwoForOneOffers(byte[] file)
+        public DataImportJournalEntry ImportTwoForOneOffers(byte[] file, string fileKey)
         {
-            return ImportData(DataImportKey.TwoForOne, () =>
+            return ImportData(DataImportKey.TwoForOne, fileKey, () =>
             {
                 var offers = _twoForOneRepository.GetAll().ToDictionary(o => o.Id, o => o);
 
@@ -182,16 +182,17 @@ namespace GRG.LeisureCards.Service
             });
         }
 
-        private DataImportJournalEntry ImportData(DataImportKey key, Action importAction)
+        private DataImportJournalEntry ImportData(DataImportKey key, string fileKey, Action importAction )
         {
-            var journalEntry = new DataImportJournalEntry
-            {
-                ImportedDateTime = DateTime.Now,
-                Key = key.Key
-            };
-
             try
             {
+                var journalEntry = new DataImportJournalEntry
+                {
+                    ImportedDateTime = DateTime.Now,
+                    Key = key.Key,
+                    FileKey = fileKey
+                };
+
                 importAction();
 
                 journalEntry.Success = true;
@@ -201,9 +202,13 @@ namespace GRG.LeisureCards.Service
             }
             catch (Exception ex)
             {
-                journalEntry.Success = false;
-                journalEntry.Message = ex.Message;
-                journalEntry.StackTrace = ex.StackTrace;
+                var journalEntry = new DataImportJournalEntry
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    FileKey = fileKey,
+                };
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 

@@ -25,19 +25,71 @@ namespace GRG.LeisureCards.API.IntegrationTests
         }
 
         [Test]
+        public void GetLastGoodRedLetterImportJournal()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("DataImport/GetLastGoodRedLetterImportJournal/", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var result = client.Execute<DataImportJournalEntry>(request);
+            Assert.AreEqual("Red Letter", result.Data.Key);
+        }
+
+        [Test]
+        public void GetLastBadRedLetterImportJournal()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("DataImport/GetLastBadRedLetterImportJournal/", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var result = client.Execute<DataImportJournalEntry>(request);
+            Assert.IsNull(result.Data);
+        }
+
+        [Test]
+        public void GetLastGoodTwoForOneImportJournal()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("DataImport/GetLastGoodTwoForOneImportJournal/", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var result = client.Execute<DataImportJournalEntry>(request);
+            Assert.AreEqual("2-4-1", result.Data.Key);
+        }
+
+        [Test]
+        public void GetLastBadTwoForOneImportJournal()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("DataImport/GetLastBadTwoForOneImportJournal/", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var result = client.Execute<DataImportJournalEntry>(request);
+            Assert.IsNull(result.Data);
+        }
+
+        [Test]
         public void UploadRedLetterData()
         {
             using (var dataStream = ResourceStreams.GetRedLetterDataStream())
             using (var memStream = new MemoryStream())
             {
                 dataStream.CopyTo(memStream);
-
-                var base64 = Convert.ToBase64String(memStream.ToArray());
+                var fileBytes = memStream.ToArray();
 
                 var client = new RestClient(Config.BaseAddress);
 
+                dataStream.Position = 0;
                 var request = new RestRequest("DataImport/RedLetter/", Method.POST);
-                request.AddParameter("", base64);
+                request.AddFile("RedLetterData.csv", fileBytes, "RedLetterData.csv");
                 request.AddHeader("accepts", "application/json");
                 request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
@@ -66,13 +118,13 @@ namespace GRG.LeisureCards.API.IntegrationTests
             using (var memStream = new MemoryStream())
             {
                 dataStream.CopyTo(memStream);
-
-                var base64 = Convert.ToBase64String(memStream.ToArray());
+                var fileBytes = memStream.ToArray();
 
                 var client = new RestClient(Config.BaseAddress);
 
+                dataStream.Position = 0;
                 var request = new RestRequest("DataImport/TwoForOne/", Method.POST);
-                request.AddParameter("", base64);
+                request.AddFile("241Dta.csv", fileBytes, "241Dta.csv");
                 request.AddHeader("accepts", "application/json");
                 request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 

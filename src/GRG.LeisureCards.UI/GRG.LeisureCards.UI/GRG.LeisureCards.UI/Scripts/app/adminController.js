@@ -16,7 +16,7 @@ adminController.factory('GetLastGoodRedLetter', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetLastGoodRedLetterImportJournal');
 });
 adminController.factory('GetLastBadRedLetter', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetLastBadRedLetterImportJournal');
+    return $resource(config.apiUrl + '/DataImport/GetLastBadTwoForOneImportJournal');
 });
 
 adminController.controller('AdminImportController', function ($scope, GetLastGoodRedLetter, GetLastBadRedLetter) {

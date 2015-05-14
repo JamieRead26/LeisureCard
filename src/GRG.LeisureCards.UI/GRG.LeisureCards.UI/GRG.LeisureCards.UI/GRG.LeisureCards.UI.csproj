@@ -113,70 +113,74 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\1140-grid.css">
+    <Content Include="Content\base\css\1140-grid.css">
       <DependentUpon>1140-grid.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\1140-grid.min.css">
+    <Content Include="Content\base\css\1140-grid.min.css">
       <DependentUpon>1140-grid.css</DependentUpon>
     </Content>
-    <Content Include="Content\css\bxslider.css">
+    <Content Include="Content\base\css\bxslider.css">
       <DependentUpon>bxslider.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\bxslider.min.css">
+    <Content Include="Content\base\css\bxslider.min.css">
       <DependentUpon>bxslider.css</DependentUpon>
     </Content>
-    <None Include="Content\css\picker.classic.date.scss" />
-    <None Include="Content\css\picker.default.scss" />
-    <Content Include="Content\css\footer.css">
+    <None Include="Content\base\css\picker.classic.date.scss" />
+    <None Include="Content\base\css\picker.default.scss" />
+    <Content Include="Content\base\css\footer.css">
       <DependentUpon>footer.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\footer.min.css">
+    <Content Include="Content\base\css\footer.min.css">
       <DependentUpon>footer.css</DependentUpon>
     </Content>
-    <Content Include="Content\css\form.css">
+    <Content Include="Content\base\css\form.css">
       <DependentUpon>form.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\form.min.css">
+    <Content Include="Content\base\css\form.min.css">
       <DependentUpon>form.css</DependentUpon>
     </Content>
-    <None Include="Content\css\presets.scss" />
-    <Content Include="Content\css\header.css">
+    <None Include="Content\base\css\presets.scss" />
+    <Content Include="Content\base\css\header.css">
       <DependentUpon>header.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\header.min.css">
+    <Content Include="Content\base\css\header.min.css">
       <DependentUpon>header.css</DependentUpon>
     </Content>
-    <None Include="Content\css\bxslider.scss" />
-    <Content Include="Content\css\ltie8.css" />
-    <Content Include="Content\css\mixin.css">
+    <None Include="Content\base\css\bxslider.scss" />
+    <Content Include="Content\base\css\ltie8.css" />
+    <Content Include="Content\base\css\mixin.css">
       <DependentUpon>mixin.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\mixin.min.css">
+    <Content Include="Content\base\css\mixin.min.css">
       <DependentUpon>mixin.css</DependentUpon>
     </Content>
-    <None Include="Content\css\offers.scss" />
-    <Content Include="Content\css\offers.css">
+    <None Include="Content\base\css\offers.scss" />
+    <Content Include="Content\base\css\offers.css">
       <DependentUpon>offers.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\offers.min.css">
+    <Content Include="Content\base\css\offers.min.css">
       <DependentUpon>offers.css</DependentUpon>
     </Content>
-    <Content Include="Content\css\presets.css">
+    <Content Include="Content\base\css\presets.css">
       <DependentUpon>presets.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\presets.min.css">
+    <Content Include="Content\base\css\presets.min.css">
       <DependentUpon>presets.css</DependentUpon>
     </Content>
-    <Content Include="Content\css\site.css">
+    <Content Include="Content\base\css\site.css">
       <DependentUpon>site.scss</DependentUpon>
     </Content>
-    <Content Include="Content\css\site.min.css">
+    <Content Include="Content\base\css\site.min.css">
       <DependentUpon>site.css</DependentUpon>
     </Content>
-    <Content Include="Content\font\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\img\bxslider\bx_loader.gif" />
-    <Content Include="Content\img\bxslider\controls.png" />
-    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\base\img\banner-1.jpg" />
+    <Content Include="Content\base\img\buttonArrow.jpg" />
+    <Content Include="Content\base\img\bxslider\bx_loader.gif" />
+    <Content Include="Content\base\img\bxslider\controls.png" />
+    <Content Include="Content\base\img\carousel-mask.png" />
+    <Content Include="Content\base\img\logo.jpg" />
+    <Content Include="Content\base\img\logo.png" />
+    <Content Include="Content\grg\css\ltie8.css" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-datepicker.js" />
     <Content Include="Scripts\angular-ng-storage.js" />
@@ -197,11 +201,11 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Content\css\1140-grid.scss" />
-    <Content Include="Content\css\footer.scss" />
-    <Content Include="Content\css\form.scss" />
-    <Content Include="Content\css\header.scss" />
-    <Content Include="Content\css\mixin.scss" />
+    <Content Include="Content\base\css\1140-grid.scss" />
+    <Content Include="Content\base\css\footer.scss" />
+    <Content Include="Content\base\css\form.scss" />
+    <Content Include="Content\base\css\header.scss" />
+    <Content Include="Content\base\css\mixin.scss" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Partials\login.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount.cshtml" />
@@ -212,6 +216,17 @@
     <Content Include="Views\Home\Partials\about.cshtml" />
     <Content Include="Views\Home\Partials\terms.cshtml" />
     <Content Include="Views\Home\Partials\admin.cshtml" />
+    <Content Include="Content\grg\css\1140-grid.scss" />
+    <Content Include="Content\grg\css\bxslider.scss" />
+    <Content Include="Content\grg\css\footer.scss" />
+    <Content Include="Content\grg\css\form.scss" />
+    <Content Include="Content\grg\css\header.scss" />
+    <Content Include="Content\grg\css\mixin.scss" />
+    <Content Include="Content\grg\css\offers.scss" />
+    <Content Include="Content\grg\css\picker.classic.date.scss" />
+    <Content Include="Content\grg\css\picker.default.scss" />
+    <Content Include="Content\grg\css\presets.scss" />
+    <Content Include="Content\grg\css\site.scss" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
@@ -236,12 +251,9 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Content\font\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\font\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\font\glyphicons-halflings-regular.woff" />
     <Content Include="Views\Home\Partials\offers.cshtml" />
     <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Content\css\site.scss" />
+    <Content Include="Content\base\css\site.scss" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web.Debug.config">
@@ -253,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\grg\img\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

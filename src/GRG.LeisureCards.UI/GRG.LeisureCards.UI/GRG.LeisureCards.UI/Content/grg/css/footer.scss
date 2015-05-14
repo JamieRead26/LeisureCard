@@ -1,0 +1,18 @@
+@import 'mixin.scss';
+
+footer {
+    border-top:5px solid #ffffff;
+    padding: 20px 0;
+    font-size: 0.9em;
+    position: relative;
+    color:#ffffff;
+    .last {
+        text-align: right;
+    }
+    p {
+        margin: 0 !important;
+    }
+}
+body footer a {
+        color:#ffffff;
+}

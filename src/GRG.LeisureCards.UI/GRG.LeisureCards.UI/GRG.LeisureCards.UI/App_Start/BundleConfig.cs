@@ -10,8 +10,9 @@ namespace GRG.LeisureCards.UI
     public class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles(BundleCollection bundles, string tenant)
         {
+
             bundles.UseCdn = true;
             bundles.IgnoreList.Clear();
 
@@ -40,8 +41,7 @@ namespace GRG.LeisureCards.UI
 
             var commonScriptsBundle = new Bundle("~/bundles/sitejs");
             commonScriptsBundle.Include(
-                        "~/Scripts/jquery.bxslider.min.js",
-                        "~/Scripts/site.base.js");
+                        "~/Scripts/jquery.bxslider.min.js");
 
             commonScriptsBundle.Builder = nullBuilder;
             commonScriptsBundle.Transforms.Add(scriptTransformer);
@@ -49,16 +49,17 @@ namespace GRG.LeisureCards.UI
             bundles.Add(commonScriptsBundle);
 
             var commonStylesBundle = new Bundle("~/bundles/css");
+            
             commonStylesBundle.Include(
-                        "~/Content/css/1140-grid.scss",
-                        "~/Content/css/footer.scss",
-                        "~/Content/css/header.scss",
-                        "~/Content/css/form.scss",
-                        "~/Content/css/offers.scss",
-                        "~/Content/css/picker.default.scss",
-                        "~/Content/css/picker.classic.date.scss",
-                        "~/Content/css/bxslider.scss",
-                        "~/Content/css/site.scss");
+                        string.Format("~/Content/{0}/css/1140-grid.scss", tenant),
+                        string.Format("~/Content/{0}/css/footer.scss", tenant),
+                        string.Format("~/Content/{0}/css/header.scss", tenant),
+                        string.Format("~/Content/{0}/css/form.scss", tenant),
+                        string.Format("~/Content/{0}/css/offers.scss", tenant),
+                        string.Format("~/Content/{0}/css/picker.default.scss", tenant),
+                        string.Format("~/Content/{0}/css/picker.classic.date.scss", tenant),
+                        string.Format("~/Content/{0}/css/bxslider.scss", tenant),
+                        string.Format("~/Content/{0}/css/site.scss", tenant));
 
             commonStylesBundle.Builder = nullBuilder;
             commonStylesBundle.Transforms.Add(styleTransformer);

@@ -1,0 +1,152 @@
+/*
+  CSS by Jamie Read
+  Source Shaper
+*/
+
+// CSS Resets
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,q,small,strong,sub,sup,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{border:0;margin:0;padding:0; }article,aside,figure,figure img,figcaption,hgroup,footer,header,nav,section,video,object{display:block}a img{border:0}figure{position:relative}figure img{width:100%}
+*{box-sizing: border-box;}
+
+@import 'mixin.scss';
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    font-family: 'Arial', sans-serif;
+    font-weight: normal;
+    overflow-y: scroll;
+    background: #0971ce;
+    .clear {
+        clear: both;
+    }
+    .fl {
+        float: left;
+        width: 49%;
+    }
+    .fr {
+        float: right;
+        width: 49%;
+    }
+    a {
+        color: $links;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    p {
+        margin-bottom: 15px;
+        font-size: 15px;       
+    }
+    .button, button {
+        display: inline-block;
+    }
+    .google-map  {
+        height: 450px;
+        border: 2px solid #fff;
+        width: 100%;
+    }
+    .scroll-h {
+        max-height: 600px;
+        overflow-y: scroll;
+    }
+    div.content {
+        .container {
+            &.white {
+                background: #fff;
+            }
+        }
+        h1 {
+            color: $site-color;
+            font-size: 26px;
+            font-weight: lighter;
+            margin: 0 0 20px 0;
+        }
+        h2 {
+            display: block;
+            color: $site-color2;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: lighter;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            tr {
+                th, td {
+                    padding: 5px;
+                    font-weight: normal;
+                    text-align: left;
+                }
+                th {
+                    background: $site-color2;
+                    color: #fff;
+                }
+                td {
+                    background: #F3F3F3;
+                    vertical-align: top;
+                    border-bottom: 1px solid #D5D5D5;
+                }
+            }
+        }
+        .slideshowcont {
+            border-top:5px solid #ffffff;
+            margin:23px 0 0 0;
+            position:relative;
+            .slideshowmask {
+                width:100%;
+                position:absolute;
+                top:0px;
+                left:0px;
+            }
+            .slideshowmask div {
+                width:100%;
+                max-width:1140px;
+                margin:0 auto;
+            }
+            .row {
+                  margin: 0 auto 50px auto;
+            }
+            .row .twelvecol {
+                padding-left:0px;
+                padding-right:0px;
+            }
+        }
+        form.loginform {
+            background:none;
+            border:none;
+            box-shadow:none;
+            label {
+                background:none;
+            }
+            input[type=text] {
+                background:#0971ce;
+                color:#ffffff;
+            }
+            ::-webkit-input-placeholder {color:#91cbff;}
+            /* Firefox 18- */
+            :-moz-placeholder {color:#91cbff;}
+            /* Firefox 19+ */
+            ::-moz-placeholder {color:#91cbff;}
+            :-ms-input-placeholder {color:#91cbff;}
+            }          
+        }
+}
+
+.bx-wrapper {
+    margin:0px;
+}
+.bx-wrapper .bx-viewport {
+    border:none;
+}
+.bx-wrapper .bx-pager {
+    position:absolute;
+    bottom:0px;
+    right:30%;
+    z-index:9999;
+    width:auto;
+}
+.bx-controls-direction {
+    display:none;
+}

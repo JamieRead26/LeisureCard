@@ -4,8 +4,8 @@
     'ngStorage',
     'ngCookies',
     'ngSanitize',
+    'ngCsv',
     'ng-breadcrumbs',
-    'angular-datepicker',
     'offersExperienceController',
     'offers241Controller',
     'offersHomeController',
@@ -118,6 +118,11 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partial/offers_241_details',
             controller: 'offers241DetailsController',
             label: '241 Offer Details'
+        }).
+        when('/offers/241/claim/:id', {
+            templateUrl: 'partial/offers_241_claim',
+            controller: 'offers241ClaimController',
+            label: 'hide'
         }).
         when('/logout', {
             template: '',

@@ -15,7 +15,13 @@ body .content {
             color: #fff;
         }
     }
-    .spcial-offers {
+    .claim-offer {
+        text-align: center;
+        img {
+            margin: 0 0 30px 0;
+        }
+    }
+    .special-offers {
         background: $special-offer-bg;
         border-radius: 5px;
         padding: 10px;

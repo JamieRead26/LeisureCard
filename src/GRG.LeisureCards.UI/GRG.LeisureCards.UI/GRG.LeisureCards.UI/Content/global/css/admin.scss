@@ -1,4 +1,4 @@
-﻿body  {
+﻿body .content {
     .success-icon, .fail-icon {
         display: inline-block;
         font-size: 35px;
@@ -10,5 +10,16 @@
     }
     .fail-icon {
         color: red;
+    }
+    table {
+        .button, button {
+            padding: 7px 13px !important;
+        }
+        input[type=file]{
+            margin-bottom: 5px;
+            padding: 0;
+            background: none;
+            border: 0;
+        }
     }
 }

@@ -28,12 +28,17 @@ adminController.factory('GetLastBadTwoForOne', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetLastBadTwoForOneImportJournal');
 });
 
-
 adminController.controller('AdminDataImportController', function ($scope,
     GetLastGoodRedLetter, GetLastBadRedLetter,
-    GetLastGoodTwoForOne, GetLastBadTwoForOne) {
+    GetLastGoodTwoForOne, GetLastBadTwoForOne,
+    fileUpload, config) {
 
     $scope.imports = [];
+
+    $scope.files = {};
+    $scope.files.redletter = {};
+    $scope.files.file241 = {};
+    $scope.file_errors = '';
 
     var push_current_import = function (good, bad) {
 
@@ -72,14 +77,35 @@ adminController.controller('AdminDataImportController', function ($scope,
 
         GetLastBadTwoForOne.get(function (data) {
             var bad_data = data;
-            /*var bad_data = {
-                Key: '2-4-1', ImportedDateTime: "2015-05-15T16:43:49",
-                Message: 'Manual FAIL', Success: false
-            }*/
             push_current_import(good_data, bad_data);
         });
     });
     
+    $scope.refresh = function () {
+        window.location.reload();
+    };
+
+    $scope.uploadFile = function (key) {
+
+        var file = '';
+        var path = '';
+        if(key == 'Red Letter'){
+            file = $scope.files.redletter;
+            path = '/DataImport/RedLetter/';
+        }
+        else if(key == '2-4-1'){
+            file = $scope.files.file241;
+            path = '/DataImport/TwoForOne/';
+        }
+
+        if(!key || !path || !file){
+            return console.error('Missing path, key or file.');
+        }
+
+        console.log('file is ' + JSON.stringify(file));
+        var uploadUrl = config.apiUrl + path;
+        fileUpload.uploadFileToUrl(file, uploadUrl);
+    };
 
 });
 

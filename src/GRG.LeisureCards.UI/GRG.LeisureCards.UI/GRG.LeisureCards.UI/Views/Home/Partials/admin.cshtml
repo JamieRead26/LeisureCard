@@ -14,19 +14,30 @@
             <th style="width: 120px;">Retrieve Data</th>
             <th style="width: 120px;">Reload Data</th>
             <th style="width: 120px;">Download File</th>
-            <th style="width: 120px;">Upload File</th>
+            <th style="width: 220px;">Upload File</th>
         </tr>
         <tr ng-repeat="i in imports">
-            <td><span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>{{ i.Key }}</td>
+            <td><span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>{{ i.OfferTypeKey }}</td>
             <td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
             <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
             <td>{{ i.Message }}</td>
             <td><button>Retrieve</button></td>
-            <td><button>Reload</button></td>
+            <td><button ng-click="refresh()">Reload</button></td>
             <td><button>Download</button></td>
-            <td><button>Upload</button></td>
+            <td>
+
+                <div ng-if="i.OfferTypeKey == '2-4-1'">
+                    <input type="file" file-model="files.file241" />
+                </div>
+                <div ng-if="i.OfferTypeKey == 'Red Letter'">
+                    <input type="file" file-model="files.redletter" />
+                </div>
+
+                <button ng-click="uploadFile(i.OfferTypeKey)">Upload</button>
+            </td>
         </tr>
     </table>
+
 
     <form class="one-line print-hide">
         <div class="twocol">

@@ -16,6 +16,9 @@
 
     @Styles.Render("~/bundles/css")
 
+    <link rel="stylesheet" type="text/css" href="~/Content/grg/css/site.scss" />
+    <link rel="stylesheet" type="text/css" href="~/Content/grg/css/footer.scss" />
+
     <!--[if lt IE 9]>
       <script src="/Scripts/html5shiv.min.js"></script>
       <script src="/Scripts/respond.min.js"></script>
@@ -27,7 +30,7 @@
     @{Html.RenderPartial("Header");}
 
     <div class="content">
-        <div class="container white" ng-show="global.slideshow.length != 0">
+        <div class="container" ng-show="global.slideshow.length != 0">
         <div class="container slideshowcont" ng-if="global.slideshow != null">
             <div class="row">
                 <div class="twelvecol last">
@@ -35,7 +38,7 @@
                 </div>
             </div>
             <div class="slideshowmask">
-                <div><img ng-src="/Content/{{ $storage.tanant }}/img/carousel-mask.png" /></div>
+                <div><img ng-src="/Content/grg/img/carousel-mask.png" /></div>
             </div>
         </div>
         </div>

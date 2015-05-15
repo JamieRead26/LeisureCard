@@ -24,7 +24,7 @@ namespace GRG.LeisureCards.Service
         [UnitOfWork]
         public void TestUOW()
         {
-            _settingRepository.SaveOrUpdate(new Setting {Key = "TEST", Value = "TEST"});
+            _settingRepository.SaveOrUpdate(new Setting {SettingKey = "TEST", Value = "TEST"});
 
             throw new Exception();
         }

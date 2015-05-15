@@ -15,7 +15,7 @@ namespace GRG.LeisureCards.Data.Test
             for (var i = 0; i < 25; i++)
                 journalEntries.Add(new DataImportJournalEntry
                 {
-                    Key = DataImportKey.RedLetter.Key, 
+                    OfferTypeKey = DataImportKey.RedLetter.Key, 
                     ImportedDateTime = from + TimeSpan.FromDays(i),
                     Success = true
                 });
@@ -23,7 +23,7 @@ namespace GRG.LeisureCards.Data.Test
             for (var i = 0; i < 25; i++)
                 journalEntries.Add(new DataImportJournalEntry
                 {
-                    Key = DataImportKey.TwoForOne.Key,
+                    OfferTypeKey = DataImportKey.TwoForOne.Key,
                     ImportedDateTime = from + TimeSpan.FromDays(i),
                     Success = true
                 });

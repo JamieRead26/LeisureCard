@@ -7,7 +7,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
     {
         public MembershipTierClassMap()
         {
-            Id(x => x.Key).GeneratedBy.Assigned();
+            Id(x => x.TierKey).GeneratedBy.Assigned();
             Map(x => x.Name);
         }
     }

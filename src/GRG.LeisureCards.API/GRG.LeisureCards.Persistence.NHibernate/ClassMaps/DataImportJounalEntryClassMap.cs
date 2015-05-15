@@ -10,7 +10,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
         {
             Id(x => x.Id);
             Map(x => x.ImportedDateTime);
-            Map(x => x.Key);
+            Map(x => x.OfferTypeKey);
             Map(x => x.Message);
             Map(x => x.StackTrace).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
             Map(x => x.FileKey);

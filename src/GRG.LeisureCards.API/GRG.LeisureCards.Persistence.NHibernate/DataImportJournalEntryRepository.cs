@@ -12,7 +12,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             if (toId > 0)
                 query.Where(j => j.Id < toId);
 
-            query.Where(j => j.Key == importKey.Key)
+            query.Where(j => j.OfferTypeKey == importKey.Key)
                 .OrderBy(x => x.Id).Desc
                 .Take(count);
 
@@ -25,7 +25,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             var query = Session.QueryOver<DataImportJournalEntry>();
 
-            query.Where(j => j.Key == importKey.Key)
+            query.Where(j => j.OfferTypeKey == importKey.Key)
                 .Where(j => j.Success == good)
                 .OrderBy(x => x.Id).Desc
                 .Take(1);

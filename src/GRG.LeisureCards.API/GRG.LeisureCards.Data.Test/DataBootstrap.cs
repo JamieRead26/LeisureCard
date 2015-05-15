@@ -14,10 +14,12 @@ namespace GRG.LeisureCards.Data
             {
                 if (Done) return;
 
-                var database = new Bootstrap4NHibernate.Database(Database.GetPersistenceConfigurer(), classMapAssembly,
+                var database = new Bootstrap4NHibernate.Database(Database.GetPersistenceConfigurer(connectionDetails), classMapAssembly,
                     configuration => { }, true);
 
                 database.Populate(Assembly.GetExecutingAssembly());
+
+                Done = true;
             }
         }
     }

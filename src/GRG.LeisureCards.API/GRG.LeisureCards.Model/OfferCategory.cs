@@ -9,7 +9,7 @@ namespace GRG.LeisureCards.Model
             LeisureCards = new List<LeisureCard>();    
         }
 
-        public virtual string Key { get; set; }
+        public virtual string OfferCategoryKey { get; set; }
         public virtual string Name { get; set; }
         public virtual IList<LeisureCard> LeisureCards { get; set; }
     }

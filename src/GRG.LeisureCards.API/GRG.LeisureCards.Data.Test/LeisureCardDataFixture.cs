@@ -15,7 +15,7 @@ namespace GRG.LeisureCards.Data.Test
             
             Cards = new[]
             {
-                new LeisureCard {Code = "Unregistered"},
+                new LeisureCard {Code = "Unregistered", UploadedDate = DateTime.Now},
                 new LeisureCard
                 {
                     Code = "Admin",
@@ -57,7 +57,7 @@ namespace GRG.LeisureCards.Data.Test
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold
                 },
-                new LeisureCard {Code = "Cancelled", CancellationDate = true}
+                new LeisureCard {Code = "Cancelled", CancellationDate = true, UploadedDate = DateTime.Now}
             };
 
             foreach (var leisureCard in Cards)

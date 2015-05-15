@@ -27,7 +27,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
             var result = client.Execute<DataImportJournalEntry>(request);
-            Assert.AreEqual("Red Letter", result.Data.Key);
+            Assert.AreEqual("Red Letter", result.Data.OfferTypeKey);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
             var result = client.Execute<DataImportJournalEntry>(request);
-            Assert.AreEqual("2-4-1", result.Data.Key);
+            Assert.AreEqual("2-4-1", result.Data.OfferTypeKey);
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var response = client.Execute<DataImportJournalEntry>(request);
 
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                Assert.AreEqual(DataImportKey.RedLetter.Key, response.Data.Key);
+                Assert.AreEqual(DataImportKey.RedLetter.Key, response.Data.OfferTypeKey);
                 Assert.IsTrue(response.Data.Success);
 
                 request = new RestRequest("DataImport/GetRedLetterImportJournal/{count}/{toId}", Method.GET);
@@ -124,7 +124,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var response = client.Execute<DataImportJournalEntry>(request);
 
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                Assert.AreEqual(DataImportKey.TwoForOne.Key, response.Data.Key);
+                Assert.AreEqual(DataImportKey.TwoForOne.Key, response.Data.OfferTypeKey);
                 Assert.IsTrue(response.Data.Success);
 
                 request = new RestRequest("DataImport/GetTwoForOneImportJournal/{count}/{toId}", Method.GET);

@@ -7,7 +7,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
     {
         public OfferCategoryClassMap()
         {
-            Id(x => x.Key).GeneratedBy.Assigned();
+            Id(x => x.OfferCategoryKey).GeneratedBy.Assigned();
             Map(x => x.Name);
 
             HasManyToMany(x => x.LeisureCards)

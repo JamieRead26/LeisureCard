@@ -7,7 +7,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
     {
         public SettingClassMap()
         {
-            Id(x => x.Key);
+            Id(x => x.SettingKey);
             Map(x => x.Value);
         }
     }

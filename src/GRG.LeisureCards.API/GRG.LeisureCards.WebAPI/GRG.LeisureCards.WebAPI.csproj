@@ -159,7 +159,10 @@
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Global.asax" />
-    <Content Include="UploadFiles\TwoForOne\placeholder.txt">
+    <Content Include="UploadFiles\241\placeholder.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UploadFiles\LeisureCards\placeholder.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="UploadFiles\RedLetter\placeholder.txt">

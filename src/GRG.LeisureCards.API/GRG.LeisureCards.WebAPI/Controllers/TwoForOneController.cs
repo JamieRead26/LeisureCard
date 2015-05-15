@@ -57,5 +57,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                 OfferTitle = offer.Description
             });
         }
+
+        [HttpGet]
+        [Route("TwoForOne/FindByLocation/{longtitude}/{latitude}/{miles}")]
+        public IEnumerable<TwoForOneOffer> FindByLocation(decimal longtitude, decimal latitude, int miles)
+        {
+            return _twoForOneRepository.GetAll();
+        }
     }
 }

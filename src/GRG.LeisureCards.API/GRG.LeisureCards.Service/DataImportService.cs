@@ -189,7 +189,7 @@ namespace GRG.LeisureCards.Service
                 var journalEntry = new DataImportJournalEntry
                 {
                     ImportedDateTime = DateTime.Now,
-                    OfferTypeKey = key.Key,
+                    UploadKey = key.Key,
                     FileKey = fileKey
                 };
 

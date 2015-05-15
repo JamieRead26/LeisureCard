@@ -26,7 +26,15 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
 
             _redLetterFilePath = "~\\UploadFiles\\RedLetter";
-            _twoForOneFilePath = "~\\UploadFiles\\TwoForOne";
+            _twoForOneFilePath = "~\\UploadFiles\\241";
+            _twoForOneFilePath = "~\\UploadFiles\\LeisureCards";
+        }
+
+        [HttpPost]
+        [Route("DataImport/LeisureCards/")]
+        public DataImportJournalEntry ImportLeisureCards()
+        {
+            return new DataImportJournalEntry{ImportedDateTime = DateTime.Now, Message = "Temp - not actually uploaded yet", UploadKey = "Leisure Cards", Success = true};
         }
 
         [HttpPost]

@@ -2,8 +2,9 @@
 {
     public class DataImportKey
     {
-        public readonly static DataImportKey RedLetter = new DataImportKey("Red Letter");
-        public readonly static DataImportKey TwoForOne = new DataImportKey("2-4-1");
+        public readonly static DataImportKey RedLetter = new DataImportKey("RedLetter");
+        public readonly static DataImportKey TwoForOne = new DataImportKey("241");
+        public readonly static DataImportKey LeisureCards = new DataImportKey("LeisureCards");
 
         public string Key { get; private set; }
 

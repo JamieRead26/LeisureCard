@@ -6,6 +6,7 @@ offersExperienceController.factory('RedLetterGetSpecialOffers', function ($resou
 
 offersExperienceController.controller('offersExperienceController', function ($scope, RedLetterGetSpecialOffers, slideshow) {
 
+    $scope.global.bodyclass = 'offer-experience';
     $scope.global.slideshow = slideshow.offerexperience;
 
     RedLetterGetSpecialOffers.get({ count: 6 }, function(data) {

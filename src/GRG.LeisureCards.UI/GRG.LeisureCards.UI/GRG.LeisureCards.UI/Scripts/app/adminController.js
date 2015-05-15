@@ -33,6 +33,8 @@ adminController.controller('AdminDataImportController', function ($scope,
     GetLastGoodTwoForOne, GetLastBadTwoForOne,
     fileUpload, config) {
 
+    $scope.global.bodyclass = 'admin';
+
     $scope.imports = [];
 
     $scope.files = {};
@@ -76,7 +78,7 @@ adminController.controller('AdminDataImportController', function ($scope,
         var good_data = data;
 
         GetLastBadTwoForOne.get(function (data) {
-            debugger;
+
             var bad_data = data;
             push_current_import(good_data, bad_data);
         });

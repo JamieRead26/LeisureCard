@@ -104,12 +104,7 @@ body div.content {
                 margin-bottom: 20px;
             }
             input[type=submit]{
-                border: 2px solid #ffffff;
-                background: #0971ce;
-                border-radius:0px;
-                padding:5px 100px 5px 5px;
-                background:url(/Content/img/buttonArrow.jpg) no-repeat;
-                background-position: 95% center;
+                background: $site-color;
             }
         }
     }

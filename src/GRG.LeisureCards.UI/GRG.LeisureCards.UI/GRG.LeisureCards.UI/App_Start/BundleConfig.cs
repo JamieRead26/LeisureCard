@@ -51,14 +51,14 @@ namespace GRG.LeisureCards.UI
             var commonStylesBundle = new Bundle("~/bundles/css");
             
             commonStylesBundle.Include(
-                        string.Format("~/Content/{0}/css/1140-grid.scss", tenant),
+                        string.Format("~/Content/global/css/1140-grid.scss"),
+                        string.Format("~/Content/global/css/bxslider.scss"),
+                        string.Format("~/Content/global/css/admin.scss"),
+
                         string.Format("~/Content/{0}/css/footer.scss", tenant),
                         string.Format("~/Content/{0}/css/header.scss", tenant),
                         string.Format("~/Content/{0}/css/form.scss", tenant),
                         string.Format("~/Content/{0}/css/offers.scss", tenant),
-                        string.Format("~/Content/{0}/css/picker.default.scss", tenant),
-                        string.Format("~/Content/{0}/css/picker.classic.date.scss", tenant),
-                        string.Format("~/Content/{0}/css/bxslider.scss", tenant),
                         string.Format("~/Content/{0}/css/site.scss", tenant));
 
             commonStylesBundle.Builder = nullBuilder;

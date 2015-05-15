@@ -1,0 +1,14 @@
+﻿body  {
+    .success-icon, .fail-icon {
+        display: inline-block;
+        font-size: 35px;
+        margin-right: 10px;
+        line-height: 1em;
+    }
+    .success-icon {
+        color: green;
+    }
+    .fail-icon {
+        color: red;
+    }
+}

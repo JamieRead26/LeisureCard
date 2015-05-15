@@ -5,32 +5,30 @@
 <div class="twelvecol">
     <h1>Admin</h1>
 
-    <div ng-controller="AdminImportController">
-        <table>
-            <tr>
-                <th>System</th>
-                <th>Last Run</th>
-                <th>Status</th>
-                <th>Error Message</th>
-                <th style="width: 120px;">Retrieve Data</th>
-                <th style="width: 120px;">Reload Data</th>
-                <th style="width: 120px;">Download File</th>
-                <th style="width: 120px;">Upload File</th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><button>Retrieve</button></td>
-                <td><button>Reload</button></td>
-                <td><button>Download</button></td>
-                <td><button>Upload</button></td>
-            </tr>
-        </table>
-    </div>
+    <table class="print-hide" ng-controller="AdminDataImportController">
+        <tr>
+            <th>System</th>
+            <th>Last Run</th>
+            <th>Status</th>
+            <th>Error Message</th>
+            <th style="width: 120px;">Retrieve Data</th>
+            <th style="width: 120px;">Reload Data</th>
+            <th style="width: 120px;">Download File</th>
+            <th style="width: 120px;">Upload File</th>
+        </tr>
+        <tr ng-repeat="i in imports">
+            <td><span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>{{ i.Key }}</td>
+            <td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
+            <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
+            <td>{{ i.Message }}</td>
+            <td><button>Retrieve</button></td>
+            <td><button>Reload</button></td>
+            <td><button>Download</button></td>
+            <td><button>Upload</button></td>
+        </tr>
+    </table>
 
-    <form class="one-line">
+    <form class="one-line print-hide">
         <div class="twocol">
             <label>Card Number:</label>
             <input type="text" />
@@ -50,14 +48,14 @@
             <input placeholder="dd-mm-yyyy" type="text" />
         </div>
         <div class="fourcol last">
-            <input type="reset" class="Reset" />
-            <input type="submit" class="Update" />
+            <input type="reset" value="Reset" />
+            <input type="submit" value="Update" />
         </div>
         <div class="clear"></div>
     </form>
 
     <div ng-controller="AdminReportController">
-        <div class="fourcol">
+        <div class="fourcol print-hide">
             <h2>Search Critera</h2>
 
             <form ng-submit="get_report()">
@@ -101,7 +99,7 @@
                         <th>Claimed Date</th>
                     </tr>
                     <tr ng-repeat="r in reports_offers_claimed">
-                        <td>{{ r.LeisureCard.Code }}</td>
+                        <td>{{ r.LeisureCardCode }}</td>
                         <td>{{ r.OfferTitle }}</td>
                         <td ng-bind="r.SelectedDateTime | date:'dd/MM/yyyy'"></td>
                     </tr>
@@ -113,21 +111,24 @@
                         <th>Login Date &amp; Time</th>
                     </tr>
                     <tr ng-repeat="r in reports_card_usage">
-                        <td>{{ r.LeisureCard.Code }}</td>
+                        <td>{{ r.LeisureCardCode }}</td>
                         <td ng-bind="r.LoginDateTime | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>
 
             </div>
-             <!--
-            <button ng-show="reports_card_activation.length" type="button" ng-csv="getCardActivationReport()" filename="CardActivationReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-            <button ng-show="reports_offers_claimed.length" type="button" ng-csv="getClaimedOffersReport()" filename="ClaimedOffersReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-            <button ng-show="reports_card_usage.length" type="button" ng-csv="getCardUsageReport()" filename="CardUsageReport.csv" field-separator="," decimal-separator=".">Download Details</button>
 
-            <button>Print Results</button>-->
+            <div class="print-hide">
+                <button ng-show="reports_card_activation.length" type="button" csv-header="getCardActivationHeader()" ng-csv="getCardActivationReport()" filename="CardActivationReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+                <button ng-show="reports_offers_claimed.length" type="button" csv-header="getClaimedOffersHeader()" ng-csv="getClaimedOffersReport()" filename="ClaimedOffersReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+                <button ng-show="reports_card_usage.length" type="button" csv-header="getCardUsageHeader()" ng-csv="getCardUsageReport()" filename="CardUsageReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+
+                <button ng-show="reports_card_activation.length || reports_offers_claimed.length || reports_card_usage.length" ng-click="print()">Print Results</button>
+            </div>
+
         </div>
+        <div class="clear"></div>
     </div>
-    <div class="clear"></div>
 
 </div>
 

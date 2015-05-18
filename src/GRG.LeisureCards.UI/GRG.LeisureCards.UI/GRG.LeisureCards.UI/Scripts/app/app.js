@@ -5,6 +5,7 @@
     'ngCookies',
     'ngSanitize',
     'ngCsv',
+    'autocomplete',
     'ng-breadcrumbs',
     'offersExperienceController',
     'offers241Controller',

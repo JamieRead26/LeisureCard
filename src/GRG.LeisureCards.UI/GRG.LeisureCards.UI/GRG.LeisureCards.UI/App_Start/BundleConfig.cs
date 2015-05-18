@@ -45,6 +45,7 @@ namespace GRG.LeisureCards.UI
                         "~/Scripts/angular.resource.js",
                         "~/Scripts/angular-cookies.js",
                         "~/Scripts/angular-route.js",
+                        "~/Scripts/angular-autocomplete.js",
                         "~/Scripts/angular-ng-breadcrumbs.js",
                         "~/Scripts/angular-ng-storage.js",
                         "~/Scripts/angular-sanitize.js",

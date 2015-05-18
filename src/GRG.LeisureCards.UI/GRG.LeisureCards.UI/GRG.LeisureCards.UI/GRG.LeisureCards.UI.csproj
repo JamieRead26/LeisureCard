@@ -179,6 +179,7 @@
     <Content Include="Content\grg\img\carousel-mask.png" />
     <Content Include="Content\grg\img\logo.jpg" />
     <Content Include="Content\grg\img\logo.png" />
+    <Content Include="Scripts\angular-autocomplete.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-ng-storage.js" />
     <Content Include="Scripts\angular-route.js" />

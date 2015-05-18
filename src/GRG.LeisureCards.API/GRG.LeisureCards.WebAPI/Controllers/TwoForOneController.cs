@@ -60,7 +60,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("TwoForOne/FindByLocation/{postCodeOrTown}/{miles}")]
+        [Route("TwoForOne/FindByLocation/{postCodeOrTown}/{radiusMiles}")]
         public IEnumerable<TwoForOneOffer> FindByLocation(string postCodeOrTown, int radiusMiles)
         {
             return _twoForOneRepository.GetAll();

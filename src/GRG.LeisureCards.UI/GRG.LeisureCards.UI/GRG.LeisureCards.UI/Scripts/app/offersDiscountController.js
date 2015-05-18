@@ -1,7 +1,7 @@
 ﻿var offersDiscountController = angular.module('offersDiscountController', []);
 
 offersDiscountController.factory('OfferDiscountClaim', function ($resource, config) {
-    return $resource(config.apiUrl + '/ShortBreaks/ClaimOffer/:slug');
+    return $resource(config.apiUrl + '/ShortBreaks/ClaimOffer/:title');
 });
 
 offersDiscountController.controller('offersDiscountController', function ($scope, slideshow) {
@@ -16,11 +16,11 @@ offersDiscountController.controller('offersDiscountDetailsController', function 
     $scope.global.slideshow = slideshow.offerdiscountdetails;
     $scope.global.bodyclass = 'offer-discount-details';
 
-    $scope.slug = $routeParams.slug;
-    $scope.title = $scope.slug == 'cottage' ? 'Choose a Cottage' : 'Hoseasons';
+    $scope.title = $routeParams.title;
+    $scope.page_title = $scope.title == 'cottage' ? 'Choose a Cottage' : 'Hoseasons';
 
     $scope.claim = function () {
-        OfferDiscountClaim.get({ slug: $scope.slug }, function (data) {
+        OfferDiscountClaim.get({ title: $scope.title }, function (data) {
             if (!data.$resolved) {
                 alert('Something when wrong when claiming this offer.');
             }
@@ -34,15 +34,15 @@ offersDiscountController.controller('offersDiscountClaimController', function ($
     $scope.global.slideshow = slideshow.offerdiscountclaim;
     $scope.global.bodyclass = 'offer-discount-claim';
 
-    $scope.slug = $routeParams.slug;
-    $scope.title = '';
+    $scope.title = $routeParams.title;
+    $scope.page_title = '';
     $scope.url = 'www.chooseacottage.co.uk/vof';
   
-    if($scope.slug == 'cottage'){
-        $scope.title = 'Choose a Cottage';
+    if ($scope.title == 'cottage') {
+        $scope.page_title = 'Choose a Cottage';
     }
-    else if ($scope.slug == 'hoseasons') {
-        $scope.title = 'Hoseasons';
+    else if ($scope.title == 'hoseasons') {
+        $scope.page_title = 'Hoseasons';
         $scope.url = 'partners.hoseasons.co.uk/vof';
     }
 

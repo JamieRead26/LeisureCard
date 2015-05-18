@@ -21,7 +21,7 @@ offers241Controller.factory('Offer241Claim', function ($resource, config) {
 });
 
 offers241Controller.factory('Offer241FindByLocation', function ($resource, config) {
-    return $resource(config.apiUrl + '/TwoForOne/FindByLocation/:location/:miles');
+    return $resource(config.apiUrl + '/TwoForOne/FindByLocation/:postCodeOrTown/:radiusMiles');
 });
 
 offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll, Offer241FindByLocation, slideshow) {
@@ -29,6 +29,8 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     $scope.offers = {};
     $scope.global.bodyclass = 'offer-241';
     $scope.global.slideshow = slideshow.offer241;
+    $scope.miles = 5;
+    $scope.location = 'so181qp';
 
     Offer241GetAll.get(function (data) {
         $scope.offers = data.$values;
@@ -51,12 +53,12 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
         if ($scope.location) {
 
             var postData = {
-                location: $scope.location,
-                miles: $scope.miles
+                postCodeOrTown: $scope.location,
+                radiusMiles: $scope.miles
             };
-
+         
             Offer241FindByLocation.get(postData, function (data) {
-                debugger;
+                $scope.offers = data.$values;
             });
         } else {
             $scope.errors = 'You must provide a location.';

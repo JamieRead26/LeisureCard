@@ -131,12 +131,12 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'offersDiscountController',
             label: 'Discount Offers'
         }).
-        when('/offers/discount/:slug', {
+        when('/offers/discount/:title', {
             templateUrl: 'partial/offers_discount_details',
             controller: 'offersDiscountDetailsController',
             label: 'Discount Offer Details'
         }).
-        when('/offers/discount/claim/:slug', {
+        when('/offers/discount/claim/:title', {
             templateUrl: 'partial/offers_discount_claim',
             controller: 'offersDiscountClaimController',
             label: 'hide'

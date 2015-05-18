@@ -27,7 +27,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
             var result = client.Execute<DataImportJournalEntry>(request);
-            Assert.AreEqual("Red Letter", result.Data.UploadKey);
+            Assert.AreEqual("RedLetter", result.Data.UploadKey);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
             var result = client.Execute<DataImportJournalEntry>(request);
-            Assert.AreEqual("2-4-1", result.Data.UploadKey);
+            Assert.AreEqual("241", result.Data.UploadKey);
         }
 
         [Test]

@@ -10,9 +10,15 @@ namespace GRG.LeisureCards.API.IntegrationTests
     {
         public const string BaseAddress = "http://localhost:1623";//"http://LeisureCard";// "http://52.17.232.144:1623/";//  // "http://52.17.166.61/LeisureCardAPI"; 
 
+        private static string SessionToken = null;
+        private static string AdminSessionToken = null;
+
         public static string GetSessionToken()
         {
-            return GetSessionToken("Registered1");
+            if (SessionToken!=null)
+                return SessionToken;
+
+            return (SessionToken=GetSessionToken("Registered1"));
         }
 
         public static string GetSessionToken(string code)
@@ -32,7 +38,10 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
         public static string GetAdminSessionToken()
         {
-            return GetSessionToken("Admin");
+            if (AdminSessionToken != null)
+                return AdminSessionToken;
+
+            return (AdminSessionToken = GetSessionToken("Admin"));
         }
 
         public static readonly DbConnectionDetails DbConnectionDetails;

@@ -156,6 +156,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
                 Assert.AreEqual(response.Data.Id, lastKnownBad.Data.Id);
                 Assert.AreEqual(response.Data.FileKey, lastKnownBad.Data.FileKey);
+                Assert.AreEqual(response.Data.UploadKey, lastKnownBad.Data.UploadKey);
             }
         }
 

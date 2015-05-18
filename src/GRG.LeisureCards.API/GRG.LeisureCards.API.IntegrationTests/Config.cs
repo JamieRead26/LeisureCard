@@ -8,7 +8,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
 {
     public static class Config
     {
-        public const string BaseAddress = "http://localhost:1623";//"http://LeisureCard";// "http://52.17.232.144:1623/";//  // "http://52.17.166.61/LeisureCardAPI"; 
+        public const string BaseAddress = "http://LeisureCard";//"http://localhost:1623";// "http://52.17.232.144:1623/";//  // "http://52.17.166.61/LeisureCardAPI"; 
 
         private static string SessionToken = null;
         private static string AdminSessionToken = null;

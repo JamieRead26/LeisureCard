@@ -9,11 +9,11 @@
     <form ng-submit="submit()">
         <div class="field">
             <label>Please enter address<br /> either full, town, county or just postcode</label>
-            <input type="text" placeholder="enter search term" ng-model="keyword" />
+            <input type="text" placeholder="enter location" ng-model="location" />
         </div>
         <div class="field">
             <label>Distance</label>
-            <select ng-modal="distance">
+            <select ng-modal="miles">
                 <option value="0.5">half a mile</option>
                 <option value="1">1 mile</option>
                 <option value="5" selected>5 miles</option>

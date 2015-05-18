@@ -21,3 +21,5 @@
 /// <reference path="app/admincontroller.js" />
 /// <reference path="ng-csv.js" />
 /// <reference path="app/config.js" />
+/// <reference path="angular-autocomplete.js" />
+/// <reference path="app/offersdiscountcontroller.js" />

@@ -67,7 +67,6 @@ adminController.controller('AdminDataImportController', function ($scope,
 
     GetLastGoodRedLetter.get(function (data) {
         var good_data = data;
-
         GetLastBadRedLetter.get(function (data) {
             var bad_data = data;
             push_current_import(good_data, bad_data);
@@ -76,9 +75,7 @@ adminController.controller('AdminDataImportController', function ($scope,
 
     GetLastGoodTwoForOne.get(function (data) {
         var good_data = data;
-
         GetLastBadTwoForOne.get(function (data) {
-
             var bad_data = data;
             push_current_import(good_data, bad_data);
         });
@@ -89,14 +86,13 @@ adminController.controller('AdminDataImportController', function ($scope,
     };
 
     $scope.uploadFile = function (key) {
-
         var file = '';
         var path = '';
-        if(key == 'Red Letter'){
+        if(key == 'RedLetter'){
             file = $scope.files.redletter;
             path = '/DataImport/RedLetter/';
         }
-        else if(key == '2-4-1'){
+        else if(key == '241'){
             file = $scope.files.file241;
             path = '/DataImport/TwoForOne/';
         }
@@ -109,6 +105,79 @@ adminController.controller('AdminDataImportController', function ($scope,
         var uploadUrl = config.apiUrl + path;
         fileUpload.uploadFileToUrl(file, uploadUrl);
     };
+
+});
+
+adminController.factory('GetAllCardNumbers', function ($resource, config) {
+    return $resource(config.apiUrl + '/LeisureCard/GetAllCardNumbers');
+});
+
+adminController.factory('LeisureCardUpdate', function ($resource, config) {
+    return $resource(config.apiUrl + '/LeisureCard/Update');
+});
+
+adminController.controller('AdminUpdateCardController', function ($scope, GetAllCardNumbers, LeisureCardUpdate) {
+    
+    $scope.cards = {};
+    $scope.card_numbers = [];
+
+    GetAllCardNumbers.get(function (data) {
+        var cards = data.$values;
+
+        // pushes cards to key values
+        for (var i = 0; i < cards.length; i++) {
+            var code = cards[i].Code;
+
+            $scope.cards[code] = cards[i];
+            $scope.card_numbers.push(code);
+        }
+    });
+    
+    $scope.change = function (cardNumber) {
+        var card = $scope.cards[cardNumber];
+        if (card) {
+            $scope.cardNumber = card.Code;
+
+            function convertDate(inputFormat) {
+                function pad(s) { return (s < 10) ? '0' + s : s; }
+                var d = new Date(inputFormat);
+                return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
+            }
+
+            if (card.ExpiryDate) {
+                var expiry = new Date(card.ExpiryDate);
+                $scope.expiryDate = convertDate(expiry);
+            }
+
+            if (card.RenewalDate) {
+                var renewal = new Date(card.RenewalDate);
+                $scope.renewalDate = convertDate(renewal);
+            }
+        }
+    }
+
+    $scope.submit = function () {
+       
+        var reg = new RegExp(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+        if (!reg.test($scope.renewalDate)) {
+            return $scope.cardupdate_error = 'Renewal date must match format dd-mm-yyyy';
+        }
+
+        if (!$scope.cardNumber) {
+            return $scope.cardupdate_error = 'Invalid card number.';
+        }
+
+        var postData = {
+            cardNumber: $scope.cardNumber,
+            expiryDate: $scope.expiryDate,
+            renewalDate: $scope.renewalDate
+        };
+
+        LeisureCardUpdate.save(postData, function (data) {
+            debugger;
+            // log message
+        });
+    }
 
 });
 

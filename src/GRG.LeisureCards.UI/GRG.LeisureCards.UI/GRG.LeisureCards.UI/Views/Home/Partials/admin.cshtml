@@ -17,53 +17,56 @@
             <th style="width: 220px;">Upload File</th>
         </tr>
         <tr ng-repeat="i in imports">
-            <td><span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>{{ i.OfferTypeKey }}</td>
+            <td><span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>{{ i.UploadKey }}</td>
             <td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
             <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
             <td>{{ i.Message }}</td>
             <td></td>
             <td><button ng-click="refresh()">Reload</button></td>
-            <td></td>
+            <td><a ng-if="i.FileKey" ng-href="/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a></td>
             <td>
 
-                <div ng-if="i.OfferTypeKey == '2-4-1'">
+                <div ng-if="i.UploadKey == '241'">
                     <input type="file" file-model="files.file241" />
                 </div>
-                <div ng-if="i.OfferTypeKey == 'Red Letter'">
+                <div ng-if="i.UploadKey == 'RedLetter'">
                     <input type="file" file-model="files.redletter" />
                 </div>
 
-                <button ng-click="uploadFile(i.OfferTypeKey)">Upload</button>
+                <button ng-click="uploadFile(i.UploadKey)">Upload</button>
             </td>
         </tr>
     </table>
 
-
-    <form class="one-line print-hide">
-        <div class="twocol">
-            <label>Card Number:</label>
-            <input type="text" />
-        </div>
-        <div class="twocol">
-            <label>Expiry Date:</label>
-            <input placeholder="dd-mm-yyyy" type="text" />
-        </div>
-        <div class="twocol">
-            <label>Status:</label>
-            <select>
-                <option class="archive">Archive</option>
-            </select>
-        </div>
-        <div class="twocol">
-            <label>Renewal Date:</label>
-            <input placeholder="dd-mm-yyyy" type="text" />
-        </div>
-        <div class="fourcol last">
-            <input type="reset" value="Reset" />
-            <input type="submit" value="Update" />
-        </div>
-        <div class="clear"></div>
-    </form>
+    <div ng-controller="AdminUpdateCardController">
+        <form ng-submit="submit()" class="one-line print-hide">
+            <div class="twocol">
+                <label>Card Number:</label>
+                <autocomplete ng-model="cardNumber" data="card_numbers" on-type="change"></autocomplete>
+            </div>
+            <div class="twocol">
+                <label>Expiry Date:</label>
+                <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" readonly />
+            </div>
+            <div class="twocol">
+                <label>Status:</label>
+                <select>
+                    <option class="archive">Archive</option>
+                </select>
+            </div>
+            <div class="twocol">
+                <label>Renewal Date:</label>
+                <input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" />
+            </div>
+            <div class="fourcol last">
+                <input type="reset" value="Reset" />
+                <input type="submit" value="Update" />
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="errors" ng-show="cardupdate_error != null">{{ cardupdate_error }}</div>
+        <div class="success" ng-show="cardupdate_success != null">{{ cardupdate_success }}</div>
+    </div>
 
     <div ng-controller="AdminReportController">
         <div class="fourcol print-hide">

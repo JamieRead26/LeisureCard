@@ -5,8 +5,10 @@
     'ngCookies',
     'ngSanitize',
     'ngCsv',
+    'autocomplete',
     'ng-breadcrumbs',
     'offersExperienceController',
+    'offersDiscountController',
     'offers241Controller',
     'offersHomeController',
     'globalController',
@@ -122,6 +124,21 @@ app.config(['$routeProvider', function ($routeProvider) {
         when('/offers/241/claim/:id', {
             templateUrl: 'partial/offers_241_claim',
             controller: 'offers241ClaimController',
+            label: 'hide'
+        }).
+        when('/offers/discount', {
+            templateUrl: 'partial/offers_discount',
+            controller: 'offersDiscountController',
+            label: 'Discount Offers'
+        }).
+        when('/offers/discount/:title', {
+            templateUrl: 'partial/offers_discount_details',
+            controller: 'offersDiscountDetailsController',
+            label: 'Discount Offer Details'
+        }).
+        when('/offers/discount/claim/:title', {
+            templateUrl: 'partial/offers_discount_claim',
+            controller: 'offersDiscountClaimController',
             label: 'hide'
         }).
         when('/logout', {

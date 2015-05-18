@@ -15,16 +15,16 @@ namespace GRG.LeisureCards.Service
 
     public class UkLocationService : IUkLocationService
     {
-        //public UkLocationService()
-        //{
-        //    _mapsApi = new  GoogleLocationService
-        //}
+        /*public UkLocationService()
+        {
+            _mapsApi = new GoogleLocationService;
+        }
 
 
-        //public string GetGeoHash(UkLocation location)
-        //{
-        //    var point = new GeoPoint(latitude, longitude)
-        //}
+        public string GetGeoHash(UkLocation location)
+        {
+            var point = new GeoPoint(latitude, longitude);
+        }*/
     }
 
    

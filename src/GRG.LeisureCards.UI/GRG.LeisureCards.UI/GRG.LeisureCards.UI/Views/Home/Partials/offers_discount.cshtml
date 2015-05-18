@@ -2,8 +2,20 @@
     Layout = "";
 }
 
-<h2>offers_discount</h2>
+<div class="twelvecol" ng-controller="offersDiscountController">
 
-<div ng-controller="OffersListCtrl">
-    <div ng-repeat="o in offers">{{ o }}</div>
+    <h1>Discount Offers</h1>
+
+    <div class="sixcol">
+        <h2>Choose a Cottage </h2>
+
+        <a href="#/offers/discount/cottage" class="button">More Details</a>
+    </div>
+    <div class="sixcol last">
+        <h2>Hoseasons</h2>
+
+        <a href="#/offers/discount/hoseasons" class="button">More Details</a>
+    </div>
+    <div class="clear"></div>
+
 </div>

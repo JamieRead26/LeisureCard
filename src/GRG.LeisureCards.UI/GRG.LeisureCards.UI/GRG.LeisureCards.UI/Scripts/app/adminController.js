@@ -17,7 +17,7 @@ adminController.factory('GetLastGoodRedLetter', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetLastGoodRedLetterImportJournal');
 });
 adminController.factory('GetLastBadRedLetter', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetLastBadTwoForOneImportJournal');
+    return $resource(config.apiUrl + '/DataImport/GetLastBadRedLetterImportJournal');
 });
 
 // Two for one data import
@@ -47,7 +47,7 @@ adminController.controller('AdminDataImportController', function ($scope,
         var _push = function (data) {
             return $scope.imports.push(data);
         };
-
+      
         if (!bad.ImportedDateTime) {
             // use last good data
             return _push(good);
@@ -113,7 +113,7 @@ adminController.factory('GetAllCardNumbers', function ($resource, config) {
 });
 
 adminController.factory('LeisureCardUpdate', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/Update');
+    return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumber/:expiryDate/:renewalDate');
 });
 
 adminController.controller('AdminUpdateCardController', function ($scope, GetAllCardNumbers, LeisureCardUpdate) {
@@ -169,11 +169,11 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
 
         var postData = {
             cardNumber: $scope.cardNumber,
-            expiryDate: $scope.expiryDate,
+            expiryDate: $scope.renewalDate,
             renewalDate: $scope.renewalDate
         };
-
-        LeisureCardUpdate.save(postData, function (data) {
+  
+        LeisureCardUpdate.get(postData, function (data) {
             debugger;
             // log message
         });

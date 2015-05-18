@@ -30,24 +30,10 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     $scope.global.bodyclass = 'offer-241';
     $scope.global.slideshow = slideshow.offer241;
     $scope.miles = 5;
-    $scope.location = 'so181qp';
 
     Offer241GetAll.get(function (data) {
         $scope.offers = data.$values;
     });
-
-    /*$scope.criteriaMatch = function (searchText) {
-        return function (item) {
-            s = searchText.toLowerCase();
-            town = item.TownCity.toLowerCase();
-            postcode = item.PostCode.toLowerCase();
-            county = item.County.toLowerCase();
-
-            return town.indexOf(s) > -1 ||
-                   postcode.indexOf(s) > -1 ||
-                   county.indexOf(s) > -1;
-        };
-    };*/
 
     $scope.submit = function () {
         if ($scope.location) {

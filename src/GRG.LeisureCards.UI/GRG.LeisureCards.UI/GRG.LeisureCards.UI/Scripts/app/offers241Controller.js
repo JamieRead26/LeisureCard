@@ -20,10 +20,13 @@ offers241Controller.factory('Offer241Claim', function ($resource, config) {
     return $resource(config.apiUrl + '/TwoForOne/ClaimOffer/:id');
 });
 
-offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll, slideshow) {
+offers241Controller.factory('Offer241FindByLocation', function ($resource, config) {
+    return $resource(config.apiUrl + '/TwoForOne/FindByLocation/:location/:miles');
+});
+
+offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll, Offer241FindByLocation, slideshow) {
 
     $scope.offers = {};
-    $scope.searchText = '';
     $scope.global.bodyclass = 'offer-241';
     $scope.global.slideshow = slideshow.offer241;
 
@@ -31,7 +34,7 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
         $scope.offers = data.$values;
     });
 
-    $scope.criteriaMatch = function (searchText) {
+    /*$scope.criteriaMatch = function (searchText) {
         return function (item) {
             s = searchText.toLowerCase();
             town = item.TownCity.toLowerCase();
@@ -42,11 +45,19 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
                    postcode.indexOf(s) > -1 ||
                    county.indexOf(s) > -1;
         };
-    };
+    };*/
 
     $scope.submit = function () {
-        if ($scope.keyword) {
-            $scope.searchText = $scope.keyword;
+        if ($scope.location) {
+
+            var postData = {
+                location: $scope.location,
+                miles: $scope.miles
+            };
+
+            Offer241FindByLocation.get(postData, function (data) {
+                debugger;
+            });
         } else {
             $scope.errors = 'You must provide a location.';
         }

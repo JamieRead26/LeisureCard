@@ -14,7 +14,9 @@ namespace GRG.LeisureCards.Model
             RenewalDate = leisureCard.RenewalDate;
             CancellationDate = leisureCard.Suspended;
             RegistrationDate = leisureCard.RegistrationDate;
+            Status = leisureCard.Status;
         }
+        public string Status { get; set; }
 
         public string Code { get; set; }
         public DateTime UploadedDate { get; set; }

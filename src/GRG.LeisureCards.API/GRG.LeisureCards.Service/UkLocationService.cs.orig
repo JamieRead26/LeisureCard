@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using De.AHoerstemeier.Geo;
+using GoogleMapsApi;
+using GRG.LeisureCards.Service.Model;
+
+namespace GRG.LeisureCards.Service
+{
+    public interface IUkLocationService
+    {
+    }
+
+    public class UkLocationService : IUkLocationService
+    {
+<<<<<<< HEAD
+        //public UkLocationService()
+        //{
+        //    _mapsApi = new  GoogleLocationService
+        //}
+
+
+        //public string GetGeoHash(UkLocation location)
+        //{
+        //    var point = new GeoPoint(latitude, longitude)
+        //}
+=======
+        /*public UkLocationService()
+        {
+            _mapsApi = new GoogleLocationService;
+        }
+
+
+        public string GetGeoHash(UkLocation location)
+        {
+            var point = new GeoPoint(latitude, longitude);
+        }*/
+>>>>>>> 54f144684876fb46820eebdaf8f978b3e8049aac
+    }
+
+   
+}

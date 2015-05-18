@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
@@ -47,6 +48,25 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
             Assert.AreEqual(expectedStatus, response.Data.Status);
         }
+
+        [Test]
+        public void Update(string code, string expectedStatus)
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest(" LeisureCard/Update/{cardNumber}/{expiryDate}/{renewalDate}", Method.GET);
+            request.AddParameter("cardNumber", "Registered1");
+            request.AddParameter("expiryDate", DateTime.Now+TimeSpan.FromDays(265));
+            request.AddParameter("renewalDate", DateTime.Now + TimeSpan.FromDays(265));
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetSessionToken());
+
+            var response = client.Execute<LeisureCardInfo>(request);
+
+            Assert.IsNotNull(response.Data);
+        }
+
+       
 
         [Test]
         public void GetSessionInfoTest()

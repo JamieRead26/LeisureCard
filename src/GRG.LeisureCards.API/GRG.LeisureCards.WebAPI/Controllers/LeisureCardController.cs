@@ -52,10 +52,10 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
 
-        [HttpPostAttribute]
+        [HttpGet]
         [SessionAuthFilter(true)]
-        [Route("LeisureCard/Update")]
-        public IHttpActionResult Update(string cardNumber, DateTime expiryDate, DateTime renewalDate)
+        [Route("LeisureCard/Update/{cardNumber}/{expiryDate}/{renewalDate}")]
+        public LeisureCardInfo Update(string cardNumber, DateTime expiryDate, DateTime renewalDate)
         {
             var card = _leisureCardRepository.Get(cardNumber);
 
@@ -64,7 +64,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
             _leisureCardRepository.SaveOrUpdate(card);
 
-            return Ok();
+            return new LeisureCardInfo(card);
         }
 
         [HttpGet]

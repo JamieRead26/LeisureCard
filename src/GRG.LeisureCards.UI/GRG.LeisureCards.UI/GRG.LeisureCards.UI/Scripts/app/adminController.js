@@ -118,17 +118,49 @@ adminController.factory('LeisureCardUpdate', function ($resource, config) {
 
 adminController.controller('AdminUpdateCardController', function ($scope, GetAllCardNumbers, LeisureCardUpdate) {
     
+    $scope.cards = {};
     $scope.card_numbers = [];
 
     GetAllCardNumbers.get(function (data) {
-        $scope.card_numbers = data.$values;
+        var cards = data.$values;
+
+        // pushes cards to key values
+        for (var i = 0; i < cards.length; i++) {
+            var code = cards[i].Code;
+
+            $scope.cards[code] = cards[i];
+            $scope.card_numbers.push(code);
+        }
     });
     
-    $scope.submit = function () {
+    $scope.change = function (cardNumber) {
+        var card = $scope.cards[cardNumber];
+        if (card) {
+            $scope.cardNumber = card.Code;
 
+            function convertDate(inputFormat) {
+                function pad(s) { return (s < 10) ? '0' + s : s; }
+                var d = new Date(inputFormat);
+                return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
+            }
+
+            if (card.ExpiryDate) {
+                var expiry = new Date(card.ExpiryDate);
+                $scope.expiryDate = convertDate(expiry);
+            }
+
+            if (card.RenewalDate) {
+                var renewal = new Date(card.RenewalDate);
+                $scope.renewalDate = convertDate(renewal);
+            }
+        }
+    }
+
+    $scope.submit = function () {
+       
         var reg = new RegExp(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-        if (!reg.test($scope.expiryDate) || !reg.test($scope.renewalDate)) {
-            return $scope.cardupdate_error = 'Expiry and Renewal dates must match format dd-mm-yyyy';
+        if (!reg.test($scope.renewalDate)) {
+            return $scope.cardupdate_error = 'Renewal date must match format dd-mm-yyyy';
         }
 
         if (!$scope.cardNumber) {
@@ -142,7 +174,8 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
         };
 
         LeisureCardUpdate.save(postData, function (data) {
-
+            debugger;
+            // log message
         });
     }
 

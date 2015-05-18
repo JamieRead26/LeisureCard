@@ -40,4 +40,8 @@ app.service('slideshow', function (config) {
         link: ''
     }];
 
+    this.offerdiscount = [];
+    this.offerdiscountdetails = [];
+    this.offerdiscountclaim = [];
+
 });

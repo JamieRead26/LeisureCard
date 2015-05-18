@@ -190,6 +190,7 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\app\directives.js" />
+    <Content Include="Scripts\app\offersDiscountController.js" />
     <Content Include="Scripts\app\offersExperienceController.js" />
     <Content Include="Scripts\app\offers241Controller.js" />
     <Content Include="Scripts\app\offersHomeController.js" />
@@ -226,6 +227,8 @@
     <Content Include="Content\global\css\mixin.scss" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Views\Home\Partials\offers_241_claim.cshtml" />
+    <Content Include="Views\Home\Partials\offers_discount_details.cshtml" />
+    <Content Include="Views\Home\Partials\offers_discount_claim.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />

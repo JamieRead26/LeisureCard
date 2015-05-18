@@ -38,34 +38,35 @@
         </tr>
     </table>
 
-
-    <form ng-submit="submit()" class="one-line print-hide" ng-controller="AdminUpdateCardController">
-        <div class="twocol">
-            <label>Card Number:</label>
-            <autocomplete ng-model="cardNumber" data="card_numbers"></autocomplete>
-        </div>
-        <div class="twocol">
-            <label>Expiry Date:</label>
-            <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" readonly />
-        </div>
-        <div class="twocol">
-            <label>Status:</label>
-            <select>
-                <option class="archive">Archive</option>
-            </select>
-        </div>
-        <div class="twocol">
-            <label>Renewal Date:</label>
-            <input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" />
-        </div>
-        <div class="fourcol last">
-            <input type="reset" value="Reset" />
-            <input type="submit" value="Update" />
-        </div>
-        <div class="clear"></div>
-    </form>
-    <div class="errors" ng-show="cardupdate_error != null">{{ cardupdate_error }}</div>
-    <div class="success" ng-show="cardupdate_success != null">{{ cardupdate_success }}</div>
+    <div ng-controller="AdminUpdateCardController">
+        <form ng-submit="submit()" class="one-line print-hide">
+            <div class="twocol">
+                <label>Card Number:</label>
+                <autocomplete ng-model="cardNumber" data="card_numbers" on-type="change"></autocomplete>
+            </div>
+            <div class="twocol">
+                <label>Expiry Date:</label>
+                <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" readonly />
+            </div>
+            <div class="twocol">
+                <label>Status:</label>
+                <select>
+                    <option class="archive">Archive</option>
+                </select>
+            </div>
+            <div class="twocol">
+                <label>Renewal Date:</label>
+                <input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" />
+            </div>
+            <div class="fourcol last">
+                <input type="reset" value="Reset" />
+                <input type="submit" value="Update" />
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="errors" ng-show="cardupdate_error != null">{{ cardupdate_error }}</div>
+        <div class="success" ng-show="cardupdate_success != null">{{ cardupdate_success }}</div>
+    </div>
 
     <div ng-controller="AdminReportController">
         <div class="fourcol print-hide">

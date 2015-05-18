@@ -78,7 +78,6 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     
     $scope.claim = function () {
         Offer241Claim.get({ id: $scope.id }, function (data) {
-            debugger;
             if(!data.$resolved){
                 alert('Something when wrong when claiming this offer.');
             }

@@ -159,8 +159,8 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
     $scope.submit = function () {
        
         var reg = new RegExp(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-        if (!reg.test($scope.renewalDate)) {
-            return $scope.cardupdate_error = 'Renewal date must match format dd-mm-yyyy';
+        if (!reg.test($scope.expiryDate) || !reg.test($scope.renewalDate)) {
+            return $scope.cardupdate_error = 'Expiry and Renewal dates must match format dd-mm-yyyy';
         }
 
         if (!$scope.cardNumber) {
@@ -169,13 +169,15 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
 
         var postData = {
             cardNumber: $scope.cardNumber,
-            expiryDate: $scope.renewalDate,
+            expiryDate: $scope.expiryDate,
             renewalDate: $scope.renewalDate
         };
-  
+        
         LeisureCardUpdate.get(postData, function (data) {
-            debugger;
-            // log message
+            if(data.$resolved){
+                return $scope.cardupdate_success = 'Card updated successfully.';
+            }
+            return $scope.cardupdate_success = 'An error occurred when trying to update the card.';
         });
     }
 

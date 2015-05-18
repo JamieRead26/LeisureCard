@@ -22,6 +22,27 @@
             border: 0;
         }
     }
+    .errors, .warning, .success {
+        margin: 0 0 20px 0;
+        padding: 5px;
+        font-size: 15px;
+        border: 1px solid #000;
+    }
+    .errors {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;   
+    }
+    .warning {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+    }
+    .success {
+        color: #3B8A4E;
+        background-color: #B7FCBB;
+        border-color: #80DB7A;
+    }
 }
 
 /* AUTOCOMPLETE */

@@ -204,10 +204,12 @@ namespace GRG.LeisureCards.Service
             {
                 var journalEntry = new DataImportJournalEntry
                 {
+                    ImportedDateTime = DateTime.Now,
                     Success = false,
                     Message = ex.Message,
                     StackTrace = ex.StackTrace,
                     FileKey = fileKey,
+                    UploadKey = key.Key,
                 };
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);

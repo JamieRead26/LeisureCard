@@ -113,7 +113,7 @@ adminController.factory('GetAllCardNumbers', function ($resource, config) {
 });
 
 adminController.factory('LeisureCardUpdate', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/Update');
+    return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumber/:expiryDate/:renewalDate');
 });
 
 adminController.controller('AdminUpdateCardController', function ($scope, GetAllCardNumbers, LeisureCardUpdate) {
@@ -173,7 +173,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
             renewalDate: $scope.renewalDate
         };
   
-        LeisureCardUpdate.save(postData, function (data) {
+        LeisureCardUpdate.get(postData, function (data) {
             debugger;
             // log message
         });

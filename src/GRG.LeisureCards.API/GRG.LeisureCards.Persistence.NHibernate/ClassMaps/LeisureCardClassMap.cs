@@ -8,7 +8,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
         public LeisureCardClassMap()
         {
             Id(x => x.Code);
-            Map(x => x.CancellationDate);
+            Map(x => x.Suspended);
             Map(x => x.RegistrationDate);
             Map(x => x.RenewalDate);
             Map(x => x.ExpiryDate);

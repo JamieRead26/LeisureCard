@@ -39,7 +39,7 @@ namespace GRG.LeisureCards.Service
             if (leisureCard == null)
                 return new LeisureCardRegistrationResponse {Status = RegistrationResult.CodeNotFound.ToString()};
 
-            if (leisureCard.CancellationDate)
+            if (leisureCard.Suspended)
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardSuspended.ToString() };
 
             if (leisureCard.RenewalDate!=null && leisureCard.RenewalDate < DateTime.Now)

@@ -12,7 +12,7 @@ namespace GRG.LeisureCards.Model
             UploadedDate = leisureCard.UploadedDate;
             ExpiryDate = leisureCard.ExpiryDate;
             RenewalDate = leisureCard.RenewalDate;
-            CancellationDate = leisureCard.CancellationDate;
+            CancellationDate = leisureCard.Suspended;
             RegistrationDate = leisureCard.RegistrationDate;
         }
 

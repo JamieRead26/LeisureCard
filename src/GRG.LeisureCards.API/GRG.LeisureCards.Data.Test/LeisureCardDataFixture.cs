@@ -57,7 +57,7 @@ namespace GRG.LeisureCards.Data.Test
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold
                 },
-                new LeisureCard {Code = "Cancelled", CancellationDate = true, UploadedDate = DateTime.Now}
+                new LeisureCard {Code = "Cancelled", Suspended = true, UploadedDate = DateTime.Now}
             };
 
             foreach (var leisureCard in Cards)

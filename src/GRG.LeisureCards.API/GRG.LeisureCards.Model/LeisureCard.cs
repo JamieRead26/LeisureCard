@@ -29,7 +29,7 @@ namespace GRG.LeisureCards.Model
         public virtual DateTime? RenewalDate { get; set; }
 
         [DataMember]
-        public virtual bool CancellationDate { get; set; }
+        public virtual bool Suspended { get; set; }
 
         [DataMember]
         public virtual DateTime? RegistrationDate { get; set; }
@@ -37,6 +37,26 @@ namespace GRG.LeisureCards.Model
         public virtual MembershipTier MembershipTier { get; set; }
 
         public virtual IList<OfferCategory> OfferCategories { get; set; }
+
+        [DataMember]
+        public virtual string Status
+        {
+            get
+            {
+                if (Suspended)
+                    return "Suspended";
+
+                if ((ExpiryDate.HasValue && ExpiryDate.Value <= DateTime.Now) ||
+                    (RenewalDate.HasValue && RenewalDate.Value <= DateTime.Now))
+                    return "Expired";
+
+                if (!RegistrationDate.HasValue)
+                    return "Inactive";
+
+                return "Active";
+            }
+            set { }
+        }
 
         [DataMember]
         public virtual bool IsAdmin { get; set; }

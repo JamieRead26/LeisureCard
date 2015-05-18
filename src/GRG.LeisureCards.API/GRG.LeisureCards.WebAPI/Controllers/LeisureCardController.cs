@@ -45,5 +45,14 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             return ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
         }
+
+
+        [HttpPostAttribute]
+        [SessionAuthFilter(true)]
+        [Route("LeisureCard/Update")]
+        public void Update()
+        {
+           
+        }
     }
 }

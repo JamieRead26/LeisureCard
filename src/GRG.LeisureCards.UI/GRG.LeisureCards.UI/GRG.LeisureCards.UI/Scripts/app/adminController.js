@@ -47,7 +47,7 @@ adminController.controller('AdminDataImportController', function ($scope,
         var _push = function (data) {
             return $scope.imports.push(data);
         };
-
+      
         if (!bad.ImportedDateTime) {
             // use last good data
             return _push(good);
@@ -169,10 +169,10 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
 
         var postData = {
             cardNumber: $scope.cardNumber,
-            expiryDate: $scope.expiryDate,
+            expiryDate: $scope.renewalDate,
             renewalDate: $scope.renewalDate
         };
-
+  
         LeisureCardUpdate.save(postData, function (data) {
             debugger;
             // log message

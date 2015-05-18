@@ -23,7 +23,9 @@
             <td>{{ i.Message }}</td>
             <td></td>
             <td><button ng-click="refresh()">Reload</button></td>
-            <td><a ng-if="i.FileKey" ng-href="/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a></td>
+            <td>
+                <a ng-if="i.FileKey" ng-href="/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
+            </td>
             <td>
 
                 <div ng-if="i.UploadKey == '241'">

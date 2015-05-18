@@ -7,7 +7,8 @@ loginController.factory('Login', function ($resource, config) {
 loginController.controller('LoginController', function ($scope, $cookies, $location, $localStorage, Login, slideshow) {
 
     $scope.global.slideshow = slideshow.login;
-    
+    $scope.global.bodyclass = 'homepage';
+
     $scope.card_number = '';
     $scope.submit = function () {
         if ($scope.card_number) {

@@ -76,6 +76,7 @@ globalController.controller('globalCtrl', function ($scope, breadcrumbs, $localS
     $scope.breadcrumbs = breadcrumbs;
     $scope.global = {};
     $scope.global.slideshow = [];
+    $scope.global.bodyclass = '';
 });
 
 app.config(['$routeProvider', function ($routeProvider) {

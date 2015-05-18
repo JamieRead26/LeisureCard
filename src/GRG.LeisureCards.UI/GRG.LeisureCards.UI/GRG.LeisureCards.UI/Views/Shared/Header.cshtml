@@ -1,6 +1,12 @@
 <header>    
 	<div class="row">
 
+        <nav if-show="$storage.user.IsAdmin">
+            <ul>
+                <li><a href="/#/admin">Admin</a></li>
+            </ul>
+        </nav>
+
         <div class="end-date" ng-if="$storage.user">
             End Date <span ng-bind="$storage.user.RenewalDate | date:'dd/MM/yyyy'"></span>
         </div>

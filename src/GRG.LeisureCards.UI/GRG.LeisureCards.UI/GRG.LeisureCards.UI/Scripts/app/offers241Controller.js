@@ -24,6 +24,7 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
 
     $scope.offers = {};
     $scope.searchText = '';
+    $scope.global.bodyclass = 'offer-241';
     $scope.global.slideshow = slideshow.offer241;
 
     Offer241GetAll.get(function (data) {
@@ -52,10 +53,12 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     };
 });
 
-offers241Controller.controller('offers241DetailsController', function ($scope, $sce, $window, $routeParams, Offer241GetById, Offer241Claim) {
+offers241Controller.controller('offers241DetailsController', function ($scope, $sce, $window, $routeParams,
+    Offer241GetById, Offer241Claim, slideshow) {
 
     $scope.id = $routeParams.id;
     $scope.offer = {};
+    $scope.global.bodyclass = 'offer-241-details';
     $scope.global.slideshow = slideshow.offer241details;
   
     Offer241GetById.get({ id: $scope.id }, function (data) {
@@ -75,9 +78,8 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     
     $scope.claim = function () {
         Offer241Claim.get({ id: $scope.id }, function (data) {
-            if(data.$resolved){
-                $window.open('/#/offers/241/claim/' + $scope.id, '_blank');
-            } else {
+            debugger;
+            if(!data.$resolved){
                 alert('Something when wrong when claiming this offer.');
             }
         });
@@ -85,9 +87,10 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
 
 });
 
-offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, Offer241GetById) {
+offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, Offer241GetById, slideshow) {
 
     $scope.global.slideshow = slideshow.offer241claim;
+    $scope.global.bodyclass = 'offer-241-claim';
     $scope.id = $routeParams.id;
 
     Offer241GetById.get({ id: $scope.id }, function (data) {

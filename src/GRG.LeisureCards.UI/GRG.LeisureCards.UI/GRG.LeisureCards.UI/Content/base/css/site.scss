@@ -14,10 +14,10 @@ body {
     padding: 0;
     font-size: 15px;
     font-family: 'Arial', sans-serif;
-    font-weight: normal;
+    font-weight: normal; 
     overflow-y: scroll;
     background: $main-bg;
-    .clear {
+    .clear { 
         clear: both;
     }
     .fl {
@@ -49,6 +49,7 @@ body {
     .scroll-h {
         max-height: 600px;
         overflow-y: scroll;
+        margin-bottom: 20px;
     }
     div.content {
         .container {
@@ -92,4 +93,10 @@ body {
             }          
         }
     }
+}
+
+@media print {
+    header, footer, .print-hide, div.auth {display: none !important;}
+    .scroll-h {overflow-y: auto !important; max-height: none !important; }
+    div {width:100% !important;}
 }

@@ -63,9 +63,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [HttpPostAttribute]
         [SessionAuthFilter()]
         [Route("LeisureCard/GetAllCardNumbers")]
-        public List<string> GetAllCardNumbers()
+        public List<LeisureCardInfo> GetAllCardNumbers()
         {
-            return _leisureCardRepository.GetAll().Select(c => c.Code).ToList();
+            return _leisureCardRepository.GetAll().Select(c => new LeisureCardInfo(c)).ToList();
         }
     }
 }

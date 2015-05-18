@@ -3,6 +3,7 @@ using System.Web.Http;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
+using GRG.LeisureCards.Service.Model;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
 
@@ -59,8 +60,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("TwoForOne/FindByLocation/{longtitude}/{latitude}/{miles}")]
-        public IEnumerable<TwoForOneOffer> FindByLocation(decimal longtitude, decimal latitude, int miles)
+        [Route("TwoForOne/FindByLocation/{postCodeOrTown}/{miles}")]
+        public IEnumerable<TwoForOneOffer> FindByLocation(string postCodeOrTown, int radiusMiles)
         {
             return _twoForOneRepository.GetAll();
         }

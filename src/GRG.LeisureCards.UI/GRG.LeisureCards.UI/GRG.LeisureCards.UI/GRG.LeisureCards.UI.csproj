@@ -142,25 +142,7 @@
     </Content>
     <Content Include="Content\global\css\admin.scss" />
     <None Include="Content\global\css\bxslider.scss" />
-    <Content Include="Content\base\css\mixin.css">
-      <DependentUpon>mixin.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\base\css\mixin.min.css">
-      <DependentUpon>mixin.css</DependentUpon>
-    </Content>
     <None Include="Content\base\css\offers.scss" />
-    <Content Include="Content\base\css\offers.css">
-      <DependentUpon>offers.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\base\css\offers.min.css">
-      <DependentUpon>offers.css</DependentUpon>
-    </Content>
-    <Content Include="Content\base\css\presets.css">
-      <DependentUpon>presets.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\base\css\presets.min.css">
-      <DependentUpon>presets.css</DependentUpon>
-    </Content>
     <Content Include="Content\base\css\site.css">
       <DependentUpon>site.scss</DependentUpon>
     </Content>
@@ -279,7 +261,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57214</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

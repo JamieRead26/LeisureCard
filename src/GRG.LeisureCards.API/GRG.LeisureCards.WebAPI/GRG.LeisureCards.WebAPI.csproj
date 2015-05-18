@@ -159,15 +159,15 @@
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Global.asax" />
-    <Content Include="UploadFiles\241\placeholder.txt">
+    <None Include="UploadFiles\241\placeholder.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UploadFiles\LeisureCards\placeholder.txt">
+    </None>
+    <None Include="UploadFiles\LeisureCards\placeholder.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UploadFiles\RedLetter\placeholder.txt">
+    </None>
+    <None Include="UploadFiles\RedLetter\placeholder.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

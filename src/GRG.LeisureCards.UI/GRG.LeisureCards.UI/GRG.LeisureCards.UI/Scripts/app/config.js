@@ -1,7 +1,7 @@
 ﻿app.constant('config', {
     googleAPiKey: 'AIzaSyAvl80GCl1HRw1H_FmBIGlLk2VPcV5R5Cg',
     tenant: 'grg',
-    apiUrl: '//localhost:1623' //-//localhost:1623
+    apiUrl: '//localhost:1623' //-http://grg.leisurecards.api.shiftkey.uk.com
 });
 
 app.service('slideshow', function (config) {

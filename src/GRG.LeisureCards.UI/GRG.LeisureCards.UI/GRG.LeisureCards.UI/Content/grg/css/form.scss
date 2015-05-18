@@ -46,22 +46,7 @@ body div.content {
         margin-bottom: 10px;
     }
     
-    input[type=submit], input[type=reset], .button, button{
-        width: auto; 
-        padding: 10px 15px;
-        border: none;
-        color: #fff;
-        font-weight: bold;
-        background: $site-color;
-        cursor: pointer;
-        text-decoration: none;
-        font-weight: normal;
-        @include border-radius(5px);
-        &:hover {
-            background: #222;
-            @include ease(0.2s);
-        }    
-    }
+  
     form {
         margin: 0 0 20px 0;
         padding: 20px;

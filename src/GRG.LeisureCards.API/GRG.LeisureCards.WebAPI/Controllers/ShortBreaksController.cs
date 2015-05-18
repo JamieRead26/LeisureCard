@@ -1,11 +1,14 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http;
+using System.Web.Http;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
+using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
+    [SessionAuthFilter]
     [RoutePrefix("ShortBreaks")]
     public class ShortBreaksController : ApiController
     {
@@ -23,7 +26,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [Route("ClaimOffer/{title}")]
-        public void ClaimOffer(string title)
+        public IHttpActionResult ClaimOffer(string title)
         {
             var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
             var card = _userSessionService.GetCard(sessionInfo.SessionToken);
@@ -34,6 +37,10 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                 OfferCategory = _offerCategoryRepository.ShortBreaks,
                 OfferTitle = title
             });
+
+            return Ok();
         }
+
+
     }
 }

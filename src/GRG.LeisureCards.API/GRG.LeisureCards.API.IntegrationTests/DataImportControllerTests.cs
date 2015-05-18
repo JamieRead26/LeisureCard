@@ -77,6 +77,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             {
                 dataStream.CopyTo(memStream);
                 var fileBytes = memStream.ToArray();
+                var sessionToken = Config.GetAdminSessionToken();
 
                 var client = new RestClient(Config.BaseAddress);
 
@@ -84,7 +85,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var request = new RestRequest("DataImport/RedLetter/", Method.POST);
                 request.AddFile("RedLetterData.csv", fileBytes, "RedLetterData.csv");
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+                request.AddHeader("SessionToken", sessionToken);
 
                 var response = client.Execute<DataImportJournalEntry>(request);
 
@@ -96,11 +97,20 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 request.AddParameter("count", 10);
                 request.AddParameter("toId", 0);
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+                request.AddHeader("SessionToken", sessionToken);
 
                 var content = client.Execute(request).Content;
 
                 Assert.AreEqual(response.Data.Id,JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
+
+                request = new RestRequest("DataImport/GetLastGoodRedLetterImportJournal", Method.GET);
+                request.AddHeader("accepts", "application/json");
+                request.AddHeader("SessionToken", sessionToken);
+
+                var lastKnownGood = client.Execute<DataImportJournalEntry>(request);
+
+                Assert.AreEqual(response.Data.Id, lastKnownGood.Data.Id);
+                Assert.AreEqual(response.Data.FileKey, lastKnownGood.Data.FileKey);
             }
         }
 
@@ -112,6 +122,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             {
                 dataStream.CopyTo(memStream);
                 var fileBytes = memStream.ToArray();
+                var sessionToken = Config.GetAdminSessionToken();
 
                 var client = new RestClient(Config.BaseAddress);
 
@@ -119,7 +130,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var request = new RestRequest("DataImport/TwoForOne/", Method.POST);
                 request.AddFile("241Dta.csv", fileBytes, "241Dta.csv");
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+                request.AddHeader("SessionToken", sessionToken);
 
                 var response = client.Execute<DataImportJournalEntry>(request);
 
@@ -131,11 +142,20 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 request.AddParameter("count", 10);
                 request.AddParameter("toId", 0);
                 request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+                request.AddHeader("SessionToken", sessionToken);
 
                 var reponse = client.Execute(request);
 
                 Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(reponse.Content).FirstOrDefault().Id);
+
+                request = new RestRequest("DataImport/GetLastGoodTwoForOneImportJournal", Method.GET);
+                request.AddHeader("accepts", "application/json");
+                request.AddHeader("SessionToken", sessionToken);
+
+                var lastKnownGood = client.Execute<DataImportJournalEntry>(request);
+
+                Assert.AreEqual(response.Data.Id, lastKnownGood.Data.Id);
+                Assert.AreEqual(response.Data.FileKey, lastKnownGood.Data.FileKey);
             }
         }
     }

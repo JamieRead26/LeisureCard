@@ -55,9 +55,16 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [HttpPostAttribute]
         [SessionAuthFilter(true)]
         [Route("LeisureCard/Update")]
-        public void Update(string cardNumber, DateTime expiryDate, DateTime renewalDate)
+        public IHttpActionResult Update(string cardNumber, DateTime expiryDate, DateTime renewalDate)
         {
-           
+            var card = _leisureCardRepository.Get(cardNumber);
+
+            card.ExpiryDate = expiryDate;
+            card.RenewalDate = renewalDate;
+
+            _leisureCardRepository.SaveOrUpdate(card);
+
+            return Ok();
         }
 
         [HttpPostAttribute]

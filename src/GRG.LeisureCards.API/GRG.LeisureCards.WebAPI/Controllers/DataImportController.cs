@@ -51,7 +51,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             if (httpRequest.Files.Count > 0)
             {
                 var fileKey = Guid.NewGuid().ToString();
-                httpRequest.Files[0].SaveAs(filePath + "\\" + fileKey);
+                httpRequest.Files[0].SaveAs(filePath + "\\" + fileKey + ".csv");
                 var journalEntry = importFunc(ReadFully(httpRequest.Files[0].InputStream), fileKey);
 
                 if (!journalEntry.Success) return journalEntry;

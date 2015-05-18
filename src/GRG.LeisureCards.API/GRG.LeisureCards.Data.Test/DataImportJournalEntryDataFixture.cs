@@ -17,7 +17,8 @@ namespace GRG.LeisureCards.Data.Test
                 {
                     UploadKey = DataImportKey.RedLetter.Key, 
                     ImportedDateTime = from + TimeSpan.FromDays(i),
-                    Success = true
+                    Success = true,
+                   // FileKey = Guid.NewGuid().ToString()
                 });
 
             for (var i = 0; i < 25; i++)
@@ -25,7 +26,8 @@ namespace GRG.LeisureCards.Data.Test
                 {
                     UploadKey = DataImportKey.TwoForOne.Key,
                     ImportedDateTime = from + TimeSpan.FromDays(i),
-                    Success = true
+                    Success = true,
+                  //  FileKey = Guid.NewGuid().ToString()
                 });
 
             return journalEntries.ToArray();

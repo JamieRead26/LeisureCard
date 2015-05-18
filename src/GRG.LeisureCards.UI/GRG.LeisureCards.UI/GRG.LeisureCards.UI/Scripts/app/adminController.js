@@ -17,7 +17,7 @@ adminController.factory('GetLastGoodRedLetter', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetLastGoodRedLetterImportJournal');
 });
 adminController.factory('GetLastBadRedLetter', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetLastBadTwoForOneImportJournal');
+    return $resource(config.apiUrl + '/DataImport/GetLastBadRedLetterImportJournal');
 });
 
 // Two for one data import
@@ -69,6 +69,7 @@ adminController.controller('AdminDataImportController', function ($scope,
         var good_data = data;
         GetLastBadRedLetter.get(function (data) {
             var bad_data = data;
+            debugger;
             push_current_import(good_data, bad_data);
         });
     });

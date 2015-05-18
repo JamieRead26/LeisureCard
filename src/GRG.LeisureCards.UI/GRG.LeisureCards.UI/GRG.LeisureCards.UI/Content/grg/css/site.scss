@@ -51,6 +51,19 @@ body {
         overflow-y: scroll;
     }
     div.content {
+        form {
+            input[type=submit]{
+                border: 2px solid #ffffff;
+                background: #0971ce;
+                border-radius:0px;
+                padding:5px 100px 5px 5px;
+                background:url(/Content/img/buttonArrow.jpg) no-repeat;
+                background-position: 95% center;
+            }
+            &.home input[type=submit] {
+                background: #0971ce;
+            }
+        }
         .container {
             padding:0px;
             &.white {
@@ -154,6 +167,7 @@ body {
             :-ms-input-placeholder {color:#91cbff;}
             }          
         }
+        
 }
 
 .bx-wrapper {

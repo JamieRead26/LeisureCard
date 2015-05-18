@@ -57,6 +57,27 @@ body {
                 background: #fff;
             }
         }
+        .breadcrumb {
+              margin: 10px 0;
+            li {
+                display: inline-block;
+                margin-right: 20px;
+                a {
+                   color: #ffffff;    
+                   position: relative;
+                   &:after {
+                        content: '>';
+                        position: absolute;
+                        right: -17px;
+                        top: 2px;
+                        color: #ffffff;
+                   }
+                }
+                span {
+                    color:#ffffff;
+                }
+            }
+        }
         h1 {
             color: $site-color;
             font-size: 26px;
@@ -150,4 +171,51 @@ body {
 }
 .bx-controls-direction {
     display:none;
+}
+body .content ul.experience-offers {
+    margin-bottom:50px;
+    li {
+        a{
+            background:none;
+            border:1px solid #ffffff;
+            height:85px;
+            span, p {
+                font-family:Tahoma, Arial;
+                font-weight:bold;
+                font-size:22px;
+            }
+        }
+        margin:0px;
+        width:23%;
+        height:85px;
+        margin:0 1% 20px 1%;
+        background:none;
+    }
+}
+body .content .special-offers {
+    background:none;
+}
+body .content {
+    .special-offers-title {
+        margin:0 auto;
+        width:100%;
+        max-width:444px;
+    }
+    .special-offers-text {
+        text-align:center;
+        h1 {
+            font-family:Tahoma, Arial;
+            font-weight:bold;
+            font-size:20px;
+            color:#ffffff;
+        }
+        p {
+            font-family:Tahoma, Arial;
+            font-size:20px;
+            color:#ffffff;
+        }
+        a {
+            color:#ffffff;
+        }
+    }
 }

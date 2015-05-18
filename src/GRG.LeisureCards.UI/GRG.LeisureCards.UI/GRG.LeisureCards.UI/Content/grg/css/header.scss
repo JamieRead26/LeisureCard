@@ -5,6 +5,7 @@ header {
     width: 100%;
     z-index: 100;
     min-width: 320px; 
+    background:none;
     a.logo {
         width: $logo-width;
         height: $logo-height;
@@ -49,24 +50,6 @@ header {
 }
 .auth {
     padding: 10px;
-    background: $breadcrumbs-bg;
-    .breadcrumb {
-        li {
-            display: inline-block;
-            margin-right: 20px;
-            a {
-               color: $breadcrumbs-color;    
-               position: relative;
-               &:after {
-                    content: '>';
-                    position: absolute;
-                    right: -17px;
-                    top: 2px;
-                    color: #222;
-               }
-            }
-        }
-    }
     .last {
         text-align: right;
     }

@@ -219,3 +219,55 @@ body .content {
         }
     }
 }
+
+/* SAM CSS */
+.title-img {
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+body div.content form.location-search {    
+    border: 2px solid #FFFFFF;
+    border-radius: 12px;
+    background: #b3c401; 
+}
+
+body div.content label.white {
+       color: #FFFFFF;
+       font-family:  Tahoma, Verdana, Geneva, sans-serif;
+       padding-right: 15px;
+       float: left;
+}
+
+body div.content form.location-search input {   
+    float: left;
+    max-width: 245px;
+    margin-right: 30px;
+}
+
+body div.content .location-search .field {
+    margin-bottom: 0;
+}
+
+body div.content form.location-search select {   
+    float: left;
+    max-width: 290px;
+    margin-right: 15px;
+}
+
+body div.content h4 {
+    color: #555555;
+    padding-right: 15px;
+    float: left;
+    font-family:  Tahoma, Verdana, Geneva, sans-serif;
+}
+
+
+body div.content form.location-search  .location-icon {
+  margin: -41px auto 0 auto;
+  background: #b3c401 url("/Content/grg/img/location-icon.png") no-repeat;
+  width: 59px;
+  height: 45px;
+  padding-bottom: 54px;
+    }
+

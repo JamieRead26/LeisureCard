@@ -6,36 +6,43 @@
 
     <h1>241 Offers</h1>
 
-    <form ng-submit="submit()">
-        <div class="field">
-            <label>Please enter address<br /> either full, town, county or just postcode</label>
+    <div class="twelvecol ">
+        <div class="title-img"><img src="~/Content/grg/img/2-4-1-offers.png" /></div>
+        <form ng-submit="submit()" class="location-search">
+            <div class="location-icon"></div>
+            <div class="search-left">
+                <h4>Location Search</h4>
+                <div class="field">
+                    <label class="white">Search by Address<br />Postcode, Town or Country</label>
             <input type="text" placeholder="enter location" ng-model="location" />
-        </div>
-        <div class="field">
-            <label>Distance</label>
+                </div>
+            </div>
+            <div class="search-right">
+                <h4>Distance</h4>
             <select ng-modal="miles">
-                <option value="0.5">half a mile</option>
-                <option value="1">1 mile</option>
-                <option value="5" selected>5 miles</option>
-                <option value="10">10 miles</option>
-                <option value="25">25 miles</option>
-                <option value="all">all</option>
-            </select>
+                    <option value="0.5">half a mile</option>
+                    <option value="1">1 mile</option>
+                    <option value="5" selected>5 miles</option>
+                    <option value="10">10 miles</option>
+                    <option value="25">25 miles</option>
+                    <option value="all">all</option>
+                </select>
+
+                <div class="errors" ng-show="errors != null">{{ errors }}</div>
+                <input type="submit" value="Submit" />
+            </div>
+            <div class="clear"></div>
+        </form>
+
+
+        <div class="scroll-h">
+            <div class="sixcol offer-241" ng-repeat="o in offers" ng-class="$index % 2 ? 'last' : ''">
+                <h3>{{ o.OutletName }}</h3>
+                <p class="description">{{ o.Description }}</p>
+                <p class="town">{{ o.TownCity }}</p>
+                <p class="postcode">{{ o.PostCode }}</p>
+                <p><a href="/#/offers/241/{{ o.Id }}">Details</a></p>
+            </div>
+
         </div>
-        <div class="errors" ng-show="errors != null">{{ errors }}</div>
-        <input type="submit" value="Submit" />
-    </form>
-
-
-    <div class="scroll-h">
-
-        <div class="sixcol offer-241" ng-repeat="o in offers" ng-class="$index % 2 ? 'last' : ''">
-            <h3>{{ o.OutletName }}</h3>
-            <p class="description">{{ o.Description }}</p>
-            <p class="town">{{ o.TownCity }}</p>
-            <p class="postcode">{{ o.PostCode }}</p>
-            <p><a href="/#/offers/241/{{ o.Id }}">Details</a></p>
-        </div>
-
     </div>
-</div>

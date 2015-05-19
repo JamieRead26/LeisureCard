@@ -35,6 +35,20 @@
     };
 });
 
+app.directive('a', function () {
+    return {
+        restrict: 'E',
+        link: function (scope, elem, attrs) {
+            if (attrs.ngClick || attrs.href === '' || attrs.href === '#') {
+                elem.on('click', function (e) {
+                    e.preventDefault();
+                });
+            }
+        }
+    };
+});
+
+
 // Lazy loading of Google Map API
 app.service('loadGoogleMapAPI', ['$window', '$q', 'config',
     function ($window, $q, config) {
@@ -151,6 +165,11 @@ app.service('fileUpload', ['$http', function ($http) {
             headers: { 'Content-Type': undefined }
         })
         .success(function (d) {
+
+            if (!d.Message) {
+                d.Message = 'Success';
+            }
+
             alert('File upload successful, server responded: ' + d.Message);
         })
         .error(function (d) {

@@ -140,6 +140,12 @@
     <Content Include="Content\base\css\header.min.css">
       <DependentUpon>header.css</DependentUpon>
     </Content>
+    <Content Include="Content\global\css\admin.css">
+      <DependentUpon>admin.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\global\css\admin.min.css">
+      <DependentUpon>admin.css</DependentUpon>
+    </Content>
     <Content Include="Content\global\css\admin.scss" />
     <None Include="Content\global\css\bxslider.scss" />
     <None Include="Content\base\css\offers.scss" />

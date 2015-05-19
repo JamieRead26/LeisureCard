@@ -11,7 +11,6 @@
             <th>Last Run</th>
             <th>Status</th>
             <th>Error Message</th>
-            <th style="width: 120px;">Retrieve Data</th>
             <th style="width: 120px;">Reload Data</th>
             <th style="width: 120px;">Download File</th>
             <th style="width: 220px;">Upload File</th>
@@ -21,10 +20,9 @@
             <td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
             <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
             <td>{{ i.Message }}</td>
-            <td></td>
             <td><button ng-click="refresh()">Reload</button></td>
             <td>
-                <a ng-if="i.FileKey" ng-href="/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
+                <a ng-if="i.FileKey" ng-href="{{ apiUrl }}/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
             </td>
             <td>
 
@@ -52,16 +50,14 @@
             </div>
             <div class="twocol">
                 <label>Status:</label>
-                <select>
-                    <option class="archive">Archive</option>
-                </select>
+                <input type="text" readonly ng-model="status" />
             </div>
             <div class="twocol">
                 <label>Renewal Date:</label>
                 <input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" />
             </div>
             <div class="fourcol last">
-                <input type="reset" value="Reset" />
+                <a ng-click="reset()" class="button" href="#">Reset</a>
                 <input type="submit" value="Update" />
             </div>
             <div class="clear"></div>

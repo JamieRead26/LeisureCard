@@ -17,6 +17,12 @@ body {
     font-weight: normal;
     overflow-y: scroll;
     background: #0971ce;
+    &.offer-241 {
+        background:#b3c401;
+    }
+    &.offer-experience {
+        background:#02c3b5;
+    }
     .clear {
         clear: both;
     }
@@ -51,19 +57,6 @@ body {
         overflow-y: scroll;
     }
     div.content {
-        form {
-            input[type=submit]{
-                border: 2px solid #ffffff;
-                background: #0971ce;
-                border-radius:0px;
-                padding:5px 100px 5px 5px;
-                background:url(/Content/img/buttonArrow.jpg) no-repeat;
-                background-position: 95% center;
-            }
-            &.home input[type=submit] {
-                background: #0971ce;
-            }
-        }
         .container {
             padding:0px;
             &.white {
@@ -167,7 +160,6 @@ body {
             :-ms-input-placeholder {color:#91cbff;}
             }          
         }
-        
 }
 
 .bx-wrapper {
@@ -232,9 +224,39 @@ body .content {
             color:#ffffff;
         }
     }
+    .special-offers {
+        ul {
+            li {
+                width: 31%;
+                float: left;
+                margin-left: 1%;
+                margin-right: 1%;
+                border: 1px solid #ffffff;
+                list-style: none;
+                border-radius: 7px;
+                a {
+                    display:block;
+                }
+            }
+        }
+    }
 }
 
 /* SAM CSS */
+body.offer-241 {
+    background: #b3c401;
+}
+
+.mask {
+background: url('../img/carousel-mask.png');
+background-repeat: no-repeat;
+background-size: 100% auto;
+}
+
+.offer-241 .mask {
+background: url('../img/carousel-mask-green.png') no-repeat;
+}
+
 .title-img {
     text-align: center;
     padding-bottom: 50px;
@@ -284,14 +306,15 @@ body div.content form.location-search  .location-icon {
   padding-bottom: 54px;
     }
 
-input[type=submit], input[type=reset], .button, button{
+body div.content input[type=submit], input[type=reset], .button, button{
         width: auto; 
-        padding: 10px 15px;
+        padding: 7px 15px;
         border: 2px solid #fff;
         color: #fff;
         font-weight: bold;
         background: #b3c401;
         cursor: pointer;
+        border-radius: 0px;
         text-decoration: none;
         font-weight: normal;        
         &:hover {
@@ -300,10 +323,23 @@ input[type=submit], input[type=reset], .button, button{
         }    
     }
 
+body div.content input, body div.content textarea {
+    background: #b3c401;
+    border: 2px solid #fff;
+        color: #fff;
+        padding: 7px 15px;
+}
+
 .search-left {width: 50%; float: left;}
 .search-right {width: 50%; float: right; padding-left: 10px;}
 
-body div.content input, body div.content textarea {color: #FFF; background: #b3c401; border: 2px solid #fff}
+
+body div.content select {
+  width: 100%;
+  font-size: 15px;
+  padding: 7px 11px; }
+
+
 /* SAM MEDIA QUIRIES */
 
 @media screen and (max-width: 1140px) {

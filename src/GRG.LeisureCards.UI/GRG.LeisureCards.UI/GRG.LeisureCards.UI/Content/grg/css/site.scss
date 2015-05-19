@@ -221,6 +221,20 @@ body .content {
 }
 
 /* SAM CSS */
+body.offer-241 {
+    background: #b3c401;
+}
+
+.mask {
+background: url('../img/carousel-mask.png');
+background-repeat: no-repeat;
+background-size: 100% auto;
+}
+
+.offer-241 .mask {
+background: url('../img/carousel-mask-green.png') no-repeat;
+}
+
 .title-img {
     text-align: center;
     padding-bottom: 50px;

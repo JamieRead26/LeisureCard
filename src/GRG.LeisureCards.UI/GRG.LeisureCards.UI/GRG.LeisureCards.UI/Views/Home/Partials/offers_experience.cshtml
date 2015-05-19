@@ -12,8 +12,11 @@
             <li ng-repeat="s in special_offers">
                 <a href="{{ s.Url }}" target="_blank">
                     <img ng-src="{{ s.ThumbnailUrl }}" />
-                    <span>{{ s.Title }}</span>
-                    <p>{{ s.InspirationalDescription }}</p>
+                    <div class="special-offer-copy">
+                        <span>{{ s.Title }}</span>
+                        <p>{{ s.InspirationalDescription }}</p>
+                        <div class="tidy"></div>
+                    </div>
                 </a>
             </li>
         </ul>

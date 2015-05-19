@@ -92,16 +92,10 @@ body div.content form {
       margin: 0;
       text-align: center; }
     body div.content form.home input[type=text] {
-      border: 1px solid #b8b8b8;
       background: #e5e5e5;
       margin-bottom: 20px; }
     body div.content form.home input[type=submit] {
-      background: #53AECF;
-      padding: 10px;
-      font-size: 16px;
-      margin: 0; }
-      body div.content form.home input[type=submit]:hover {
-        background: #222; }
+      background: #49C390; }
 
 body div.content form.inline label {
   display: inline-block;
@@ -135,19 +129,3 @@ body div.content form.inline ul.errorlist, body div.content form.inline input[ty
   @media only screen and (max-width: 768px) {
     body div.content form.inline ul.errorlist, body div.content form.inline input[type=submit] {
       margin-left: 0; } }
-
-body div.content .errors, body div.content .warning {
-  margin: 0 0 20px 0;
-  padding: 5px;
-  font-size: 15px;
-  border: 1px solid #000; }
-
-body div.content .errors {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1; }
-
-body div.content .warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc; }

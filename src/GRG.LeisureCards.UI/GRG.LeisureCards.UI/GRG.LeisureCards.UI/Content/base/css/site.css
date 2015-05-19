@@ -45,6 +45,8 @@ body {
   body p {
     margin-bottom: 15px;
     font-size: 15px; }
+  body .slideshowmask {
+    display: none; }
   body .button, body button {
     display: inline-block; }
   body .google-map {
@@ -53,10 +55,11 @@ body {
     width: 100%; }
   body .scroll-h {
     max-height: 600px;
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    margin-bottom: 20px; }
   body div.content .container {
     padding: 30px 0; }
-    body div.content .container.white {
+    body div.content .container.slideshow {
       background: #fff; }
   body div.content h1 {
     color: #49C390;

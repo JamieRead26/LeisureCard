@@ -80,3 +80,9 @@
   width: 100%;
   background-color: #4bf;
 }
+
+@media print {
+    header, footer, .print-hide, div.auth {display: none !important;}
+    .scroll-h {overflow-y: auto !important; max-height: none !important; }
+    div {width:100% !important;}
+}

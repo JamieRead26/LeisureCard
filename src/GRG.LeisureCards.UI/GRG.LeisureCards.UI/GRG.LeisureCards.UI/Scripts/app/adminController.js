@@ -36,6 +36,7 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.global.bodyclass = 'admin';
 
     $scope.imports = [];
+    $scope.apiUrl = config.apiUrl;
 
     $scope.files = {};
     $scope.files.redletter = {};
@@ -120,6 +121,13 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
     
     $scope.cards = {};
     $scope.card_numbers = [];
+    $scope.status = '';
+
+    var convertDate = function(inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat);
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
+    }
 
     GetAllCardNumbers.get(function (data) {
         var cards = data.$values;
@@ -133,26 +141,33 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
         }
     });
     
+    $scope.reset = function () {
+        $scope.status = '';
+        $scope.expiryDate = '';
+        $scope.renewalDate = '';
+        $scope.cardNumber = '';
+    }
+
     $scope.change = function (cardNumber) {
         var card = $scope.cards[cardNumber];
         if (card) {
             $scope.cardNumber = card.Code;
 
-            function convertDate(inputFormat) {
-                function pad(s) { return (s < 10) ? '0' + s : s; }
-                var d = new Date(inputFormat);
-                return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
-            }
-
             if (card.ExpiryDate) {
                 var expiry = new Date(card.ExpiryDate);
                 $scope.expiryDate = convertDate(expiry);
+            } else {
+                $scope.expiryDate = '';
             }
 
             if (card.RenewalDate) {
                 var renewal = new Date(card.RenewalDate);
                 $scope.renewalDate = convertDate(renewal);
+            } else {
+                $scope.renewalDate = '';
             }
+            
+            $scope.status = card.Status;
         }
     }
 
@@ -166,7 +181,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
         if (!$scope.cardNumber) {
             return $scope.cardupdate_error = 'Invalid card number.';
         }
-
+        
         var postData = {
             cardNumber: $scope.cardNumber,
             expiryDate: $scope.expiryDate,
@@ -174,7 +189,24 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
         };
         
         LeisureCardUpdate.get(postData, function (data) {
-            if(data.$resolved){
+
+            var card = data;
+
+            if (card) {
+
+                var expiry = new Date(card.ExpiryDate);
+                var renewal = new Date(card.RenewalDate);
+        
+                $scope.expiryDate = convertDate(expiry);
+                $scope.renewalDate = convertDate(renewal);
+                $scope.status = card.Status;
+
+                //clean up local scope
+                var code = card.Code;
+                $scope.cards[code].Status = card.Status;
+                $scope.cards[code].ExpiryDate = convertDate(expiry);
+                $scope.cards[code].RenewalDate = convertDate(renewal);
+
                 return $scope.cardupdate_success = 'Card updated successfully.';
             }
             return $scope.cardupdate_success = 'An error occurred when trying to update the card.';
@@ -209,7 +241,7 @@ adminController.controller('AdminReportController', function ($scope,
         }
 
         var search_data = { from: $scope.from_date, to: $scope.to_date }
-
+       
         if ($scope.report_type == 'card_activation') {
 
             GetCardActivationHistory.get(search_data, function (data) {

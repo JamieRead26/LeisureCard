@@ -34,6 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TwoForOneOffer.cs" />
+    <Compile Include="TwoForOneOfferGeoSearchResult.cs" />
     <Compile Include="UkLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

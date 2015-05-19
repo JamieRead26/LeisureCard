@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using AutoMapper;
 using GRG.LeisureCards.Model;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
-using GRG.LeisureCards.Service.Model;
+using GRG.LeisureCards.WebAPI.Areas.HelpPage.Models;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
+using GRG.LeisureCards.WebAPI.Model;
+using ApiModel = GRG.LeisureCards.WebAPI.Model;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
@@ -30,16 +34,16 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [Route("TwoForOne/GetAll")]
-        public IEnumerable<TwoForOneOffer> GetAll()
+        public IEnumerable<ApiModel.TwoForOneOffer> GetAll()
         {
-            return _twoForOneRepository.GetAll();
+            return _twoForOneRepository.GetAll().Select(Mapper.Map<ApiModel.TwoForOneOffer>);
         }
 
         [HttpGet]
         [Route("TwoForOne/Get/{Id}")]
-        public TwoForOneOffer Get(int id)
+        public ApiModel.TwoForOneOffer Get(int id)
         {
-            return _twoForOneRepository.Get(id);
+            return Mapper.Map<ApiModel.TwoForOneOffer>(_twoForOneRepository.Get(id));
         }
 
         [HttpGet]
@@ -61,9 +65,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [Route("TwoForOne/FindByLocation/{postCodeOrTown}/{radiusMiles}")]
-        public IEnumerable<TwoForOneOffer> FindByLocation(string postCodeOrTown, int radiusMiles)
+        public IEnumerable<TwoForOneOfferGeoSearchResult> FindByLocation(string postCodeOrTown, int radiusMiles)
         {
-            return _twoForOneRepository.GetAll();
+            return _twoForOneRepository.GetAll().Select(i => new TwoForOneOfferGeoSearchResult{ TwoForOneOffer = Mapper.Map<ApiModel.TwoForOneOffer>(i), Distance = 0});
         }
     }
 }

@@ -113,6 +113,10 @@
       <Project>{04306782-9793-4aec-82a1-3299fa426e0f}</Project>
       <Name>GRG.LeisureCards.TestResources</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GRG.LeisureCards.WebAPI.Model\GRG.LeisureCards.WebAPI.Model.csproj">
+      <Project>{19f9b535-a681-4ee3-b954-347011c3fdec}</Project>
+      <Name>GRG.LeisureCards.WebAPI.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

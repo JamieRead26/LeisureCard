@@ -43,6 +43,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -227,6 +234,7 @@
     </Compile>
     <Compile Include="Interceptors\SqlStatementInterceptor.cs" />
     <Compile Include="Interceptors\UnitOfWorkInterceptor.cs" />
+    <Compile Include="Mappings\Mapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +297,10 @@
       <Project>{eccc96da-8ce4-4926-a958-ff98df25a83f}</Project>
       <Name>GRG.LeisureCards.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GRG.LeisureCards.WebAPI.Model\GRG.LeisureCards.WebAPI.Model.csproj">
+      <Project>{19f9b535-a681-4ee3-b954-347011c3fdec}</Project>
+      <Name>GRG.LeisureCards.WebAPI.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -322,6 +334,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

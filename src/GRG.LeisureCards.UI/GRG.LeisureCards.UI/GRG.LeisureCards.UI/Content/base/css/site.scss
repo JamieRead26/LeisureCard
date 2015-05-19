@@ -55,6 +55,9 @@ body {
         margin-bottom: 20px;
     }
     div.content {
+        .title-img {
+            display: none;
+        }
         .container {
             padding: 30px 0;
             &.slideshow {

@@ -5,8 +5,20 @@ using System.Xml.Linq;
 
 namespace GRG.LeisureCards.Service
 {
-    public class GoogleLocationService
+    public interface IGoogleLocationService
     {
+        /// <summary>
+        /// Gets the latitude and longitude that belongs to an address.
+        /// </summary>
+        /// <param name="address">The address.</param>
+        /// <returns></returns>
+        MapPoint GetLatLongFromAddress(AddressData address);
+    }
+
+    public class GoogleLocationService : IGoogleLocationService
+    {
+        private readonly string _apiKey;
+
         #region Constants
         const string API_LATLONG_FROM_ADDRESS = "maps.googleapis.com/maps/api/geocode/xml?address={0}&sensor=false";
         #endregion
@@ -17,8 +29,9 @@ namespace GRG.LeisureCards.Service
         /// Initializes a new instance of the <see cref="GoogleLocationService"/> class.
         /// </summary>
         /// <param name="useHttps">Indicates whether to call the Google API over HTTPS or not.</param>
-        public GoogleLocationService(bool useHttps)
+        public GoogleLocationService(bool useHttps, string apiKey)
         {
+            _apiKey = apiKey;
             UseHttps = useHttps;
         }
 
@@ -26,8 +39,8 @@ namespace GRG.LeisureCards.Service
         /// Initializes a new instance of the <see cref="GoogleLocationService"/> class. Default calling the API over regular
         /// HTTP (not HTTPS).
         /// </summary>
-        public GoogleLocationService()
-            : this(false)
+        public GoogleLocationService(string apiKey)
+            : this(false, apiKey)
         { }
         #endregion
 
@@ -54,7 +67,10 @@ namespace GRG.LeisureCards.Service
         {
             get
             {
-                return UrlProtocolPrefix + API_LATLONG_FROM_ADDRESS;
+                return (string.IsNullOrWhiteSpace(_apiKey))
+                    ? UrlProtocolPrefix + API_LATLONG_FROM_ADDRESS
+                    : UrlProtocolPrefix + API_LATLONG_FROM_ADDRESS;// + "&key=" + _apiKey;
+
             }
         }
         #endregion

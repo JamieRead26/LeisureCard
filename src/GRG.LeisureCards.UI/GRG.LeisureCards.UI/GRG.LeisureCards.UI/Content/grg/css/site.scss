@@ -205,6 +205,26 @@ body .content .special-offers {
     background:none;
 }
 body .content {
+    .special-offers-banner {
+        text-align:center;
+        border: 2px solid #ffffff;
+        background:url(../img/ed-banner-tag-1.jpg) 0 0 no-repeat;
+        padding:20px 190px 20px 190px;
+        margin:30px 0 0 0;
+        h2 {
+            padding:0px;
+            margin:0 0 5px 0;
+            color:#cd090d;
+            font-size:20px;
+            font-weight:bold;
+        }
+        p {
+            padding:0px;
+            margin:0px;
+            color:#ffffff;
+            font-size:18px;
+        }
+    }
     .special-offers-title {
         margin:0 auto;
         width:100%;
@@ -212,6 +232,7 @@ body .content {
     }
     .special-offers-text {
         text-align:center;
+        margin:0 0 20px 0;
         h1 {
             font-family:Tahoma, Arial;
             font-weight:bold;
@@ -222,30 +243,54 @@ body .content {
             font-family:Tahoma, Arial;
             font-size:20px;
             color:#ffffff;
+            margin:0px;
         }
         a {
             color:#ffffff;
         }
     }
     .special-offers {
+        padding:30px 0;
         ul {
             li {
                 width: 31%;
+                max-height:111px;
                 float: left;
-                margin-left: 1%;
+                margin-left: 3.5%;
                 margin-right: 1%;
+                margin-bottom:20px;
                 border: 1px solid #ffffff;
                 list-style: none;
                 border-radius: 7px;
+                overflow: hidden;
+                background:#ce0a0e;
                 a {
                     display:block;
                 }
                 img {
                     float:left;
+                    width: 40%;
                 }
-                &.special-offer-copy {
+                div.special-offer-copy {
                     float:left;
+                    width: 60%;
+                    max-height:111px;
+                    background:#ce0a0e;
+                    color:#ffffff;
+                    padding: 10px;
+                    p {
+                        margin: 0 0 5px 0;
+                    }
                 }
+            }
+            li:nth-child(3n) {
+                float:right;
+                margin-left:0px;
+                margin-right:0px;
+            }
+            li:nth-child(3n+1) {
+                margin-left:0px;
+                margin-right:0px;
             }
         }
     }

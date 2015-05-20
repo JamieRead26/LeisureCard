@@ -13,9 +13,9 @@ namespace GRG.LeisureCards.WebAPI
         public void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-//#if DEBUG
+#if DEBUG
             DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails);
-//#endif
+#endif
             Mappings.Mapping.Register();
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }

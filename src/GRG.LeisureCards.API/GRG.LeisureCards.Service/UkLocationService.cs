@@ -94,10 +94,17 @@ namespace GRG.LeisureCards.Service
 
             foreach (var destination in set)
             {
-                var distance = CalcDistanceMiles(from, new MapPoint { Latitude = destination.Latitude, Longitude = destination.Longitude });
+                try
+                {
+                    var distance = CalcDistanceMiles(from, new MapPoint { Latitude = destination.Latitude, Longitude = destination.Longitude });
 
-                if (distance<=radiusMiles)
-                    results.Add(new Tuple<TDestination, double>(destination, distance));
+                    if (distance<=radiusMiles)
+                        results.Add(new Tuple<TDestination, double>(destination, distance));
+                }
+                catch (Exception ex)
+                {
+                    //TODO: Log4Net
+                }
             }
 
             return results;

@@ -32,6 +32,18 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _offerCategoryRepository = offerCategoryRepository;
             _userSessionService = UserSessionService.Instance;
             _locationService = locationService;
+
+            foreach(var twoForOne in _twoForOneRepository.GetWithNoLatLong())
+            { 
+                var latLong = _locationService.GetMapPoint(string.IsNullOrWhiteSpace(twoForOne.PostCode)
+                               ? twoForOne.TownCity
+                               : twoForOne.PostCode);
+
+                twoForOne.Latitude = latLong.Latitude;
+                twoForOne.Longitude = latLong.Longitude;
+
+                _twoForOneRepository.SaveOrUpdate(twoForOne);
+            }
         }
 
         [HttpGet]

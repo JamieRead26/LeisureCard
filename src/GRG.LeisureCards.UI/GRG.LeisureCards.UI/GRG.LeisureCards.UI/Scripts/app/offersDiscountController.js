@@ -36,7 +36,7 @@ offersDiscountController.controller('offersDiscountClaimController', function ($
 
     $scope.title = $routeParams.title;
     $scope.page_title = '';
-    $scope.url = 'www.chooseacottage.co.uk/vof';
+    $scope.url = 'www.chooseacottage.co.uk/DAY';
   
     if ($scope.title == 'cottage') {
         $scope.page_title = 'Choose a Cottage';

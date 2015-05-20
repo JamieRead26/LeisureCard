@@ -38,6 +38,8 @@ namespace GRG.LeisureCards.DomainModel
 
         public virtual IList<OfferCategory> OfferCategories { get; set; }
 
+        public virtual bool Deleted { get; set; }
+
         [DataMember]
         public virtual string Status
         {

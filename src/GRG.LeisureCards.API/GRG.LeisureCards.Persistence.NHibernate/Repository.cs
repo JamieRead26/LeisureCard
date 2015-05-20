@@ -20,12 +20,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             return entity;
         }
 
-        public void Delete(TKey entityKey)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
             Session.Delete(entity);
         }

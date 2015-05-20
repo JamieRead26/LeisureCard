@@ -11,8 +11,25 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             return Session.QueryOver<LeisureCard>()
                 .Where(u => u.RegistrationDate >= from)
                 .Where(u => u.RegistrationDate <= to)
+                .Where(u=>!u.Deleted)
                 .OrderBy(f=>f.RegistrationDate).Desc
                 .List();
+        }
+
+        public override IEnumerable<LeisureCard> GetAll()
+        {
+            return Session.QueryOver<LeisureCard>().Where(u=>!u.Deleted).List();
+        }
+
+        public IEnumerable<LeisureCard> GetAllIncludingDeleted()
+        {
+            return Session.QueryOver<LeisureCard>().List();
+        }
+
+        public override void Delete(LeisureCard entity)
+        {
+            entity.Deleted = true;
+            SaveOrUpdate(entity);
         }
     }
 }

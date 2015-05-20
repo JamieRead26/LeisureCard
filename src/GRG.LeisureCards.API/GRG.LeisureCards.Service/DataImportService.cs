@@ -13,6 +13,8 @@ namespace GRG.LeisureCards.Service
     {
         DataImportJournalEntry ImportRedLetterOffers(byte[] file, string fileKey);
         DataImportJournalEntry ImportTwoForOneOffers(byte[] file, string fileKey);
+
+        DataImportJournalEntry ImportLeisureCards(byte[] file, string fileKey);
     }
 
     public class DataImportService : IDataImportService
@@ -21,17 +23,20 @@ namespace GRG.LeisureCards.Service
         private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ITwoForOneRepository _twoForOneRepository;
         private readonly IUkLocationService _locationService;
+        private readonly ILeisureCardRepository _leisureCardRepository;
 
         public DataImportService(
             IDataImportJournalEntryRepository dataImportJournalEntryRepository, 
             IRedLetterProductRepository redLetterProductRepository,
             ITwoForOneRepository twoForOneRepository,
-            IUkLocationService locationService)
+            IUkLocationService locationService,
+            ILeisureCardRepository leisureCardRepository)
         {
             _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
             _redLetterProductRepository = redLetterProductRepository;
             _twoForOneRepository = twoForOneRepository;
             _locationService = locationService;
+            _leisureCardRepository = leisureCardRepository;
         }
 
         [UnitOfWork]
@@ -190,6 +195,43 @@ namespace GRG.LeisureCards.Service
 
                 foreach (var twoForOneOffer in offers.Values)
                     _twoForOneRepository.Delete(twoForOneOffer);
+            });
+        }
+
+        public DataImportJournalEntry ImportLeisureCards(byte[] file, string fileKey)
+        {
+            return ImportData(DataImportKey.LeisureCards, fileKey, () =>
+            {
+                var cards = _leisureCardRepository.GetAllIncludingDeleted().ToDictionary(o => o.Code, o => o);
+
+                using (var stream = new MemoryStream(file))
+                using (var csvReader = CsvReader.Create(new StreamReader(stream)))
+                {
+                    foreach (var card in csvReader.GetRecords<LeisureCard>().ToArray())
+                    {
+                        var cardToPersist = cards[card.Code];
+
+                        if (cardToPersist != null)
+                        {
+                            cardToPersist.ExpiryDate = card.ExpiryDate;
+                            cardToPersist.RenewalDate = card.RenewalDate;
+                            cardToPersist.IsAdmin = card.IsAdmin;
+                            cardToPersist.Suspended = card.Suspended;
+                            cardToPersist.Deleted = false;
+
+                            cards.Remove(card.Code);
+                        }
+                        else
+                        {
+                            cardToPersist = card;
+                        }
+
+                        _leisureCardRepository.SaveOrUpdate(cardToPersist);
+                    }
+                }
+
+                foreach (var card in cards.Values)
+                    _leisureCardRepository.Delete(card);
             });
         }
 

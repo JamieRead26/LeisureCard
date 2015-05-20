@@ -9,6 +9,7 @@ namespace GRG.LeisureCards.TestResources
         private static readonly string BadRedLetterName;
         private static readonly string RedLetterName;
         private static readonly string TwoForOneName;
+        private static readonly string LeisureCardName;
         static ResourceStreams()
         {
             var names = Assembly.GetExecutingAssembly().GetManifestResourceNames();
@@ -16,6 +17,7 @@ namespace GRG.LeisureCards.TestResources
             RedLetterName = names.First(n => n.IndexOf("RedLetter") > 0);
             BadRedLetterName = names.First(n => n.IndexOf("BadRedLetter") > 0);
             TwoForOneName = names.First(n => n.IndexOf("241") > 0);
+            LeisureCardName = names.First(n => n.IndexOf("LeisureCards.csv") > 0);
         }
 
         public static Stream GetRedLetterDataStream()
@@ -30,6 +32,11 @@ namespace GRG.LeisureCards.TestResources
         public static Stream Get241LetterDataStream()
         {
             return GetStream(TwoForOneName);
+        }
+
+        public static Stream GetLeisureCardStream()
+        {
+            return GetStream(LeisureCardName);
         }
 
         private static Stream GetStream(string key)

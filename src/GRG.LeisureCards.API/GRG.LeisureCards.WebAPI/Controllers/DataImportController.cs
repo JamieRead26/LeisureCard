@@ -18,6 +18,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         private readonly string _redLetterFilePath;
         private readonly string _twoForOneFilePath;
+        private readonly string _leisureCardFilePath;
 
         public DataImportController(IDataImportService dataImportService, IDataImportJournalEntryRepository dataImportJournalEntryRepository)
         {
@@ -26,24 +27,24 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
             _redLetterFilePath = "~\\UploadFiles\\RedLetter";
             _twoForOneFilePath = "~\\UploadFiles\\241";
-            _twoForOneFilePath = "~\\UploadFiles\\LeisureCards";
+            _leisureCardFilePath = "~\\UploadFiles\\LeisureCards";
         }
 
         [HttpPost]
         [Route("DataImport/LeisureCards/")]
         public DataImportJournalEntry ImportLeisureCards()
         {
-            return new DataImportJournalEntry{ImportedDateTime = DateTime.Now, Message = "Temp - not actually uploaded yet", UploadKey = "Leisure Cards", Success = true};
+            return ImportDataFile((bytes, key) => _dataImportService.ImportLeisureCards(bytes, key), _leisureCardFilePath);
         }
 
         [HttpPost]
         [Route("DataImport/RedLetter/")]
         public DataImportJournalEntry ImportRedLetterData()
         {
-            return ImportDateFile((bytes, key) => _dataImportService.ImportRedLetterOffers(bytes, key), _redLetterFilePath);
+            return ImportDataFile((bytes, key) => _dataImportService.ImportRedLetterOffers(bytes, key), _redLetterFilePath);
         }
 
-        private DataImportJournalEntry ImportDateFile(Func<byte[], string,DataImportJournalEntry> importFunc, string filePath)
+        private DataImportJournalEntry ImportDataFile(Func<byte[], string,DataImportJournalEntry> importFunc, string filePath)
         {
             var httpRequest = HttpContext.Current.Request;
             filePath = System.Web.Hosting.HostingEnvironment.MapPath(filePath);
@@ -78,7 +79,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("DataImport/TwoForOne/")]
         public DataImportJournalEntry ImportTwoForOneData()
         {
-            return ImportDateFile((bytes, key) => _dataImportService.ImportTwoForOneOffers(bytes, key), _twoForOneFilePath);
+            return ImportDataFile((bytes, key) => _dataImportService.ImportTwoForOneOffers(bytes, key), _twoForOneFilePath);
 
         }
 
@@ -115,6 +116,20 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("DataImport/GetLastGoodLeisureCardImportJournal")]
+        public DataImportJournalEntry GetLastGoodLeisureCardImportJournal()
+        {
+            return GetLastImportJournal(true, DataImportKey.LeisureCards);
+        }
+
+        [HttpGet]
+        [Route("DataImport/GetLastBadLeisureCardImportJournal")]
+        public DataImportJournalEntry GetLastBadLeisureCardImportJournal()
+        {
+            return GetLastImportJournal(false, DataImportKey.LeisureCards);
+        }
+
+        [HttpGet]
         [Route("DataImport/GetRedLetterImportJournal/{count}/{toId}")]
         public IEnumerable<DataImportJournalEntry> GetRedLetterImportJournal(int count, int toId)
         {
@@ -126,6 +141,15 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         public IEnumerable<DataImportJournalEntry> GetTwoForOneImportJournal(int count, int toId)
         {
             var results = GetImportJournal(DataImportKey.TwoForOne, count, toId);
+
+            return results;
+        }
+
+        [HttpGet]
+        [Route("DataImport/GetLeisureCardImportJournal/{count}/{toId}")]
+        public IEnumerable<DataImportJournalEntry> GetLeisureCardImportJournal(int count, int toId)
+        {
+            var results = GetImportJournal(DataImportKey.LeisureCards, count, toId);
 
             return results;
         }

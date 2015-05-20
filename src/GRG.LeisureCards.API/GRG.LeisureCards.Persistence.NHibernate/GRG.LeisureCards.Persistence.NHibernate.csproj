@@ -71,6 +71,7 @@
     <Compile Include="ClassMaps\DataImportJounalEntryClassMap.cs" />
     <Compile Include="ClassMaps\LeisureCardClassMap.cs" />
     <Compile Include="ClassMaps\LeisureCardUsageClassMap.cs" />
+    <Compile Include="ClassMaps\LocationClassMap.cs" />
     <Compile Include="ClassMaps\MembershipTierClassMap.cs" />
     <Compile Include="ClassMaps\OfferCategoryClassMap.cs" />
     <Compile Include="ClassMaps\RedLetterFactClassMap.cs">
@@ -89,6 +90,7 @@
     <Compile Include="DataImportJournalEntryRepository.cs" />
     <Compile Include="LeisureCardRepository.cs" />
     <Compile Include="LeisureCardUsageRepository.cs" />
+    <Compile Include="LocationRepository.cs" />
     <Compile Include="OfferCategoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedLetterProductRepository.cs" />
@@ -108,9 +110,9 @@
       <Project>{9e05d18c-6775-4095-b382-183240174bfa}</Project>
       <Name>GRG.LeisureCards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
-      <Project>{1373BA44-72CE-45FC-A1D0-6DE5346089C8}</Project>
-      <Name>GRG.LeisureCards.Model</Name>
+    <ProjectReference Include="..\GRG.LeisureCards.DomainModel\GRG.LeisureCards.DomainModel.csproj">
+      <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
+      <Name>GRG.LeisureCards.DomainModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.Persistence\GRG.LeisureCards.Persistence.csproj">
       <Project>{A5F85B9F-16B6-4573-A9B4-2FD29E416947}</Project>

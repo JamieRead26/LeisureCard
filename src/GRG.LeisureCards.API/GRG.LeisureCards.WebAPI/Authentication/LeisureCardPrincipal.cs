@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.WebAPI.Authentication
 {

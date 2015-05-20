@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
-using GRG.LeisureCards.WebAPI.Areas.HelpPage.Models;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
 using GRG.LeisureCards.WebAPI.Model;
@@ -20,16 +19,19 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly IOfferCategoryRepository _offerCategoryRepository;
         private readonly IUserSessionService _userSessionService;
+        private readonly IUkLocationService _locationService;
 
         public TwoForOneController(
             ITwoForOneRepository twoForOneRepository, 
             ISelectedOfferRepository selectedOfferRepository,
-            IOfferCategoryRepository offerCategoryRepository)
+            IOfferCategoryRepository offerCategoryRepository,
+            IUkLocationService locationService)
         {
             _twoForOneRepository = twoForOneRepository;
             _selectedOfferRepository = selectedOfferRepository;
             _offerCategoryRepository = offerCategoryRepository;
             _userSessionService = UserSessionService.Instance;
+            _locationService = locationService;
         }
 
         [HttpGet]
@@ -67,7 +69,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("TwoForOne/FindByLocation/{postCodeOrTown}/{radiusMiles}")]
         public IEnumerable<TwoForOneOfferGeoSearchResult> FindByLocation(string postCodeOrTown, int radiusMiles)
         {
-            return _twoForOneRepository.GetAll().Select(i => new TwoForOneOfferGeoSearchResult{ TwoForOneOffer = Mapper.Map<ApiModel.TwoForOneOffer>(i), Distance = 0});
+            var results = _locationService.Filter(postCodeOrTown, radiusMiles, _twoForOneRepository.GetAll());
+
+            return results.Select(i => new TwoForOneOfferGeoSearchResult { TwoForOneOffer = Mapper.Map<ApiModel.TwoForOneOffer>(i.Item1), Distance = i.Item2 });
         }
     }
 }

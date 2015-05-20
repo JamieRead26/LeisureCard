@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;

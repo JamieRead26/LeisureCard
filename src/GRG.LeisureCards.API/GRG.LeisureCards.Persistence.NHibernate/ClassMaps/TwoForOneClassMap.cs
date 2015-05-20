@@ -1,6 +1,6 @@
 ﻿using FluentNHibernate.Mapping;
 using GRG.LeisureCards.Data;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
 {
@@ -22,6 +22,8 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.BookingInstructions).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
             Map(x => x.ClaimCode);
             Map(x => x.Email);
+            Map(x => x.Latitude);
+            Map(x => x.Longitude);
         }
     }
 }

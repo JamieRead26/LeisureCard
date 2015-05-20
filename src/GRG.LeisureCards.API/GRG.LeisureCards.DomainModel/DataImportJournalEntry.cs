@@ -1,7 +1,6 @@
-﻿
-using System;
+﻿using System;
 
-namespace GRG.LeisureCards.Model
+namespace GRG.LeisureCards.DomainModel
 {
     public class DataImportJournalEntry
     {

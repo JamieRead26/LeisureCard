@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace GRG.LeisureCards.Model
+namespace GRG.LeisureCards.DomainModel
 {
     [Serializable]
     [DataContract(IsReference = true)]

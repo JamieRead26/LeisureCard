@@ -92,6 +92,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeisureCardUsageDataFixture.cs" />
+    <Compile Include="LocationDataFixture.cs" />
     <Compile Include="MembershipTierDataFixture.cs" />
     <Compile Include="OfferCategoryDataFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,9 +120,9 @@
       <Project>{9e05d18c-6775-4095-b382-183240174bfa}</Project>
       <Name>GRG.LeisureCards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
+    <ProjectReference Include="..\GRG.LeisureCards.DomainModel\GRG.LeisureCards.DomainModel.csproj">
       <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
-      <Name>GRG.LeisureCards.Model</Name>
+      <Name>GRG.LeisureCards.DomainModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.TestResources\GRG.LeisureCards.TestResources.csproj">
       <Project>{04306782-9793-4aec-82a1-3299fa426e0f}</Project>

@@ -61,6 +61,7 @@
     <Compile Include="IDataImportJournalEntryRepository.cs" />
     <Compile Include="ILeisureCardRepository.cs" />
     <Compile Include="ILeisureCardUsageRepository.cs" />
+    <Compile Include="ILocationRepository.cs" />
     <Compile Include="IOfferCategoryRepository.cs" />
     <Compile Include="IRedLetterProductRepository.cs" />
     <Compile Include="IRepository.cs" />
@@ -71,13 +72,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
-      <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
-      <Name>GRG.LeisureCards.Model</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\GRG.LeisureCards.DomainModel\GRG.LeisureCards.DomainModel.csproj">
+      <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
+      <Name>GRG.LeisureCards.DomainModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

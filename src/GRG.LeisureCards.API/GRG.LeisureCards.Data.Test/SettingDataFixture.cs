@@ -1,5 +1,5 @@
 ﻿using Bootstrap4NHibernate.Data;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Data.Test
 {

@@ -91,6 +91,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
 
             For<IOfferCategoryRepository>().Use<OfferCategoryRepository>()
             .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+
+            For<ILocationRepository>().Use<LocationRepository>()
+            .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
         }
 
         private void ConfigureServiceIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)

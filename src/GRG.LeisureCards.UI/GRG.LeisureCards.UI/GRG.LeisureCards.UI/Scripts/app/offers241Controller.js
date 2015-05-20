@@ -29,7 +29,35 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     $scope.offers = {};
     $scope.global.bodyclass = 'offer-241';
     $scope.global.slideshow = slideshow.offer241;
-    $scope.miles = 5;
+
+    $scope.options = [{
+        name: 'half a mile',
+        value: 0.5
+    },
+    {
+        name: '1 mile',
+        value: 1
+    },
+    {
+        name: '5 miles',
+        value: 5
+    },
+    {
+        name: '10 miles',
+        value: 10
+    },
+    {
+        name: '15 miles',
+        value: 15
+    },
+    {
+        name: '25 miles',
+        value: 25
+    },
+    {
+        name: 'all',
+        value: 5000
+    }];
 
     Offer241GetAll.get(function (data) {
         $scope.offers = data.$values;
@@ -40,9 +68,9 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
 
             var postData = {
                 postCodeOrTown: $scope.location,
-                radiusMiles: $scope.miles
+                radiusMiles: $scope.miles.value
             };
-         
+
             Offer241FindByLocation.get(postData, function (data) {
                 $scope.offers = data.$values;
             });

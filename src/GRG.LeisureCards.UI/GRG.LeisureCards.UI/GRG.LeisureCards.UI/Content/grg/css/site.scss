@@ -123,7 +123,7 @@ body {
         }
         .slideshowcont {
             border-top:5px solid #ffffff;
-            margin:23px 0 0 0;
+            margin:0 0 0 0;
             position:relative;
             .slideshowmask {
                 width:100%;
@@ -205,6 +205,26 @@ body .content .special-offers {
     background:none;
 }
 body .content {
+    .special-offers-banner {
+        text-align:center;
+        border: 2px solid #ffffff;
+        background:url(../img/ed-banner-tag-1.jpg) 0 0 no-repeat;
+        padding:20px 190px 20px 190px;
+        margin:30px 0 0 0;
+        h2 {
+            padding:0px;
+            margin:0 0 5px 0;
+            color:#cd090d;
+            font-size:20px;
+            font-weight:bold;
+        }
+        p {
+            padding:0px;
+            margin:0px;
+            color:#ffffff;
+            font-size:18px;
+        }
+    }
     .special-offers-title {
         margin:0 auto;
         width:100%;
@@ -212,6 +232,7 @@ body .content {
     }
     .special-offers-text {
         text-align:center;
+        margin:0 0 20px 0;
         h1 {
             font-family:Tahoma, Arial;
             font-weight:bold;
@@ -222,30 +243,54 @@ body .content {
             font-family:Tahoma, Arial;
             font-size:20px;
             color:#ffffff;
+            margin:0px;
         }
         a {
             color:#ffffff;
         }
     }
     .special-offers {
+        padding:30px 0;
         ul {
             li {
                 width: 31%;
+                max-height:111px;
                 float: left;
-                margin-left: 1%;
+                margin-left: 3.5%;
                 margin-right: 1%;
+                margin-bottom:20px;
                 border: 1px solid #ffffff;
                 list-style: none;
                 border-radius: 7px;
+                overflow: hidden;
+                background:#ce0a0e;
                 a {
                     display:block;
                 }
                 img {
                     float:left;
+                    width: 40%;
                 }
-                &.special-offer-copy {
+                div.special-offer-copy {
                     float:left;
+                    width: 60%;
+                    max-height:111px;
+                    background:#ce0a0e;
+                    color:#ffffff;
+                    padding: 10px;
+                    p {
+                        margin: 0 0 5px 0;
+                    }
                 }
+            }
+            li:nth-child(3n) {
+                float:right;
+                margin-left:0px;
+                margin-right:0px;
+            }
+            li:nth-child(3n+1) {
+                margin-left:0px;
+                margin-right:0px;
             }
         }
     }
@@ -254,6 +299,22 @@ body .content {
 /* SAM CSS */
 body.offer-241 {
     background: #b3c401;
+}
+
+.logout {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;  
+    padding-left: 10px;  
+}
+
+.logout:hover {
+    text-decoration: underline;
+}
+
+.date-head {
+    border-right: 1px solid #fff;
+    padding-right: 10px;
 }
 
 .mask {
@@ -269,6 +330,14 @@ background: url('../img/carousel-mask-green.png') no-repeat;
 .title-img {
     text-align: center;
     padding-bottom: 50px;
+}
+
+.offers-home .title-img {
+    padding-top: 20px;
+}
+
+span.green {
+    color: #b3c401;
 }
 
 body div.content form.location-search {    
@@ -349,6 +418,37 @@ body div.content select {
   font-size: 15px;
   padding: 7px 11px; }
 
+body .content a.offer {
+height: 175px;
+width: 190px;
+ background: url("/Content/grg/img/home-icons.png") no-repeat 30px 0;
+ margin: 0 auto;
+}
+
+body .content a.offer.two {
+height: 175px;
+width: 190px;
+ background: url("/Content/grg/img/home-icons.png") no-repeat -246px 0;
+ margin: 0 auto;
+}
+
+body .content a.offer.three {
+height: 175px;
+width: 190px;
+ background: url("/Content/grg/img/home-icons.png") no-repeat -525px 0;
+ margin: 0 auto;
+}
+
+body.offers-home .content div.special-offers-text {
+    padding-bottom: 70px;
+}
+
+body .content .home-icons-wrap {
+    max-width: 714px;
+      margin: 0 auto;
+      padding-bottom: 110px;
+}
+
 
 /* SAM MEDIA QUIRIES */
 
@@ -356,8 +456,10 @@ body div.content select {
     .search-left {width: 100%; text-align: left; padding-bottom: 20px;}
     body div.content .search-left label.white {padding-right: 25px;}
     .search-right {width: 100%; text-align: left; padding: 0px;}
+    body .content a.offer, body .content a.offer.two, body .content a.offer.three {margin-bottom: 30px;}
+    body.offers-home .content div.special-offers-text {padding-bottom: 30px;}
+    body.offers-home .content .home-icons-wrap {padding-bottom: 50px;}
 }
-
 @media screen and (max-width: 704px) {
     .search-left {padding: 0;}
      body div.content .location-search h4 {width: 100%; padding-bottom: 10px;}

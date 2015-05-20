@@ -18,7 +18,7 @@ app.service('slideshow', function (config) {
     }];
 
     this.offershome = [{
-        img: 'http://placehold.it/1140x300',
+        img: '/Content/' + tenant + '/img/banner-1.jpg',
         link: ''
     }];
 

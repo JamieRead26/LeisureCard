@@ -38,14 +38,15 @@ body {
         margin-bottom: 15px;
         font-size: 15px;       
     }
-    .slideshowmask {
+    .slideshowmask, .special-offers-title, .title-img {
         display: none;
     }
     .button, button {
         display: inline-block;
     }
     .google-map  {
-        height: 450px;
+        height: 300px;
+        margin-top: 20px;
         border: 2px solid #fff;
         width: 100%;
     }
@@ -55,9 +56,6 @@ body {
         margin-bottom: 20px;
     }
     div.content {
-        .title-img {
-            display: none;
-        }
         .container {
             padding: 30px 0;
             &.slideshow {

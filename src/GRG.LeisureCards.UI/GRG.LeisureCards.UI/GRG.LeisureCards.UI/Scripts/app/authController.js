@@ -16,7 +16,13 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
             Login.get({ id: $scope.card_number }, function (data) {
 
                 if (data.Status == 'CodeNotFound') {
-                    $scope.errors = 'Card number not found.';
+                    $scope.errors = 'Number is not recognised, please try again.';
+                }
+                else if (data.Status == 'CardExpired') {
+                    $scope.errors = 'Your subscription has run out.';
+                }
+                else if (data.Status == 'CardSuspended') {
+                    $scope.errors = 'Your subscription has been suspended.';
                 }
                 else if (data.Status == 'Ok') {
                     $cookies['SessionToken'] = data.SessionInfo.SessionToken;

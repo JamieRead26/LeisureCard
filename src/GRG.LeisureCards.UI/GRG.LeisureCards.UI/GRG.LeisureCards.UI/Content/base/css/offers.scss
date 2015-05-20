@@ -21,6 +21,28 @@ body .content {
             margin: 0 0 30px 0;
         }
     }
+    .offer-241 {
+        background: $site-color;
+        padding: 5px;
+        position: relative;
+        margin-bottom: 20px;
+        img {
+            float: left;
+            margin-right: 10px;
+        }
+        h3 {
+            margin: 30px 0 15px 0;
+        }
+        .distance {
+            padding: 5px;
+            top: -5px;
+            right: 0;
+            position: absolute;
+            background: #444;
+            color: #fff;
+            font-weight: bold;
+        }
+    }
     .special-offers {
         background: $special-offer-bg;
         border-radius: 5px;

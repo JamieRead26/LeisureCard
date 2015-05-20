@@ -6,43 +6,52 @@
 
     <h1>241 Offers</h1>
 
-    <div class="twelvecol ">
-        <div class="title-img"><img src="~/Content/grg/img/2-4-1-offers.png" /></div>
-        <form ng-submit="submit()" class="location-search">
-            <div class="location-icon"></div>
-            <div class="search-left">
-                <h4>Location Search</h4>
-                <div class="field">
-                    <label class="white">Search by Address<br />Postcode, Town or Country</label>
-            <input type="text" ng-model="location" />
-                </div>
+<div class="twelvecol ">
+    <div class="title-img"><img src="~/Content/grg/img/2-4-1-offers.png"/>
+    </div>
+    <form ng-submit="submit()" class="location-search">
+        <div class="location-icon"></div>
+        <div class="search-left">
+            <h4>Location Search</h4>
+            <div class="field">
+                <label class="white">Search by Address<br/>Postcode, Town or Country</label>
+                <input type="text" ng-model="location"/>
             </div>
-            <div class="search-right">
-                <h4>Distance</h4>
+        </div>
+        <div class="search-right">
+            <h4>Distance</h4>
             <select ng-modal="miles">
-                    <option value="0.5">half a mile</option>
-                    <option value="1">1 mile</option>
-                    <option value="5" selected>5 miles</option>
-                    <option value="10">10 miles</option>
-                    <option value="25">25 miles</option>
-                    <option value="all">all</option>
-                </select>
+                <option value="0.5">half a mile</option>
+                <option value="1">1 mile</option>
+                <option value="5" selected>5 miles</option>
+                <option value="10">10 miles</option>
+                <option value="25">25 miles</option>
+                <option value="all">all</option>
+            </select>
 
-                <div class="errors" ng-show="errors != null">{{ errors }}</div>
-                <input type="submit" value="Submit" />
-            </div>
-            <div class="clear"></div>
-        </form>
+            <div class="errors" ng-show="errors != null">{{ errors }}</div>
+            <input type="submit" value="Submit"/>
+        </div>
+        <div class="clear"></div>
+    </form>
 
 
-        <div class="scroll-h">
-            <div class="sixcol offer-241" ng-repeat="o in offers" ng-class="$index % 2 ? 'last' : ''">
-                <h3>{{ o.OutletName }}</h3>
-                <p class="description">{{ o.Description }}</p>
-                <p class="town">{{ o.TownCity }}</p>
-                <p class="postcode">{{ o.PostCode }}</p>
-                <p><a href="/#/offers/241/{{ o.Id }}">Details</a></p>
+    <div class="scroll-h">
+        <div class="sixcol" ng-repeat="o in offers" ng-class="$index % 2 ? 'last' : ''">
+            
+            <div class="offer-241">
+                <img src="http://placehold.it/220x150" />
+
+                <h3>{{ o.TwoForOneOffer.OutletName || o.OutletName }}</h3>
+                <p class="description">{{ o.TwoForOneOffer.Description || o.Description }}</p>
+                <p class="town">{{ o.TwoForOneOffer.TownCity || o.TownCity }}</p>
+                <p class="distance" ng-show="o.Distance != null">{{ o.Distance }} miles</p>
+                <p><a href="/#/offers/241/{{ o.TwoForOneOffer.Id || o.Id }}">Details</a></p>
+                <div class="clear"></div>
             </div>
 
         </div>
+
     </div>
+</div>
+

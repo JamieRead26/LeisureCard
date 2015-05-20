@@ -18,6 +18,7 @@ namespace GRG.LeisureCards.CSV
         {
             Config = new CsvConfiguration();
             Config.RegisterClassMap<TwoForOneOfferClassMap>();
+            Config.RegisterClassMap<LeisureCardClassMap>();
             Config.TrimFields = true;
         }
     }

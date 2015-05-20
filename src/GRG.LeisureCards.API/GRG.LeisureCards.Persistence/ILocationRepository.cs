@@ -7,6 +7,6 @@ using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Persistence
 {
-    public interface ILocationRepository : IRepository<Location,int>
+    public interface ILocationRepository : IRepository<Location,string>
     {}
 }

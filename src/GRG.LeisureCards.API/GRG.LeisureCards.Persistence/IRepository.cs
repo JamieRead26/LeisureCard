@@ -12,8 +12,6 @@ namespace GRG.LeisureCards.Persistence
 
         TEntity SaveOrUpdate(TEntity entity);
 
-        void Delete(TKey entityKey);
-
         void Delete(TEntity entity);
 
         TEntity Get(TKey key);

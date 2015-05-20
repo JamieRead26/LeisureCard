@@ -7,5 +7,6 @@ namespace GRG.LeisureCards.Persistence
     public interface ILeisureCardRepository : IRepository<LeisureCard,string>
     {
         IEnumerable<LeisureCard> GetRegistrationHistory(DateTime @from, DateTime to);
+        IEnumerable<LeisureCard> GetAllIncludingDeleted();
     }
 }

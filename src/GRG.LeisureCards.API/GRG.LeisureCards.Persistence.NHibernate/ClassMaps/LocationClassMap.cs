@@ -7,8 +7,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
     {
         public LocationClassMap()
         {
-            Id(x => x.Id);
-            Map(x => x.UkPostcodeOrTown);
+            Id(x => x.UkPostcodeOrTown);
             Map(x => x.Longitude);
             Map(x => x.Latitude);
         }

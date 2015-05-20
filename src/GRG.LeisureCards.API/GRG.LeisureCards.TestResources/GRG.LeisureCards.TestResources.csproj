@@ -72,9 +72,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\ExampleDataFiles\LeisureCards.csv">
+    <EmbeddedResource Include="..\ExampleDataFiles\LeisureCards.csv">
       <Link>Data Files\LeisureCards.csv</Link>
-    </None>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

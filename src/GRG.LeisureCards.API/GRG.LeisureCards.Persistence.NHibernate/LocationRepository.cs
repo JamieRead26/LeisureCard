@@ -7,7 +7,7 @@ using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
-    public class LocationRepository : Repository<Location, int>, ILocationRepository
+    public class LocationRepository : Repository<Location, string>, ILocationRepository
     {
     }
 }

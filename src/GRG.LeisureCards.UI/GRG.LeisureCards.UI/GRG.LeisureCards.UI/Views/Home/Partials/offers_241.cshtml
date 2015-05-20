@@ -37,14 +37,19 @@
 
 
     <div class="scroll-h">
-        <div class="sixcol offer-241" ng-repeat="o in offers" ng-class="$index % 2 ? 'last' : ''">
+        <div class="sixcol" ng-repeat="o in offers" ng-class="$index % 2 ? 'last' : ''">
             
-            <h3>{{ o.TwoForOneOffer.OutletName || o.OutletName }}</h3>
-            <p class="description">{{ o.TwoForOneOffer.Description || o.Description }}</p>
-            <p class="town">{{ o.TwoForOneOffer.TownCity || o.TownCity }}</p>
-            <p class="distance" ng-show="o.Distance != null">{{ o.Distance }} miles</p>
-            <p><a href="/#/offers/241/{{ o.TwoForOneOffer.Id || o.Id }}">Details</a>
-            </p>
+            <div class="offer-241">
+                <img src="http://placehold.it/220x150" />
+
+                <h3>{{ o.TwoForOneOffer.OutletName || o.OutletName }}</h3>
+                <p class="description">{{ o.TwoForOneOffer.Description || o.Description }}</p>
+                <p class="town">{{ o.TwoForOneOffer.TownCity || o.TownCity }}</p>
+                <p class="distance" ng-show="o.Distance != null">{{ o.Distance }} miles</p>
+                <p><a href="/#/offers/241/{{ o.TwoForOneOffer.Id || o.Id }}">Details</a></p>
+                <div class="clear"></div>
+            </div>
+
         </div>
 
     </div>

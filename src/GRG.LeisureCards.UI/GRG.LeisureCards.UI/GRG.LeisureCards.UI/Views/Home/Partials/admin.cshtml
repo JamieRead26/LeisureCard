@@ -32,6 +32,9 @@
                 <div ng-if="i.UploadKey == 'RedLetter'">
                     <input type="file" file-model="files.redletter" />
                 </div>
+                <div ng-if="i.UploadKey == 'LeisureCards'">
+                    <input type="file" file-model="files.leisureCards" />
+                </div>
 
                 <button ng-click="uploadFile(i.UploadKey)">Upload</button>
             </td>
@@ -46,7 +49,7 @@
             </div>
             <div class="twocol">
                 <label>Expiry Date:</label>
-                <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" />
+                <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" date-formatter />
             </div>
             <div class="twocol">
                 <label>Status:</label>
@@ -54,7 +57,7 @@
             </div>
             <div class="twocol">
                 <label>Renewal Date:</label>
-                <input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" />
+                <input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" date-formatter />
             </div>
             <div class="fourcol last">
                 <a ng-click="reset()" class="button" href="#">Reset</a>
@@ -82,8 +85,8 @@
 
                 <div class="field">
                     <label>Date Range</label>
-                    <input placeholder="from e.g: dd-mm-yyyy" type="text" style="margin-bottom: 10px;" ng-model="from_date" />
-                    <input placeholder="to e.g: dd-mm-yyyy" type="text" ng-model="to_date" />
+                    <input placeholder="from e.g: dd-mm-yyyy" type="text" style="margin-bottom: 10px;" ng-model="from_date" date-formatter />
+                    <input placeholder="to e.g: dd-mm-yyyy" type="text" ng-model="to_date" date-formatter />
                 </div>
                 <div class="errors" ng-show="report_error != null">{{ report_error }}</div>
                 <input type="submit" value="Submit" />
@@ -98,7 +101,7 @@
                         <th>Card Number</th>
                         <th>Activation Date</th>
                     </tr>
-                    <tr ng-repeat="r in reports_card_usage">
+                    <tr ng-repeat="r in reports_card_activation">
                         <td>{{ r.Code }}</td>
                         <td>{{ r.RegistrationDate }}</td>
                     </tr>

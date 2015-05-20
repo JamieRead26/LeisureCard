@@ -3,13 +3,21 @@
 adminController.factory('GetCardActivationHistory', function ($resource, config) {
     return $resource(config.apiUrl + '/Reports/GetCardActivationHistory/:from/:to');
 });
+// Gets Offers Claimed
 adminController.factory('GetSelectedOfferHistory', function ($resource, config) {
-    // Gets Offers Claimed
     return $resource(config.apiUrl + '/Reports/GetSelectedOfferHistory/:from/:to');
 });
+// Gets Card Usage
 adminController.factory('GetLoginHistory', function ($resource, config) {
-    // Gets Card Usage
     return $resource(config.apiUrl + '/Reports/GetLoginHistory/:from/:to');
+});
+
+adminController.factory('GetAllCardNumbers', function ($resource, config) {
+    return $resource(config.apiUrl + '/LeisureCard/GetAllCardNumbers');
+});
+
+adminController.factory('LeisureCardUpdate', function ($resource, config) {
+    return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumber/:expiryDate/:renewalDate');
 });
 
 // Red letter data import
@@ -28,9 +36,18 @@ adminController.factory('GetLastBadTwoForOne', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetLastBadTwoForOneImportJournal');
 });
 
+// LeisureCards data import
+adminController.factory('GetLastGoodLeisureCard', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/GetLastGoodLeisureCardImportJournal');
+});
+adminController.factory('GetLastBadLeisureCard', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/GetLastBadLeisureCardImportJournal');
+});
+
 adminController.controller('AdminDataImportController', function ($scope,
     GetLastGoodRedLetter, GetLastBadRedLetter,
     GetLastGoodTwoForOne, GetLastBadTwoForOne,
+    GetLastGoodLeisureCard, GetLastBadLeisureCard,
     fileUpload, config) {
 
     $scope.global.bodyclass = 'admin';
@@ -41,14 +58,27 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.files = {};
     $scope.files.redletter = {};
     $scope.files.file241 = {};
+    $scope.files.leisureCards = {};
     $scope.file_errors = '';
 
-    var push_current_import = function (good, bad) {
+    var push_current_import = function (good, bad, default_key) {
 
         var _push = function (data) {
             return $scope.imports.push(data);
         };
-      
+
+        if (!good.ImportedDateTime && !bad.ImportedDateTime) {
+            // default 
+            var doc = {
+                ImportedDateTime: null,
+                Message: null,
+                StackTrace: null,
+                Success: null,
+                UploadKey: default_key,
+            }
+            return _push(doc);
+        }
+
         if (!bad.ImportedDateTime) {
             // use last good data
             return _push(good);
@@ -70,7 +100,7 @@ adminController.controller('AdminDataImportController', function ($scope,
         var good_data = data;
         GetLastBadRedLetter.get(function (data) {
             var bad_data = data;
-            push_current_import(good_data, bad_data);
+            push_current_import(good_data, bad_data, 'RedLetter');
         });
     });
 
@@ -78,10 +108,18 @@ adminController.controller('AdminDataImportController', function ($scope,
         var good_data = data;
         GetLastBadTwoForOne.get(function (data) {
             var bad_data = data;
-            push_current_import(good_data, bad_data);
+            push_current_import(good_data, bad_data, '241');
         });
     });
     
+    GetLastGoodLeisureCard.get(function (data) {
+        var good_data = data;
+        GetLastBadLeisureCard.get(function (data) {
+            var bad_data = data;
+            push_current_import(good_data, bad_data, 'LeisureCards');
+        });
+    });
+
     $scope.refresh = function () {
         window.location.reload();
     };
@@ -89,6 +127,7 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.uploadFile = function (key) {
         var file = '';
         var path = '';
+
         if(key == 'RedLetter'){
             file = $scope.files.redletter;
             path = '/DataImport/RedLetter/';
@@ -96,6 +135,10 @@ adminController.controller('AdminDataImportController', function ($scope,
         else if(key == '241'){
             file = $scope.files.file241;
             path = '/DataImport/TwoForOne/';
+        }
+        else if (key == 'LeisureCards') {
+            file = $scope.files.leisureCards;
+            path = '/DataImport/LeisureCards/';
         }
 
         if(!key || !path || !file){
@@ -109,25 +152,18 @@ adminController.controller('AdminDataImportController', function ($scope,
 
 });
 
-adminController.factory('GetAllCardNumbers', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/GetAllCardNumbers');
-});
+var valid_iso_date = function (date) {
+    var reg = new RegExp(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([{0,3}-][0-2]\d:[0-5]\d|Z)/);
+    debugger;
+    //return reg.test(date);
+    return true;
+}
 
-adminController.factory('LeisureCardUpdate', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumber/:expiryDate/:renewalDate');
-});
-
-adminController.controller('AdminUpdateCardController', function ($scope, GetAllCardNumbers, LeisureCardUpdate) {
+adminController.controller('AdminUpdateCardController', function ($scope, $filter, GetAllCardNumbers, LeisureCardUpdate) {
     
     $scope.cards = {};
     $scope.card_numbers = [];
     $scope.status = '';
-
-    var convertDate = function(inputFormat) {
-        function pad(s) { return (s < 10) ? '0' + s : s; }
-        var d = new Date(inputFormat);
-        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
-    }
 
     GetAllCardNumbers.get(function (data) {
         var cards = data.$values;
@@ -154,15 +190,13 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
             $scope.cardNumber = card.Code;
 
             if (card.ExpiryDate) {
-                var expiry = new Date(card.ExpiryDate);
-                $scope.expiryDate = convertDate(expiry);
+                $scope.expiryDate = card.ExpiryDate;
             } else {
                 $scope.expiryDate = '';
             }
 
             if (card.RenewalDate) {
-                var renewal = new Date(card.RenewalDate);
-                $scope.renewalDate = convertDate(renewal);
+                $scope.renewalDate = card.RenewalDate;
             } else {
                 $scope.renewalDate = '';
             }
@@ -172,20 +206,19 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
     }
 
     $scope.submit = function () {
-       
-        var reg = new RegExp(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-        if (!reg.test($scope.expiryDate) || !reg.test($scope.renewalDate)) {
+
+        if (!valid_iso_date($scope.expiryDate) || !valid_iso_date($scope.renewalDate)) {
             return $scope.cardupdate_error = 'Expiry and Renewal dates must match format dd-mm-yyyy';
         }
 
         if (!$scope.cardNumber) {
             return $scope.cardupdate_error = 'Invalid card number.';
         }
-        
+
         var postData = {
             cardNumber: $scope.cardNumber,
-            expiryDate: $scope.expiryDate,
-            renewalDate: $scope.renewalDate
+            expiryDate: $filter('date')($scope.expiryDate, "yyyy-MM-dd"),
+            renewalDate: $filter('date')($scope.renewalDate, "yyyy-MM-dd")
         };
         
         LeisureCardUpdate.get(postData, function (data) {
@@ -194,18 +227,15 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
 
             if (card) {
 
-                var expiry = new Date(card.ExpiryDate);
-                var renewal = new Date(card.RenewalDate);
-        
-                $scope.expiryDate = convertDate(expiry);
-                $scope.renewalDate = convertDate(renewal);
+                $scope.expiryDate = card.ExpiryDate;
+                $scope.renewalDate = card.RenewalDate;
                 $scope.status = card.Status;
 
                 //clean up local scope
                 var code = card.Code;
                 $scope.cards[code].Status = card.Status;
-                $scope.cards[code].ExpiryDate = convertDate(expiry);
-                $scope.cards[code].RenewalDate = convertDate(renewal);
+                $scope.cards[code].ExpiryDate = card.ExpiryDate;
+                $scope.cards[code].RenewalDate = card.RenewalDate;
 
                 return $scope.cardupdate_success = 'Card updated successfully.';
             }
@@ -215,7 +245,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, GetAll
 
 });
 
-adminController.controller('AdminReportController', function ($scope,
+adminController.controller('AdminReportController', function ($scope, $filter,
     GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory) {
 
     $scope.global.slideshow = [];
@@ -235,17 +265,20 @@ adminController.controller('AdminReportController', function ($scope,
             if (array.length == 0) { return $scope.report_error = 'No results to show.'; }
         };
 
-        var reg = new RegExp(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-        if (!reg.test($scope.from_date) || !reg.test($scope.to_date)) {
+        if (!valid_iso_date($scope.from_date) || !valid_iso_date($scope.to_date)) {
             return $scope.report_error = 'From and To dates must match format dd-mm-yyyy';
         }
 
-        var search_data = { from: $scope.from_date, to: $scope.to_date }
+        var search_data = {
+            from: $filter('date')($scope.from_date, "yyyy-MM-dd"),
+            to: $filter('date')($scope.to_date, "yyyy-MM-dd")
+        };
        
         if ($scope.report_type == 'card_activation') {
 
             GetCardActivationHistory.get(search_data, function (data) {
                 $scope.reports_card_activation = data.$values;
+                debugger;
                 no_results_check($scope.reports_card_activation);
             });
 

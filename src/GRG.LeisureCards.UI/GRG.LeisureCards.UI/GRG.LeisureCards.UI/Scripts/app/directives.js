@@ -35,6 +35,48 @@
     };
 });
 
+var convert_to_iso_date = function (_string) {
+    var d = _string.split('-');
+    var year = d[2];
+    var month = parseInt(d[1]) - 1;
+    var day = d[0];
+    var date = new Date(year, month, day);
+
+    if (Object.prototype.toString.call(date) === "[object Date]") {
+        if (isNaN(date.getTime())) {
+            return '';
+        } else {
+            return date.toISOString();
+        }
+    }
+    else {
+        return '';
+    }
+}
+
+app.directive('dateFormatter', function ($filter) {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, ngModelController) {
+            ngModelController.$parsers.push(function(data) {
+                //convert data from view format to model format
+                if (data) {
+                    data = convert_to_iso_date(data);
+                }
+                return data;
+            });
+
+            ngModelController.$formatters.push(function(data) {
+                //convert data from model format to view format
+                if (data) {
+                    data = $filter('date')(data, "dd-MM-yyyy");
+                }
+                return data;
+            });
+        }
+    }
+});
+
 app.directive('a', function () {
     return {
         restrict: 'E',

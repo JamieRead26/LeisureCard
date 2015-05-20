@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GRG.LeisureCards.Model
+namespace GRG.LeisureCards.DomainModel
 {
     public class SelectedOffer
     {

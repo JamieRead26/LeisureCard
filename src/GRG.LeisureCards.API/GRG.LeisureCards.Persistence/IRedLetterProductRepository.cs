@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Persistence
 {

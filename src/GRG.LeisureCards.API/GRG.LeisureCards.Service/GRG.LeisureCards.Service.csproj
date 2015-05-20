@@ -32,12 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AHGeo">
-      <HintPath>..\lib\AHGeo.dll</HintPath>
-    </Reference>
-    <Reference Include="GoogleMapsApi">
-      <HintPath>..\packages\GoogleMapsApi.0.41.0.0\lib\net45\GoogleMapsApi.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -73,6 +67,7 @@
     </Compile>
     <Compile Include="BusinessLogic\CardRenewalLogic.cs" />
     <Compile Include="DataImportService.cs" />
+    <Compile Include="GoogleLocationService.cs" />
     <Compile Include="LeisureCardService.cs" />
     <Compile Include="UkLocationService.cs" />
     <Compile Include="Model\UkLocation.cs" />
@@ -85,9 +80,9 @@
       <Project>{149F627D-3AF1-4CB3-BED5-89B41F5AFB33}</Project>
       <Name>GRG.LeisureCards.CSV</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
+    <ProjectReference Include="..\GRG.LeisureCards.DomainModel\GRG.LeisureCards.DomainModel.csproj">
       <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
-      <Name>GRG.LeisureCards.Model</Name>
+      <Name>GRG.LeisureCards.DomainModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.Persistence.NHibernate\GRG.LeisureCards.Persistence.NHibernate.csproj">
       <Project>{64ba8a8f-c727-4868-a8b7-fc3a99c9a639}</Project>

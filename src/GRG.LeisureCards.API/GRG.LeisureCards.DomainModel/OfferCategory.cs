@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GRG.LeisureCards.Model
+namespace GRG.LeisureCards.DomainModel
 {
     public class OfferCategory
     {

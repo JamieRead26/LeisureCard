@@ -3,6 +3,6 @@
     public class UkLocation
     {
         public string UkTown { get; set; }
-        public string UkPostcode { get; set; }
+        public string UkPostcodeOrTown { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Web.Http;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.WebAPI.Filters;
 

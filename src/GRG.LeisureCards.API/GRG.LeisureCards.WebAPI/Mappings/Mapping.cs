@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ApiModel = GRG.LeisureCards.WebAPI.Model;
-using DomainModel = GRG.LeisureCards.Model;
+using DomainModel = GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.WebAPI.Mappings
 {

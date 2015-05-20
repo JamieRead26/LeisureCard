@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using GRG.LeisureCards.CSV;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
 
@@ -20,15 +20,18 @@ namespace GRG.LeisureCards.Service
         private readonly IDataImportJournalEntryRepository _dataImportJournalEntryRepository;
         private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ITwoForOneRepository _twoForOneRepository;
+        private readonly IUkLocationService _locationService;
 
         public DataImportService(
             IDataImportJournalEntryRepository dataImportJournalEntryRepository, 
             IRedLetterProductRepository redLetterProductRepository,
-            ITwoForOneRepository twoForOneRepository)
+            ITwoForOneRepository twoForOneRepository,
+            IUkLocationService locationService)
         {
             _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
             _redLetterProductRepository = redLetterProductRepository;
             _twoForOneRepository = twoForOneRepository;
+            _locationService = locationService;
         }
 
         [UnitOfWork]
@@ -172,6 +175,14 @@ namespace GRG.LeisureCards.Service
                         {
                             offerToPersist = offer;
                         }
+
+                        var latLong =
+                            _locationService.GetMapPoint(string.IsNullOrWhiteSpace(offerToPersist.PostCode)
+                                ? offerToPersist.TownCity
+                                : offerToPersist.PostCode);
+
+                        offerToPersist.Latitude = latLong.Latitude;
+                        offerToPersist.Longitude = latLong.Longitude;
 
                         _twoForOneRepository.SaveOrUpdate(offerToPersist);
                     }

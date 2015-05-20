@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using GRG.LeisureCards.Data;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using NUnit.Framework;
 using RestSharp;

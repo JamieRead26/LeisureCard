@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentNHibernate.Mapping;
 using GRG.LeisureCards.Data;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using Newtonsoft.Json;
 using NUnit.Framework;

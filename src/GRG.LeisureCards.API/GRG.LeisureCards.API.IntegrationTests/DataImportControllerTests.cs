@@ -5,9 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using GRG.LeisureCards.Data;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using GRG.LeisureCards.TestResources;
+using GRG.LeisureCards.WebAPI.Model;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
@@ -202,6 +203,19 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
                 Assert.AreEqual(response.Data.Id, lastKnownGood.Data.Id);
                 Assert.AreEqual(response.Data.FileKey, lastKnownGood.Data.FileKey);
+
+                request = new RestRequest("TwoForOne/FindByLocation/{postCodeOrTown}/{radiusMiles}", Method.GET);
+                request.AddHeader("accepts", "application/json");
+                request.AddParameter("radiusMiles", 1);
+                request.AddParameter("postCodeOrTown", "SK12 1BY");
+                request.AddHeader("SessionToken", sessionToken);
+
+                reponse = client.Execute(request);
+                var results = JsonConvert.DeserializeObject<List<TwoForOneOfferGeoSearchResult>>(reponse.Content);
+
+                Assert.AreEqual(1, results.Count);
+                Assert.AreEqual("SK12 1BY", results.First().TwoForOneOffer.PostCode);
+                Assert.AreEqual(0, results.First().Distance);
             }
         }
     }

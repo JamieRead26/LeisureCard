@@ -1,5 +1,4 @@
-﻿using GRG.LeisureCards.Model;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using RestSharp;
 
 namespace GRG.LeisureCards.API.IntegrationTests

@@ -1,5 +1,5 @@
 ﻿using System;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service.BusinessLogic;
 

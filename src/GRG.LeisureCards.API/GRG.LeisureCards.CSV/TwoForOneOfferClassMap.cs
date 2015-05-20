@@ -1,5 +1,5 @@
 ﻿using CsvHelper.Configuration;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.CSV
 {

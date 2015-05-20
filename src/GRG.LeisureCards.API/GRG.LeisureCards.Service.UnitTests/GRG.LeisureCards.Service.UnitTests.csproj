@@ -69,10 +69,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GRG.LeisureCards.Model\GRG.LeisureCards.Model.csproj">
-      <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
-      <Name>GRG.LeisureCards.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.Service\GRG.LeisureCards.Service.csproj">
       <Project>{eccc96da-8ce4-4926-a958-ff98df25a83f}</Project>
       <Name>GRG.LeisureCards.Service</Name>

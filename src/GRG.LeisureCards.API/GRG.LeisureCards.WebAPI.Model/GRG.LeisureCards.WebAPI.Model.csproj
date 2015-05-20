@@ -36,7 +36,6 @@
   <ItemGroup>
     <Compile Include="TwoForOneOffer.cs" />
     <Compile Include="TwoForOneOfferGeoSearchResult.cs" />
-    <Compile Include="UkLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

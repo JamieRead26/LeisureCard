@@ -1,5 +1,5 @@
 ﻿using System;
-using GRG.LeisureCards.Model;
+using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {

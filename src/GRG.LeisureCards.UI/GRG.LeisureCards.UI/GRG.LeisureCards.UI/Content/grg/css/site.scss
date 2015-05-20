@@ -123,7 +123,7 @@ body {
         }
         .slideshowcont {
             border-top:5px solid #ffffff;
-            margin:23px 0 0 0;
+            margin:0 0 0 0;
             position:relative;
             .slideshowmask {
                 width:100%;
@@ -256,6 +256,22 @@ body.offer-241 {
     background: #b3c401;
 }
 
+.logout {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;  
+    padding-left: 10px;  
+}
+
+.logout:hover {
+    text-decoration: underline;
+}
+
+.date-head {
+    border-right: 1px solid #fff;
+    padding-right: 10px;
+}
+
 .mask {
 background: url('../img/carousel-mask.png');
 background-repeat: no-repeat;
@@ -269,6 +285,14 @@ background: url('../img/carousel-mask-green.png') no-repeat;
 .title-img {
     text-align: center;
     padding-bottom: 50px;
+}
+
+.offers-home .title-img {
+    padding-top: 20px;
+}
+
+span.green {
+    color: #b3c401;
 }
 
 body div.content form.location-search {    
@@ -349,6 +373,37 @@ body div.content select {
   font-size: 15px;
   padding: 7px 11px; }
 
+body .content a.offer {
+height: 175px;
+width: 190px;
+ background: url("/Content/grg/img/home-icons.png") no-repeat 30px 0;
+ margin: 0 auto;
+}
+
+body .content a.offer.two {
+height: 175px;
+width: 190px;
+ background: url("/Content/grg/img/home-icons.png") no-repeat -246px 0;
+ margin: 0 auto;
+}
+
+body .content a.offer.three {
+height: 175px;
+width: 190px;
+ background: url("/Content/grg/img/home-icons.png") no-repeat -525px 0;
+ margin: 0 auto;
+}
+
+body.offers-home .content div.special-offers-text {
+    padding-bottom: 70px;
+}
+
+body .content .home-icons-wrap {
+    max-width: 714px;
+      margin: 0 auto;
+      padding-bottom: 110px;
+}
+
 
 /* SAM MEDIA QUIRIES */
 
@@ -356,8 +411,10 @@ body div.content select {
     .search-left {width: 100%; text-align: left; padding-bottom: 20px;}
     body div.content .search-left label.white {padding-right: 25px;}
     .search-right {width: 100%; text-align: left; padding: 0px;}
+    body .content a.offer, body .content a.offer.two, body .content a.offer.three {margin-bottom: 30px;}
+    body.offers-home .content div.special-offers-text {padding-bottom: 30px;}
+    body.offers-home .content .home-icons-wrap {padding-bottom: 50px;}
 }
-
 @media screen and (max-width: 704px) {
     .search-left {padding: 0;}
      body div.content .location-search h4 {width: 100%; padding-bottom: 10px;}

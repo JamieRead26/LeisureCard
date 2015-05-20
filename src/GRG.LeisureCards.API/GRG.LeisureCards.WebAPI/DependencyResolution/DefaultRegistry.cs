@@ -15,6 +15,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Configuration;
 using System.Reflection;
 using Castle.DynamicProxy;
 using FluentNHibernate.Cfg;
@@ -107,6 +108,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
 #endif
             For<IDataImportService>().Use<DataImportService>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+
+            For<IGoogleLocationService>()
+                .Use(() => new GoogleLocationService(true, ConfigurationManager.AppSettings["GoogleApiKey"]));
         }
 
         #endregion

@@ -4,7 +4,7 @@
     {
         public PostGresCustomSqlTypeStrings()
         {
-            _dictionary.Add(CustomSqlType.NText, "TEXT");
+            _dictionary.Add(CustomSqlType.NText, "NTEXT");
         }
     }
 }

@@ -186,9 +186,12 @@ namespace GRG.LeisureCards.Service
                                 ? offerToPersist.TownCity
                                 : offerToPersist.PostCode);
 
-                        offerToPersist.Latitude = latLong.Latitude;
-                        offerToPersist.Longitude = latLong.Longitude;
-
+                        if (latLong != null)
+                        {
+                            offerToPersist.Latitude = latLong.Latitude;
+                            offerToPersist.Longitude = latLong.Longitude;
+                        }
+                      
                         _twoForOneRepository.SaveOrUpdate(offerToPersist);
                     }
                 }

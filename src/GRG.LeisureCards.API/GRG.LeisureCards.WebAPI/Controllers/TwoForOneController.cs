@@ -32,18 +32,6 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _offerCategoryRepository = offerCategoryRepository;
             _userSessionService = UserSessionService.Instance;
             _locationService = locationService;
-
-            foreach(var twoForOne in _twoForOneRepository.GetWithNoLatLong())
-            { 
-                var latLong = _locationService.GetMapPoint(string.IsNullOrWhiteSpace(twoForOne.PostCode)
-                               ? twoForOne.TownCity
-                               : twoForOne.PostCode);
-
-                twoForOne.Latitude = latLong.Latitude;
-                twoForOne.Longitude = latLong.Longitude;
-
-                _twoForOneRepository.SaveOrUpdate(twoForOne);
-            }
         }
 
         [HttpGet]
@@ -81,7 +69,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("TwoForOne/FindByLocation/{postCodeOrTown}/{radiusMiles}")]
         public IEnumerable<TwoForOneOfferGeoSearchResult> FindByLocation(string postCodeOrTown, int radiusMiles)
         {
-            var results = _locationService.Filter(postCodeOrTown, radiusMiles, _twoForOneRepository.GetAll());
+            var results = _locationService.Filter(postCodeOrTown, radiusMiles, _twoForOneRepository.GetAll(), twoForOneOffer => _twoForOneRepository.SaveOrUpdate(twoForOneOffer));
 
             return results.Select(i => new TwoForOneOfferGeoSearchResult { TwoForOneOffer = Mapper.Map<ApiModel.TwoForOneOffer>(i.Item1), Distance = i.Item2 });
         }

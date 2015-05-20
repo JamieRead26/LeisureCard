@@ -45,6 +45,7 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
          
             Offer241FindByLocation.get(postData, function (data) {
                 $scope.offers = data.$values;
+                debugger;
             });
         } else {
             $scope.errors = 'You must provide a location.';

@@ -301,6 +301,10 @@ body.offer-241 {
     background: #b3c401;
 }
 
+.end-date.ng-scope {
+    margin-bottom: 7px;
+}
+
 .logout {
     color: #fff;
     font-weight: bold;
@@ -321,6 +325,10 @@ body.offer-241 {
 background: url('../img/carousel-mask.png');
 background-repeat: no-repeat;
 background-size: 100% auto;
+}
+
+.bx-wrapper img {
+    margin-left: 34px;
 }
 
 .offer-241 .mask {
@@ -353,20 +361,56 @@ body div.content label.white {
        float: left;
 }
 
-body div.content form.location-search input {   
+body div.content form.location-search input {
     float: left;
     max-width: 225px;
 }
+
+body div.content form.location-search input.sub-button {   
+    float: right;
+    max-width: 225px;
+    background: url('../img/submit-button-arrow.png') transparent no-repeat right;
+    padding-right: 55px;
+    max-width: 131px;
+}
+
+body div.content form.location-search input.sub-button:hover { 
+  background: url('../img/submit-button-arrow.png') #222 no-repeat right;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  }
 
 body div.content .location-search .field {
     margin-bottom: 0;
 }
 
-body div.content form.location-search select {   
+body div.content form.location-search .styled-select select {   
     float: left;
-    max-width: 245px;
-    margin-right: 15px;
+   background: transparent;
+   width: 356px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
 }
+body div.content form.location-search .styled-select {
+background: url('../img/select-arrow.jpg') no-repeat right #b3c401;
+width: 323px;
+   height: 35px;
+   overflow: hidden;   
+   border: 2px solid #FFF;
+     margin-right: 0px;
+  float: left;
+}
+
+body div.content form.location-search select  { color: #fff;}
+
+body div.content form.location-search select option {color:#000;}
 
 body div.content h4 {
     color: #555555;
@@ -413,11 +457,6 @@ body div.content input, body div.content textarea {
 .search-right {width: 50%; float: right; padding-left: 10px;}
 
 
-body div.content select {
-  width: 100%;
-  font-size: 15px;
-  padding: 7px 11px; }
-
 body .content a.offer {
 height: 175px;
 width: 190px;
@@ -449,6 +488,66 @@ body .content .home-icons-wrap {
       padding-bottom: 110px;
 }
 
+body .scroll-h {margin-bottom: 40px; margin-top: 25px; max-height: none; overflow: hidden;}
+
+.offer-241-offer {
+    background: #d9e280;
+    border-radius: 15px;
+    padding: 11px;
+    margin-bottom: 22px;
+}
+
+.offer-241-offer img {border-radius: 15px;}
+
+.offer-241-offer h3 {
+    color: #545453;
+    font-size: 16px;
+}
+
+.offer-241-offer .town {
+    color: #545453;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.offer-right a {
+color: #545453;
+}
+
+.offer-left {float:left; max-width: 242px;}
+
+.offer-right {float: right; width: 280px}
+
+.distance-tab {
+    background: #555555;
+     width: 108px;
+      height: 37px;
+       float: right;
+        margin-top: -11px;
+         margin-right: -11px;
+          border-radius: 0px 15px 0px 0px;
+           margin-bottom: 14px;
+            font-size: 16px;
+             font-weight: bold;
+              color: #b3c401; 
+              text-align: center; 
+              padding-top: 9px; 
+
+}
+
+.back-to-top {
+    text-align: center;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+background: url('../img/back-to-top.png') no-repeat 50% 0;
+padding-top: 30px;
+
+}
+
+.twelvecol.center {text-align: center; margin-bottom: 65px;}
+
 
 /* SAM MEDIA QUIRIES */
 
@@ -459,6 +558,7 @@ body .content .home-icons-wrap {
     body .content a.offer, body .content a.offer.two, body .content a.offer.three {margin-bottom: 30px;}
     body.offers-home .content div.special-offers-text {padding-bottom: 30px;}
     body.offers-home .content .home-icons-wrap {padding-bottom: 50px;}
+    
 }
 @media screen and (max-width: 704px) {
     .search-left {padding: 0;}
@@ -466,5 +566,12 @@ body .content .home-icons-wrap {
      body div.content .location-search label.white {width: 100%; padding-bottom: 10px;}
      body div.content .location-search input {width: 100%; margin-bottom: 20px;}
      body div.content .location-search select {width: 100%; margin-bottom: 20px;}
-
-}
+     body div.content form.location-search .styled-select {width: 100%;}
+     body div.content form.location-search input {width: 100%; max-width: none;}
+     body div.content form.location-search input.sub-button {   margin-top: 30px; }
+     body div.content form.location-search .styled-select select {width: 100%;}
+     .offer-241-offer h3 {font-size: 14px;}
+     .offer-241-offer .town {font-size: 12px;}
+     .offer-right {float: right; width: 240px}
+     .offer-left img {height: 75px; width: 110px;}
+     }

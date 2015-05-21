@@ -140,6 +140,12 @@
     <Content Include="Content\base\css\header.min.css">
       <DependentUpon>header.css</DependentUpon>
     </Content>
+    <Content Include="Content\base\css\offers.css">
+      <DependentUpon>offers.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\base\css\offers.min.css">
+      <DependentUpon>offers.css</DependentUpon>
+    </Content>
     <Content Include="Content\global\css\admin.css">
       <DependentUpon>admin.scss</DependentUpon>
     </Content>
@@ -162,6 +168,12 @@
     <Content Include="Content\base\img\carousel-mask.png" />
     <Content Include="Content\base\img\logo.jpg" />
     <Content Include="Content\base\img\logo.png" />
+    <Content Include="Content\grg\css\offers.css">
+      <DependentUpon>offers.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\grg\css\offers.min.css">
+      <DependentUpon>offers.css</DependentUpon>
+    </Content>
     <Content Include="Content\grg\img\banner-1.jpg" />
     <Content Include="Content\grg\img\buttonArrow.jpg" />
     <Content Include="Content\grg\img\carousel-mask.png" />

@@ -153,10 +153,18 @@ adminController.controller('AdminDataImportController', function ($scope,
 });
 
 var valid_iso_date = function (date) {
+
+    if(!date){
+        return false;
+    }
+
+    if (date.indexOf('Z') == -1) {
+        d = new Date(date)
+        date = d.toISOString();
+    }
+    
     var reg = new RegExp(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([{0,3}-][0-2]\d:[0-5]\d|Z)/);
-    debugger;
-    //return reg.test(date);
-    return true;
+    return reg.test(date);
 }
 
 adminController.controller('AdminUpdateCardController', function ($scope, $filter, GetAllCardNumbers, LeisureCardUpdate) {
@@ -273,12 +281,11 @@ adminController.controller('AdminReportController', function ($scope, $filter,
             from: $filter('date')($scope.from_date, "yyyy-MM-dd"),
             to: $filter('date')($scope.to_date, "yyyy-MM-dd")
         };
-       
+ 
         if ($scope.report_type == 'card_activation') {
 
             GetCardActivationHistory.get(search_data, function (data) {
                 $scope.reports_card_activation = data.$values;
-                debugger;
                 no_results_check($scope.reports_card_activation);
             });
 

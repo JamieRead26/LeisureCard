@@ -5,41 +5,45 @@
 <div class="twelvecol">
     <h1>Admin</h1>
 
-    <table class="print-hide" ng-controller="AdminDataImportController">
-        <tr>
-            <th>System</th>
-            <th>Last Run</th>
-            <th>Status</th>
-            <th>Error Message</th>
-            <th style="width: 120px;">Reload Data</th>
-            <th style="width: 120px;">Download File</th>
-            <th style="width: 220px;">Upload File</th>
-        </tr>
-        <tr ng-repeat="i in imports">
-            <td><span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>{{ i.UploadKey }}</td>
-            <td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
-            <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
-            <td>{{ i.Message }}</td>
-            <td><button ng-click="refresh()">Reload</button></td>
-            <td>
-                <a ng-if="i.FileKey" ng-href="{{ apiUrl }}/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
-            </td>
-            <td>
+    <div ng-controller="AdminDataImportController">
+        <table class="print-hide">
+            <tr>
+                <th>System</th>
+                <th>Last Run</th>
+                <th>Status</th>
+                <th>Error Message</th>
+                <th style="width: 120px;">Reload Data</th>
+                <th style="width: 120px;">Download File</th>
+                <th style="width: 220px;">Upload File</th>
+            </tr>
+            <tr ng-repeat="i in imports">
+                <td><span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>{{ i.UploadKey }}</td>
+                <td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
+                <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
+                <td>{{ i.Message }}</td>
+                <td><button ng-click="refresh()">Reload</button></td>
+                <td>
+                    <a ng-if="i.FileKey" ng-href="{{ apiUrl }}/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
+                </td>
+                <td>
 
-                <div ng-if="i.UploadKey == '241'">
-                    <input type="file" file-model="files.file241" />
-                </div>
-                <div ng-if="i.UploadKey == 'RedLetter'">
-                    <input type="file" file-model="files.redletter" />
-                </div>
-                <div ng-if="i.UploadKey == 'LeisureCards'">
-                    <input type="file" file-model="files.leisureCards" />
-                </div>
+                    <div ng-if="i.UploadKey == '241'">
+                        <input type="file" file-model="files.file241" />
+                    </div>
+                    <div ng-if="i.UploadKey == 'RedLetter'">
+                        <input type="file" file-model="files.redletter" />
+                    </div>
+                    <div ng-if="i.UploadKey == 'LeisureCards'">
+                        <input type="file" file-model="files.leisureCards" />
+                    </div>
 
-                <button ng-click="uploadFile(i.UploadKey)">Upload</button>
-            </td>
-        </tr>
-    </table>
+                    <button ng-click="uploadFile(i.UploadKey)">Upload</button>
+                </td>
+            </tr>
+        </table>
+        <div class="errors" ng-show="file_error">{{ file_error }}</div>
+        <div class="success" ng-show="file_success">{{ file_success }}</div>
+    </div>
 
     <div ng-controller="AdminUpdateCardController">
         <form ng-submit="submit()" class="one-line print-hide">

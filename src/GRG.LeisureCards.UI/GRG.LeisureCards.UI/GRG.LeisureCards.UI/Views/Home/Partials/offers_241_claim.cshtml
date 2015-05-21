@@ -4,11 +4,14 @@
 
 <div class="twelvecol claim-offer" ng-controller="offers241ClaimController">
  
-    <img src="http://placehold.it/300x300" />
+    <img src="//placehold.it/300x301" />
 
     <h1>{{ offer.OutletName }}</h1>
 
-    <p>Your claim code is: </p>
-    <p ng-bind-html="offer.Website"></p>
+    <p ng-show="offer.BookingInstructions">{{ offer.BookingInstructions }}</p>
+
+    <p ng-show="offer.ClaimCode">Your claim code is: {{ offer.ClaimCode }}</p>
+
+    <p ng-bind-html="offer.Website" ng-show="offer.Website"></p>
 
 </div>

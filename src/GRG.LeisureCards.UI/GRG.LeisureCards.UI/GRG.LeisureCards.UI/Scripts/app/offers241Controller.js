@@ -31,10 +31,6 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     $scope.global.slideshow = slideshow.offer241;
 
     $scope.options = [{
-        name: 'half a mile',
-        value: 0.5
-    },
-    {
         name: '1 mile',
         value: 1
     },
@@ -59,9 +55,9 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
         value: 5000
     }];
 
-    Offer241GetAll.get(function (data) {
+    /*Offer241GetAll.get(function (data) {
         $scope.offers = data.$values;
-    });
+    });*/
 
     $scope.submit = function () {
         if ($scope.location) {
@@ -89,6 +85,9 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     $scope.global.slideshow = slideshow.offer241details;
   
     Offer241GetById.get({ id: $scope.id }, function (data) {
+
+        var website = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>') : '';
+
         $scope.offer = {
             Address1: data.Address1,
             Address2: data.Address2,
@@ -99,10 +98,20 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
             Phone: data.Phone,
             PostCode: data.PostCode,
             TownCity: data.TownCity,
-            Website: $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>')
+            Website: website
         };
     });
     
+    $scope.removeNull = function (items) {
+        var result = {};
+        angular.forEach(items, function (value, key) { 
+            if (value) {
+                result[key] = value;
+            }
+        });
+        return result;
+    }
+
     $scope.claim = function () {
         Offer241Claim.get({ id: $scope.id }, function (data) {
             if(!data.$resolved){
@@ -121,13 +130,12 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
 
     Offer241GetById.get({ id: $scope.id }, function (data) {
 
-        var url = '';
-        if (data.Website) {
-            url = $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank" class="button">Claim Reward</a>')
-        }
-
+        var url = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank" class="button">Claim Reward</a>') : '';
+       
         $scope.offer = {
             OutletName: data.OutletName,
+            BookingInstructions: data.BookingInstructions,
+            ClaimCode: data.ClaimCode,
             Website: url
         };
     });

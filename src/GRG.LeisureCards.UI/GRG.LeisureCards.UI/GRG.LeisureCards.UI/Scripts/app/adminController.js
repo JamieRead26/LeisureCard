@@ -59,7 +59,9 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.files.redletter = {};
     $scope.files.file241 = {};
     $scope.files.leisureCards = {};
-    $scope.file_errors = '';
+
+    $scope.file_error = '';
+    $scope.file_success = '';
 
     var push_current_import = function (good, bad, default_key) {
 
@@ -128,6 +130,9 @@ adminController.controller('AdminDataImportController', function ($scope,
         var file = '';
         var path = '';
 
+        $scope.file_error = '';
+        $scope.file_success = '';
+
         if(key == 'RedLetter'){
             file = $scope.files.redletter;
             path = '/DataImport/RedLetter/';
@@ -147,7 +152,31 @@ adminController.controller('AdminDataImportController', function ($scope,
 
         console.log('file is ' + JSON.stringify(file));
         var uploadUrl = config.apiUrl + path;
-        fileUpload.uploadFileToUrl(file, uploadUrl);
+        fileUpload.uploadFileToUrl(file, uploadUrl, function(data){
+            
+            if (!data.ExceptionMessage && data) {
+                var imports = [];
+
+                for (var i = 0; i < $scope.imports.length; i++) {
+                    if ($scope.imports[i].UploadKey !== data.UploadKey) {
+                        imports.push($scope.imports[i]);
+                    } else {
+                        imports.splice(i, 0, data);
+                    }
+                }
+             
+                $scope.imports = imports;
+
+                if (!data.Message) {
+                    return $scope.file_success = 'File uploaded successfully.';
+                }
+
+                $scope.file_error = 'Warning! file uploaded successfully but server responded: ' + data.Message;
+
+            } else {
+                $scope.file_error = 'File upload failed: ' + data.ExceptionMessage;
+            }
+        });
     };
 
 });
@@ -214,6 +243,8 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
     }
 
     $scope.submit = function () {
+
+        $scope.cardupdate_error = '';
 
         if (!valid_iso_date($scope.expiryDate) || !valid_iso_date($scope.renewalDate)) {
             return $scope.cardupdate_error = 'Expiry and Renewal dates must match format dd-mm-yyyy';

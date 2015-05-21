@@ -8,7 +8,7 @@
 
     <div class="sixcol">
 
-        <p ng-repeat="(key, value) in offer">
+        <p ng-repeat="(key, value) in removeNull(offer)">
             {{ key }}: <span ng-bind-html="value"></span>
         </p>
 

@@ -200,7 +200,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 
 
 app.service('fileUpload', ['$http', function ($http) {
-    this.uploadFileToUrl = function (file, uploadUrl) {
+    this.uploadFileToUrl = function (file, uploadUrl, callback) {
         var fd = new FormData();
         fd.append('file', file);
         $http.post(uploadUrl, fd, {
@@ -208,15 +208,10 @@ app.service('fileUpload', ['$http', function ($http) {
             headers: { 'Content-Type': undefined }
         })
         .success(function (d) {
-
-            if (!d.Message) {
-                d.Message = 'Success';
-            }
-
-            alert('File upload successful, server responded: ' + d.Message);
+            return callback(d);
         })
         .error(function (d) {
-            alert('File upload failed: ' + d.ExceptionMessage);
+            return callback(d);
         });
     }
 }]);

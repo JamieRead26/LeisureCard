@@ -72,13 +72,23 @@ app.config(function ($httpProvider) {
 });
 
 var globalController = angular.module('globalController', []);
-globalController.controller('globalCtrl', function ($scope, breadcrumbs, $localStorage, config) {
+globalController.controller('globalCtrl', function ($scope, breadcrumbs, $location, $anchorScroll, $localStorage, config) {
     $localStorage.tenant = config.tenant;
     $scope.$storage = $localStorage;
     $scope.breadcrumbs = breadcrumbs;
     $scope.global = {};
     $scope.global.slideshow = [];
     $scope.global.bodyclass = '';
+
+    $scope.go_back = function () {
+        window.history.back();
+    };
+
+    $scope.to_top = function () {
+        $location.hash('to-top');
+        $anchorScroll();
+    };
+
 });
 
 app.config(['$routeProvider', function ($routeProvider) {

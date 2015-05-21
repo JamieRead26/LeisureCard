@@ -7,12 +7,15 @@ using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Filters;
+using log4net;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
     [SessionAuthFilter(true)]
     public class DataImportController : ApiController
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DataImportController));
+
         private readonly IDataImportService _dataImportService;
         private readonly IDataImportJournalEntryRepository _dataImportJournalEntryRepository;
 
@@ -46,33 +49,42 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         private DataImportJournalEntry ImportDataFile(Func<byte[], string,DataImportJournalEntry> importFunc, string filePath)
         {
-            var httpRequest = HttpContext.Current.Request;
-            filePath = System.Web.Hosting.HostingEnvironment.MapPath(filePath);
-            if (httpRequest.Files.Count > 0)
+            try
             {
-                var fileKey = Guid.NewGuid().ToString();
-                httpRequest.Files[0].SaveAs(filePath + "\\" + fileKey + ".csv");
-                var journalEntry = importFunc(ReadFully(httpRequest.Files[0].InputStream), fileKey);
-
-                if (!journalEntry.Success) return journalEntry;
-                //Best effort clean up, if fails must not disrupt flow
-                try
+                var httpRequest = HttpContext.Current.Request;
+                filePath = System.Web.Hosting.HostingEnvironment.MapPath(filePath);
+                if (httpRequest.Files.Count > 0)
                 {
-                    foreach (var fileName in Directory.GetFileSystemEntries(filePath))
+                    var fileKey = Guid.NewGuid().ToString();
+                    httpRequest.Files[0].SaveAs(filePath + "\\" + fileKey + ".csv");
+                    var journalEntry = importFunc(ReadFully(httpRequest.Files[0].InputStream), fileKey);
+
+                    if (!journalEntry.Success) return journalEntry;
+                    //Best effort clean up, if fails must not disrupt flow
+                    try
                     {
-                        if (fileName.IndexOf(fileKey) < 0 && fileName.IndexOf("placeholder") < 0)
-                            File.Delete(fileName);
+                        foreach (var fileName in Directory.GetFileSystemEntries(filePath))
+                        {
+                            if (fileName.IndexOf(fileKey) < 0 && fileName.IndexOf("placeholder") < 0)
+                                File.Delete(fileName);
+                        }
                     }
-                }
-                catch (Exception)
-                {
-                    //TODO : LOG4NET
+                    catch (Exception ex)
+                    {
+                        Log.Error("Unable to complete upload file clean up", ex);
+                    }
+
+                    return journalEntry;
                 }
 
-                return journalEntry;
+                throw new Exception("No file present in request");
             }
-
-            throw new Exception("No file present in request");
+            catch (Exception ex)
+            {
+                Log.Error("Exception occurred importing data file: " + filePath, ex);
+                throw ex;
+            }
+            
         }
 
         [HttpPost]

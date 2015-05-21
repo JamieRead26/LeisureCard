@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
@@ -71,7 +72,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             var results = _locationService.Filter(postCodeOrTown, radiusMiles, _twoForOneRepository.GetAll(), twoForOneOffer => _twoForOneRepository.SaveOrUpdate(twoForOneOffer));
 
-            return results.Select(i => new TwoForOneOfferGeoSearchResult { TwoForOneOffer = Mapper.Map<ApiModel.TwoForOneOffer>(i.Item1), Distance = i.Item2 });
+            return results.Select(i => new TwoForOneOfferGeoSearchResult { TwoForOneOffer = Mapper.Map<ApiModel.TwoForOneOffer>(i.Item1), Distance = Math.Round(i.Item2,1) });
         }
     }
 }

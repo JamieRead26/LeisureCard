@@ -195,10 +195,15 @@ body .content ul.experience-offers {
             }
         }
         margin:0px;
-        width:23%;
+
+        width:24%;
         height:85px;
-        margin:0 1% 20px 1%;
+        margin-right:1.3%;
+        margin-bottom:20px;
         background:none;
+    }
+    li:nth-child(4n+4) {
+        margin-right:0px;
     }
 }
 body .content .special-offers {
@@ -209,8 +214,16 @@ body .content {
         text-align:center;
         border: 2px solid #ffffff;
         background:url(../img/ed-banner-tag-1.jpg) 0 0 no-repeat;
-        padding:20px 190px 20px 190px;
-        margin:30px 0 0 0;
+        padding:20px 150px;
+        margin:40px 0 0 0;
+        position:relative;
+        .special-offers-banner-star {
+            position:absolute;
+            width:41px;
+            height:38px;
+            left:75px;
+            top:-17px;
+        }
         h2 {
             padding:0px;
             margin:0 0 5px 0;
@@ -224,6 +237,12 @@ body .content {
             color:#ffffff;
             font-size:18px;
         }
+        &.alt {
+            background:url(../img/ed-banner-tag-2.jpg) 0 0 no-repeat;
+            h2 {
+                color:#0971ce;
+            }
+        }
     }
     .special-offers-title {
         margin:0 auto;
@@ -232,7 +251,6 @@ body .content {
     }
     .special-offers-text {
         text-align:center;
-        margin:0 0 20px 0;
         h1 {
             font-family:Tahoma, Arial;
             font-weight:bold;
@@ -253,11 +271,10 @@ body .content {
         padding:30px 0;
         ul {
             li {
-                width: 31%;
+                width: 32%;
                 max-height:111px;
                 float: left;
-                margin-left: 3.5%;
-                margin-right: 1%;
+                margin-right: 2%;
                 margin-bottom:20px;
                 border: 1px solid #ffffff;
                 list-style: none;
@@ -284,12 +301,6 @@ body .content {
                 }
             }
             li:nth-child(3n) {
-                float:right;
-                margin-left:0px;
-                margin-right:0px;
-            }
-            li:nth-child(3n+1) {
-                margin-left:0px;
                 margin-right:0px;
             }
         }
@@ -299,6 +310,10 @@ body .content {
 /* SAM CSS */
 body.offer-241 {
     background: #b3c401;
+}
+
+.end-date.ng-scope {
+    margin-bottom: 7px;
 }
 
 .logout {
@@ -320,11 +335,20 @@ body.offer-241 {
 .mask {
 background: url('../img/carousel-mask.png');
 background-repeat: no-repeat;
-background-size: 100% auto;
+background-size: 100%;
+}
+
+.bx-wrapper img {
+    margin-left: 34px;
 }
 
 .offer-241 .mask {
 background: url('../img/carousel-mask-green.png') no-repeat;
+background-size: 100%;
+}
+.offer-experience .mask {
+background: url('../img/carousel-mask-turq.png') no-repeat;
+background-size: 100%;
 }
 
 .title-img {
@@ -353,20 +377,56 @@ body div.content label.white {
        float: left;
 }
 
-body div.content form.location-search input {   
+body div.content form.location-search input {
     float: left;
     max-width: 225px;
 }
+
+body div.content form.location-search input.sub-button {   
+    float: right;
+    max-width: 225px;
+    background: url('../img/submit-button-arrow.png') transparent no-repeat right;
+    padding-right: 55px;
+    max-width: 131px;
+}
+
+body div.content form.location-search input.sub-button:hover { 
+  background: url('../img/submit-button-arrow.png') #222 no-repeat right;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  }
 
 body div.content .location-search .field {
     margin-bottom: 0;
 }
 
-body div.content form.location-search select {   
+body div.content form.location-search .styled-select select {   
     float: left;
-    max-width: 245px;
-    margin-right: 15px;
+   background: transparent;
+   width: 356px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
 }
+body div.content form.location-search .styled-select {
+background: url('../img/select-arrow.jpg') no-repeat right #b3c401;
+width: 323px;
+   height: 35px;
+   overflow: hidden;   
+   border: 2px solid #FFF;
+     margin-right: 0px;
+  float: left;
+}
+
+body div.content form.location-search select  { color: #fff;}
+
+body div.content form.location-search select option {color:#000;}
 
 body div.content h4 {
     color: #555555;
@@ -413,11 +473,6 @@ body div.content input, body div.content textarea {
 .search-right {width: 50%; float: right; padding-left: 10px;}
 
 
-body div.content select {
-  width: 100%;
-  font-size: 15px;
-  padding: 7px 11px; }
-
 body .content a.offer {
 height: 175px;
 width: 190px;
@@ -428,14 +483,14 @@ width: 190px;
 body .content a.offer.two {
 height: 175px;
 width: 190px;
- background: url("/Content/grg/img/home-icons.png") no-repeat -246px 0;
+ background: url("/Content/grg/img/home-icons.png") no-repeat -525px 0;
  margin: 0 auto;
 }
 
 body .content a.offer.three {
 height: 175px;
 width: 190px;
- background: url("/Content/grg/img/home-icons.png") no-repeat -525px 0;
+ background: url("/Content/grg/img/home-icons.png") no-repeat -246px 0;
  margin: 0 auto;
 }
 
@@ -449,6 +504,66 @@ body .content .home-icons-wrap {
       padding-bottom: 110px;
 }
 
+body .scroll-h {margin-bottom: 40px; margin-top: 25px; max-height: none; overflow: hidden;}
+
+.offer-241-offer {
+    background: #d9e280;
+    border-radius: 15px;
+    padding: 11px;
+    margin-bottom: 22px;
+}
+
+.offer-241-offer img {border-radius: 15px;}
+
+.offer-241-offer h3 {
+    color: #545453;
+    font-size: 16px;
+}
+
+.offer-241-offer .town {
+    color: #545453;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.offer-right a {
+color: #545453;
+}
+
+.offer-left {float:left; max-width: 242px;}
+
+.offer-right {float: right; width: 280px}
+
+.distance-tab {
+    background: #555555;
+     width: 108px;
+      height: 37px;
+       float: right;
+        margin-top: -11px;
+         margin-right: -11px;
+          border-radius: 0px 15px 0px 0px;
+           margin-bottom: 14px;
+            font-size: 16px;
+             font-weight: bold;
+              color: #b3c401; 
+              text-align: center; 
+              padding-top: 9px; 
+
+}
+
+.back-to-top {
+    text-align: center;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+background: url('../img/back-to-top.png') no-repeat 50% 0;
+padding-top: 30px;
+
+}
+
+.twelvecol.center {text-align: center; margin-bottom: 65px;}
+
 
 /* SAM MEDIA QUIRIES */
 
@@ -459,6 +574,33 @@ body .content .home-icons-wrap {
     body .content a.offer, body .content a.offer.two, body .content a.offer.three {margin-bottom: 30px;}
     body.offers-home .content div.special-offers-text {padding-bottom: 30px;}
     body.offers-home .content .home-icons-wrap {padding-bottom: 50px;}
+    
+}
+@media screen and (max-width: 750px) {
+    body .content ul.experience-offers {
+        margin-bottom:50px;
+        li {
+            a{
+                background:none;
+                border:1px solid #ffffff;
+                height:85px;
+                span, p {
+                    font-family:Tahoma, Arial;
+                    font-weight:bold;
+                    font-size:22px;
+                }
+            }
+            margin:0px;
+            width:49%;
+            height:85px;
+            margin-right:2%;
+            margin-bottom:20px;
+            background:none;
+        }
+        li:nth-child(2n+0) {
+            margin-right:0px;
+        }
+    }
 }
 @media screen and (max-width: 704px) {
     .search-left {padding: 0;}
@@ -467,4 +609,29 @@ body .content .home-icons-wrap {
      body div.content .location-search input {width: 100%; margin-bottom: 20px;}
      body div.content .location-search select {width: 100%; margin-bottom: 20px;}
 
+     body div.content form.location-search .styled-select {width: 100%;}
+     body div.content form.location-search input {width: 100%; max-width: none;}
+     body div.content form.location-search input.sub-button {   margin-top: 30px; }
+     body div.content form.location-search .styled-select select {width: 100%;}
+     .offer-241-offer h3 {font-size: 14px;}
+     .offer-241-offer .town {font-size: 12px;}
+     .offer-right {float: right; width: 240px}
+     .offer-left img {height: 75px; width: 110px;}
+     }
+
 }
+@media screen and (max-width: 600px) {
+    body {
+        .content { 
+            .special-offers-banner {
+                background:url(../img/ed-banner-tag-1-small.jpg) 0 0 no-repeat;
+                padding: 20px 70px;
+                &.alt {
+                    background:url(../img/ed-banner-tag-2-small.jpg) 0 0 no-repeat;
+                }
+            }
+        }
+    }
+}
+
+

@@ -51,13 +51,16 @@ body .content {
         h2 {
             color: $special-offer-text;
         }
+        .special-offer-copy {
+            padding: 5px;
+        }
         ul {
             float: left;
             list-style: none;
             width: 100%;
             li {
                 float: left;
-                width: 15.5%;
+                width: 32%;
                 margin: 0.5%;
                 @include breakpoint(site-width){
                     width: 24%
@@ -73,7 +76,6 @@ body .content {
                 a {
                     text-decoration: none;
                     display: block;
-                    padding: 5px;
                     &:hover {
                         background: rgba(0,0,0,0.2);
                     }
@@ -83,10 +85,14 @@ body .content {
                         display: block;
                     }
                 }
+                p {
+                    font-size: 14px;
+                }
                 img {
-                    margin: 0 10px 10px 0;
+                    margin: 0 10px 0 0;
                     border-radius: 3px;
                     min-width: 163px;
+                    float: left;
                 }
             }
         }
@@ -97,7 +103,7 @@ body .content {
         list-style: none;
         margin-top: 30px;
         li {
-            width: 15.6%;
+            width: 24%;
             float: left;
             margin: 0.5%;
             @include breakpoint(site-width){

@@ -190,6 +190,7 @@
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\app\directives.js" />
+    <Content Include="Scripts\app\generalContentController.js" />
     <Content Include="Scripts\app\offersDiscountController.js" />
     <Content Include="Scripts\app\offersExperienceController.js" />
     <Content Include="Scripts\app\offers241Controller.js" />

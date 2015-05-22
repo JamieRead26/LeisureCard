@@ -31,6 +31,7 @@ namespace GRG.LeisureCards.UI
                         "~/Scripts/app/offersExperienceController.js",
                         "~/Scripts/app/offersDiscountController.js",
                         "~/Scripts/app/adminController.js",
+                        "~/Scripts/app/generalContentController.js",
                         "~/Scripts/app/app.js",
                         "~/Scripts/app/directives.js",
                         "~/Scripts/app/config.js");

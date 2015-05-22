@@ -11,6 +11,7 @@
     'offersDiscountController',
     'offers241Controller',
     'offersHomeController',
+    'generalContentController',
     'globalController',
     'logoutController',
     'loginController',
@@ -31,7 +32,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
                 }
 
             }
-            else {
+            else if (!config.url == 'partial/terms') {
                 $location.path('/');
             }
             return config;
@@ -109,6 +110,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         }).
         when('/terms', {
             templateUrl: 'partial/terms',
+            controller: 'TermsController',
             label: 'Terms'
         }).
         when('/offers', {

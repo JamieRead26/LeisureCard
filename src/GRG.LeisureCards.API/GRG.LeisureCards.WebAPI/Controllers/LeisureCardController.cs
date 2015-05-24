@@ -68,11 +68,19 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [SessionAuthFilter()]
+        [SessionAuthFilter(true)]
         [Route("LeisureCard/GetAllCardNumbers")]
         public List<LeisureCardInfo> GetAllCardNumbers()
         {
             return _leisureCardRepository.GetAll().Select(c => new LeisureCardInfo(c)).ToList();
+        }
+
+        [HttpGet]
+        [SessionAuthFilter(true)]
+        [Route("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}")]
+        public CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
+        {
+            return _leisureCardService.GenerateCards(reference, numberOfCards, renewalPeriodMonths);
         }
     }
 }

@@ -34,6 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LeisureCardUsage.cs" />
+    <Compile Include="SelectedOffer.cs" />
     <Compile Include="TwoForOneOffer.cs" />
     <Compile Include="TwoForOneOfferGeoSearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

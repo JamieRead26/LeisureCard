@@ -12,9 +12,10 @@ namespace GRG.LeisureCards.Service
     public interface IDataImportService
     {
         DataImportJournalEntry ImportRedLetterOffers(byte[] file, string fileKey);
+       
         DataImportJournalEntry ImportTwoForOneOffers(byte[] file, string fileKey);
 
-        DataImportJournalEntry ImportLeisureCards(byte[] file, string fileKey);
+        //DataImportJournalEntry ImportLeisureCards(byte[] file, string fileKey);
     }
 
     public class DataImportService : IDataImportService
@@ -201,7 +202,7 @@ namespace GRG.LeisureCards.Service
             });
         }
 
-        public DataImportJournalEntry ImportLeisureCards(byte[] file, string fileKey)
+      /*  public DataImportJournalEntry ImportLeisureCards(byte[] file, string fileKey)
         {
             return ImportData(DataImportKey.LeisureCards, fileKey, () =>
             {
@@ -236,7 +237,7 @@ namespace GRG.LeisureCards.Service
                 foreach (var card in cards.Values)
                     _leisureCardRepository.Delete(card);
             });
-        }
+        }*/
 
         private DataImportJournalEntry ImportData(DataImportKey key, string fileKey, Action importAction )
         {

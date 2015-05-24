@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
+using log4net;
 
 namespace GRG.LeisureCards.Service
 {
@@ -21,6 +22,8 @@ namespace GRG.LeisureCards.Service
 
     public class UkLocationService : IUkLocationService
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(UkLocationService));
+
         private readonly ILocationRepository _locationRepository;
         private readonly IGoogleLocationService _googleLocationService;
         private readonly IDictionary<string,Location> _locations;
@@ -59,7 +62,7 @@ namespace GRG.LeisureCards.Service
             }
             catch (Exception ex)
             {
-                //TOFO: Log4net
+                Log.Error("Exception occurred calling google maps API " + ex);
                 return null;
             }
         }
@@ -101,7 +104,7 @@ namespace GRG.LeisureCards.Service
 
             if (from == null)
             {
-                //TODO: Log4Net
+                Log.Error("Unable to filter location results as no coordinates available for from point: " +ukPostCodeOrTown);
                 return results;
             }
             
@@ -132,7 +135,7 @@ namespace GRG.LeisureCards.Service
                 }
                 catch (Exception ex)
                 {
-                    //TODO: Log4Net
+                    Log.Error("Unable to calc distance for destination  " + destination.UkPostCodeOrTown, ex);
                 }
             }
 

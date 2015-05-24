@@ -115,50 +115,50 @@ namespace GRG.LeisureCards.API.IntegrationTests
             }
         }
 
-        [Test]
-        public void UploadLeisureCardData()
-        {
-            using (var dataStream = ResourceStreams.GetLeisureCardStream())
-            using (var memStream = new MemoryStream())
-            {
-                dataStream.CopyTo(memStream);
-                var fileBytes = memStream.ToArray();
-                var sessionToken = Config.GetAdminSessionToken();
+        //[Test]
+        //public void UploadLeisureCardData()
+        //{
+        //    using (var dataStream = ResourceStreams.GetLeisureCardStream())
+        //    using (var memStream = new MemoryStream())
+        //    {
+        //        dataStream.CopyTo(memStream);
+        //        var fileBytes = memStream.ToArray();
+        //        var sessionToken = Config.GetAdminSessionToken();
 
-                var client = new RestClient(Config.BaseAddress);
+        //        var client = new RestClient(Config.BaseAddress);
 
-                dataStream.Position = 0;
-                var request = new RestRequest("DataImport/LeisureCards/", Method.POST);
-                request.AddFile("LeisureCards.csv", fileBytes, "LeisureCards.csv");
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+        //        dataStream.Position = 0;
+        //        var request = new RestRequest("DataImport/LeisureCards/", Method.POST);
+        //        request.AddFile("LeisureCards.csv", fileBytes, "LeisureCards.csv");
+        //        request.AddHeader("accepts", "application/json");
+        //        request.AddHeader("SessionToken", sessionToken);
 
-                var response = client.Execute<DataImportJournalEntry>(request);
+        //        var response = client.Execute<DataImportJournalEntry>(request);
 
-                Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                Assert.AreEqual(DataImportKey.LeisureCards.Key, response.Data.UploadKey);
-                Assert.IsTrue(response.Data.Success);
+        //        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        //        Assert.AreEqual(DataImportKey.LeisureCards.Key, response.Data.UploadKey);
+        //        Assert.IsTrue(response.Data.Success);
 
-                request = new RestRequest("DataImport/GetLeisureCardImportJournal/{count}/{toId}", Method.GET);
-                request.AddParameter("count", 10);
-                request.AddParameter("toId", 0);
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+        //        request = new RestRequest("DataImport/GetLeisureCardImportJournal/{count}/{toId}", Method.GET);
+        //        request.AddParameter("count", 10);
+        //        request.AddParameter("toId", 0);
+        //        request.AddHeader("accepts", "application/json");
+        //        request.AddHeader("SessionToken", sessionToken);
 
-                var content = client.Execute(request).Content;
+        //        var content = client.Execute(request).Content;
 
-                Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
+        //        Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
 
-                request = new RestRequest("DataImport/GetLastGoodLeisureCardImportJournal", Method.GET);
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+        //        request = new RestRequest("DataImport/GetLastGoodLeisureCardImportJournal", Method.GET);
+        //        request.AddHeader("accepts", "application/json");
+        //        request.AddHeader("SessionToken", sessionToken);
 
-                var lastKnownGood = client.Execute<DataImportJournalEntry>(request);
+        //        var lastKnownGood = client.Execute<DataImportJournalEntry>(request);
 
-                Assert.AreEqual(response.Data.Id, lastKnownGood.Data.Id);
-                Assert.AreEqual(response.Data.FileKey, lastKnownGood.Data.FileKey);
-            }
-        }
+        //        Assert.AreEqual(response.Data.Id, lastKnownGood.Data.Id);
+        //        Assert.AreEqual(response.Data.FileKey, lastKnownGood.Data.FileKey);
+        //    }
+        //}
 
         [Test]
         public void UploadRedLetterData_Fail()

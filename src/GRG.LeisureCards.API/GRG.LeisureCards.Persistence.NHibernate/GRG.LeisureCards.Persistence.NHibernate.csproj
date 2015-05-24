@@ -68,6 +68,7 @@
     <Compile Include="..\..\Master.AssemblyInfo.cs">
       <Link>Master.AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ClassMaps\CardGenerationLogClassMap.cs" />
     <Compile Include="ClassMaps\DataImportJounalEntryClassMap.cs" />
     <Compile Include="ClassMaps\LeisureCardClassMap.cs" />
     <Compile Include="ClassMaps\LeisureCardUsageClassMap.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="ClassMaps\SettingClassMap.cs" />
     <Compile Include="ClassMaps\TwoForOneClassMap.cs" />
     <Compile Include="DataImportJournalEntryRepository.cs" />
+    <Compile Include="CardGenerationLogRepository.cs" />
     <Compile Include="LeisureCardRepository.cs" />
     <Compile Include="LeisureCardUsageRepository.cs" />
     <Compile Include="LocationRepository.cs" />

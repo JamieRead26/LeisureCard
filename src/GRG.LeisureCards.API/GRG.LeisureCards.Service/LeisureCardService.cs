@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Persistence.NHibernate;
 using GRG.LeisureCards.Service.BusinessLogic;
 
 namespace GRG.LeisureCards.Service
@@ -17,19 +19,23 @@ namespace GRG.LeisureCards.Service
     public interface ILeisureCardService
     {
         LeisureCardRegistrationResponse Login(string cardCode);
+        CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths);
     }
 
     public class LeisureCardService : ILeisureCardService
     {
         private readonly ICardRenewalLogic _cardRenewalLogic;
         private readonly ILeisureCardRepository _leisureCardRepository;
+        private readonly ICardGenerationLogRepository _cardGenerationLogRepository;
 
         public LeisureCardService(
             ICardRenewalLogic cardRenewalLogic, 
-            ILeisureCardRepository leisureCardRepository)
+            ILeisureCardRepository leisureCardRepository,
+            ICardGenerationLogRepository cardGenerationLogRepository)
         {
             _cardRenewalLogic = cardRenewalLogic;
             _leisureCardRepository = leisureCardRepository;
+            _cardGenerationLogRepository = cardGenerationLogRepository;
         }
 
         public LeisureCardRegistrationResponse Login(string cardCode)
@@ -46,11 +52,38 @@ namespace GRG.LeisureCards.Service
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardExpired.ToString() };
 
             leisureCard.RegistrationDate = DateTime.Now;
-            leisureCard.RenewalDate = _cardRenewalLogic.GetRenewalDate(DateTime.Now);
+             _cardRenewalLogic.SetRenewalDate(leisureCard);
 
             _leisureCardRepository.SaveOrUpdate(leisureCard);
 
             return new LeisureCardRegistrationResponse {Status = RegistrationResult.Ok.ToString(), LeisureCard = leisureCard};
+        }
+
+        [UnitOfWork]
+        public CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
+        {
+            if (_cardGenerationLogRepository.Get(reference)!=null)
+                throw new Exception("Card generation reference is not unique : " + reference);
+
+            var allCardCodes = _leisureCardRepository.GetAllIncludingDeleted().Select(c=>c.Code).ToArray();
+            
+            for (var i = 0; i < numberOfCards; i++)
+            {
+                string newCode;
+                do
+                {
+                    newCode = Guid.NewGuid().ToString().Substring(0, 20);
+                } 
+                while (allCardCodes.Contains(newCode));
+
+                _leisureCardRepository.SaveOrUpdate( new LeisureCard{Code = newCode, Reference = reference, RenewalPeriodMonths = renewalPeriodMonths});
+            }
+
+            var cardGenLog = new CardGenerationLog {GeneratedDate = DateTime.Now, Ref = reference};
+
+            _cardGenerationLogRepository.SaveOrUpdate(cardGenLog);
+
+            return cardGenLog;
         }
     }
 }

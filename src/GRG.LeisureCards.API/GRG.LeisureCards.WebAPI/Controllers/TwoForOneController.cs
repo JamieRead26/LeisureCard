@@ -10,6 +10,7 @@ using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
 using GRG.LeisureCards.WebAPI.Model;
 using ApiModel = GRG.LeisureCards.WebAPI.Model;
+using SelectedOffer = GRG.LeisureCards.DomainModel.SelectedOffer;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {

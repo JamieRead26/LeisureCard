@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GRG.LeisureCards.DomainModel;
+using NHibernate;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
@@ -8,11 +9,19 @@ namespace GRG.LeisureCards.Persistence.NHibernate
     {
         public IEnumerable<SelectedOffer> Get(DateTime @from, DateTime to)
         {
-            return Session.QueryOver<SelectedOffer>()
+            var results = Session.QueryOver<SelectedOffer>()
                 .Where(u => u.SelectedDateTime >= from)
                 .Where(u => u.SelectedDateTime <= to)
                 .OrderBy(u=>u.SelectedDateTime).Desc
                 .List();
+
+            foreach (var selectedOffer in results)
+            {
+                NHibernateUtil.Initialize(selectedOffer.LeisureCard);
+                NHibernateUtil.Initialize(selectedOffer.OfferCategory);
+            }
+
+            return results;
         }
     }
 }

@@ -24,7 +24,9 @@ using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using GRG.LeisureCards.Service;
+using GRG.LeisureCards.Service.BusinessLogic;
 using GRG.LeisureCards.WebAPI.Interceptors;
+using StructureMap.Pipeline;
 
 namespace GRG.LeisureCards.WebAPI.DependencyResolution
 {
@@ -65,52 +67,77 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
         {
             ConfigureRepositoryIntercepts(proxyGenerator, interceptor);
             ConfigureServiceIntercepts(proxyGenerator, interceptor);
+            ConfigureBusinessLogic();
         }
 
         private void ConfigureRepositoryIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
         {
             For<ILeisureCardRepository>().Use<LeisureCardRepository>()
-                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+                .SetLifecycleTo<SingletonLifecycle>();
 
             For<ISettingRepository>().Use<SettingRepository>()
-                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+                .SetLifecycleTo<SingletonLifecycle>();
 
             For<IRedLetterProductRepository>().Use<RedLetterProductRepository>()
-                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+                .SetLifecycleTo<SingletonLifecycle>();
 
             For<IDataImportJournalEntryRepository>().Use<DataImportJournalEntryRepository>()
-               .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+               .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+               .SetLifecycleTo<SingletonLifecycle>();
 
             For<ITwoForOneRepository>().Use<TwoForOneRepository>()
-               .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+               .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+               .SetLifecycleTo<SingletonLifecycle>();
 
             For<ILeisureCardUsageRepository>().Use<LeisureCardUsageRepository>()
-              .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+              .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+              .SetLifecycleTo<SingletonLifecycle>();
 
             For<ISelectedOfferRepository>().Use<SelectedOfferRepository>()
-             .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+             .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+             .SetLifecycleTo<SingletonLifecycle>();
 
             For<IOfferCategoryRepository>().Use<OfferCategoryRepository>()
-            .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+            .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+            .SetLifecycleTo<SingletonLifecycle>();
 
             For<ILocationRepository>().Use<LocationRepository>()
-            .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+            .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+            .SetLifecycleTo<SingletonLifecycle>();
+
+            For<ICardGenerationLogRepository>().Use<CardGenerationLogRepository>()
+            .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+            .SetLifecycleTo<SingletonLifecycle>();
         }
 
         private void ConfigureServiceIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
         {
             For<ILeisureCardService>().Use<LeisureCardService>()
-                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+                .SetLifecycleTo<SingletonLifecycle>();
 
 #if DEBUG
             For<ITestService>().Use<TestService>()
-                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+                .SetLifecycleTo<SingletonLifecycle>();
 #endif
             For<IDataImportService>().Use<DataImportService>()
-                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor));
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+                .SetLifecycleTo<SingletonLifecycle>();
 
             For<IGoogleLocationService>()
-                .Use(() => new GoogleLocationService(true, ConfigurationManager.AppSettings["GoogleApiKey"]));
+                .Use(() => new GoogleLocationService(true, ConfigurationManager.AppSettings["GoogleApiKey"]))
+                .SetLifecycleTo<SingletonLifecycle>();
+        }
+
+        public void ConfigureBusinessLogic()
+        {
+            For<ICardRenewalLogic>()
+                .Use(() => new CardRenewalLogic(int.Parse(ConfigurationManager.AppSettings["DefaultCardRenewalPeriodMonths"])))
+                .SetLifecycleTo<SingletonLifecycle>();
         }
 
         #endregion

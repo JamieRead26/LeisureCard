@@ -33,12 +33,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _leisureCardFilePath = "~\\UploadFiles\\LeisureCards";
         }
 
-        [HttpPost]
-        [Route("DataImport/LeisureCards/")]
-        public DataImportJournalEntry ImportLeisureCards()
-        {
-            return ImportDataFile((bytes, key) => _dataImportService.ImportLeisureCards(bytes, key), _leisureCardFilePath);
-        }
+        //[HttpPost]
+        //[Route("DataImport/LeisureCards/")]
+        //public DataImportJournalEntry ImportLeisureCards()
+        //{
+        //    return ImportDataFile((bytes, key) => _dataImportService.ImportLeisureCards(bytes, key), _leisureCardFilePath);
+        //}
 
         [HttpPost]
         [Route("DataImport/RedLetter/")]
@@ -127,19 +127,19 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             return GetLastImportJournal(false,DataImportKey.TwoForOne);
         }
 
-        [HttpGet]
-        [Route("DataImport/GetLastGoodLeisureCardImportJournal")]
-        public DataImportJournalEntry GetLastGoodLeisureCardImportJournal()
-        {
-            return GetLastImportJournal(true, DataImportKey.LeisureCards);
-        }
+        //[HttpGet]
+        //[Route("DataImport/GetLastGoodLeisureCardImportJournal")]
+        //public DataImportJournalEntry GetLastGoodLeisureCardImportJournal()
+        //{
+        //    return GetLastImportJournal(true, DataImportKey.LeisureCards);
+        //}
 
-        [HttpGet]
-        [Route("DataImport/GetLastBadLeisureCardImportJournal")]
-        public DataImportJournalEntry GetLastBadLeisureCardImportJournal()
-        {
-            return GetLastImportJournal(false, DataImportKey.LeisureCards);
-        }
+        //[HttpGet]
+        //[Route("DataImport/GetLastBadLeisureCardImportJournal")]
+        //public DataImportJournalEntry GetLastBadLeisureCardImportJournal()
+        //{
+        //    return GetLastImportJournal(false, DataImportKey.LeisureCards);
+        //}
 
         [HttpGet]
         [Route("DataImport/GetRedLetterImportJournal/{count}/{toId}")]
@@ -157,14 +157,14 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             return results;
         }
 
-        [HttpGet]
-        [Route("DataImport/GetLeisureCardImportJournal/{count}/{toId}")]
-        public IEnumerable<DataImportJournalEntry> GetLeisureCardImportJournal(int count, int toId)
-        {
-            var results = GetImportJournal(DataImportKey.LeisureCards, count, toId);
+        //[HttpGet]
+        //[Route("DataImport/GetLeisureCardImportJournal/{count}/{toId}")]
+        //public IEnumerable<DataImportJournalEntry> GetLeisureCardImportJournal(int count, int toId)
+        //{
+        //    var results = GetImportJournal(DataImportKey.LeisureCards, count, toId);
 
-            return results;
-        }
+        //    return results;
+        //}
 
         private IEnumerable<DataImportJournalEntry> GetImportJournal(DataImportKey importKey, int count, int toId)
         {

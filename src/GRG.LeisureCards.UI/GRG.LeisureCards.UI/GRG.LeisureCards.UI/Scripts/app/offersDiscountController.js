@@ -43,7 +43,7 @@ offersDiscountController.controller('offersDiscountClaimController', function ($
     }
     else if ($scope.title == 'hoseasons') {
         $scope.page_title = 'Hoseasons';
-        $scope.url = 'partners.hoseasons.co.uk/vof';
+        $scope.url = 'partners.hoseasons.co.uk/DAY';
     }
 
     $scope.website = $sce.trustAsHtml('<a href="http://' + $scope.url + '" target="_blank" class="button">Claim Reward</a>');

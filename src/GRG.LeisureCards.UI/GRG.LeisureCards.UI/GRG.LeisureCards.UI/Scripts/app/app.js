@@ -11,6 +11,7 @@
     'offersDiscountController',
     'offers241Controller',
     'offersHomeController',
+    'generalContentController',
     'globalController',
     'logoutController',
     'loginController',
@@ -31,7 +32,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
                 }
 
             }
-            else {
+            else if (!config.url == 'partial/terms') {
                 $location.path('/');
             }
             return config;
@@ -72,13 +73,23 @@ app.config(function ($httpProvider) {
 });
 
 var globalController = angular.module('globalController', []);
-globalController.controller('globalCtrl', function ($scope, breadcrumbs, $localStorage, config) {
+globalController.controller('globalCtrl', function ($scope, breadcrumbs, $location, $anchorScroll, $localStorage, config) {
     $localStorage.tenant = config.tenant;
     $scope.$storage = $localStorage;
     $scope.breadcrumbs = breadcrumbs;
     $scope.global = {};
     $scope.global.slideshow = [];
     $scope.global.bodyclass = '';
+
+    $scope.go_back = function () {
+        window.history.back();
+    };
+
+    $scope.to_top = function () {
+        $location.hash('to-top');
+        $anchorScroll();
+    };
+
 });
 
 app.config(['$routeProvider', function ($routeProvider) {
@@ -99,6 +110,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         }).
         when('/terms', {
             templateUrl: 'partial/terms',
+            controller: 'TermsController',
             label: 'Terms'
         }).
         when('/offers', {

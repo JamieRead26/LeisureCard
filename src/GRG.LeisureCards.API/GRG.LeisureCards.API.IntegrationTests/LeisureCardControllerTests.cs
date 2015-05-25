@@ -81,5 +81,25 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
             Assert.IsNotNull(client.Execute<SessionInfo>(request).Data.CardRenewalDate);
         }
+
+       
+
+        [Test]
+        public void CardGenerationTest()
+        {
+            var client = new RestClient(Config.BaseAddress);
+
+            var request = new RestRequest("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}", Method.GET);
+            request.AddParameter("reference", "TEST");
+            request.AddParameter("numberOfCards", 10);
+            request.AddParameter("renewalPeriodMonths", 12);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            var response = client.Execute<CardGenerationLog>(request);
+
+            Assert.IsNotNull(response.Data);
+            Assert.AreEqual("TEST", response.Data.Ref);
+        }
     }
 }

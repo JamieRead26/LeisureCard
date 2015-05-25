@@ -7,8 +7,8 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
     {
         public CardGenerationLogClassMap()
         {
-            Id(x => x.GeneratedDate);
-            Map(x => x.Ref);
+            Id(x => x.Ref);
+            Map(x => x.GeneratedDate);
         }
     }
 }

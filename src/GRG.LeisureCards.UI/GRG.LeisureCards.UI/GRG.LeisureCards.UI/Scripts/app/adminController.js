@@ -222,6 +222,7 @@ adminController.controller('AdminCardGenerateController', function ($scope, Gene
         };
 
         GenerateCards.get(postData, function (data) {
+            debugger;
             if(data.Ref){
                 return $scope.cardgenerate_success = 'Cards generated successfully.'
             }

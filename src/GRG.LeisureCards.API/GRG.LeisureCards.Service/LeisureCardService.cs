@@ -88,7 +88,15 @@ namespace GRG.LeisureCards.Service
                 } 
                 while (allCardCodes.Contains(newCode));
 
-                _leisureCardRepository.SaveOrUpdate( new LeisureCard{Code = newCode, Reference = reference, RenewalPeriodMonths = renewalPeriodMonths});
+                var now = DateTime.Now;
+
+                _leisureCardRepository.SaveOrUpdate( new LeisureCard
+                {
+                    Code = newCode,
+                    Reference = reference,
+                    RenewalPeriodMonths = renewalPeriodMonths,
+                    UploadedDate = now
+                });
             }
 
             var cardGenLog = new CardGenerationLog {GeneratedDate = DateTime.Now, Ref = reference};

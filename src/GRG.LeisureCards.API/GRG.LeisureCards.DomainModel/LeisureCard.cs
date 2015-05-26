@@ -73,7 +73,8 @@ namespace GRG.LeisureCards.DomainModel
             LoginHistory.Add(leisureCardUsage);
         }
 
+        [DataMember]
         public virtual string Reference { get; set; }
-        public virtual int? RenewalPeriodMonths { get; set; }
+        public virtual int RenewalPeriodMonths { get; set; }
     }
 }

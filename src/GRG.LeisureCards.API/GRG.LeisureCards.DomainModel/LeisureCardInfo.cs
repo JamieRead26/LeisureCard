@@ -24,5 +24,12 @@ namespace GRG.LeisureCards.DomainModel
         public DateTime? RenewalDate { get; set; }
         public bool CancellationDate { get; set; }
         public DateTime? RegistrationDate { get; set; }
+
+        public int RenewalPeriodMonths { get; set; }
+
+        public string Reference { get; set; }
+
+        public bool Suspended { get; set; }
+
     }
 }

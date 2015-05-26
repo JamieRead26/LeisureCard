@@ -23,7 +23,7 @@ namespace GRG.LeisureCards.Service.BusinessLogic
                 throw new Exception("Can not calculate renewal date of unregistered card ");
 
             leisureCard.RenewalDate = AddMonths(leisureCard.RegistrationDate.Value,
-                leisureCard.RenewalPeriodMonths ?? _defaultRenewalPeriodMonths);
+                leisureCard.RenewalPeriodMonths);
         }
 
         private DateTime AddMonths(DateTime registrationDate, int months)

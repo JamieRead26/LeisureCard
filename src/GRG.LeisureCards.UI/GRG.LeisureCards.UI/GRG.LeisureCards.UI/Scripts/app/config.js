@@ -16,7 +16,6 @@ app.service('slideshow', function (config) {
         img: '/Content/' + tenant + '/img/banner-1.jpg',
         link: 'http://google.co.uk'
     }];
-
     this.offershome = [{
         img: '/Content/' + tenant + '/img/banner-1.jpg',
         link: ''
@@ -40,8 +39,14 @@ app.service('slideshow', function (config) {
         link: ''
     }];
 
-    this.offerdiscount = [];
-    this.offerdiscountdetails = [];
+    this.offerdiscount = [{
+        img: '/Content/' + tenant + '/img/banner-1.jpg',
+        link: 'http://google.co.uk'
+    }];
+    this.offerdiscountdetails = [{
+        img: '/Content/' + tenant + '/img/banner-1.jpg',
+        link: 'http://google.co.uk'
+    }];
     this.offerdiscountclaim = [];
 
 });

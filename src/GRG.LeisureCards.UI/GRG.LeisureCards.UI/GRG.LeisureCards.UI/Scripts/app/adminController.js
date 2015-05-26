@@ -314,13 +314,15 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
 });
 
 adminController.controller('AdminReportController', function ($scope, $filter,
-    GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory) {
+    GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory, GetAllCardNumbers) {
 
     $scope.global.slideshow = [];
     $scope.reports_card_activation = [];
     $scope.reports_offers_claimed = [];
     $scope.reports_card_usage = [];
     $scope.generation_history = [];
+    $scope.all_card_numbers = [];
+    $scope.show_print = false;
     $scope.report_type = 'card_activation';
 
     $scope.get_report = function () {
@@ -329,20 +331,27 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         $scope.reports_offers_claimed = [];
         $scope.reports_card_usage = [];
         $scope.generation_history = [];
+        $scope.all_card_numbers = [];
         $scope.report_error = null;
 
         var no_results_check = function (array) {
-            if (array.length == 0) { return $scope.report_error = 'No results to show.'; }
+            if (array.length == 0) {
+                $scope.show_print = false;
+                return $scope.report_error = 'No results to show.';
+            } else {
+                $scope.show_print = true;
+            }
         };
 
-        if (!valid_iso_date($scope.from_date) || !valid_iso_date($scope.to_date)) {
-            return $scope.report_error = 'From and To dates must match format dd-mm-yyyy';
+        if ($scope.report_type != 'all_card_numbers') {
+            if (!valid_iso_date($scope.from_date) || !valid_iso_date($scope.to_date)) {
+                return $scope.report_error = 'From and To dates must match format dd-mm-yyyy';
+            }
+            var search_data = {
+                from: $filter('date')($scope.from_date, "yyyy-MM-dd"),
+                to: $filter('date')($scope.to_date, "yyyy-MM-dd")
+            };
         }
-
-        var search_data = {
-            from: $filter('date')($scope.from_date, "yyyy-MM-dd"),
-            to: $filter('date')($scope.to_date, "yyyy-MM-dd")
-        };
  
         if ($scope.report_type == 'card_activation') {
 
@@ -373,6 +382,14 @@ adminController.controller('AdminReportController', function ($scope, $filter,
             GetCardGenerationHistory.get(search_data, function (data) {
                 $scope.generation_history = data.$values;
                 no_results_check($scope.generation_history);
+            });
+
+        }
+        else if ($scope.report_type == 'all_card_numbers') {
+
+            GetAllCardNumbers.get(function (data) {
+                $scope.all_card_numbers = data.$values;
+                no_results_check($scope.all_card_numbers);
             });
 
         }
@@ -426,6 +443,27 @@ adminController.controller('AdminReportController', function ($scope, $filter,
             data.push({
                 'Reference': report[i].Ref,
                 'Generated Date': report[i].GeneratedDate
+            });
+        }
+        return data;
+    };
+
+    $scope.getAllCardsHeader = function () { return ['Code', 'Status', 
+        'Cancellation Date', 'Expiry Date', 
+        'Registration Date', 'Renewal Date', 
+        'Uploaded Date'] };
+    $scope.getAllCardsReport = function () {
+        var report = $scope.all_card_numbers;
+        var data = [];
+        for (var i = 0; i < report.length; i++) {
+            data.push({
+                'Code': report[i].Code,
+                'Status': report[i].Status,
+                'CancellationDate': report[i].CancellationDate,
+                'ExpiryDate': report[i].ExpiryDate,
+                'RegistrationDate': report[i].RegistrationDate,
+                'RenewalDate': report[i].RenewalDate,
+                'UploadedDate': report[i].UploadedDate
             });
         }
         return data;

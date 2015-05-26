@@ -164,7 +164,10 @@ namespace GRG.LeisureCards.Service
                 {
                     foreach (var offer in csvReader.GetRecords<TwoForOneOffer>().ToArray())
                     {
-                        var offerToPersist = offers[offer.Id];
+                        TwoForOneOffer offerToPersist = null;
+
+                        if (offers.ContainsKey(offer.Id))
+                            offerToPersist = offers[offer.Id];
 
                         if (offerToPersist != null)
                         {

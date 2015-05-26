@@ -77,10 +77,6 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
 
-            For<ISettingRepository>().Use<SettingRepository>()
-                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
-                .SetLifecycleTo<SingletonLifecycle>();
-
             For<IRedLetterProductRepository>().Use<RedLetterProductRepository>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
@@ -120,11 +116,6 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
 
-#if DEBUG
-            For<ITestService>().Use<TestService>()
-                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
-                .SetLifecycleTo<SingletonLifecycle>();
-#endif
             For<IDataImportService>().Use<DataImportService>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();

@@ -67,9 +67,11 @@ namespace GRG.LeisureCards.Service
         {
             get
             {
-                return (string.IsNullOrWhiteSpace(_apiKey))
+                var url = (string.IsNullOrWhiteSpace(_apiKey))
                     ? UrlProtocolPrefix + API_LATLONG_FROM_ADDRESS
-                    : UrlProtocolPrefix + API_LATLONG_FROM_ADDRESS;// + "&key=" + _apiKey;
+                    : UrlProtocolPrefix + API_LATLONG_FROM_ADDRESS + "&key=" + _apiKey;
+
+                return url;
 
             }
         }

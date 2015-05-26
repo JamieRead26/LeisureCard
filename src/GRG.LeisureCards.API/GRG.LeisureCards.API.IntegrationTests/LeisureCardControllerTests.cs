@@ -108,10 +108,11 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("accepts", "application/json");
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
-            var response = client.Execute<CardGenerationLog>(request);
+            var response = client.Execute<CardGenerationResponse>(request);
 
             Assert.IsNotNull(response.Data);
-            Assert.AreEqual("TEST", response.Data.Ref);
+            Assert.AreEqual("TEST", response.Data.CardGenerationLog.Ref);
+            Assert.IsTrue(response.Data.Success);
         }
     }
 }

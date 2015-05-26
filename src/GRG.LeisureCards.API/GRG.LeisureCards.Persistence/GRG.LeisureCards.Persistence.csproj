@@ -67,7 +67,6 @@
     <Compile Include="IRedLetterProductRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISelectedOfferRepository.cs" />
-    <Compile Include="ISettingRepository.cs" />
     <Compile Include="ITwoForOneRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

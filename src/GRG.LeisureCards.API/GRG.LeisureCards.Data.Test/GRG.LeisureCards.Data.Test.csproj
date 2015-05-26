@@ -104,9 +104,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SelectedOfferDataFixture.cs" />
-    <Compile Include="SettingDataFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TwoForOneOfferDataFixture.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -78,7 +78,6 @@
     <Compile Include="RedLetterVenue.cs" />
     <Compile Include="SelectedOffer.cs" />
     <Compile Include="SessionInfo.cs" />
-    <Compile Include="Setting.cs" />
     <Compile Include="TwoForOneOffer.cs" />
   </ItemGroup>
   <ItemGroup>

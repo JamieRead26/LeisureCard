@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AutoMapper;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
@@ -92,9 +93,26 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [HttpGet]
         [SessionAuthFilter(true)]
         [Route("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}")]
-        public CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
+        public CardGenerationResponse GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
         {
-            return _leisureCardService.GenerateCards(reference, numberOfCards, renewalPeriodMonths);
+            try
+            {
+                return new CardGenerationResponse
+                {
+                    CardGenerationLog =
+                        Mapper.Map<Model.CardGenerationLog>(_leisureCardService.GenerateCards(reference, numberOfCards,
+                            renewalPeriodMonths)),
+                    Success = true
+                };
+            }
+            catch (Exception ex)
+            {
+                return new CardGenerationResponse
+                {
+                    Success = false,
+                    ErrorMessage = ex.Message
+                };
+            }
         }
     }
 }

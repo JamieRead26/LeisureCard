@@ -397,8 +397,7 @@ body .content {
 }
 
 /* SAM CSS */
-body.offer-241,
-body.offer-241-details {
+body.offer-241, body.offer-241-claim, body.offer-241-details {
     background: #b3c401;
 }
 body.offer-discount,
@@ -436,7 +435,9 @@ background-size: 100%;
     margin-left: 34px;
 }
 
-.offer-241 .mask,
+
+.offer-241 .mask, .offer-241-claim .mask, 
+
 .offer-241-details .mask {
 background: url('../img/carousel-mask-green.png') no-repeat;
 background-size: 100%;
@@ -610,6 +611,7 @@ body .scroll-h {margin-bottom: 40px; margin-top: 25px; max-height: none; overflo
     border-radius: 15px;
     padding: 11px;
     margin-bottom: 22px;
+    font-family:  Tahoma, Verdana, Geneva, sans-serif;
 }
 
 .offer-241-offer img {border-radius: 15px;}
@@ -661,8 +663,61 @@ padding-top: 30px;
 
 }
 
-.twelvecol.center {text-align: center; margin-bottom: 65px;}
+.homepage .breadcrumb {
+    display: none;
+}
 
+/*claim offer*/
+
+.claim-wrap {
+    margin-bottom: 50px;
+}
+.claim-offer {
+   text-align: center;
+   background: #d9e280;
+   border-radius: 15px;
+   margin-bottom: 65px;
+   max-width: 600px;
+   margin: 0 auto;
+   font-family:  Tahoma, Verdana, Geneva, sans-serif;
+}
+.claim-offer .offer-copy {
+    text-align: left;
+    max-width: 445px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+.claim-offer  .offer-copy h1 {
+    color: #0971ce;
+    font-size: 20px;
+    font-weight: bold;
+}
+.claim-offer  .offer-copy p {
+    color: #545453;
+    font-size: 16px;
+}
+
+.redeem-img {
+    padding-bottom: 40px;
+}
+
+.button-claim .button {
+    background: url('../img/redeem-here.jpg') no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 193px;
+    font-size: 0px;
+    border: 0;
+   margin-bottom: 30px;
+    }
+
+.twelvecol.center { margin-bottom: 65px; text-align: center;}
+
+.terms-copy p {
+    color: #FFF;
+    font-size: 16px;
+       font-family:  Tahoma, Verdana, Geneva, sans-serif;
+}
 
 /* SAM MEDIA QUIRIES */
 

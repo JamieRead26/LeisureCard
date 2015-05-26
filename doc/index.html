@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bootstrap, a sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.">
+    <meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+
+    <title>
+        Bonusbond Development Documentation
+    </title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Optional Bootstrap Theme -->
+    <link href="data:text/css;charset=utf-8," data-href="css/bootstrap-theme.min.css" rel="stylesheet" id="bs-theme-stylesheet">
+
+    <!-- Documentation extras -->
+    <link href="css/docs.min.css" rel="stylesheet">
+
+    <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicons -->
+    <link rel="icon" href="favicon.ico">
+
+</head>
+<body>
+<a id="skippy" class="sr-only sr-only-focusable" href="#content"><div class="container"><span class="skiplink-text">Skip to main content</span></div></a>
+
+<!-- Docs page layout -->
+<div class="bs-docs-header" id="content">
+    <div class="container">
+        <h1>Bonusbonds</h1>
+        <p>Patterns and process documentation for Bonusbond system development</p>
+    </div>
+</div>
+
+<div class="container bs-docs-container">
+
+    <div class="row">
+        <div class="col-md-9" role="main">
+
+            <div class="bs-docs-section" id="di">
+                <h1  class="page-header">Dependency Injection</h1>
+
+                <p><a href="http://structuremap.github.io/">Structure Map</a> is used for <a href="http://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection</a>.
+                    <code>GRG.Bonusbond.Web.Bootstrap</code> implements the <a href="http://visualstudiomagazine.com/articles/2014/06/01/how-to-refactor-for-dependency-injection.aspx">Composition Root</a> pattern
+                    and intializes the container with all dependencies.</p>
+
+                <p>The <a href="http://visualstudiomagazine.com/articles/2014/06/01/how-to-refactor-for-dependency-injection.aspx">Composition Root</a> pattern described above has the
+                    advantage of reducing the required references to <a href="http://structuremap.github.io/">Structure Map</a> and the (debatable) disadvantage of centralising the configuration.
+                    The other option is to delegate the configuration of the container local to the concrete types.  A full discussion
+                    of the merits of either approach is beyond the scope of this document.</p>
+
+                <p>Once a type is correctly configured in the container it can be added to MVC controllers constructors and domain model service constructors.
+                    Typically only <code>Service</code> interfaces will be passed to controller constructors.  MVC controllers should simply map the view models to the domain
+                    logic as encapsulated in the <a href="#service">Service Layer</a>.  This enables all business logic to be unit and integration tested from the service layer
+                    API without the need to go through the web stack.</p>
+
+                <p>Service constructors will reference the <a href="#database-orm">repositories</a> as well as other <a href="#downstream">downstream dependencies</a>.
+                    This enables the controllers to be unit tested by mocking those dependencies at test time.</p>
+            </div>
+
+            <div class="bs-docs-section" id="database">
+                <h1  class="page-header">Database</h1>
+
+                <p>Bonusbond employs a code first model using <a href="http://www.fluentnhibernate.org/">FluentNHibernate</a>.</p>
+
+                <h3 id="database-schema">Schema Management</h3>
+
+                <p><a href="http://www.fluentnhibernate.org/">FluentNHibernate</a> is used to manage the database schema as well as access
+                    data at runtime.  FluentNHibernate provides a fluent API for specifying metadata relating entities that FluentNHibernate can then use to generate the schema on the target database.</p>
+
+                <p>By avoiding the use of stored procedures and DB platform specific features the BBO application is DB platform agnostic and at time of writing has been demonstrated to run on both
+                    MSSQL and PostGres.</p>
+
+                <p>The schema that is generated by FluentNHibernate is determined by the ClassMaps (see <code>GRG.Bonusbond.Repository.ClassMaps</code>).
+                    The <code>SessionFactoryBuilder</code> is responsible for generating the schema on the target DB instance and it does this by dropping and recreating
+                    the schema each time.  The <code>SessionFactoryBuilder</code> is called by the SchemaReset command line tool and by integration test setup code.</p>
+
+                <p>The <code>GRG.SchemaReset</code> project contains the SchemaReset console application.  Executing this tool with no arguments
+                    will reset the target DB schema of the database specified in the app.config.  This should be done each
+                    time either the data model is changed locally or as a result of remote code changes being pulled into a dev environment.</p>
+
+                <h3 id="database-data">Data Creation</h3>
+
+                <p>Data falls into two categories;</p>
+
+                <ul>
+                    <li><b>Static Data</b>; such as resources.</li>
+                    <li><b>Test Data</b>; to facilitate integration tests.</li>
+                </ul>
+
+                <p>In the Data solution folder there are 3 projects;</p>
+
+                <ul>
+                    <li><b>GRG.Bonusbond.Data</b>: contains the abstract base class <code>DataFixture</code>.  A <code>DataFixture</code> is responsible for
+                        populating one type of entity in the database, e.g. <code>User</code>.  A data fixture may depend on <i>n</i> other <code>DataFixture</code>s being
+                        run before it is run in order for data to exist that is then referenced.  In addition a <code>DataFixture</code>, when executed, can
+                        obtain a reference to another <code>DataFixture</code> and in that way refer to known persisted entities without having to perform database queries via the repository classes
+                        (described in detail further on).
+                        Inspect the <code>RoleFixture</code> and <code>UserFixture</code> classes that do exactly this in order to create the <code>Role</code> and <code>User</code> records.</li>
+                    <li><b>GRG.Bonusbond.Data.Static</b>: contains <code>DataFixture</code> implementations for static data.</li>
+                    <li><b>GRG.Bonusbond.Data.Test</b>: contains <code>DataFixture</code> implementations for test data.</li>
+                    <li><b>GRG.SchemaReset</b>: A command line tool that serves two functions, 1) reset the target database schema and 2) execute data fixtures to populate the database.</li>
+                </ul>
+
+                <code>DataFixtures</code>'s form a <a href="http://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graph</a> in which a single <code>DataFixture</code> may depend on 0..N
+                <code>DataFixtures</code>'s and circular references are illegal. This is a useful property as it allows the <code>DataFixtures</code>'s to be run with a varying degree of concurrency
+                depending on the nature of the graph.  At the time of writing there are three <code>DataFixture</code>'s with no dependencies and one <code>DataFixtures</code> with one dependency.  This
+                means three can run run concurrently and one sequentially post it's dependency.  This reduces the execution time of data population proportionate to the number of fixtures and records.
+                <a href="https://github.com/myles-mcdonnell/MPM.PDAG">MPM.PDAG</a> is a general purpose component library for building a executing DAG's and is referenced by SchemaReset
+                <a href="https://www.nuget.org/packages/MPM.PDAG/">via a NuGet package.</a></p>
+
+                <p>SchemaReset loads <code>DataFixtures</code>'s by reflecting over <i>n</i> assemblies.  The list of assemblies to reflect over is passed via command line args.
+                    e.g. <code>SchemaReset.exe GRG.Bonusbond.Data.Static GRG.Bonusbond.Data.Test</code> will reset the target DB schema and execute all <code>DataFixtures</code>'s defined
+                    in those two assemblies.  The assemblies must be available to the SchemeReset process at runtime of course and the target DB connection configuration is defined in the SchemaReset.exe configuration file.</p>
+
+                <h3 id="database-orm">Object Relational Mapping</h3>
+
+                <p>Data access is achieved via the <a href="http://martinfowler.com/eaaCatalog/repository.html">Repository Pattern</a>.
+                    A <code>Repository</code> generally has 1 to 1 affinity with an entity.  In order to implement a new repository first create an interface for the repository, such as
+                    <code>GRG.Bonusbond.DomainModel.Repository.IUserRepository</code> that implements <code>IRepository&lt;TEntity&gt;</code> where in this case
+                    <code>TEntity</code> is <code>User</code>. Next create a concrete implementation of the interface, e.g.
+                    <code>GRG.Bonusbond.Repository.UserRepository</code> which inherits the abstract base <code>Repository&lt;TEntity&gt;</code> and implements the entity
+                    specific interface defined in the previous step, e.g. <code>GRG.Bonusbond.DomainModel.Repository.IUserRepository</code>.  At this point a repository that can CRUD that
+                    entity exists (the CRUD methods are in <code>Repository&lt;TEntity&gt;</code>) and this should be added to the <a href="#di">DI container</a>. As methods for reading and manipulating
+                    entities are required they should be implemented in the concrete repository for that entity type using the following pattern:
+
+                <pre>
+public IEnumerable GetByName(string name)
+{
+    using (var session = SessionFactory.OpenSession())
+    {
+        session.Query&lt;TEntity&gt;.Where(e=>e.Name == name).ToArray();
+    }
+}</pre>
+
+                <p>Note the importance of calling <code>.ToArray()</code> as this forces the LINQ query to execute before the session is disposed.
+                    Failure to do this will result in session closed errors when the resulting enumeration is enumerated.</p>
+
+                <p>Also note that when multiple operations must by executed within a transaction the pattern is as follows: </p>
+
+                <pre>
+using (var session = SessionFactory.OpenSession())
+using (var transaction = session.BeginTransaction())
+{
+    ... perform multiple ops on session..
+
+    transaction.Commit(); //Will implicitly rollback in the event of an exception
+} </pre>
+
+                <p>Furthermore, and this is the exception to the 1 to 1 entity affinity of repositories, a repository may encapsulate operations on multiple entity types a a single transaction.
+                In which case it should be fairly obvious in which repository the logic should reside.  E.G. A shopping basket repository may contain a <code>ProcessOrder(..)</code> method which
+                would persist an Order entity and clear the basket in a single transaction.</p>
+
+                <p>Note that <code>GRG.Bonusbond.DomainModel</code> contains only the repository interfaces and the entity classes which are very strictly DTOs/POCOs.  This enables
+                    consumers to reference only this assembly and have the <code>GRG.Bonusbond.Repository</code> concrete implementation injected at runtime
+                    via <a href="http://en.wikipedia.org/wiki/Inversion_of_control">IoC</a> keeping the solution dependency graph clean(er).</p>
+
+                <h3 id="database-uow">Unit Of Work</h3>
+
+                <p>In order to maintain consistency a unit of work implementation has been introduced that enables transactions to encompass any number of data operations
+                across any number of repositories. <p>
+
+                <h4 id="database-uow-usage">Usage</h4>
+                <p>When calling a repository method that method will implicitly execute within the context of a transaction and is therefore atomic.
+                When a transaction that spans multiple repository methods, either on the same repository or multiple repositories, the <code>UnitOfWork</code> is applied the method of the service that
+                coordinates the operations.</p>
+
+                <h4 id="database-uow-impl">Implementation</h4>
+                <p>The Unit of Work implementation follows this example
+                <a href="http://www.codeproject.com/Articles/543810/Dependency-Injection-and-Unit-Of-Work-using-Castle">http://www.codeproject.com/Articles/543810/Dependency-Injection-and-Unit-Of-Work-using-Castle</a>
+                with the exception that BBO uses <a href="http://structuremap.github.io/">StructureMap</a> for DI and this example uses Castle.Windsor.  The <code>GRG.Bonusbond.UnitOfWork</code> project defines the <code>UnitOfWorkInterceptor</code> which
+                is responsible for transaction scoping.  It also contains a <code>RepositoryFactory</code> that is simply a helper class for creating intercepted repositories outside of the structure map container, as
+                is the case for integration tests and SchemaReset tool.  e.g:</p>
+
+                <pre>
+    public override void Execute(Func&gt;Type, DataFixture&lt; getDataFixture, ISessionFactory sessionFactory)
+    {
+        var resourceRepository = RepositoryFactory.Build&gt;IResourceRepository&lt;(new ResourceRepository(), sessionFactory);
+
+        foreach (var resource in resourceData)
+            resourceRepository.Persist(resource);
+    }</pre>
+
+                <p>N.B. A quirk here is that the interface of the repository must be specified as the type argument for the build method.  The code will compile if it is not but a runtime error
+                will be throw from <code>Castle.DynamicProxy</code> when the method is called.</p>
+
+                <p>Take a look at the <code>GRG.Bonusbond.Web.bootstrap</code> class and notice that all services and repositories have the interceptor specified like so:</p>
+
+                <pre>
+    ...
+
+_.For<IUserAccountService>()
+    .LifecycleIs<HttpContextLifecycle>()
+    .Use<UserAccountService>()
+    .InterceptWith(
+        new FuncInterceptor<IUserAccountService>(
+            service =>
+            proxyGenerator.CreateInterfaceProxyWithTarget(service,  unitOfWorkInterceptor)));
+
+    ...</pre>
+
+                <p>If any repositories are not defined as above a null reference exception will occur when the repository is call and tries to access the database session.</p>
+
+
+            </div>
+
+            <div class="bs-docs-section" id="service">
+                <h1 class="page-header">Service Layer</h1>
+
+                <p><code>GRG.Bonusbond.Service</code> implements the <a href="http://martinfowler.com/eaaCatalog/serviceLayer.html">Service Layer</a> pattern.
+                    A full discussion of <a href="http://martinfowler.com/eaaCatalog/serviceLayer.html">Service Layer</a> is beyond the scope of this document but in short it also provides
+                    a home for all domain logic and enables this domain logic to be unit tested and integration tested without involving the UI layer.  MVC controllers
+                    should be thin and only responsible for UI rendering and mapping to the domain logic as encapsulated by the services.  One caveat here is that in the case of BBO
+                    the decision has been taken that it is acceptable for controllers to access repositories directly.  A pure service layer dictates that the controller would only access services
+                    which in turn would access repositories.  Given the simple nature of much of the BBO behaviour a pragmatic approach of allowing both models is acceptable.  Where complex logic that
+                    involves orchestration between multiple elements is required, such as remote API's and repositories, this logic should exist in service methods.</p>
+
+                <P>A concrete service and it's interface exist in the same file.  Once a service is defined it should be added to the DI container via <code>GRG.Bonusbond.Web.Bootstrap</code>.</P>
+
+                <p><b>N.B.</b> All service method arguments and return types are defined in the <code>GRG.Bonusbond.DomainModel</code> project.</p>
+
+                <p>Stand alone reusable business logic should be coded into it's own class under the BusinessLogic folder, e.g. <code>PasswordValidationLogic</code>.</p>
+
+                <h3 class="page-header" id="model">Domain Model</h3>
+
+                <p><code>GRG.Bonusbond.DomainModel</code> contains the POCO's that model the BBO domain along with the service interfaces.  This makes the library ultra portable as it only references
+                    two .NET framework libraries and no packages.  This is a very deliberate design decision.  Any references and logic required to map these types to other domains/concerns
+                    is the responsibility of the code that implements those domains/concerns and should exist there and not in the model itself.<p>
+
+                <p>Where data that is exposed by types that are part of downstream dependencies these types should be mapped the model classes in the service layer.
+                    <a href="http://valueinjecter.codeplex.com/">ValueInjecter</a> is currently part of the project as a PoC with the goal of reducing mapping code.</p>
+
+                <p><b>N.B.</b> All service method arguments and return types are defined in the <code>GRG.Bonusbond.Model</code> project.</p>
+
+                <h3 class="page-header" id="domainmapping">Domain Mapping</h3>
+
+                <p>Service classes interact with various downstream dependencies such as remote API's and the data storage layer.  It is critical for reasons of code maintenance, testability,
+                    re-usability and dependency management that the service layer is not polluted by exposing these types via it's public API.  This often requires that downstream types be mapped
+                    to their <code>GRG.Bonusbond.DomainModel</code> equivalents. <a href="http://valueinjecter.codeplex.com/">ValueInjecter</a> is being used to assist with this task.  The established pattern
+                    is to create an extension class in <code>GRG.Bonusbond.Service.MappingExtensions</code> for each type that needs to be mapped and add methods for each direction required.  For
+                    an example look at <code>GRG.Bonusbond.Service.MappingExtensions.UserMapper</code> which maps the <code>GRG.Bonusbond.DomainModel.User</code> to the <code>GRG.Bonusbond.DataModel.User</code>
+                    and vice-versa.  Also refer to the <code>GRG.Bonusbond.Service.UserAccountService.FindbyId(..)</code> method to see how this extension is employed.</p>
+
+                <h3 class="page-header" id="serviceconfiguration">Configuration</h3>
+
+                <p>A number of the services require configuration data, such as the <code>UserAccountService</code> with needs a from email address for the registration emails.
+                One common pattern for configuring modules is to define a <Code>ConfigurationSectionHandler</Code> that will dictate an XML schema for configuration and take care
+                of parsing that section in app.config files.  That approach is verbose in the case of BBO and makes unit testing more convoluted. <code>GRG.Bonusbond.Service.ServiceConfig</code> is a POCO
+                    with properties for the config data required by the services.  <code>GRG.Bonusbond.Web.Bootstrap</code> creates the <code>GRG.Bonusbond.Service.ServiceConfig</code> instance,
+                    populates the required values from web.config and adds the <code>GRG.Bonusbond.Service.ServiceConfig</code> instance to the DI container so that services can simply specify it as a constructor argument.
+                </p>
+
+
+            </div>
+
+            <div class="bs-docs-section" id="downstream">
+                <h1 class="page-header">Downstream Dependencies</h1>
+
+                <p>Downstream dependencies in the case of BBO are the remote API's; Mandrake, GO2 and MVB.</p>
+
+                <p>To enable BBO development to move forward as these API's evolve to meet the new requirements for BBO, for each remote API
+                    there are three projects;</p>
+
+                <ul>
+                    <li><b>Contract</b>; an interface and DTOs.</li>
+                    <li><b>Mock</b>; a concrete mock used to support development of BBO functionality dependent on pending API changes.</li>
+                    <li><b>Client</b>; a client for the actual remote API.</li>
+                </ul>
+
+                <p>Only the service layer will reference the API contracts, enabling the services to be unit tested and protecting the rest of the application
+                    from API's changes that require changes to the contract.</p>
+
+            </div>
+
+            <div class="bs-docs-section" id="testing">
+
+                <h1 class="page-header">Testing</h1>
+
+                <p>Both unit and integration tests are being produced as part of the regular development cycle during each sprint.</p>
+
+                <h3 id="testing-unit">Unit Tests</h3>
+                <p>For the purpose of Bonusbond a unit test is defined as a self contained test that does not execute any code that crosses a process boundary.
+                    This may be a single method of a single class or it may involve collaboration between multiple classes/methods, but never make calls that go out of process.</p>
+
+                <p>Unit tests reside in unit test projects which have a 1 to 1 affinity with the project/module containing the classes/functionality being tested.</p>
+
+                <h3 id="testing-int">Integration Tests</h3>
+                <p>For the purpose of Bonusbond an integration test is defined as a test that executes code across <i>n</i> process boundaries, such as remote API's or database calls.
+                Integration may use a composition of mocks and concrete dependencies.</p>
+
+                <p>Currently integration tests exist at the repository and service layer levels.</p>
+
+            </div>
+
+            <div class="bs-docs-section" id="ci">
+                <h1 class="page-header">Continuous Integration</h1>
+
+                <p><a href="https://devbamboo.grg.com/browse/PI-BB">Click here for the BBO Bamboo build</a></p>
+
+                <p>Once fully configured the CI build will:
+
+                    <ul>
+                        <li>Trigger on commit</li>
+                        <li>Compile using CI config</li>
+                        <li>Run unit tests</li>
+                        <li>Run integration tests</li>
+                        <li>Deploy CI build</li>
+                    </ul>
+
+                </p>
+
+            </div>
+
+            <div class="bs-docs-section" id="vcs">
+                <h1 class="page-header">Git Workflow</h1>
+
+                <p>Full description pending co-ordination with GRG Git roll out.</p>
+                <p>Currently BBO devs are using a P2P Git model and bridging to SVN via an Integration branch.</p>
+
+            </div>
+
+            <div class="bs-docs-section" id="tools">
+                <h1 class="page-header">Packages & Tools</h1>
+
+                <p>Below is a list of some of the NuGet packages referenced by the code base:</p>
+
+                <ul>
+                    <li><a href="https://www.nuget.org/packages/AIM/">Aegis Implicit Mail</a> - required for internal Smtp server relaying</li>
+                    <li><a href="https://www.nuget.org/packages/FluentNHibernate/">FluentNHibernate</a> - for schema generation and SQL ORM</li>
+                    <li><a href="https://www.nuget.org/packages/log4net/">Log4Net</a> - for logging.  Will use rolling log file in production</li>
+                    <li><a href="https://www.nuget.org/packages/MPM.PDAG/">MPM.PDAG</a> - used for building and executing the data fixture directed acyclic graph with concurrency.</li>
+                    <li><a href="https://www.nuget.org/packages/Npgsql/">Npgsql</a> - required in the case of PostGres for DB platform</li>
+                    <li><a href="https://www.nuget.org/packages/Mono.Security/">Mono.Security</a> - required in the case of PostGres for DB platform</li>
+                    <li><a href="https://www.nuget.org/packages/RhinoMocks/">RhinoMocks</a> - mocking for unit tests</li>
+                    <li><a href="https://www.nuget.org/packages/SlowCheetah/">SlowCheetah</a> - for app.config transforms</li>
+                    <li><a href="https://www.nuget.org/packages/structuremap/">structuremap</a> (+StructureMap.MVC5 & structuremap.web) - for dependency injection</li>
+                    <li><a href="https://www.nuget.org/packages/ValueInjecter/">ValueInjecter</a> - for mapping data to service model DTOs</li>
+                    <li><a href="https://www.nuget.org/packages/Castle.Core/">Castle.Core</a> - DynamicProxy used to implement Unit of Work via AOP</li>
+                </ul>
+
+                <p>And this is a list of the tools either required or recommend for development:</p>
+                <ul>
+                    <li>Razor Generator VSIX.</li>
+                    <li>Git + Git Extensions - for version control.  Other UI clients may be used.</li>
+                    <li>SlowCheetah VSIX - for app.config transforms.</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3" role="complementary">
+            <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm">
+                <ul class="nav bs-docs-sidenav">
+
+                    <li>
+                        <a href="#di">Dependency Injection</a>
+                    </li>
+
+                    <li>
+                        <a href="#database">Database</a>
+                        <ul class="nav">
+                            <li><a href="#database-schema">Schema Management</a></li>
+                            <li><a href="#database-data">Data Creation</a></li>
+                            <li><a href="#database-orm">Object/Relational Mapping</a></li>
+                            <li><a href="#database-uow">Unit of Work</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#service">Service Layer</a>
+                        <ul class="nav">
+                            <li><a href="#model">Domain Model</a></li>
+                            <li><a href="#domainmapping">Domain Mapping</a></li>
+                            <li><a href="#serviceconfiguration">Configuration</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#downstream">Downstream Dependencies</a>
+                    </li>
+
+                    <li>
+                        <a href="#testing">Testing</a>
+                        <ul class="nav">
+                            <li><a href="#testing-unit">Unit Tests</a></li>
+                            <li><a href="#testing-int">Integration Tests</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#ci">Continuous Integration</a>
+                    </li>
+
+                    <li>
+                        <a href="#vcs">Git Workflow</a>
+                    </li>
+
+                    <li>
+                    <a href="#tools">Packages & Tools</a>
+                </li>
+
+                </ul>
+
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/docs.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+
+<script>
+    window.twttr = (function (d,s,id) {
+        var t, js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return; js=d.createElement(s); js.id=id; js.async=1;
+        js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+        return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+    }(document, "script", "twitter-wjs"));
+</script>
+
+<!-- Analytics
+================================================== -->
+<script>
+    var _gauges = _gauges || [];
+    (function() {
+        var t   = document.createElement('script');
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', '4f0dc9fef5a1f55508000013');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+    })();
+</script>
+
+</body>
+</html>

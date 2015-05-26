@@ -56,7 +56,12 @@
             </div>
             <div class="twocol">
                 <label>Status:</label>
-                <input type="text" readonly ng-model="status" />
+                <select ng-model="status">
+                    <option value=""></option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="Suspended">Suspended</option>
+                </select>
             </div>
             <div class="twocol">
                 <label>Renewal Date:</label>
@@ -175,7 +180,8 @@
                 <table ng-show="all_card_numbers.length">
                     <tr>
                         <th>Code</th>
-                        <th>Status</th>
+                        <th>Renewal Period Months</th>
+                        <th>Suspended</th>
                         <th>Cancel Date</th>
                         <th>Expire Date</th>
                         <th>Registration Date</th>
@@ -184,7 +190,8 @@
                     </tr>
                     <tr ng-repeat="r in all_card_numbers">
                         <td>{{ r.Code }}</td>
-                        <td>{{ r.Status }}</td>
+                        <td>{{ r.RenewalPeriodMonths }}</td>
+                        <td>{{ r.Suspended }}</td>
                         <td ng-bind="r.CancellationDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.ExpiryDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>

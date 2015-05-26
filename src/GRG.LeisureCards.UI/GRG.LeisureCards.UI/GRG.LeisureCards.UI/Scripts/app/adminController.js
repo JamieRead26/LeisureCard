@@ -241,7 +241,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
 
     GetAllCardNumbers.get(function (data) {
         var cards = data.$values;
-
+      
         // pushes cards to key values
         for (var i = 0; i < cards.length; i++) {
             var code = cards[i].Code;
@@ -277,6 +277,9 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
             
             $scope.status = card.Status;
         }
+        else {
+            $scope.cardNumber = cardNumber;
+        }
     }
 
     $scope.submit = function () {
@@ -285,10 +288,6 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
 
         if (!valid_iso_date($scope.expiryDate) || !valid_iso_date($scope.renewalDate)) {
             return $scope.cardupdate_error = 'Expiry and Renewal dates must match format dd-mm-yyyy';
-        }
-
-        if (!$scope.cardNumber) {
-            return $scope.cardupdate_error = 'Invalid card number.';
         }
     
         var postData = {
@@ -299,15 +298,13 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
         };
         
         LeisureCardUpdate.get(postData, function (data) {
-            if (data.CardsUpdated) {
 
-                $scope.expiryDate = '';
-                $scope.renewalDate = '';
-                $scope.status = '';
+            $scope.expiryDate = '';
+            $scope.renewalDate = '';
+            $scope.status = '';
 
-                return $scope.cardupdate_success = data.CardsUpdated + ' card/s updated successfully.';
-            }
-            return $scope.cardupdate_error = 'An error occurred when trying to update the card.';
+            return $scope.cardupdate_success = data.CardsUpdated + ' card/s updated successfully.';
+
         });
     }
 
@@ -448,7 +445,8 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         return data;
     };
 
-    $scope.getAllCardsHeader = function () { return ['Code', 'Status', 
+    $scope.getAllCardsHeader = function () {
+        return ['Code', 'Renewal Period Months', 'Suspended',
         'Cancellation Date', 'Expiry Date', 
         'Registration Date', 'Renewal Date', 
         'Uploaded Date'] };
@@ -458,6 +456,8 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         for (var i = 0; i < report.length; i++) {
             data.push({
                 'Code': report[i].Code,
+                'Renewal Period Months': report[i].RenewalPeriodMonths,
+                'Suspended': report[i].Suspended,
                 'Status': report[i].Status,
                 'CancellationDate': report[i].CancellationDate,
                 'ExpiryDate': report[i].ExpiryDate,

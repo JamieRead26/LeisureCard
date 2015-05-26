@@ -16,6 +16,10 @@ namespace GRG.LeisureCards.WebAPI.Mappings
 
             Mapper.CreateMap<DomainModel.RedLetterProduct, Model.RedLetterProductSummary>();
 
+            Mapper.CreateMap<DomainModel.CardGenerationLog, Model.CardGenerationLog>();
+
+            
+
         }
     }
 }

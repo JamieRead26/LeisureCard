@@ -86,7 +86,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ClassMaps\SelectedOfferClassMap.cs" />
-    <Compile Include="ClassMaps\SettingClassMap.cs" />
     <Compile Include="ClassMaps\TwoForOneClassMap.cs" />
     <Compile Include="DataImportJournalEntryRepository.cs" />
     <Compile Include="CardGenerationLogRepository.cs" />
@@ -98,7 +97,6 @@
     <Compile Include="RedLetterProductRepository.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="SelectedOfferRepository.cs" />
-    <Compile Include="SettingRepository.cs" />
     <Compile Include="TwoForOneRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkAttribute.cs" />

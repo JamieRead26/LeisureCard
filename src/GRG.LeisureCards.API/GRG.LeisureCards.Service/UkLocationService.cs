@@ -105,7 +105,7 @@ namespace GRG.LeisureCards.Service
             if (from == null)
             {
                 Log.Error("Unable to filter location results as no coordinates available for from point: " +ukPostCodeOrTown);
-                return results;
+                return set.Select(s=>new Tuple<TDestination, double>(s, -1));
             }
             
             foreach (var destination in set)

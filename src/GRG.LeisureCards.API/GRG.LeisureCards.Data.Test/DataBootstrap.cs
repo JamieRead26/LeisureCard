@@ -6,7 +6,7 @@ namespace GRG.LeisureCards.Data
     {
         public static object Lock = new object();
         public static bool Done;
-        public static void PrepDb(Assembly classMapAssembly, DbConnectionDetails connectionDetails = null)
+        public static void PrepDb(Assembly classMapAssembly, DbConnectionDetails connectionDetails = null, bool runTestFixtures = true)
         {
             if (Done) return;
 
@@ -14,10 +14,14 @@ namespace GRG.LeisureCards.Data
             {
                 if (Done) return;
 
-                var database = new Bootstrap4NHibernate.Database(Database.GetPersistenceConfigurer(connectionDetails), classMapAssembly,
-                    configuration => { }, true);
+                var database = new Bootstrap4NHibernate.Database(
+                    Database.GetPersistenceConfigurer(connectionDetails), 
+                    classMapAssembly,
+                    configuration => { },
+                    true);
 
-                database.Populate(Assembly.GetExecutingAssembly());
+                if (runTestFixtures)
+                    database.Populate(Assembly.GetExecutingAssembly());
 
                 Done = true;
             }

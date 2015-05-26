@@ -210,6 +210,7 @@ adminController.controller('AdminCardGenerateController', function ($scope, Gene
 
     $scope.submit = function () {
         $scope.cardgenerate_error = null;
+        $scope.cardgenerate_success = null;
 
         if (!$scope.reference || !$scope.num_cards || !$scope.duration) {
             return $scope.cardgenerate_error = 'All fields are required.';
@@ -222,11 +223,10 @@ adminController.controller('AdminCardGenerateController', function ($scope, Gene
         };
 
         GenerateCards.get(postData, function (data) {
-            debugger;
-            if(data.Ref){
-                return $scope.cardgenerate_success = 'Cards generated successfully.'
+            if (data.Success) {
+                return $scope.cardgenerate_success = 'Cards "' + data.CardGenerationLog.Ref + '" generated successfully.'
             }
-            return $scope.cardgenerate_error = 'Cards failed to generate.';
+            return $scope.cardgenerate_error = data.ErrorMessage;
         });
 
     }

@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardGenerationLog.cs" />
+    <Compile Include="CardUpdateResponse.cs" />
     <Compile Include="DataImportJournalEntry.cs" />
     <Compile Include="LeisureCard.cs" />
     <Compile Include="LeisureCardRegistrationResponse.cs" />

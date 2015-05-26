@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 using GRG.LeisureCards.DomainModel;
@@ -30,11 +31,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpPost]
         [Route("DataImport/RedLetter/")]
-        public DataImportJournalEntry ImportRedLetterData()
+        public void ImportRedLetterData()
         {
-            return _fileImportManager.ImportDataFile(
-                (bytes, key) => _dataImportService.ImportRedLetterOffers(bytes, key),
-                _fileImportManager.RedLetterFilePath, _fileImportManager.GetRedLetterData());
+            ThreadPool.QueueUserWorkItem(state=>
+                _fileImportManager.ImportDataFile(
+                    (bytes, key) => _dataImportService.ImportRedLetterOffers(bytes, key),
+                    _fileImportManager.RedLetterFilePath, _fileImportManager.GetRedLetterData()));
         }
   
         [HttpPost]

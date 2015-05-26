@@ -59,14 +59,17 @@ namespace GRG.LeisureCards.API.IntegrationTests
         {
             var client = new RestClient(Config.BaseAddress);
 
-            var request = new RestRequest("LeisureCard/Update/{cardNumberOrRef}/{expiryDate}/{renewalDate}", Method.GET);
+            var request = new RestRequest("LeisureCard/Update/{cardNumberOrRef}/{expiryDate}/{renewalDate}/{suspended]", Method.GET);
             request.AddParameter("cardNumberOrRef", "Registered1");
             request.AddParameter("expiryDate", DateTime.Now+TimeSpan.FromDays(265));
             request.AddParameter("renewalDate", DateTime.Now+TimeSpan.FromDays(265));
+            request.AddParameter("suspended", false);
             request.AddHeader("accepts", "application/json");
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
-            Assert.AreEqual(HttpStatusCode.OK, client.Execute(request).StatusCode);
+            var result = client.Execute<CardUpdateResponse>(request);
+
+            Assert.AreEqual(1, result.Data.CardsUpdated);
         }
 
         [Test]

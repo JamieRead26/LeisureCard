@@ -180,6 +180,7 @@
                 <table ng-show="all_card_numbers.length">
                     <tr>
                         <th>Code</th>
+                        <th>Reference</th>
                         <th>Renewal Period Months</th>
                         <th>Suspended</th>
                         <th>Cancel Date</th>
@@ -190,6 +191,7 @@
                     </tr>
                     <tr ng-repeat="r in all_card_numbers">
                         <td>{{ r.Code }}</td>
+                        <td>{{ r.Reference }}</td>
                         <td>{{ r.RenewalPeriodMonths }}</td>
                         <td>{{ r.Suspended }}</td>
                         <td ng-bind="r.CancellationDate | date:'dd/MM/yyyy hh:mm'"></td>

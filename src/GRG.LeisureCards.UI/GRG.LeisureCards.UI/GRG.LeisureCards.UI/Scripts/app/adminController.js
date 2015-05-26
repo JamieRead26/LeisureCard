@@ -446,7 +446,7 @@ adminController.controller('AdminReportController', function ($scope, $filter,
     };
 
     $scope.getAllCardsHeader = function () {
-        return ['Code', 'Renewal Period Months', 'Suspended',
+        return ['Code', 'Reference', 'Renewal Period Months', 'Suspended',
         'Cancellation Date', 'Expiry Date', 
         'Registration Date', 'Renewal Date', 
         'Uploaded Date'] };
@@ -456,6 +456,7 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         for (var i = 0; i < report.length; i++) {
             data.push({
                 'Code': report[i].Code,
+                'Reference': report[i].Reference,
                 'Renewal Period Months': report[i].RenewalPeriodMonths,
                 'Suspended': report[i].Suspended,
                 'Status': report[i].Status,

@@ -67,7 +67,6 @@
     <Compile Include="ILatLong.cs" />
     <Compile Include="LeisureCard.cs" />
     <Compile Include="LeisureCardInfo.cs" />
-    <Compile Include="LeisureCardRegistrationResponse.cs" />
     <Compile Include="LeisureCardUsage.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="MembershipTier.cs" />

@@ -15,7 +15,9 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Configuration;
 using System.Web.Mvc;
+using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.App_Start;
 
 using WebActivatorEx;
@@ -45,10 +47,19 @@ namespace GRG.LeisureCards.WebAPI.App_Start {
         }
 		
         public static void Start() {
-            IContainer container = IoC.Initialize();
+            var container = IoC.Initialize();
             StructureMapDependencyScope = new StructureMapDependencyScope(container);
             DependencyResolver.SetResolver(StructureMapDependencyScope);
             DynamicModuleUtility.RegisterModule(typeof(StructureMapScopeModule));
+
+            var dataImportService = container.GetInstance<IDataImportService>();
+            var fileImportManager = container.GetInstance<IFileImportManager>();
+
+            DailyTaskScheduler.Instance.ScheduleTask(() =>
+                fileImportManager.ImportDataFile(
+                    (bytes, key) => dataImportService.ImportRedLetterOffers(bytes, key),
+                    fileImportManager.RedLetterFilePath, fileImportManager.GetRedLetterData()),
+                int.Parse(ConfigurationManager.AppSettings["RedLetterAutoDownloadDayMinutes"]));
         }
 
         #endregion

@@ -537,5 +537,10 @@
             </summary>
             <param name="invocation">Method invocation arguments</param>
         </member>
+        <member name="T:GRG.LeisureCards.WebAPI.DailyTaskScheduler">
+            <summary>
+            A very simple scheduler that will suffice for the basic requirement.
+            </summary>
+        </member>
     </members>
 </doc>

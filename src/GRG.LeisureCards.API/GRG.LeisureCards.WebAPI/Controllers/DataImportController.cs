@@ -18,7 +18,6 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly IDataImportJournalEntryRepository _dataImportJournalEntryRepository;
         private readonly IFileImportManager _fileImportManager;
 
-
         public DataImportController(
             IDataImportService dataImportService,
             IDataImportJournalEntryRepository dataImportJournalEntryRepository,

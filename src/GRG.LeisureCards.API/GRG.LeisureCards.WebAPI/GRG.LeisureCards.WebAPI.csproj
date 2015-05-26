@@ -237,6 +237,7 @@
     <Compile Include="Interceptors\UnitOfWorkInterceptor.cs" />
     <Compile Include="Mappings\Mapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DailyTaskScheduler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

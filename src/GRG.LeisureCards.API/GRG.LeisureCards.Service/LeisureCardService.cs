@@ -44,7 +44,9 @@ namespace GRG.LeisureCards.Service
         public LeisureCardRegistrationResponse Login(string cardCode)
         {
             if (_adminCodeProvider.IsAdminCode(cardCode))
-                return new LeisureCardRegistrationResponse { Status = RegistrationResult.Ok.ToString(), LeisureCard = AdminLeisureCard.Instance };
+                return new LeisureCardRegistrationResponse { 
+                    Status = RegistrationResult.Ok.ToString(), 
+                    LeisureCard = AdminLeisureCard.Instance};
 
             var leisureCard = _leisureCardRepository.Get(cardCode);
 
@@ -62,7 +64,11 @@ namespace GRG.LeisureCards.Service
 
             _leisureCardRepository.SaveOrUpdate(leisureCard);
 
-            return new LeisureCardRegistrationResponse {Status = RegistrationResult.Ok.ToString(), LeisureCard = leisureCard};
+            return new LeisureCardRegistrationResponse
+            {
+                Status = RegistrationResult.Ok.ToString(), 
+                LeisureCard = leisureCard
+            };
         }
 
         [UnitOfWork]
@@ -91,5 +97,12 @@ namespace GRG.LeisureCards.Service
 
             return cardGenLog;
         }
+    }
+
+    public class LeisureCardRegistrationResponse
+    {
+        public string Status { get; set; }
+        public LeisureCard LeisureCard { get; set; }
+        public SessionInfo SessionInfo { get; set; }
     }
 }

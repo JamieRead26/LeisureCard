@@ -14,6 +14,11 @@ namespace GRG.LeisureCards.API.IntegrationTests
         {
             RegistrationTest("Unregistered", "Ok");
         }
+        [Test]
+        public void Registration_Ok_Admin()
+        {
+            RegistrationTest("Admin", "Ok");
+        }
 
         [Test]
         public void Registration_CardAlreadyRegistered()
@@ -40,11 +45,13 @@ namespace GRG.LeisureCards.API.IntegrationTests
             var request = new RestRequest("LeisureCard/Login/{code}", Method.GET);
             request.AddParameter("code", code);
             request.AddHeader("accepts", "application/json");
-            request.AddHeader("SessionToken", Config.GetSessionToken());
 
             var response = client.Execute<LeisureCardRegistrationResponse>(request);
 
             Assert.AreEqual(expectedStatus, response.Data.Status);
+
+            if(code == "Admin")
+                Assert.IsTrue(response.Data.SessionInfo.IsAdmin);
         }
 
         [Test]
@@ -52,8 +59,8 @@ namespace GRG.LeisureCards.API.IntegrationTests
         {
             var client = new RestClient(Config.BaseAddress);
 
-            var request = new RestRequest("LeisureCard/Update/{cardNumber}/{expiryDate}/{renewalDate}", Method.GET);
-            request.AddParameter("cardNumber", "Registered1");
+            var request = new RestRequest("LeisureCard/Update/{cardNumberOrRef}/{expiryDate}/{renewalDate}", Method.GET);
+            request.AddParameter("cardNumberOrRef", "Registered1");
             request.AddParameter("expiryDate", DateTime.Now+TimeSpan.FromDays(265));
             request.AddParameter("renewalDate", DateTime.Now+TimeSpan.FromDays(265));
             request.AddHeader("accepts", "application/json");
@@ -61,8 +68,6 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
             Assert.AreEqual(HttpStatusCode.OK, client.Execute(request).StatusCode);
         }
-
-       
 
         [Test]
         public void GetSessionInfoTest()
@@ -73,13 +78,21 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("accepts", "application/json");
             request.AddHeader("SessionToken", Config.GetSessionToken());
 
-            var response = client.Execute(request).Content;
-
             Assert.IsNotNull(client.Execute<SessionInfo>(request).Data.CardRenewalDate);
         }
 
-       
+        [Test]
+        public void GetAdminSessionInfoTest()
+        {
+            var client = new RestClient(Config.BaseAddress);
 
+            var request = new RestRequest("LeisureCard/GetSessionInfo", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", Config.GetAdminSessionToken());
+
+            Assert.IsTrue(client.Execute<SessionInfo>(request).Data.IsAdmin);
+        }
+       
         [Test]
         public void CardGenerationTest()
         {

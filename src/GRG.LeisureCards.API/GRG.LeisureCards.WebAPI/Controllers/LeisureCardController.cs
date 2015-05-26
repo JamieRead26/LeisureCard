@@ -8,6 +8,11 @@ using GRG.LeisureCards.Persistence.NHibernate;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
+using GRG.LeisureCards.WebAPI.Model;
+using CardGenerationLog = GRG.LeisureCards.DomainModel.CardGenerationLog;
+using LeisureCardRegistrationResponse = GRG.LeisureCards.Service.LeisureCardRegistrationResponse;
+using LeisureCardUsage = GRG.LeisureCards.DomainModel.LeisureCardUsage;
+using SessionInfo = GRG.LeisureCards.DomainModel.SessionInfo;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
@@ -36,7 +41,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                 result.SessionInfo = new SessionInfo
                 {
                     CardRenewalDate = result.LeisureCard.RenewalDate.Value,
-                    SessionToken = _userSessionService.GetToken(result.LeisureCard)
+                    SessionToken = _userSessionService.GetToken(result.LeisureCard),
+                    IsAdmin = result.LeisureCard == AdminLeisureCard.Instance
                 };
 
                 result.LeisureCard.AddUsage(new LeisureCardUsage {LoginDateTime = DateTime.Now});

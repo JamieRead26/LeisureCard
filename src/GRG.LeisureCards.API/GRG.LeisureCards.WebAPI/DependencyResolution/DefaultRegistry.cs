@@ -147,11 +147,13 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .Use(() => new AdminCodeProvider(ConfigurationManager.AppSettings["AdminCode"]))
                 .SetLifecycleTo<SingletonLifecycle>();
 
+            var fileImportManager = new FileImportManager(
+                ConfigurationManager.AppSettings["RedLetterFtpPath"],
+                ConfigurationManager.AppSettings["RedLetterFtpUid"],
+                ConfigurationManager.AppSettings["RedLetterFtpPassword"]);
+
             For<IFileImportManager>()
-                .Use(() => new FileImportManager(
-                    ConfigurationManager.AppSettings["RedLetterFtpPath"],
-                    ConfigurationManager.AppSettings["RedLetterFtpUid"],
-                    ConfigurationManager.AppSettings["RedLetterFtpPassword"]))
+                .Use(() => fileImportManager )
                 .SetLifecycleTo<SingletonLifecycle>();
         }
 

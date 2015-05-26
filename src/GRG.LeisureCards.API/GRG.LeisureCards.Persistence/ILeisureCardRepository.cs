@@ -8,5 +8,6 @@ namespace GRG.LeisureCards.Persistence
     {
         IEnumerable<LeisureCard> GetRegistrationHistory(DateTime @from, DateTime to);
         IEnumerable<LeisureCard> GetAllIncludingDeleted();
+        IEnumerable<LeisureCard> GetByRef(string cardNumberOrRef);
     }
 }

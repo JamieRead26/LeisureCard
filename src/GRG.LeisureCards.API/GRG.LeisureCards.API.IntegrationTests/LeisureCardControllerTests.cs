@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using GRG.LeisureCards.WebAPI.Model;
 using NUnit.Framework;
 using RestSharp;
@@ -58,9 +59,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("accepts", "application/json");
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
-            var response = client.Execute<LeisureCard>(request);
-
-            Assert.IsNotNull(response.Data);
+            Assert.AreEqual(HttpStatusCode.OK, client.Execute(request).StatusCode);
         }
 
        

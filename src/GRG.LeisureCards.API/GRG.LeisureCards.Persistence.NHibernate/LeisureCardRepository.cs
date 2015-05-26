@@ -26,6 +26,14 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             return Session.QueryOver<LeisureCard>().List();
         }
 
+        public IEnumerable<LeisureCard> GetByRef(string reference)
+        {
+            return Session.QueryOver<LeisureCard>()
+                .Where(u => !u.Deleted)
+                .Where(u => u.Reference == reference)
+                .List();
+        }
+
         public override void Delete(LeisureCard entity)
         {
             entity.Deleted = true;

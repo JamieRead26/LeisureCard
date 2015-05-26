@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Persistence.NHibernate;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
@@ -55,17 +56,23 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [SessionAuthFilter(true)]
-        [Route("LeisureCard/Update/{cardNumber}/{expiryDate}/{renewalDate}")]
-        public LeisureCardInfo Update(string cardNumber, DateTime? expiryDate, DateTime? renewalDate)
+        [Route("LeisureCard/Update/{cardNumberOrRef}/{expiryDate}/{renewalDate}")]
+        [UnitOfWork]
+        public void Update(string cardNumberOrRef, DateTime? expiryDate, DateTime? renewalDate)
         {
-            var card = _leisureCardRepository.Get(cardNumber);
+            var crd = _leisureCardRepository.Get(cardNumberOrRef);
+            var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
 
-            card.ExpiryDate = expiryDate;
-            card.RenewalDate = renewalDate;
+            if (!cards.Any())
+                throw new Exception("No cards found matching ref or code");
 
-            _leisureCardRepository.SaveOrUpdate(card);
+            foreach (var card in cards)
+            {
+                card.ExpiryDate = expiryDate;
+                card.RenewalDate = renewalDate;
 
-            return new LeisureCardInfo(card);
+                _leisureCardRepository.SaveOrUpdate(card);
+            }
         }
 
         [HttpGet]

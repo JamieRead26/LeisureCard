@@ -417,8 +417,8 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         return data;
     };
 
-    $scope.getCardUsageHeader = function () { return ['Reference', 'Generated Date'] };
-    $scope.getCardUsageReport = function () {
+    $scope.getGenerationHistoryHeader = function () { return ['Reference', 'Generated Date'] };
+    $scope.getGenerationHistoryReport = function () {
         var report = $scope.generation_history;
         var data = [];
         for (var i = 0; i < report.length; i++) {

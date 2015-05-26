@@ -21,7 +21,7 @@ adminController.factory('GetAllCardNumbers', function ($resource, config) {
 });
 
 adminController.factory('LeisureCardUpdate', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumber/:expiryDate/:renewalDate');
+    return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumberOrRef/:expiryDate/:renewalDate/:suspended');
 });
 
 // Red letter data import
@@ -131,7 +131,7 @@ adminController.controller('AdminDataImportController', function ($scope,
 
     $scope.uploadRedLetter = function () {
         UploadRedLetter.save();
-        return $scope.file_success = 'File uploaded successfully.';
+        return $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
     }
 
     $scope.uploadFile = function (key) {
@@ -289,32 +289,22 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
         if (!$scope.cardNumber) {
             return $scope.cardupdate_error = 'Invalid card number.';
         }
-
+    
         var postData = {
-            cardNumber: $scope.cardNumber,
+            cardNumberOrRef: $scope.cardNumber,
             expiryDate: $filter('date')($scope.expiryDate, "yyyy-MM-dd"),
-            renewalDate: $filter('date')($scope.renewalDate, "yyyy-MM-dd")
+            renewalDate: $filter('date')($scope.renewalDate, "yyyy-MM-dd"),
+            suspended: $scope.status != 'Active'
         };
         
         LeisureCardUpdate.get(postData, function (data) {
+            if (data.CardsUpdated) {
 
-            var card = data;
-            if(data.$resolved){
-                return $scope.cardupdate_success = 'Card updated successfully.';
-            }
-            if (card.Code) {
+                $scope.expiryDate = '';
+                $scope.renewalDate = '';
+                $scope.status = '';
 
-                $scope.expiryDate = card.ExpiryDate;
-                $scope.renewalDate = card.RenewalDate;
-                $scope.status = card.Status;
-
-                //clean up local scope
-                var code = card.Code;
-                $scope.cards[code].Status = card.Status;
-                $scope.cards[code].ExpiryDate = card.ExpiryDate;
-                $scope.cards[code].RenewalDate = card.RenewalDate;
-
-                return $scope.cardupdate_success = 'Card updated successfully.';
+                return $scope.cardupdate_success = data.CardsUpdated + ' card/s updated successfully.';
             }
             return $scope.cardupdate_error = 'An error occurred when trying to update the card.';
         });

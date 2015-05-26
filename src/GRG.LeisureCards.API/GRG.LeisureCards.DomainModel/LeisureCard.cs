@@ -34,12 +34,6 @@ namespace GRG.LeisureCards.DomainModel
         [DataMember]
         public virtual DateTime? RegistrationDate { get; set; }
 
-        public virtual MembershipTier MembershipTier { get; set; }
-
-        public virtual IList<OfferCategory> OfferCategories { get; set; }
-
-        public virtual bool Deleted { get; set; }
-
         [DataMember]
         public virtual string Status
         {
@@ -60,9 +54,13 @@ namespace GRG.LeisureCards.DomainModel
             set { }
         }
 
-        [DataMember]
-        public virtual bool IsAdmin { get; set; }
+        public virtual MembershipTier MembershipTier { get; set; }
 
+        public virtual IList<OfferCategory> OfferCategories { get; set; }
+
+        public virtual bool Deleted { get; set; }
+
+       
         public virtual void AddOfferCategory(OfferCategory offerCategory)
         {
             OfferCategories.Add(offerCategory);

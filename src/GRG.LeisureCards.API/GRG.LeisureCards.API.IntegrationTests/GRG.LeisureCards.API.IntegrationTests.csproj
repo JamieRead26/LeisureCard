@@ -101,10 +101,6 @@
       <Project>{9e05d18c-6775-4095-b382-183240174bfa}</Project>
       <Name>GRG.LeisureCards.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GRG.LeisureCards.DomainModel\GRG.LeisureCards.DomainModel.csproj">
-      <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
-      <Name>GRG.LeisureCards.DomainModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.Persistence.NHibernate\GRG.LeisureCards.Persistence.NHibernate.csproj">
       <Project>{64ba8a8f-c727-4868-a8b7-fc3a99c9a639}</Project>
       <Name>GRG.LeisureCards.Persistence.NHibernate</Name>

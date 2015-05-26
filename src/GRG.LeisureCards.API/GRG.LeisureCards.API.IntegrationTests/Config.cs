@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using GRG.LeisureCards.Data;
-using GRG.LeisureCards.DomainModel;
+using GRG.LeisureCards.WebAPI.Model;
 using NUnit.Framework;
 using RestSharp;
 

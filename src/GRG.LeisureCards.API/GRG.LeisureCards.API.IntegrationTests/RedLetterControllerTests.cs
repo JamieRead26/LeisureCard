@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Reflection;
-using GRG.LeisureCards.Data;
-using GRG.LeisureCards.DomainModel;
-using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
+using GRG.LeisureCards.WebAPI.Model;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;

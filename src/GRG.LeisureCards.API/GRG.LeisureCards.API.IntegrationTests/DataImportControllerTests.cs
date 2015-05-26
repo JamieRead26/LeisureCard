@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
-using GRG.LeisureCards.Data;
-using GRG.LeisureCards.DomainModel;
-using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using GRG.LeisureCards.TestResources;
 using GRG.LeisureCards.WebAPI.Model;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
+using DataImportJournalEntry = GRG.LeisureCards.WebAPI.Model.DataImportJournalEntry;
 
 namespace GRG.LeisureCards.API.IntegrationTests
 {
@@ -73,46 +69,38 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void UploadRedLetterData()
         {
-            using (var dataStream = ResourceStreams.GetRedLetterDataStream())
-            using (var memStream = new MemoryStream())
-            {
-                dataStream.CopyTo(memStream);
-                var fileBytes = memStream.ToArray();
-                var sessionToken = Config.GetAdminSessionToken();
+            var sessionToken = Config.GetAdminSessionToken();
 
-                var client = new RestClient(Config.BaseAddress);
+            var client = new RestClient(Config.BaseAddress);
 
-                dataStream.Position = 0;
-                var request = new RestRequest("DataImport/RedLetter/", Method.POST);
-                request.AddFile("RedLetterData.csv", fileBytes, "RedLetterData.csv");
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+            var request = new RestRequest("DataImport/RedLetter/", Method.POST);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", sessionToken);
 
-                var response = client.Execute<DataImportJournalEntry>(request);
+            var response = client.Execute<DataImportJournalEntry>(request);
 
-                Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                Assert.AreEqual(DataImportKey.RedLetter.Key, response.Data.UploadKey);
-                Assert.IsTrue(response.Data.Success);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual("RedLetter", response.Data.UploadKey);
+            Assert.IsTrue(response.Data.Success);
 
-                request = new RestRequest("DataImport/GetRedLetterImportJournal/{count}/{toId}", Method.GET);
-                request.AddParameter("count", 10);
-                request.AddParameter("toId", 0);
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+            request = new RestRequest("DataImport/GetRedLetterImportJournal/{count}/{toId}", Method.GET);
+            request.AddParameter("count", 10);
+            request.AddParameter("toId", 0);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", sessionToken);
 
-                var content = client.Execute(request).Content;
+            var content = client.Execute(request).Content;
 
-                Assert.AreEqual(response.Data.Id,JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
+            Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
 
-                request = new RestRequest("DataImport/GetLastGoodRedLetterImportJournal", Method.GET);
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+            request = new RestRequest("DataImport/GetLastGoodRedLetterImportJournal", Method.GET);
+            request.AddHeader("accepts", "application/json");
+            request.AddHeader("SessionToken", sessionToken);
 
-                var lastKnownGood = client.Execute<DataImportJournalEntry>(request);
+            var lastKnownGood = client.Execute<DataImportJournalEntry>(request);
 
-                Assert.AreEqual(response.Data.Id, lastKnownGood.Data.Id);
-                Assert.AreEqual(response.Data.FileKey, lastKnownGood.Data.FileKey);
-            }
+            Assert.AreEqual(response.Data.Id, lastKnownGood.Data.Id);
+            Assert.AreEqual(response.Data.FileKey, lastKnownGood.Data.FileKey);
         }
 
         //[Test]
@@ -160,51 +148,51 @@ namespace GRG.LeisureCards.API.IntegrationTests
         //    }
         //}
 
-        [Test]
-        public void UploadRedLetterData_Fail()
-        {
-            using (var dataStream = ResourceStreams.GetRedLetterBadDataStream())
-            using (var memStream = new MemoryStream())
-            {
-                dataStream.CopyTo(memStream);
-                var fileBytes = memStream.ToArray();
-                var sessionToken = Config.GetAdminSessionToken();
+        //[Test]
+        //public void UploadRedLetterData_Fail()
+        //{
+        //    using (var dataStream = ResourceStreams.GetRedLetterBadDataStream())
+        //    using (var memStream = new MemoryStream())
+        //    {
+        //        dataStream.CopyTo(memStream);
+        //        var fileBytes = memStream.ToArray();
+        //        var sessionToken = Config.GetAdminSessionToken();
 
-                var client = new RestClient(Config.BaseAddress);
+        //        var client = new RestClient(Config.BaseAddress);
 
-                dataStream.Position = 0;
-                var request = new RestRequest("DataImport/RedLetter/", Method.POST);
-                request.AddFile("RedLetterData.csv", fileBytes, "RedLetterData.csv");
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+        //        dataStream.Position = 0;
+        //        var request = new RestRequest("DataImport/RedLetter/", Method.POST);
+        //        request.AddFile("RedLetterData.csv", fileBytes, "RedLetterData.csv");
+        //        request.AddHeader("accepts", "application/json");
+        //        request.AddHeader("SessionToken", sessionToken);
 
-                var response = client.Execute<DataImportJournalEntry>(request);
+        //        var response = client.Execute<DataImportJournalEntry>(request);
 
-                Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                Assert.AreEqual(DataImportKey.RedLetter.Key, response.Data.UploadKey);
-                Assert.IsFalse(response.Data.Success);
+        //        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        //        Assert.AreEqual("RedLetter", response.Data.UploadKey);
+        //        Assert.IsFalse(response.Data.Success);
 
-                request = new RestRequest("DataImport/GetRedLetterImportJournal/{count}/{toId}", Method.GET);
-                request.AddParameter("count", 10);
-                request.AddParameter("toId", 0);
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+        //        request = new RestRequest("DataImport/GetRedLetterImportJournal/{count}/{toId}", Method.GET);
+        //        request.AddParameter("count", 10);
+        //        request.AddParameter("toId", 0);
+        //        request.AddHeader("accepts", "application/json");
+        //        request.AddHeader("SessionToken", sessionToken);
 
-                var content = client.Execute(request).Content;
+        //        var content = client.Execute(request).Content;
 
-                Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
+        //        Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(content).FirstOrDefault().Id);
 
-                request = new RestRequest("DataImport/GetLastBadRedLetterImportJournal", Method.GET);
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", sessionToken);
+        //        request = new RestRequest("DataImport/GetLastBadRedLetterImportJournal", Method.GET);
+        //        request.AddHeader("accepts", "application/json");
+        //        request.AddHeader("SessionToken", sessionToken);
 
-                var lastKnownBad = client.Execute<DataImportJournalEntry>(request);
+        //        var lastKnownBad = client.Execute<DataImportJournalEntry>(request);
 
-                Assert.AreEqual(response.Data.Id, lastKnownBad.Data.Id);
-                Assert.AreEqual(response.Data.FileKey, lastKnownBad.Data.FileKey);
-                Assert.AreEqual(response.Data.UploadKey, lastKnownBad.Data.UploadKey);
-            }
-        }
+        //        Assert.AreEqual(response.Data.Id, lastKnownBad.Data.Id);
+        //        Assert.AreEqual(response.Data.FileKey, lastKnownBad.Data.FileKey);
+        //        Assert.AreEqual(response.Data.UploadKey, lastKnownBad.Data.UploadKey);
+        //    }
+        //}
 
         [Test]
         public void Upload241Data()
@@ -227,7 +215,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 var response = client.Execute<DataImportJournalEntry>(request);
 
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-                Assert.AreEqual(DataImportKey.TwoForOne.Key, response.Data.UploadKey);
+                Assert.AreEqual("241", response.Data.UploadKey);
                 Assert.IsTrue(response.Data.Success);
 
                 request = new RestRequest("DataImport/GetTwoForOneImportJournal/{count}/{toId}", Method.GET);

@@ -34,8 +34,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardGenerationLog.cs" />
+    <Compile Include="DataImportJournalEntry.cs" />
+    <Compile Include="LeisureCard.cs" />
+    <Compile Include="LeisureCardRegistrationResponse.cs" />
     <Compile Include="LeisureCardUsage.cs" />
+    <Compile Include="RedLetterProductSummary.cs" />
     <Compile Include="SelectedOffer.cs" />
+    <Compile Include="SessionInfo.cs" />
     <Compile Include="TwoForOneOffer.cs" />
     <Compile Include="TwoForOneOfferGeoSearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -72,7 +72,9 @@
     <Compile Include="BusinessLogic\CardRenewalLogic.cs" />
     <Compile Include="DataImportService.cs" />
     <Compile Include="GoogleLocationService.cs" />
+    <Compile Include="IAdminCodeProvider.cs" />
     <Compile Include="LeisureCardService.cs" />
+    <Compile Include="RedLetterDataService.cs" />
     <Compile Include="UkLocationService.cs" />
     <Compile Include="Model\UkLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GRG.LeisureCards.DomainModel;
+using GRG.LeisureCards.WebAPI.Model;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using RestSharp;
@@ -61,7 +61,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             request.AddHeader("SessionToken", Config.GetAdminSessionToken());
 
             var response = client.Execute(request).Content;
-            var history = JsonConvert.DeserializeObject<List<LeisureCardInfo>>(response);
+            var history = JsonConvert.DeserializeObject<List<LeisureCard>>(response);
 
             Assert.IsTrue(history.Count > 1);
             Assert.IsTrue(history.FirstOrDefault().RegistrationDate > history.LastOrDefault().RegistrationDate);

@@ -23,7 +23,6 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now,
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    IsAdmin = true
                 },
                 new LeisureCard
                 {

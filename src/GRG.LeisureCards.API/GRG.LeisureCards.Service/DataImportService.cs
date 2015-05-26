@@ -6,6 +6,7 @@ using GRG.LeisureCards.CSV;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
+using log4net;
 
 namespace GRG.LeisureCards.Service
 {
@@ -20,6 +21,8 @@ namespace GRG.LeisureCards.Service
 
     public class DataImportService : IDataImportService
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DataImportService));
+
         private readonly IDataImportJournalEntryRepository _dataImportJournalEntryRepository;
         private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ITwoForOneRepository _twoForOneRepository;

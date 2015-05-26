@@ -68,6 +68,7 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
             ConfigureRepositoryIntercepts(proxyGenerator, interceptor);
             ConfigureServiceIntercepts(proxyGenerator, interceptor);
             ConfigureBusinessLogic();
+            ConfigureProviders();
         }
 
         private void ConfigureRepositoryIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
@@ -137,6 +138,20 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
         {
             For<ICardRenewalLogic>()
                 .Use(() => new CardRenewalLogic(int.Parse(ConfigurationManager.AppSettings["DefaultCardRenewalPeriodMonths"])))
+                .SetLifecycleTo<SingletonLifecycle>();
+        }
+
+        public void ConfigureProviders()
+        {
+            For<IAdminCodeProvider>()
+                .Use(() => new AdminCodeProvider(ConfigurationManager.AppSettings["AdminCode"]))
+                .SetLifecycleTo<SingletonLifecycle>();
+
+            For<IFileImportManager>()
+                .Use(() => new FileImportManager(
+                    ConfigurationManager.AppSettings["RedLetterFtpPath"],
+                    ConfigurationManager.AppSettings["RedLetterFtpUid"],
+                    ConfigurationManager.AppSettings["RedLetterFtpPassword"]))
                 .SetLifecycleTo<SingletonLifecycle>();
         }
 

@@ -15,7 +15,6 @@ namespace GRG.LeisureCards.CSV
             Map(m => m.ExpiryDate).Name("ExpiryDate");
             Map(m => m.RenewalDate).Name("RenewalDate");
             Map(m => m.Suspended).Name("Suspended");
-            Map(m => m.IsAdmin).Name("IsAdmin");
             Map(m => m.MembershipTier).Ignore();
             Map(m => m.OfferCategories).Ignore();
             Map(m => m.RegistrationDate).Ignore();

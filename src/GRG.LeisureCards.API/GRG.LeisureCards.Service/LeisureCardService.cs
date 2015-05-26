@@ -27,28 +27,34 @@ namespace GRG.LeisureCards.Service
         private readonly ICardRenewalLogic _cardRenewalLogic;
         private readonly ILeisureCardRepository _leisureCardRepository;
         private readonly ICardGenerationLogRepository _cardGenerationLogRepository;
+        private readonly IAdminCodeProvider _adminCodeProvider;
 
         public LeisureCardService(
             ICardRenewalLogic cardRenewalLogic, 
             ILeisureCardRepository leisureCardRepository,
-            ICardGenerationLogRepository cardGenerationLogRepository)
+            ICardGenerationLogRepository cardGenerationLogRepository,
+            IAdminCodeProvider adminCodeProvider)
         {
             _cardRenewalLogic = cardRenewalLogic;
             _leisureCardRepository = leisureCardRepository;
             _cardGenerationLogRepository = cardGenerationLogRepository;
+            _adminCodeProvider = adminCodeProvider;
         }
 
         public LeisureCardRegistrationResponse Login(string cardCode)
         {
+            if (_adminCodeProvider.IsAdminCode(cardCode))
+                return new LeisureCardRegistrationResponse { Status = RegistrationResult.Ok.ToString(), LeisureCard = AdminLeisureCard.Instance };
+
             var leisureCard = _leisureCardRepository.Get(cardCode);
 
             if (leisureCard == null)
                 return new LeisureCardRegistrationResponse {Status = RegistrationResult.CodeNotFound.ToString()};
 
-            if (!leisureCard.IsAdmin && leisureCard.Suspended)
+            if (leisureCard.Suspended)
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardSuspended.ToString() };
 
-            if (!leisureCard.IsAdmin && leisureCard.RenewalDate != null && leisureCard.RenewalDate < DateTime.Now)
+            if (leisureCard.RenewalDate != null && leisureCard.RenewalDate < DateTime.Now)
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardExpired.ToString() };
 
             leisureCard.RegistrationDate = DateTime.Now;

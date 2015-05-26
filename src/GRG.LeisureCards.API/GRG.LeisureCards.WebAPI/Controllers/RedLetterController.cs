@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using AutoMapper;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
+using GRG.LeisureCards.WebAPI.Mappings;
+using GRG.LeisureCards.WebAPI.Model;
+using SelectedOffer = GRG.LeisureCards.DomainModel.SelectedOffer;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
@@ -33,9 +37,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("FindByKeyword/{keyword}")]
         public List<RedLetterProductSummary> Find(string keyword)
         {
-            return _redLetterProductRepository.FindByKeyword(keyword).Select(p => new RedLetterProductSummary(p)).ToList();
+            return _redLetterProductRepository.FindByKeyword(keyword).Select(Mapper.Map<RedLetterProductSummary>).ToList();
         }
-
+        
         [HttpGet]
         [Route("Get/{id}")]
         public RedLetterProduct Get(int id)
@@ -53,7 +57,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
             var shuffled = Shuffle(products.ToArray(), count);
 
-            var summaries = shuffled.Select(p => new RedLetterProductSummary(p));
+            var summaries = shuffled.Select(Mapper.Map<RedLetterProductSummary>);
 
             return summaries;
         }
@@ -63,12 +67,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         public void ClaimOffer(int id)
         {
             var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
-            var card = _userSessionService.GetCard(sessionInfo.SessionToken);
+            var card = _userSessionService.GetSession(sessionInfo.SessionToken);
             var offer = _redLetterProductRepository.Get(id);
 
             _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
             {
-                LeisureCard = card,
+                LeisureCard = card.LeisureCard,
                 OfferCategory = _offerCategoryRepository.RedLetter,
                 OfferId = id.ToString(),
                 OfferTitle = offer.Title
@@ -80,11 +84,11 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         public void ClaimOffer(string category)
         {
             var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
-            var card = _userSessionService.GetCard(sessionInfo.SessionToken);
+            var card = _userSessionService.GetSession(sessionInfo.SessionToken);
 
             _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
             {
-                LeisureCard = card,
+                LeisureCard = card.LeisureCard,
                 OfferCategory = _offerCategoryRepository.RedLetter,
                 OfferTitle = category
             });

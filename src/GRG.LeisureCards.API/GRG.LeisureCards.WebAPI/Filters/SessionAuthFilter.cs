@@ -32,21 +32,21 @@ namespace GRG.LeisureCards.WebAPI.Filters
                 return;
             }
 
-            var card = _userSessionService.GetCard(vals.First());
+            var session = _userSessionService.GetSession(vals.First());
 
-            if (card == null)
+            if (session == null)
             {
                 context.ErrorResult = new AuthenticationFailureResult("No session matching token", context.Request);
                 return;
             }
 
-            if (_admin&&!card.IsAdmin)
+            if (_admin && !session.IsAdmin)
             {
                 context.ErrorResult = new AuthenticationFailureResult("Admin access denied", context.Request);
                 return;
             }
 
-            context.Principal = new LeisureCardPrincipal(card, new SessionInfo { SessionToken = _userSessionService.GetToken(card), CardRenewalDate = card.RenewalDate.Value, IsAdmin = card.IsAdmin});
+            context.Principal = new LeisureCardPrincipal(session.LeisureCard, new SessionInfo { SessionToken = _userSessionService.GetToken(session.LeisureCard), CardRenewalDate = session.LeisureCard.RenewalDate.Value, IsAdmin = session.IsAdmin });
         }
 
         public async Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)

@@ -55,12 +55,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         public void ClaimOffer(int id)
         {
             var sessionInfo =  ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
-            var card = _userSessionService.GetCard(sessionInfo.SessionToken);
+            var session = _userSessionService.GetSession(sessionInfo.SessionToken);
             var offer = _twoForOneRepository.Get(id);
 
             _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
             {
-                LeisureCard = card,
+                LeisureCard = session.LeisureCard,
                 OfferCategory = _offerCategoryRepository.TwoForOne,
                 OfferId = id.ToString(),
                 OfferTitle = offer.Description

@@ -29,11 +29,11 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         public IHttpActionResult ClaimOffer(string title)
         {
             var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
-            var card = _userSessionService.GetCard(sessionInfo.SessionToken);
+            var card = _userSessionService.GetSession(sessionInfo.SessionToken);
 
             _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
             {
-                LeisureCard = card,
+                LeisureCard = card.LeisureCard,
                 OfferCategory = _offerCategoryRepository.ShortBreaks,
                 OfferTitle = title
             });

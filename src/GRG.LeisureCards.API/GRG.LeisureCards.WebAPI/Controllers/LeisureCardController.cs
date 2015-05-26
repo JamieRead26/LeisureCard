@@ -16,7 +16,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly ILeisureCardRepository _leisureCardRepository;
         private readonly IUserSessionService _userSessionService;
 
-        public LeisureCardController(ILeisureCardService leisureCardService, ILeisureCardRepository leisureCardRepository)
+        public LeisureCardController(ILeisureCardService leisureCardService, 
+            ILeisureCardRepository leisureCardRepository)
         {
             _leisureCardService = leisureCardService;
             _leisureCardRepository = leisureCardRepository;

@@ -9,7 +9,7 @@ namespace GRG.LeisureCards.Service
     public interface IUserSessionService
     {
         string GetToken(LeisureCard card);
-        LeisureCard GetCard(string token);
+        UserSessionService.Session GetSession(string token);
     }
 
     public class UserSessionService : IUserSessionService
@@ -23,7 +23,8 @@ namespace GRG.LeisureCards.Service
 
         private UserSessionService()
         {
-            _sessionDuration = TimeSpan.FromMinutes(int.Parse(ConfigurationManager.AppSettings["SessionDurationMinutes"]));
+            _sessionDuration =
+                TimeSpan.FromMinutes(int.Parse(ConfigurationManager.AppSettings["SessionDurationMinutes"]));
         }
 
         public string GetToken(LeisureCard card)
@@ -33,7 +34,7 @@ namespace GRG.LeisureCards.Service
                 var session = _tokenCards.SingleOrDefault(c => c.LeisureCard.Code == card.Code);
 
                 if (session != null) return session.Token;
-                
+
                 session = new Session(_sessionDuration, card);
                 _tokenCards.Add(session);
 
@@ -41,7 +42,7 @@ namespace GRG.LeisureCards.Service
             }
         }
 
-        public LeisureCard GetCard(string token)
+        public Session GetSession(string token)
         {
             lock (token)
             {
@@ -57,11 +58,11 @@ namespace GRG.LeisureCards.Service
                 }
 
                 session.Renew();
-                return session.LeisureCard;
+                return session;
             }
         }
 
-        private class Session
+        public class Session
         {
             private readonly TimeSpan _sessionDuration;
 
@@ -85,6 +86,11 @@ namespace GRG.LeisureCards.Service
             public bool HasExpired
             {
                 get { return ExpiryUtc < DateTime.UtcNow; }
+            }
+
+            public bool IsAdmin
+            {
+                get { return LeisureCard == AdminLeisureCard.Instance; }
             }
         }
     }

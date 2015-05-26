@@ -12,6 +12,10 @@ adminController.factory('GetLoginHistory', function ($resource, config) {
     return $resource(config.apiUrl + '/Reports/GetLoginHistory/:from/:to');
 });
 
+adminController.factory('GetCardGenerationHistory', function ($resource, config) {
+    return $resource(config.apiUrl + '/Reports/GetCardGenerationHistory/:from/:to');
+});
+
 adminController.factory('GetAllCardNumbers', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/GetAllCardNumbers');
 });
@@ -58,7 +62,6 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.files = {};
     $scope.files.redletter = {};
     $scope.files.file241 = {};
-    $scope.files.leisureCards = {};
 
     $scope.file_error = '';
     $scope.file_success = '';
@@ -113,14 +116,6 @@ adminController.controller('AdminDataImportController', function ($scope,
             push_current_import(good_data, bad_data, '241');
         });
     });
-    
-    GetLastGoodLeisureCard.get(function (data) {
-        var good_data = data;
-        GetLastBadLeisureCard.get(function (data) {
-            var bad_data = data;
-            push_current_import(good_data, bad_data, 'LeisureCards');
-        });
-    });
 
     $scope.refresh = function () {
         window.location.reload();
@@ -140,10 +135,6 @@ adminController.controller('AdminDataImportController', function ($scope,
         else if(key == '241'){
             file = $scope.files.file241;
             path = '/DataImport/TwoForOne/';
-        }
-        else if (key == 'LeisureCards') {
-            file = $scope.files.leisureCards;
-            path = '/DataImport/LeisureCards/';
         }
 
         if(!key || !path || !file){
@@ -285,12 +276,13 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
 });
 
 adminController.controller('AdminReportController', function ($scope, $filter,
-    GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory) {
+    GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory) {
 
     $scope.global.slideshow = [];
     $scope.reports_card_activation = [];
     $scope.reports_offers_claimed = [];
     $scope.reports_card_usage = [];
+    $scope.generation_history = [];
     $scope.report_type = 'card_activation';
 
     $scope.get_report = function () {
@@ -298,6 +290,7 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         $scope.reports_card_activation = [];
         $scope.reports_offers_claimed = [];
         $scope.reports_card_usage = [];
+        $scope.generation_history = [];
         $scope.report_error = null;
 
         var no_results_check = function (array) {
@@ -334,6 +327,14 @@ adminController.controller('AdminReportController', function ($scope, $filter,
             GetLoginHistory.get(search_data, function (data) {
                 $scope.reports_card_usage = data.$values;
                 no_results_check($scope.reports_card_usage);
+            });
+
+        }
+        else if ($scope.report_type == 'generation_history') {
+
+            GetCardGenerationHistory.get(search_data, function (data) {
+                $scope.generation_history = data.$values;
+                no_results_check($scope.generation_history);
             });
 
         }
@@ -374,6 +375,19 @@ adminController.controller('AdminReportController', function ($scope, $filter,
             data.push({
                 'Card Code': report[i].LeisureCardCode,
                 'Login Date': report[i].LoginDateTime
+            });
+        }
+        return data;
+    };
+
+    $scope.getCardUsageHeader = function () { return ['Reference', 'Generated Date'] };
+    $scope.getCardUsageReport = function () {
+        var report = $scope.generation_history;
+        var data = [];
+        for (var i = 0; i < report.length; i++) {
+            data.push({
+                'Reference': report[i].Ref,
+                'Generated Date': report[i].GeneratedDate
             });
         }
         return data;

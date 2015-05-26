@@ -33,9 +33,6 @@
                     <div ng-if="i.UploadKey == 'RedLetter'">
                         <input type="file" file-model="files.redletter" />
                     </div>
-                    <div ng-if="i.UploadKey == 'LeisureCards'">
-                        <input type="file" file-model="files.leisureCards" />
-                    </div>
 
                     <button ng-click="uploadFile(i.UploadKey)">Upload</button>
                 </td>
@@ -47,8 +44,9 @@
 
     <div ng-controller="AdminUpdateCardController">
         <form ng-submit="submit()" class="one-line print-hide">
+            <p><strong>URN Update</strong></p>
             <div class="twocol">
-                <label>Card Number:</label>
+                <label>URN or ref:</label>
                 <autocomplete ng-model="cardNumber" data="card_numbers" on-type="change"></autocomplete>
             </div>
             <div class="twocol">
@@ -73,6 +71,7 @@
         <div class="success" ng-show="cardupdate_success != null">{{ cardupdate_success }}</div>
     </div>
 
+
     <div ng-controller="AdminReportController">
         <div class="fourcol print-hide">
             <h2>Search Critera</h2>
@@ -84,6 +83,7 @@
                         <option value="card_activation" ng-selected="selected">Card Activation</option>
                         <option value="offers_claimed">Offers Claimed</option>
                         <option value="card_usage">Card Usage</option>
+                        <option value="generation_history">Card Generation History</option>
                     </select>
                 </div>
 
@@ -135,14 +135,26 @@
                     </tr>
                 </table>
 
+                <table ng-show="generation_history.length">
+                    <tr>
+                        <th>Reference</th>
+                        <th>Generented Date</th>
+                    </tr>
+                    <tr ng-repeat="r in generation_history">
+                        <td>{{ r.Ref }}</td>
+                        <td ng-bind="r.GenerentedDate | date:'dd/MM/yyyy hh:mm'"></td>
+                    </tr>
+                </table>
+
             </div>
 
             <div class="print-hide">
                 <button ng-show="reports_card_activation.length" type="button" csv-header="getCardActivationHeader()" ng-csv="getCardActivationReport()" filename="CardActivationReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="reports_offers_claimed.length" type="button" csv-header="getClaimedOffersHeader()" ng-csv="getClaimedOffersReport()" filename="ClaimedOffersReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="reports_card_usage.length" type="button" csv-header="getCardUsageHeader()" ng-csv="getCardUsageReport()" filename="CardUsageReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+                <button ng-show="generation_history.length" type="button" csv-header="getGenerationHistoryHeader()" ng-csv="getGenerationHistoryReport()" filename="CardGenerationHistoryReport.csv" field-separator="," decimal-separator=".">Download Details</button>
 
-                <button ng-show="reports_card_activation.length || reports_offers_claimed.length || reports_card_usage.length" ng-click="print()">Print Results</button>
+                <button ng-show="reports_card_activation.length || reports_offers_claimed.length || reports_card_usage.length || generation_history.length" ng-click="print()">Print Results</button>
             </div>
 
         </div>

@@ -14,7 +14,7 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
         if ($scope.card_number) {
             // login and store session
             Login.get({ id: $scope.card_number }, function (data) {
-
+            
                 if (data.Status == 'CodeNotFound') {
                     $scope.errors = 'Number is not recognised, please try again.';
                 }
@@ -26,6 +26,9 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
                 }
                 else if (data.Status == 'Ok') {
                     $cookies['SessionToken'] = data.SessionInfo.SessionToken;
+
+                    data.LeisureCard['IsAdmin'] = data.SessionInfo.IsAdmin;
+
                     $localStorage.user = data.LeisureCard;
                     
                     if (data.LeisureCard.IsAdmin) {

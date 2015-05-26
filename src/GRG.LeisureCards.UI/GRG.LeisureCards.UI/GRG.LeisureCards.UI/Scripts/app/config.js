@@ -39,6 +39,13 @@ app.service('slideshow', function (config) {
         link: ''
     }];
 
+    this.terms = [{
+        img: '/Content/' + tenant + '/img/banner-1.jpg',
+        link: ''
+    }];
+
+    this.offerdiscount = [];
+    this.offerdiscountdetails = [];
     this.offerdiscount = [{
         img: '/Content/' + tenant + '/img/banner-1.jpg',
         link: 'http://google.co.uk'

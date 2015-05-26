@@ -25,6 +25,9 @@ adminController.factory('LeisureCardUpdate', function ($resource, config) {
 });
 
 // Red letter data import
+adminController.factory('UploadRedLetter', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/RedLetter/');
+});
 adminController.factory('GetLastGoodRedLetter', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetLastGoodRedLetterImportJournal');
 });
@@ -48,11 +51,16 @@ adminController.factory('GetLastBadLeisureCard', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetLastBadLeisureCardImportJournal');
 });
 
+// generate cards
+adminController.factory('GenerateCards', function ($resource, config) {
+    return $resource(config.apiUrl + '/LeisureCard/GenerateCards/:reference/:numberOfCards/:renewalPeriodMonths');
+});
+
 adminController.controller('AdminDataImportController', function ($scope,
     GetLastGoodRedLetter, GetLastBadRedLetter,
     GetLastGoodTwoForOne, GetLastBadTwoForOne,
     GetLastGoodLeisureCard, GetLastBadLeisureCard,
-    fileUpload, config) {
+    fileUpload, UploadRedLetter, config) {
 
     $scope.global.bodyclass = 'admin';
 
@@ -121,6 +129,11 @@ adminController.controller('AdminDataImportController', function ($scope,
         window.location.reload();
     };
 
+    $scope.uploadRedLetter = function () {
+        UploadRedLetter.save();
+        return $scope.file_success = 'File uploaded successfully.';
+    }
+
     $scope.uploadFile = function (key) {
         var file = '';
         var path = '';
@@ -128,11 +141,7 @@ adminController.controller('AdminDataImportController', function ($scope,
         $scope.file_error = '';
         $scope.file_success = '';
 
-        if(key == 'RedLetter'){
-            file = $scope.files.redletter;
-            path = '/DataImport/RedLetter/';
-        }
-        else if(key == '241'){
+        if(key == '241'){
             file = $scope.files.file241;
             path = '/DataImport/TwoForOne/';
         }
@@ -187,6 +196,42 @@ var valid_iso_date = function (date) {
     return reg.test(date);
 }
 
+adminController.controller('AdminCardGenerateController', function ($scope, GenerateCards) {
+
+    $scope.reference = '';
+    $scope.num_cards = '';
+    $scope.duration = '';
+
+    $scope.reset = function () {
+        $scope.reference = '';
+        $scope.num_cards = '';
+        $scope.duration = '';
+    }
+
+    $scope.submit = function () {
+        $scope.cardgenerate_error = null;
+
+        if (!$scope.reference || !$scope.num_cards || !$scope.duration) {
+            return $scope.cardgenerate_error = 'All fields are required.';
+        }
+        
+        var postData = {
+            reference: $scope.reference,
+            numberOfCards: $scope.num_cards,
+            renewalPeriodMonths: $scope.duration
+        };
+
+        GenerateCards.get(postData, function (data) {
+            if(data.Ref){
+                return $scope.cardgenerate_success = 'Cards generated successfully.'
+            }
+            return $scope.cardgenerate_error = 'Cards failed to generate.';
+        });
+
+    }
+
+});
+
 adminController.controller('AdminUpdateCardController', function ($scope, $filter, GetAllCardNumbers, LeisureCardUpdate) {
     
     $scope.cards = {};
@@ -235,7 +280,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
 
     $scope.submit = function () {
 
-        $scope.cardupdate_error = '';
+        $scope.cardupdate_error = null;
 
         if (!valid_iso_date($scope.expiryDate) || !valid_iso_date($scope.renewalDate)) {
             return $scope.cardupdate_error = 'Expiry and Renewal dates must match format dd-mm-yyyy';
@@ -254,8 +299,10 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
         LeisureCardUpdate.get(postData, function (data) {
 
             var card = data;
-
-            if (card) {
+            if(data.$resolved){
+                return $scope.cardupdate_success = 'Card updated successfully.';
+            }
+            if (card.Code) {
 
                 $scope.expiryDate = card.ExpiryDate;
                 $scope.renewalDate = card.RenewalDate;
@@ -269,7 +316,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
 
                 return $scope.cardupdate_success = 'Card updated successfully.';
             }
-            return $scope.cardupdate_success = 'An error occurred when trying to update the card.';
+            return $scope.cardupdate_error = 'An error occurred when trying to update the card.';
         });
     }
 

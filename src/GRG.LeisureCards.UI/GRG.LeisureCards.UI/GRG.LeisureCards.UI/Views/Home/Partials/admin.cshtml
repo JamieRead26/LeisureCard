@@ -21,7 +21,11 @@
                 <td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
                 <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
                 <td>{{ i.Message }}</td>
-                <td><button ng-click="refresh()">Reload</button></td>
+                <td>
+                    <div ng-if="i.UploadKey == 'RedLetter'">
+                        <button ng-click="uploadRedLetter()">Reload</button>
+                    </div>
+                </td>
                 <td>
                     <a ng-if="i.FileKey" ng-href="{{ apiUrl }}/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
                 </td>
@@ -29,12 +33,9 @@
 
                     <div ng-if="i.UploadKey == '241'">
                         <input type="file" file-model="files.file241" />
-                    </div>
-                    <div ng-if="i.UploadKey == 'RedLetter'">
-                        <input type="file" file-model="files.redletter" />
+                        <button ng-click="uploadFile(i.UploadKey)">Upload</button>
                     </div>
 
-                    <button ng-click="uploadFile(i.UploadKey)">Upload</button>
                 </td>
             </tr>
         </table>
@@ -71,6 +72,30 @@
         <div class="success" ng-show="cardupdate_success != null">{{ cardupdate_success }}</div>
     </div>
 
+    <div ng-controller="AdminCardGenerateController">
+        <form ng-submit="submit()" class="one-line print-hide">
+            <p><strong>URN Generate</strong></p>
+            <div class="threecol">
+                <label>Reference:</label>
+                <input placeholder="User Reference" type="text" ng-model="reference" />
+            </div>
+            <div class="threecol">
+                <label>Number of URNs to generate:</label>
+                <input placeholder="Number" type="text" ng-model="num_cards" />
+            </div>
+            <div class="threecol">
+                <label>Card Duration:</label>
+                <input type="text" placeholder="Months" ng-model="duration" />
+            </div>
+            <div class="threecol last">
+                <a ng-click="reset()" class="button" href="#">Reset</a>
+                <input type="submit" value="Generate" />
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="errors" ng-show="cardgenerate_error != null">{{ cardgenerate_error }}</div>
+        <div class="success" ng-show="cardgenerate_success != null">{{ cardgenerate_success }}</div>
+    </div>
 
     <div ng-controller="AdminReportController">
         <div class="fourcol print-hide">
@@ -107,7 +132,7 @@
                     </tr>
                     <tr ng-repeat="r in reports_card_activation">
                         <td>{{ r.Code }}</td>
-                        <td>{{ r.RegistrationDate }}</td>
+                        <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>
 
@@ -142,7 +167,7 @@
                     </tr>
                     <tr ng-repeat="r in generation_history">
                         <td>{{ r.Ref }}</td>
-                        <td ng-bind="r.GenerentedDate | date:'dd/MM/yyyy hh:mm'"></td>
+                        <td ng-bind="r.GeneratedDate | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>
 

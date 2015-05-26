@@ -62,23 +62,23 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [SessionAuthFilter(true)]
-        [Route("LeisureCard/Update/{cardNumberOrRef}/{expiryDate}/{renewalDate}")]
+        [Route("LeisureCard/Update/{cardNumberOrRef}/{expiryDate}/{renewalDate}/{suspended}")]
         [UnitOfWork]
-        public void Update(string cardNumberOrRef, DateTime? expiryDate, DateTime? renewalDate)
+        public CardUpdateResponse Update(string cardNumberOrRef, DateTime? expiryDate, DateTime? renewalDate, bool suspended)
         {
             var crd = _leisureCardRepository.Get(cardNumberOrRef);
             var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
-
-            if (!cards.Any())
-                throw new Exception("No cards found matching ref or code");
 
             foreach (var card in cards)
             {
                 card.ExpiryDate = expiryDate;
                 card.RenewalDate = renewalDate;
+                card.Suspended = suspended;
 
                 _leisureCardRepository.SaveOrUpdate(card);
             }
+
+            return new CardUpdateResponse{CardsUpdated = cards.Count()};
         }
 
         [HttpGet]

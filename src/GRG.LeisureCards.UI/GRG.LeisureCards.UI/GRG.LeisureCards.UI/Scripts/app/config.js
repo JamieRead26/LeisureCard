@@ -44,7 +44,6 @@ app.service('slideshow', function (config) {
         link: ''
     }];
 
-    this.offerdiscount = [];
     this.offerdiscountdetails = [];
     this.offerdiscount = [{
         img: '/Content/' + tenant + '/img/banner-1.jpg',

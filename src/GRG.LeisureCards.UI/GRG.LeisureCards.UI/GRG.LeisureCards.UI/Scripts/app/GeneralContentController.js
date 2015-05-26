@@ -2,5 +2,5 @@
 
 generalContentController.controller('TermsController', function ($scope, slideshow) {
     $scope.global.bodyclass = 'terms';
-    $scope.global.slideshow = [];
+    $scope.global.slideshow = slideshow.terms;
 });

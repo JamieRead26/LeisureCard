@@ -60,6 +60,19 @@ body {
         overflow-y: scroll;
     }
     div.content {
+        .buttondef {
+            border: 2px solid #ffffff;
+            background: #0971ce;
+            border-radius:0px;
+            padding:5px 100px 5px 5px;
+            background:url(/Content/img/buttonArrow.jpg) no-repeat;
+            background-position: 95% center;
+            color:#ffffff;
+        }
+        a.buttondef {
+            color:#ffffff;
+            text-decoration:none;
+        }
         .container {
             padding:0px;
             &.white {
@@ -305,11 +318,91 @@ body .content {
             }
         }
     }
+    .offers241-l {
+        background:#d9e280;
+        border-radius: 10px;
+        .offers241-l-inner {
+            padding:40px 40px 0 40px;
+        }
+        h1 {
+            font-family:Tahoma, Arial;
+            font-weight:bold;
+            font-size:20px;
+            color:#0971ce;
+        }
+        p {
+            margin:0 0 5px 0;
+        }
+        img {
+            padding:0 0 40px;
+        }
+    }
+    .offers241-r {
+        img {
+            border-radius:10px;
+            margin: 0 0 15px 0;
+        }
+        #offers241-r-top {
+            padding:40px 20px 12px 20px;
+            background:url(../img/offers241-r-top.jpg) 0 0 no-repeat;
+            background-size:100%;
+            h1 {
+                float:left;
+                margin:0px;
+                padding:0px;
+                font-family:Tahoma, Arial;
+                font-size:20px;
+                font-weight:bold;
+                color:#ffffff;
+            }
+            p {
+                float:right;
+                margin:0px;
+                padding:0px;
+                font-family:Tahoma, Arial;
+                font-size:14px;
+                padding: 5px 0 0 0;
+                a {
+                    color:#ffffff;
+                }
+            }
+        }
+        #map241Offer.google-map {
+            border-left:2px solid #ffffff;
+            border-right:2px solid #ffffff;
+            border-bottom:2px solid #ffffff;
+            margin:0 0 40px 0;
+        }
+    }
+    #offers-discount-wrap {
+        width:100%;
+        max-width:835px;
+        margin:0 auto;
+        padding: 40px 0 80px 0;
+        #offers-discount-l {
+            float:left;
+            width:50%;
+        }
+        #offers-discount-l img {
+            width:100%;
+        }
+        #offers-discount-r {
+            float:right;
+            width:50%;
+        }
+        #offers-discount-r img {
+            width:100%;
+        }
+    }
 }
 
 /* SAM CSS */
-body.offer-241 {
+body.offer-241, body.offer-241-claim, body.offer-241-details {
     background: #b3c401;
+}
+body.offer-discount,
+body.offer-discount-details {
+    background:#ee4761;
 }
 
 .end-date.ng-scope {
@@ -342,12 +435,19 @@ background-size: 100%;
     margin-left: 34px;
 }
 
-.offer-241 .mask {
+
+.offer-241 .mask, 
+.offer-241-claim .mask, 
+.offer-241-details .mask {
 background: url('../img/carousel-mask-green.png') no-repeat;
 background-size: 100%;
 }
 .offer-experience .mask {
 background: url('../img/carousel-mask-turq.png') no-repeat;
+background-size: 100%;
+}
+.offer-discount .mask {
+background: url('../img/carousel-mask-pink.png') no-repeat;
 background-size: 100%;
 }
 
@@ -511,6 +611,7 @@ body .scroll-h {margin-bottom: 40px; margin-top: 25px; max-height: none; overflo
     border-radius: 15px;
     padding: 11px;
     margin-bottom: 22px;
+    font-family:  Tahoma, Verdana, Geneva, sans-serif;
 }
 
 .offer-241-offer img {border-radius: 15px;}
@@ -562,8 +663,61 @@ padding-top: 30px;
 
 }
 
-.twelvecol.center {text-align: center; margin-bottom: 65px;}
+.homepage .breadcrumb {
+    display: none;
+}
 
+/*claim offer*/
+
+.claim-wrap {
+    margin-bottom: 50px;
+}
+.claim-offer {
+   text-align: center;
+   background: #d9e280;
+   border-radius: 15px;
+   margin-bottom: 65px;
+   max-width: 600px;
+   margin: 0 auto;
+   font-family:  Tahoma, Verdana, Geneva, sans-serif;
+}
+.claim-offer .offer-copy {
+    text-align: left;
+    max-width: 445px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+.claim-offer  .offer-copy h1 {
+    color: #0971ce;
+    font-size: 20px;
+    font-weight: bold;
+}
+.claim-offer  .offer-copy p {
+    color: #545453;
+    font-size: 16px;
+}
+
+.redeem-img {
+    padding-bottom: 40px;
+}
+
+.button-claim .button {
+    background: url('../img/redeem-here.jpg') no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 193px;
+    font-size: 0px;
+    border: 0;
+   margin-bottom: 30px;
+    }
+
+.twelvecol.center { margin-bottom: 65px; text-align: center;}
+
+.terms-copy p {
+    color: #FFF;
+    font-size: 16px;
+       font-family:  Tahoma, Verdana, Geneva, sans-serif;
+}
 
 /* SAM MEDIA QUIRIES */
 
@@ -574,6 +728,14 @@ padding-top: 30px;
     body .content a.offer, body .content a.offer.two, body .content a.offer.three {margin-bottom: 30px;}
     body.offers-home .content div.special-offers-text {padding-bottom: 30px;}
     body.offers-home .content .home-icons-wrap {padding-bottom: 50px;}
+    .row .sixcol.offers241-l,
+    .row .sixcol.offers241-r {
+        width:48%;
+        float:left;
+    }
+    .row .sixcol.offers241-l {
+        padding:0px;
+    }
     
 }
 @media screen and (max-width: 750px) {
@@ -601,6 +763,23 @@ padding-top: 30px;
             margin-right:0px;
         }
     }
+    body div.content .row .sixcol.offers241-l,
+    body div.content .row .sixcol.offers241-r {
+        width:90%;
+        margin-top:0px;
+        margin-right:auto;
+        margin-bottom:0px;
+        margin-left:auto;
+        padding:0px;
+        float:none;
+    }
+    body div.content .row .sixcol.offers241-r {
+        text-align:center;
+    }
+    body div.content .row .sixcol.offers241-r img {
+        display:inline-block;
+        margin-top:20px;
+    }
 }
 @media screen and (max-width: 704px) {
     .search-left {padding: 0;}
@@ -619,7 +798,7 @@ padding-top: 30px;
      .offer-left img {height: 75px; width: 110px;}
      }
 
-}
+
 @media screen and (max-width: 600px) {
     body {
         .content { 

@@ -11,16 +11,14 @@ offersDiscountController.controller('offersDiscountController', function ($scope
 
 });
 
-offersDiscountController.controller('offersDiscountDetailsController', function ($scope, $routeParams, OfferDiscountClaim, slideshow) {
+offersDiscountController.controller('offersDiscountHoseasonsController', function ($scope,
+    OfferDiscountClaim, slideshow) {
 
-    $scope.global.slideshow = slideshow.offerdiscountdetails;
-    $scope.global.bodyclass = 'offer-discount-details';
-
-    $scope.title = $routeParams.title;
-    $scope.page_title = $scope.title == 'cottage' ? 'Choose a Cottage' : 'Hoseasons';
+    $scope.global.slideshow = slideshow.offerdiscounthoseasons;
+    $scope.global.bodyclass = 'offer-discount-hoseasons';
 
     $scope.claim = function () {
-        OfferDiscountClaim.get({ title: $scope.title }, function (data) {
+        OfferDiscountClaim.get({ title: 'hoseasons' }, function (data) {
             if (!data.$resolved) {
                 alert('Something when wrong when claiming this offer.');
             }
@@ -28,6 +26,23 @@ offersDiscountController.controller('offersDiscountDetailsController', function 
     };
 
 });
+
+offersDiscountController.controller('offersDiscountCottageController', function ($scope,
+    OfferDiscountClaim, slideshow) {
+
+    $scope.global.slideshow = slideshow.offerdiscountcottage;
+    $scope.global.bodyclass = 'offer-discount-cottage';
+
+    $scope.claim = function () {
+        OfferDiscountClaim.get({ title: 'cottage' }, function (data) {
+            if (!data.$resolved) {
+                alert('Something when wrong when claiming this offer.');
+            }
+        });
+    };
+
+});
+
 
 offersDiscountController.controller('offersDiscountClaimController', function ($scope, $sce, $routeParams, slideshow) {
 

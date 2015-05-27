@@ -26,6 +26,16 @@ body {
     &.offer-experience {
         background:#02c3b5;
     }
+    .admin-banner {
+        display:none;
+        width:100%;
+        border-top: 5px solid #ffffff;
+        .admin-banner-inner {
+            width:100%;
+            max-width:1140px;
+            margin:0 auto;
+        }
+    }
     .clear {
         clear: both;
     }
@@ -395,13 +405,175 @@ body .content {
         }
     }
 }
+body.admin {
+    div.content {
+        .admin-banner {
+            display:block;
+        }
+        table {
+            tr {
+                th {
+                    background:#555555;
+                    padding: 15px 10px;
+                    border-right: 1px solid #ffffff;
+                    &.last {
+                        border-right:none;
+                    }
+                }
+                td {
+                    background:#e6f0f9;
+                    color:#555555;
+                    padding: 10px;
+                    border-right: 1px solid #555555;
+                    button, a.button {
+                        background:#0971ce;
+                        border:1px solid #ffffff;
+                        font-size:13px;
+                        padding:5px 30px!important;
+                    }
+                    &.last {
+                        border-right:none;
+                        div {
+                            float:left;
+                            padding-top:2px;
+                            margin-right:3px;
+                            input {
+                                width:94px;
+                            }
+                        }     
+                        button {
+                            float:left;
+                        }
+                    }
+                }
+            }
+        }
+        form.adminform1 {
+            background:none;
+            box-shadow:none;
+            border:none;
+            p {
+                float:left;
+                width:10%;
+                color:#ffffff;
+            }
+            hr {
+                float:left;
+                width:90%;
+                border: 1px solid white;
+            }
+            div.twocol, div.threecol {
+                width:24%;
+                margin-right:1.3%;
+                &.last {
+                    margin-right:0px;
+                }
+                input {
+                    background:#0971ce;
+                    border: 1px solid white;
+                    width: 70%;
+                    float:left;
+                }
+                ::-webkit-input-placeholder { color:#95ccfd; }
+                :-moz-placeholder { color:#95ccfd; }
+                ::-moz-placeholder { color:#95ccfd; }
+                :-ms-input-placeholder { color:#95ccfd; }
+                label {
+                    width: 28%;
+                    float: left;
+                    color:#ffffff;
+                    font-size:16px;
+                    margin-right:2%;
+                }
+                autocomplete {
+                    width: 70%;
+                    float: left;
+                    div {
+                        input {
+                            width:100%;
+                        }
+                    }
+                }
+            }
+            div.threecol {
+                width:32%;
+                margin-right:1.3%;
+            }
+            div.threecol.last {
+                input {
+                    width:auto;
+                    float:none;
+                    border: 2px solid #fff;
+                    background: #b3c401;
+                }
+            }
+            div.fourcol.last, div.threecol.last {
+                float:right;
+                width:auto;
+            }
+        }
+        form.adminform2 {
+            background:none;
+            border-radius:0px;
+            border:none;
+            box-shadow:none;
+            padding:0px;
+        }
+        .adminform2cont {
+            border-radius:10px;
+            background:#b3c401;
+            padding:20px;
+            h2 {
+                color:#0971ce;
+            }
+            label {
+                color:#0971ce;
+                font-weight:bold;
+            }
+            ::-webkit-input-placeholder { color:#ffffff; }
+            :-moz-placeholder { color:#ffffff; }
+            ::-moz-placeholder { color:#ffffff; }
+            :-ms-input-placeholder { color:#ffffff; }
+            input[type=submit] {
+                border:1px solid #0971ce;
+                color:#0971ce;
+                background: #0971ce;
+                border-radius:0px;
+                padding:5px 100px 5px 5px;
+                background:url(../img/buttonArrowBlue.jpg) no-repeat;
+                background-position: 95% center;
+            }
+            select {
+                background:none;
+                border:1px solid #ffffff;
+                color:#ffffff;
+                option {
+                    background:#0971ce;
+                }
+            }
+        }
+        .adminform4 {
+            button {
+                background: #0971ce;
+            }
+            .scroll-h {
+                margin-top:0px;
+                margin-bottom:0px;
+            }
+        }
+        .admin-bottom-cont {
+            margin-bottom:40px;
+        }
+    }
+}
+
 
 /* SAM CSS */
 body.offer-241, body.offer-241-claim, body.offer-241-details {
     background: #b3c401;
 }
 body.offer-discount,
-body.offer-discount-details {
+body.offer-discount-details, body.offer-discount-hoseasons, body.offer-discount-cottage {
     background:#ee4761;
 }
 
@@ -682,10 +854,9 @@ padding-top: 30px;
    font-family:  Tahoma, Verdana, Geneva, sans-serif;
 }
 .claim-offer .offer-copy {
-    text-align: left;
-    max-width: 445px;
+    text-align: left;   
     margin: 0 auto;
-    padding-top: 40px;
+    padding: 40px 80px 0px 80px;
 }
 .claim-offer  .offer-copy h1 {
     color: #0971ce;
@@ -719,6 +890,54 @@ padding-top: 30px;
        font-family:  Tahoma, Verdana, Geneva, sans-serif;
 }
 
+/* offer-discount-details */
+.offer-discount-details .mask, .offer-discount-hoseasons .mask, .offer-discount-cottage .mask {
+background: url('../img/carousel-mask-pink.png') no-repeat;
+background-size: 100%;
+}
+
+.discount-wrap {
+    margin-top: 48px;
+}
+.offer-discount-hoseasons .claim-offer, .offer-discount-cottage .claim-offer{
+background: #f7a3b0;
+text-align: left;
+margin-bottom: 50px;
+}
+
+.offer-discount-hoseasons .button-claim .button, .offer-discount-cottage .button-claim .button{
+background: url('../img/claim-discount-button.jpg') no-repeat;
+background-size: 100%;
+height: 129px;
+margin-bottom: 0;
+}
+
+.offer-discount-hoseasons .claim-offer .offer-contact, .offer-discount-cottage .claim-offer .offer-contact{
+  text-align: left;
+  margin: 0 auto;
+  padding-top: 0px;
+  color: #545453;
+  padding: 0px 80px 20px 80px;
+}
+
+body div.content .claim-offer .offer-contact h4 {
+    float: none;
+      color: #0971ce;
+}
+
+body div.content .claim-offer .offer-contact a {
+      color: #545453;
+}
+
+.footer-wrap {
+background: url('../img/grassroots-product.png') no-repeat 98% 0;
+line-height: 18px;
+}
+
+.footer-wrap a{
+padding: 0px 10px;
+text-decoration: none;
+}
 /* SAM MEDIA QUIRIES */
 
 @media screen and (max-width: 1140px) {
@@ -796,6 +1015,7 @@ padding-top: 30px;
      .offer-241-offer .town {font-size: 12px;}
      .offer-right {float: right; width: 240px}
      .offer-left img {height: 75px; width: 110px;}
+     .footer-wrap {padding-top: 30px;   background: url("/Content/GRG/img/grassroots-product.png") no-repeat 30px 0;}
      }
 
 
@@ -810,6 +1030,9 @@ padding-top: 30px;
                 }
             }
         }
+    }
+    .offer-discount-details .button-claim .button {
+        height: 110px;
     }
 }
 

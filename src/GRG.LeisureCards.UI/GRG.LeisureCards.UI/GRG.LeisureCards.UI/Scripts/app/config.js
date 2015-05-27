@@ -44,12 +44,15 @@ app.service('slideshow', function (config) {
         link: ''
     }];
 
-    this.offerdiscountdetails = [];
     this.offerdiscount = [{
         img: '/Content/' + tenant + '/img/banner-1.jpg',
         link: 'http://google.co.uk'
     }];
-    this.offerdiscountdetails = [{
+    this.offerdiscountcottage = [{
+        img: '/Content/' + tenant + '/img/banner-1.jpg',
+        link: 'http://google.co.uk'
+    }];
+    this.offerdiscounthoseasons = [{
         img: '/Content/' + tenant + '/img/banner-1.jpg',
         link: 'http://google.co.uk'
     }];

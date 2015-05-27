@@ -42,8 +42,8 @@
 <!-- Docs page layout -->
 <div class="bs-docs-header" id="content">
     <div class="container">
-        <h1>Bonusbonds</h1>
-        <p>Patterns and process documentation for Bonusbond system development</p>
+        <h1>Leisure Cards</h1>
+        <p>Documentation for the GRG Leisure Cards system</p>
     </div>
 </div>
 
@@ -51,6 +51,84 @@
 
     <div class="row">
         <div class="col-md-9" role="main">
+
+            <div class="bs-docs-section" id="overview">
+                <h1  class="page-header">Overview</h1>
+
+               <p>This documentation cover three distinct areas:</p>
+
+                <ul>
+                    <li>Operations: how to operate and administer the Leisure Cards site from a business perspective.</li>
+                    <li>Infrastructure: how to deploy and administer the Leisure Cards system from a computing platform perspective.</li>
+                    <li>Code architecture: description of the patterns and libraries employed in the development of the Leisure Cards code base.  This is a MUST READ for all maintainers of the code base.</li>
+                </ul>
+
+            </div>
+
+            <div class="bs-docs-section" id="operations">
+                <h1  class="page-header">Operations</h1>
+
+                <p>Operation of the system involves the following tasks:</p>
+
+                <ul>
+                    <li>Updating Red Letter and 2-4-1 Offer Data</li>
+                    <li>Managing and Generating Leisure Cards</li>
+                    <li>Reporting</li>
+                </ul>
+
+                <h3 id="AdminAccess">Administration Access</h3>
+                <p>Please contact GRG support desk for administrator access.</p>
+
+                <h3 id="RedLetterData">Red Letter Data</h3>
+                <p>Red Letter offer data is uploaded automatically every 24 hours.  In addition to this administrators may trigger an ad-hoc update.  The update process uploads data directly from a Red Letter SFTP location.</p>
+
+                <h3 id="241Data">2-4-1 Data</h3>
+                <p>2-4-1 offer data is loaded ad-hoc via file upload from the administration page.  2-4-1 data is mastered by file, that is to say there is a single file in a known location that is the complete list of offers.</p>
+
+                <h3 id="CardMgmt">Card Management and Generation</h3>
+                <p>Cards may be generated from the admin page.  Once generated the card data can be viewed and downloaded from the 'all cards' report.</p>
+                <p>Single cards or card groups by generation reference may be editing from the admin page.</p>
+
+                <h3 id="Reporting">Reporting</h3>
+                <p>The admin page provides access to a number of reports. The reports may be viewed online and downloaded to CSV formatted files.</p>
+
+            </div>
+
+            <div class="bs-docs-section" id="Infrastructure">
+                <h1  class="page-header">Infrastructure</h1>
+
+                <p>In a nutshell the Leisure Card system is implemented by two .NET web applications; The first serves the API as a RESTful type interface, the second serves the UI.</p>
+
+                <p>The API is backed by a relational database and at time of writing is
+                tested against PostGres and MSSQL2012.  The API code base is RDBMS platform agnostic by virtue of the fast that it uses fluent NHibernate to manage the DB schema.</p>
+
+                <p>The UI is a stand alone application the exists purely to serve the UI.  The UI interacts with the API in order to fulfil the Leisure Card application requirements.  This means that all
+                Leisure Card functionality is available via the API.</p>
+
+                <h3 id="deployment">Deployment</h3>
+
+                <p>Deployment assets are stored @ <a href="https://github.com/ShiftkeySoftware/GRG.LeisureCards.Release">https://github.com/ShiftkeySoftware/GRG.LeisureCards.Release</a></p>
+
+                <p>There are two web apps for deployment, API and UI. These are .NET 4.0 web apps that must be configured in IIS as Integrated Pipeline apps.</p>
+
+                <p>There are the following configuration options that must be set correctly.  Broken down by API and UI web apps:</p>
+
+                <b>API (all web.config appSettings)</b>
+
+                <ul>
+                    <li>GoogleApiKey: the google account API key for location services.  This account must be enabled for server side access.</li>
+                    <li>SessionDurationMinutes: after which time with no acticity users will be prompted to log in again. Currently the agreed period is 20 mins.</li>
+                    <li>DbType: PostGres or MsSql2008 or MsSql2012.  The are a number of other keys that must be set depending on what DB platform is chosen, these should be obvious.</li>
+                    <li>AdminCode: The admin code that will grant admin access to the system.</li>
+                    <li>DefaultCardRenewalPeriodMonths</li>
+                    <li>RedLetterAutoDownloadDayMinutes: E.G. 450 means that the Red Letter data will be downloaded at 7:30 AM each day.</li>
+                    <li>RedLetterFtpPath: the full path to the Red Letter xml data file.  Currently ftp://ftp.redletterdays.co.uk/ProductList.xml.</li>
+                    <li>RedLetterFtpUid: the GRG uid for the red letter ftp site.</li>
+                    <li>RedLetterFtpPassword: the GRG pwd for the red letter ftp site.</li>
+
+                </ul>
+
+            </div>
 
             <div class="bs-docs-section" id="di">
                 <h1  class="page-header">Dependency Injection</h1>

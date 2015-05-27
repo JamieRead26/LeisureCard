@@ -143,10 +143,15 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'offersDiscountController',
             label: 'Discount Offers'
         }).
-        when('/offers/discount/:title', {
-            templateUrl: 'partial/offers_discount_details',
-            controller: 'offersDiscountDetailsController',
-            label: 'Discount Offer Details'
+        when('/offers/discount/cottage', {
+            templateUrl: 'partial/offers_discount_cottage',
+            controller: 'offersDiscountCottageController',
+            label: 'Discount Offer Cottage'
+        }).
+        when('/offers/discount/hoseasons', {
+            templateUrl: 'partial/offers_discount_hoseasons',
+            controller: 'offersDiscountHoseasonsController',
+            label: 'Discount Offer Hoseasons'
         }).
         when('/offers/discount/claim/:title', {
             templateUrl: 'partial/offers_discount_claim',

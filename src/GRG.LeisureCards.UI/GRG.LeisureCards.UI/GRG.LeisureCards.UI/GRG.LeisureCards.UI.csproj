@@ -228,8 +228,9 @@
     <Content Include="Content\global\css\mixin.scss" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Views\Home\Partials\offers_241_claim.cshtml" />
-    <Content Include="Views\Home\Partials\offers_discount_details.cshtml" />
+    <Content Include="Views\Home\Partials\offers_discount_cottage.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount_claim.cshtml" />
+    <Content Include="Views\Home\Partials\offers_discount_hoseasons.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />

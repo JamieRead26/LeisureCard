@@ -81,23 +81,30 @@
     </div>
 
     <div ng-controller="AdminCardGenerateController">
-        <form ng-submit="submit()" class="one-line print-hide">
+        <form ng-submit="submit()" class="one-line print-hide adminform1">
             <p><strong>URN Generate</strong></p>
+            <hr />
+            <div class="clear"></div>
             <div class="threecol">
                 <label>Reference:</label>
                 <input placeholder="User Reference" type="text" ng-model="reference" />
+                <div class="clear"></div>
             </div>
             <div class="threecol">
                 <label>Number of URNs to generate:</label>
                 <input placeholder="Number" type="number" ng-model="num_cards" />
+                <div class="clear"></div>
             </div>
             <div class="threecol">
                 <label>Card Duration:</label>
                 <input type="number" placeholder="Months" ng-model="duration" />
+                <div class="clear"></div>
             </div>
+            <div class="clear"></div>
             <div class="threecol last">
                 <a ng-click="reset()" class="button" href="#">Reset</a>
                 <input type="submit" value="Generate" />
+                <div class="clear"></div>
             </div>
             <div class="clear"></div>
         </form>

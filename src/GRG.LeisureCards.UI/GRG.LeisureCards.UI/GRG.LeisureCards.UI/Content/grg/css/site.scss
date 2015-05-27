@@ -401,7 +401,7 @@ body.offer-241, body.offer-241-claim, body.offer-241-details {
     background: #b3c401;
 }
 body.offer-discount,
-body.offer-discount-details {
+body.offer-discount-details, body.offer-discount-hoseasons, body.offer-discount-cottage {
     background:#ee4761;
 }
 
@@ -682,10 +682,9 @@ padding-top: 30px;
    font-family:  Tahoma, Verdana, Geneva, sans-serif;
 }
 .claim-offer .offer-copy {
-    text-align: left;
-    max-width: 445px;
+    text-align: left;   
     margin: 0 auto;
-    padding-top: 40px;
+    padding: 40px 80px 0px 80px;
 }
 .claim-offer  .offer-copy h1 {
     color: #0971ce;
@@ -719,6 +718,54 @@ padding-top: 30px;
        font-family:  Tahoma, Verdana, Geneva, sans-serif;
 }
 
+/* offer-discount-details */
+.offer-discount-details .mask, .offer-discount-hoseasons .mask, .offer-discount-cottage .mask {
+background: url('../img/carousel-mask-pink.png') no-repeat;
+background-size: 100%;
+}
+
+.discount-wrap {
+    margin-top: 48px;
+}
+.offer-discount-hoseasons .claim-offer, .offer-discount-cottage .claim-offer{
+background: #f7a3b0;
+text-align: left;
+margin-bottom: 50px;
+}
+
+.offer-discount-hoseasons .button-claim .button, .offer-discount-cottage .button-claim .button{
+background: url('../img/claim-discount-button.jpg') no-repeat;
+background-size: 100%;
+height: 129px;
+margin-bottom: 0;
+}
+
+.offer-discount-hoseasons .claim-offer .offer-contact, .offer-discount-cottage .claim-offer .offer-contact{
+  text-align: left;
+  margin: 0 auto;
+  padding-top: 0px;
+  color: #545453;
+  padding: 0px 80px 20px 80px;
+}
+
+body div.content .claim-offer .offer-contact h4 {
+    float: none;
+      color: #0971ce;
+}
+
+body div.content .claim-offer .offer-contact a {
+      color: #545453;
+}
+
+.footer-wrap {
+background: url('../img/grassroots-product.png') no-repeat 98% 0;
+line-height: 18px;
+}
+
+.footer-wrap a{
+padding: 0px 10px;
+text-decoration: none;
+}
 /* SAM MEDIA QUIRIES */
 
 @media screen and (max-width: 1140px) {
@@ -796,6 +843,7 @@ padding-top: 30px;
      .offer-241-offer .town {font-size: 12px;}
      .offer-right {float: right; width: 240px}
      .offer-left img {height: 75px; width: 110px;}
+     .footer-wrap {padding-top: 30px;   background: url("/Content/GRG/img/grassroots-product.png") no-repeat 30px 0;}
      }
 
 
@@ -810,6 +858,9 @@ padding-top: 30px;
                 }
             }
         }
+    }
+    .offer-discount-details .button-claim .button {
+        height: 110px;
     }
 }
 

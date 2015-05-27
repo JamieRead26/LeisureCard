@@ -112,7 +112,7 @@
         <div class="success" ng-show="cardgenerate_success != null">{{ cardgenerate_success }}</div>
     </div>
 
-    <div ng-controller="AdminReportController">
+    <div ng-controller="AdminReportController" class="admin-bottom-cont">
         <div class="fourcol print-hide adminform2cont">
             <h2>Search Critera</h2>
 
@@ -137,10 +137,8 @@
                 <input type="submit" value="Update" class="buttondef" />
             </form>
         </div>
-        <div class="eightcol last">
-
+        <div class="eightcol last adminform4">
             <div class="scroll-h">
-
                 <table ng-show="reports_card_activation.length">
                     <tr>
                         <th>Card Number</th>
@@ -151,7 +149,6 @@
                         <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>
-
                 <table ng-show="reports_offers_claimed.length">
                     <tr>
                         <th>Card Number</th>
@@ -164,7 +161,6 @@
                         <td ng-bind="r.SelectedDateTime | date:'dd/MM/yyyy'"></td>
                     </tr>
                 </table>
-
                 <table ng-show="reports_card_usage.length">
                     <tr>
                         <th>Card Number</th>
@@ -175,7 +171,6 @@
                         <td ng-bind="r.LoginDateTime | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>
-
                 <table ng-show="generation_history.length">
                     <tr>
                         <th>Reference</th>
@@ -186,7 +181,6 @@
                         <td ng-bind="r.GeneratedDate | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>
-
                 <table ng-show="all_card_numbers.length">
                     <tr>
                         <th>Code</th>
@@ -196,7 +190,7 @@
                         <th>Expiry Date</th>
                         <th>Renewal Date</th>
                         <th>Registration Date</th>
-                        <th>Uploaded Date</th>
+                        <th class="last">Uploaded Date</th>
                     </tr>
                     <tr ng-repeat="r in all_card_numbers">
                         <td>{{ r.Code }}</td>
@@ -206,22 +200,18 @@
                         <td ng-bind="r.ExpiryDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.RenewalDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>
-                        <td ng-bind="r.UploadedDate | date:'dd/MM/yyyy hh:mm'"></td>
+                        <td class="last" ng-bind="r.UploadedDate | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>
-
             </div>
-
             <div class="print-hide">
                 <button ng-show="reports_card_activation.length" type="button" csv-header="getCardActivationHeader()" ng-csv="getCardActivationReport()" filename="CardActivationReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="reports_offers_claimed.length" type="button" csv-header="getClaimedOffersHeader()" ng-csv="getClaimedOffersReport()" filename="ClaimedOffersReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="reports_card_usage.length" type="button" csv-header="getCardUsageHeader()" ng-csv="getCardUsageReport()" filename="CardUsageReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="generation_history.length" type="button" csv-header="getGenerationHistoryHeader()" ng-csv="getGenerationHistoryReport()" filename="CardGenerationHistoryReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="all_card_numbers.length" type="button" csv-header="getAllCardsHeader()" ng-csv="getAllCardsReport()" filename="AllCardsReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-
                 <button ng-show="show_print" ng-click="print()">Print Results</button>
             </div>
-
         </div>
         <div class="clear"></div>
     </div>

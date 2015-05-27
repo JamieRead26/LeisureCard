@@ -2,10 +2,25 @@
     Layout = "";
 }
 
-<div class="twelvecol claim-offer" ng-controller="offersDiscountCottageController">
+<div class="twelvecol discount-wrap">
+    <div class=" claim-offer" ng-controller="offersDiscountCottageController">        
+        <img src="~/Content/grg/img/cottages-for-you.jpg" />
+        <div class="offer-copy">
+            <h1>Cottages4you</h1>
+            <p>
+                We have joined forces with cottages4you to bring you 10% off at over 13,000 self-catering holiday cottages, villas and gites in the UK and overseas. Whether you're looking for a cosy romantic retreat, a fun-filled family getaway, or somewhere large, lavish and filled with luxury, you'll find a great selection of properties to suit everyone.
+            </p>
+            <p>Many properties offer a short break of 2, 3 and 4 nights or stay for a week or longer.</p>
 
-    <h1>Choose a Cottage</h1>
+        </div>
+        <!--- <p class="button-claim"><a ng-click="claim()" ng-href="/#/offers/discount/claim/cottage" class="button" target="_blank">Claim Code</a></p> -->
+        <p class="button-claim"><a ng-click="claim()" href="http://www.chooseacottage.co.uk/DAY" class="button" target="_blank">Claim Code</a></p>
+        <div class="offer-contact">
+            <h4>Book Online</h4>
+            <strong><a target="_blank" href="www.cottages4you.co.uk">www.cottages4you.co.uk</a></strong>
 
-    <p><a ng-click="claim()" ng-href="/#/offers/discount/claim/cottage" class="button" target="_blank">Claim Code</a></p>
-
+            <h4>Prefer to talk?</h4>
+            <p>Booking line open until 9pm today: Tel. <strong>0345 268 0760</strong></p>
+        </div>
+    </div>
 </div>

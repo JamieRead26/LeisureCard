@@ -75,6 +75,7 @@ namespace GRG.LeisureCards.DomainModel
 
         [DataMember]
         public virtual string Reference { get; set; }
+
         public virtual int RenewalPeriodMonths { get; set; }
     }
 }

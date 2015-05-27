@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace GRG.LeisureCards.DomainModel
 {
@@ -15,6 +16,9 @@ namespace GRG.LeisureCards.DomainModel
             CancellationDate = leisureCard.Suspended;
             RegistrationDate = leisureCard.RegistrationDate;
             Status = leisureCard.Status;
+            Reference = leisureCard.Reference;
+            RenewalPeriodMonths = leisureCard.RenewalPeriodMonths;
+            Suspended = leisureCard.Suspended;
         }
         public string Status { get; set; }
 

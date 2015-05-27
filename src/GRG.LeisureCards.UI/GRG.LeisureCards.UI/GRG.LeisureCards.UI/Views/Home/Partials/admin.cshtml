@@ -55,13 +55,8 @@
                 <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" date-formatter />
             </div>
             <div class="twocol">
-                <label>Status:</label>
-                <select ng-model="status">
-                    <option value=""></option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                    <option value="Suspended">Suspended</option>
-                </select>
+                <label style="display: block;" for="suspended">Suspended:</label>
+                <input type="checkbox" ng-model="suspended" id="suspended" />
             </div>
             <div class="twocol">
                 <label>Renewal Date:</label>
@@ -109,7 +104,7 @@
             <form ng-submit="get_report()">
                 <div class="field">
                     <label>Report Type</label>
-                    <select ng-model="report_type">
+                    <select ng-model="report_type" ng-change="reportChange()">
                         <option value="card_activation" ng-selected="selected">Card Activation</option>
                         <option value="offers_claimed">Offers Claimed</option>
                         <option value="card_usage">Card Usage</option>
@@ -118,7 +113,7 @@
                     </select>
                 </div>
 
-                <div class="field">
+                <div class="field" ng-show="!hide_dates">
                     <label>Date Range</label>
                     <input placeholder="from e.g: dd-mm-yyyy" type="text" style="margin-bottom: 10px;" ng-model="from_date" date-formatter />
                     <input placeholder="to e.g: dd-mm-yyyy" type="text" ng-model="to_date" date-formatter />
@@ -183,10 +178,9 @@
                         <th>Reference</th>
                         <th>Renewal Period Months</th>
                         <th>Suspended</th>
-                        <th>Cancel Date</th>
-                        <th>Expire Date</th>
-                        <th>Registration Date</th>
+                        <th>Expiry Date</th>
                         <th>Renewal Date</th>
+                        <th>Registration Date</th>
                         <th>Uploaded Date</th>
                     </tr>
                     <tr ng-repeat="r in all_card_numbers">
@@ -194,10 +188,9 @@
                         <td>{{ r.Reference }}</td>
                         <td>{{ r.RenewalPeriodMonths }}</td>
                         <td>{{ r.Suspended }}</td>
-                        <td ng-bind="r.CancellationDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.ExpiryDate | date:'dd/MM/yyyy hh:mm'"></td>
-                        <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.RenewalDate | date:'dd/MM/yyyy hh:mm'"></td>
+                        <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.UploadedDate | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>

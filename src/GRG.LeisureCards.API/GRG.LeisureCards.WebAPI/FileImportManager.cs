@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Threading;
 using GRG.LeisureCards.DomainModel;
 using log4net;
 
@@ -8,13 +9,9 @@ namespace GRG.LeisureCards.WebAPI
 {
     public interface IFileImportManager
     {
-        string RedLetterFilePath { get; }
-
-        string TwoForOneFilePath { get; }
-
         Stream GetRedLetterData();
 
-        DataImportJournalEntry ImportDataFile(Func<byte[], string, DataImportJournalEntry> importFunc, string filePath, Stream file);
+        DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, string filePath, Stream file);
     }
 
     public class FileImportManager : IFileImportManager
@@ -24,61 +21,108 @@ namespace GRG.LeisureCards.WebAPI
         private readonly string _redLetterPwd;
         private static readonly ILog Log = LogManager.GetLogger(typeof(FileImportManager));
 
-        public string RedLetterFilePath { get; private set; }
-        public string TwoForOneFilePath { get; private set; }
-
         public FileImportManager(string redLetterFtpPath, string redLetterUid, string redLetterPwd)
         {
             _redLetterFtpPath = redLetterFtpPath;
             _redLetterUid = redLetterUid;
             _redLetterPwd = redLetterPwd;
-            RedLetterFilePath = "~\\UploadFiles\\RedLetter";
-            TwoForOneFilePath = "~\\UploadFiles\\241";
         }
 
-        public DataImportJournalEntry ImportDataFile(Func<byte[], string, DataImportJournalEntry> importFunc, string uploadFolder, Stream file)
+        public DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, string uploadFolder, Stream file)
         {
             try
             {
-                
                 uploadFolder = System.Web.Hosting.HostingEnvironment.MapPath(uploadFolder);
-                var fileKey = Guid.NewGuid().ToString();
+                var uploadFileName = dataImportKey.Key + "_" + DateTime.Now.ToString("O") + ".csv";
+                uploadFileName = uploadFileName.Replace(":", "_").Replace("+", "_").Replace("-", "_");
 
                 var memStream = new MemoryStream();
                 file.CopyTo(memStream);
 
-                using (var fileStream = File.Open(uploadFolder + "\\" + fileKey + ".csv", FileMode.CreateNew))
+                using (var fileStream = File.Open(uploadFolder + "\\" + uploadFileName , FileMode.CreateNew))
                 {
                     memStream.CopyTo(fileStream);
                 }
                
-                var journalEntry = importFunc(ReadFully(memStream), fileKey);
-
-                if (!journalEntry.Success) return journalEntry;
                 //Best effort clean up, if fails must not disrupt flow
-                try
+                ThreadPool.QueueUserWorkItem(state =>
                 {
-                    var twoWeeksAgo = DateTime.Now - TimeSpan.FromDays(14);
-                    foreach (var fileName in Directory.GetFileSystemEntries(uploadFolder))
+                    try
                     {
-                        if (fileName.IndexOf(fileKey) < 0 && fileName.IndexOf("placeholder") < 0 &&
-                            new FileInfo(fileName).CreationTime < twoWeeksAgo)
-                            File.Delete(fileName);
+                        var twoWeeksAgo = DateTime.Now - TimeSpan.FromDays(14);
+                        foreach (var fileName in Directory.GetFileSystemEntries(uploadFolder))
+                        {
+                            if (fileName.IndexOf(uploadFileName) < 0 && fileName.IndexOf("placeholder") < 0 &&
+                                new FileInfo(fileName).CreationTime < twoWeeksAgo)
+                                File.Delete(fileName);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("Unable to complete upload file clean up", ex);
-                }
+                    catch (Exception ex)
+                    {
+                        Log.Error("Unable to complete upload file clean up", ex);
+                    }
+                });
 
-                return journalEntry;
+                var now = DateTime.Now;
+
+                return new DataImportJournalEntry
+                {
+                    Success = true,
+                    ExecutedDateTime = now,
+                    FileAcquiredDateTime = now,
+                    UploadKey = dataImportKey.Key,
+                    FileName = uploadFileName
+                };
             }
             catch (Exception ex)
             {
                 Log.Error("Exception occurred importing data file: " + uploadFolder, ex);
-                throw ex;
+                
+                return new DataImportJournalEntry
+                {
+                    Success = false,
+                    UploadKey = dataImportKey.Key,
+                    ExecutedDateTime = DateTime.Now,
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
             }
         }
+
+        //public DataImportJournalEntry ProcessDataFile(Func<byte[], string, DataImportJournalEntry> processFunc, string uploadFolder, DataImportJournalEntry dataImportjournalEntry)
+        //{
+        //    try
+        //    {
+
+        //        uploadFolder = System.Web.Hosting.HostingEnvironment.MapPath(uploadFolder);
+
+        //                        var journalEntry = processFunc(ReadFully(memStream), dataImportjournalEntry.FileKey);
+
+        //        if (!journalEntry.Success) return journalEntry;
+        //        //Best effort clean up, if fails must not disrupt flow
+        //        try
+        //        {
+        //            var twoWeeksAgo = DateTime.Now - TimeSpan.FromDays(14);
+        //            foreach (var fileName in Directory.GetFileSystemEntries(uploadFolder))
+        //            {
+        //                if (fileName.IndexOf(fileKey) < 0 && fileName.IndexOf("placeholder") < 0 &&
+        //                    new FileInfo(fileName).CreationTime < twoWeeksAgo)
+        //                    File.Delete(fileName);
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Log.Error("Unable to complete upload file clean up", ex);
+        //        }
+
+        //        return journalEntry;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error("Exception occurred importing data file: " + uploadFolder, ex);
+        //        throw ex;
+        //    }
+        //}
 
         public static byte[] ReadFully(Stream input)
         {

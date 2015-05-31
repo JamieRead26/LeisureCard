@@ -19,8 +19,6 @@ namespace GRG.LeisureCards.WebAPI
             XmlConfigurator.Configure();
             Log.Info("Leisure Cards API Web App Started");
 
-            
-
             AreaRegistration.RegisterAllAreas();
 //#if DEBUG
             DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, false);

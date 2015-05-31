@@ -17,5 +17,7 @@ namespace GRG.LeisureCards.WebAPI.Model
         public DateTime? RegistrationDate { get; set; }
 
         public string Status { get; set; }
+
+        public string Reference { get; set; }
     }
 }

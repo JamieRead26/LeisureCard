@@ -12,11 +12,7 @@ namespace GRG.LeisureCards.Service
 {
     public interface IDataImportService
     {
-        DataImportJournalEntry ImportRedLetterOffers(byte[] file, string fileKey);
-       
-        DataImportJournalEntry ImportTwoForOneOffers(byte[] file, string fileKey);
-
-        //DataImportJournalEntry ImportLeisureCards(byte[] file, string fileKey);
+        void Import(DataImportJournalEntry journalEntry);
     }
 
     public class DataImportService : IDataImportService
@@ -27,7 +23,6 @@ namespace GRG.LeisureCards.Service
         private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ITwoForOneRepository _twoForOneRepository;
         private readonly IUkLocationService _locationService;
-        private readonly ILeisureCardRepository _leisureCardRepository;
 
         public DataImportService(
             IDataImportJournalEntryRepository dataImportJournalEntryRepository, 
@@ -40,19 +35,17 @@ namespace GRG.LeisureCards.Service
             _redLetterProductRepository = redLetterProductRepository;
             _twoForOneRepository = twoForOneRepository;
             _locationService = locationService;
-            _leisureCardRepository = leisureCardRepository;
         }
 
         [UnitOfWork]
-        public DataImportJournalEntry ImportRedLetterOffers(byte[] file, string fileKey)
+        public DataImportJournalEntry ImportRedLetterOffers(Stream fileStream, DataImportJournalEntry journalEntry)
         {
-            return ImportData(DataImportKey.RedLetter, fileKey, () =>
+            return ImportData(journalEntry, () =>
             {
                 var allProducts = _redLetterProductRepository.GetAll().ToDictionary(p => p.Id, p => p);
                 var keywords = _redLetterProductRepository.GetAllKeywords().ToDictionary(k => k.Keyword, k => k);
 
-                using (var stream = new MemoryStream(file))
-                using (var txtReader = new StreamReader(stream))
+                using (var txtReader = new StreamReader(fileStream))
                 {
                     var xmlDoc = new XmlDocument();
 
@@ -153,14 +146,13 @@ namespace GRG.LeisureCards.Service
         }
 
         [UnitOfWork]
-        public DataImportJournalEntry ImportTwoForOneOffers(byte[] file, string fileKey)
+        public DataImportJournalEntry ImportTwoForOneOffers(Stream fileStream, DataImportJournalEntry journalEntry)
         {
-            return ImportData(DataImportKey.TwoForOne, fileKey, () =>
+            return ImportData(journalEntry, () =>
             {
                 var offers = _twoForOneRepository.GetAll().ToDictionary(o => o.Id, o => o);
 
-                using (var stream = new MemoryStream(file))
-                using (var csvReader = CsvReader.Create(new StreamReader(stream)))
+                using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
                 {
                     foreach (var offer in csvReader.GetRecords<TwoForOneOffer>().ToArray())
                     {
@@ -208,76 +200,41 @@ namespace GRG.LeisureCards.Service
             });
         }
 
-      /*  public DataImportJournalEntry ImportLeisureCards(byte[] file, string fileKey)
-        {
-            return ImportData(DataImportKey.LeisureCards, fileKey, () =>
-            {
-                var cards = _leisureCardRepository.GetAllIncludingDeleted().ToDictionary(o => o.Code, o => o);
-
-                using (var stream = new MemoryStream(file))
-                using (var csvReader = CsvReader.Create(new StreamReader(stream)))
-                {
-                    foreach (var card in csvReader.GetRecords<LeisureCard>().ToArray())
-                    {
-                        var cardToPersist = cards[card.Code];
-
-                        if (cardToPersist != null)
-                        {
-                            cardToPersist.ExpiryDate = card.ExpiryDate;
-                            cardToPersist.RenewalDate = card.RenewalDate;
-                            cardToPersist.IsAdmin = card.IsAdmin;
-                            cardToPersist.Suspended = card.Suspended;
-                            cardToPersist.Deleted = false;
-
-                            cards.Remove(card.Code);
-                        }
-                        else
-                        {
-                            cardToPersist = card;
-                        }
-
-                        _leisureCardRepository.SaveOrUpdate(cardToPersist);
-                    }
-                }
-
-                foreach (var card in cards.Values)
-                    _leisureCardRepository.Delete(card);
-            });
-        }*/
-
-        private DataImportJournalEntry ImportData(DataImportKey key, string fileKey, Action importAction )
+        private DataImportJournalEntry ImportData(DataImportJournalEntry journalEntry, Action importAction )
         {
             try
             {
-                var journalEntry = new DataImportJournalEntry
-                {
-                    ImportedDateTime = DateTime.Now,
-                    UploadKey = key.Key,
-                    FileKey = fileKey
-                };
-
                 importAction();
 
                 journalEntry.Success = true;
+                journalEntry.ImportedDateTime = DateTime.Now;
+               
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
                 return journalEntry;
             }
             catch (Exception ex)
             {
-                var journalEntry = new DataImportJournalEntry
-                {
-                    ImportedDateTime = DateTime.Now,
-                    Success = false,
-                    Message = ex.Message,
-                    StackTrace = ex.StackTrace,
-                    FileKey = fileKey,
-                    UploadKey = key.Key,
-                };
+                Log.Error("Error on file import", ex);
+
+                journalEntry.Success = false;
+                journalEntry.Message = ex.Message;
+                journalEntry.StackTrace = ex.StackTrace;
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
                 return journalEntry;
+            }
+        }
+
+        public void Import(DataImportJournalEntry journalEntry)
+        {
+            if (journalEntry.UploadKey == DataImportKey.RedLetter.Key)
+            {
+
+                ImportRedLetterOffers(
+                    File.OpenRead(DataImportKey.RedLetter.UploadPath + "\\" + journalEntry.FileName),
+                    journalEntry);
             }
         }
     }

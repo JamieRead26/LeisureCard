@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
-using GRG.LeisureCards.Persistence.NHibernate;
 using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
@@ -17,7 +15,6 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly ILeisureCardRepository _leisureCardRepository;
-        private readonly ICardGenerationLogRepository _cardGenerationLogRepository;
 
         public ReportsController(
             ILeisureCardUsageRepository leisureCardUsageRepository,
@@ -28,7 +25,6 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _leisureCardUsageRepository = leisureCardUsageRepository;
             _selectedOfferRepository = selectedOfferRepository;
             _leisureCardRepository = leisureCardRepository;
-            _cardGenerationLogRepository = cardGenerationLogRepository;
         }
 
         [HttpGet]
@@ -50,16 +46,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [Route("GetCardActivationHistory/{from}/{to}")]
-        public IEnumerable<LeisureCardInfo> GetCardActivationHistory(DateTime from, DateTime to)
+        public IEnumerable<Model.LeisureCard> GetCardActivationHistory(DateTime from, DateTime to)
         {
-            return _leisureCardRepository.GetRegistrationHistory(from, to).Select(c=>new LeisureCardInfo(c));
-        }
-
-        [HttpGet]
-        [Route("GetCardGenerationHistory/{from}/{to}")]
-        public IEnumerable<CardGenerationLog> GetCardGenerationHistory(DateTime from, DateTime to)
-        {
-            return _cardGenerationLogRepository.Get(from, to);
+            return _leisureCardRepository.GetRegistrationHistory(from, to).Select(Mapper.Map<Model.LeisureCard>);
         }
     }
 }

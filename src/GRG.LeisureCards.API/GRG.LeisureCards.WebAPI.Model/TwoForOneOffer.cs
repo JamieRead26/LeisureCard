@@ -15,6 +15,5 @@
         public bool DisabledAccess { get; set; }
         public string ClaimCode { get; set; }
         public string BookingInstructions { get; set; }
-        public string Email { get; set; }
     }
 }

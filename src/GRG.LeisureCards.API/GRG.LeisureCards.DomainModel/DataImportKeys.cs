@@ -2,14 +2,15 @@
 {
     public class DataImportKey
     {
-        public readonly static DataImportKey RedLetter = new DataImportKey("RedLetter");
-        public readonly static DataImportKey TwoForOne = new DataImportKey("241");
-        public readonly static DataImportKey LeisureCards = new DataImportKey("LeisureCards");
+        public readonly static DataImportKey RedLetter = new DataImportKey("RedLetter",  "~\\UploadFiles\\RedLetter");
+        public readonly static DataImportKey TwoForOne = new DataImportKey("241", "~\\UploadFiles\\241");
 
         public string Key { get; private set; }
+        public string UploadPath { get; private set; }
 
-        private DataImportKey(string key)
+        private DataImportKey(string key, string uploadPath)
         {
+            UploadPath = uploadPath;
             Key = key;
         }
     }

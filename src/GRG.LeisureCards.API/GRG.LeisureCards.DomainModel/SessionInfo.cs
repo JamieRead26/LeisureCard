@@ -6,7 +6,7 @@ namespace GRG.LeisureCards.DomainModel
     {
         public DateTime CardRenewalDate { get; set; }
         public string SessionToken { get; set; }
-
+        
         public bool IsAdmin { get; set; }
     }
 }

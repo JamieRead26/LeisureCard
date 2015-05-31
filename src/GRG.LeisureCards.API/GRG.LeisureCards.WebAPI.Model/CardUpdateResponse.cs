@@ -3,5 +3,6 @@
     public class CardUpdateResponse
     {
         public int CardsUpdated { get; set; }
+        public LeisureCard Prototype { get; set; }
     }
 }

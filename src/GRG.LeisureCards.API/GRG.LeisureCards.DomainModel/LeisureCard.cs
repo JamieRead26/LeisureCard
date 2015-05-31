@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace GRG.LeisureCards.DomainModel
 {
-    [Serializable]
-    [DataContract(IsReference = true)]
     public class LeisureCard
     {
         public LeisureCard()
@@ -16,43 +13,48 @@ namespace GRG.LeisureCards.DomainModel
 
         public virtual IList<LeisureCardUsage> LoginHistory { get; set; }
 
-        [DataMember]
         public virtual string Code { get; set; }
 
-        [DataMember]
         public virtual DateTime UploadedDate { get; set; }
 
-        [DataMember]
         public virtual DateTime? ExpiryDate { get; set; }
 
-        [DataMember]
         public virtual DateTime? RenewalDate { get; set; }
 
-        [DataMember]
         public virtual bool Suspended { get; set; }
 
-        [DataMember]
         public virtual DateTime? RegistrationDate { get; set; }
 
-        [DataMember]
-        public virtual string Status
+        public virtual LeisureCardStatus StatusEnum
         {
             get
             {
                 if (Suspended)
-                    return "Suspended";
+                    return LeisureCardStatus.Suspended;
 
-                if ((ExpiryDate.HasValue && ExpiryDate.Value <= DateTime.Now) ||
-                    (RenewalDate.HasValue && RenewalDate.Value <= DateTime.Now))
-                    return "Expired";
+                if ((ExpiryDate.HasValue && ExpiryDate.Value <= DateTime.Now))
+                    return LeisureCardStatus.Expired;
 
                 if (!RegistrationDate.HasValue)
-                    return "Inactive";
+                    return LeisureCardStatus.Inactive;
 
-                return "Active";
+                return LeisureCardStatus.Active;
             }
             set { }
         }
+
+        public virtual string Status
+        {
+            get
+            {
+                return Enum.GetName(typeof (LeisureCardStatus), StatusEnum);
+                ;}
+            set { }
+        }
+
+        public virtual string Reference { get; set; }
+
+        public virtual int RenewalPeriodMonths { get; set; }
 
         public virtual MembershipTier MembershipTier { get; set; }
 
@@ -72,10 +74,13 @@ namespace GRG.LeisureCards.DomainModel
             leisureCardUsage.LeisureCard = this;
             LoginHistory.Add(leisureCardUsage);
         }
+    }
 
-        [DataMember]
-        public virtual string Reference { get; set; }
-
-        public virtual int RenewalPeriodMonths { get; set; }
+    public enum LeisureCardStatus
+    {
+        Inactive,
+        Active,
+        Suspended,
+        Expired
     }
 }

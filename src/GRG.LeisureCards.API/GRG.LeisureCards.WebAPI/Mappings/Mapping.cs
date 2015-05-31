@@ -6,7 +6,15 @@ namespace GRG.LeisureCards.WebAPI.Mappings
     {
         public static void Register()
         {
+            Mapper.CreateMap<DomainModel.DataImportJournalEntry, Model.DataImportJournalEntry>();
+
+            Mapper.CreateMap<DomainModel.SessionInfo, Model.SessionInfo>();
+
             Mapper.CreateMap<DomainModel.TwoForOneOffer, Model.TwoForOneOffer>();
+
+            Mapper.CreateMap<Service.LeisureCardRegistrationResponse, Model.LeisureCardRegistrationResponse>();
+
+            Mapper.CreateMap<DomainModel.LeisureCard, Model.LeisureCard>();
 
             Mapper.CreateMap<DomainModel.LeisureCardUsage, Model.LeisureCardUsage>()
                 .ForMember(dest => dest.LeisureCardCode, opt => opt.MapFrom(src => src.LeisureCard.Code));
@@ -17,8 +25,6 @@ namespace GRG.LeisureCards.WebAPI.Mappings
             Mapper.CreateMap<DomainModel.RedLetterProduct, Model.RedLetterProductSummary>();
 
             Mapper.CreateMap<DomainModel.CardGenerationLog, Model.CardGenerationLog>();
-
-            
 
         }
     }

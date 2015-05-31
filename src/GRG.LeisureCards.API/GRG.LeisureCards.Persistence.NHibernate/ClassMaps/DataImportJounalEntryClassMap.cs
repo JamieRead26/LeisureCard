@@ -13,8 +13,10 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.UploadKey);
             Map(x => x.Message);
             Map(x => x.StackTrace).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
-            Map(x => x.FileKey);
+            Map(x => x.FileName);
             Map(x => x.Success);
+            Map(x => x.FileAcquiredDateTime);
+            Map(x => x.ExecutedDateTime);
         }
     }
 }

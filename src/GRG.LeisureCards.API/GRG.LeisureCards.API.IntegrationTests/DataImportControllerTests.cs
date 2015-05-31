@@ -98,7 +98,9 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
                 var reponse = client.Execute(request);
 
-                Assert.AreEqual(response.Data.Id, JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(reponse.Content).FirstOrDefault().Id);
+                var list = JsonConvert.DeserializeObject<List<DataImportJournalEntry>>(reponse.Content);
+
+                Assert.AreEqual(response.Data.Id, list.FirstOrDefault().Id);
 
                 request = new RestRequest("DataImport/GetLastGoodTwoForOneImportJournal", Method.GET);
                 request.AddHeader("accepts", "application/json");

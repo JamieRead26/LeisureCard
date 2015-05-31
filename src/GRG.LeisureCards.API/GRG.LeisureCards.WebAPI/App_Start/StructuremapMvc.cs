@@ -17,6 +17,8 @@
 
 using System.Configuration;
 using System.Web.Mvc;
+using GRG.LeisureCards.DomainModel;
+using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.App_Start;
 
@@ -54,12 +56,19 @@ namespace GRG.LeisureCards.WebAPI.App_Start {
 
             var dataImportService = container.GetInstance<IDataImportService>();
             var fileImportManager = container.GetInstance<IFileImportManager>();
+            var dataImportJournalEntryRepository = container.GetInstance<IDataImportJournalEntryRepository>();
 
             DailyTaskScheduler.Instance.ScheduleTask(() =>
-                fileImportManager.ImportDataFile(
-                    (bytes, key) => dataImportService.ImportRedLetterOffers(bytes, key),
-                    fileImportManager.RedLetterFilePath, fileImportManager.GetRedLetterData()),
-                int.Parse(ConfigurationManager.AppSettings["RedLetterAutoDownloadDayMinutes"]));
+            {
+                var journalEntry = fileImportManager.StoreDataFile(DataImportKey.RedLetter,
+                    DataImportKey.RedLetter.UploadPath, fileImportManager.GetRedLetterData());
+
+                dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+                if (journalEntry.Success)
+                    dataImportService.Import(journalEntry);
+            },
+            int.Parse(ConfigurationManager.AppSettings["RedLetterAutoDownloadDayMinutes"]));
         }
 
         #endregion

@@ -9,16 +9,18 @@ namespace GRG.LeisureCards.API.IntegrationTests
     public static class Config
     {
         public const string BaseAddress = "http://localhost:1623";// "http://LeisureCard";// "http://52.17.232.144:1623/";//  // "http://52.17.166.61/LeisureCardAPI"; 
+        public const string AdminCode = "Admin";
+        public const string UserCode = "Registered1";
 
         private static string SessionToken = null;
         private static string AdminSessionToken = null;
 
         public static string GetSessionToken()
         {
-            if (SessionToken!=null)
+            if (SessionToken != null)
                 return SessionToken;
 
-            return (SessionToken=GetSessionToken("Registered1"));
+            return (SessionToken = GetSessionToken("Registered1"));
         }
 
         public static string GetSessionToken(string code)

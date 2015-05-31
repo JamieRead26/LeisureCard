@@ -85,7 +85,6 @@
     <Compile Include="RedLetterControllerTests.cs" />
     <Compile Include="ReportsControllerTests.cs" />
     <Compile Include="ShortBreakControllerTests.cs" />
-    <Compile Include="TestControllerTests.cs" />
     <Compile Include="TwoForControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +107,14 @@
     <ProjectReference Include="..\GRG.LeisureCards.TestResources\GRG.LeisureCards.TestResources.csproj">
       <Project>{04306782-9793-4aec-82a1-3299fa426e0f}</Project>
       <Name>GRG.LeisureCards.TestResources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GRG.leisureCards.WebAPI.ClientContract\GRG.leisureCards.WebAPI.ClientContract.csproj">
+      <Project>{1bc74f7c-cfa9-4258-bd80-e676cacf8db5}</Project>
+      <Name>GRG.leisureCards.WebAPI.ClientContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GRG.LeisureCards.WebAPI.Client\GRG.LeisureCards.WebAPI.Client.csproj">
+      <Project>{79311c7c-a059-472c-b271-0fdd80d210d9}</Project>
+      <Name>GRG.LeisureCards.WebAPI.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.WebAPI.Model\GRG.LeisureCards.WebAPI.Model.csproj">
       <Project>{19f9b535-a681-4ee3-b954-347011c3fdec}</Project>

@@ -28,17 +28,20 @@ namespace GRG.LeisureCards.Service
         private readonly ILeisureCardRepository _leisureCardRepository;
         private readonly ICardGenerationLogRepository _cardGenerationLogRepository;
         private readonly IAdminCodeProvider _adminCodeProvider;
+        private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
 
         public LeisureCardService(
             ICardRenewalLogic cardRenewalLogic, 
             ILeisureCardRepository leisureCardRepository,
             ICardGenerationLogRepository cardGenerationLogRepository,
-            IAdminCodeProvider adminCodeProvider)
+            IAdminCodeProvider adminCodeProvider,
+            ILeisureCardUsageRepository leisureCardUsageRepository)
         {
             _cardRenewalLogic = cardRenewalLogic;
             _leisureCardRepository = leisureCardRepository;
             _cardGenerationLogRepository = cardGenerationLogRepository;
             _adminCodeProvider = adminCodeProvider;
+            _leisureCardUsageRepository = leisureCardUsageRepository;
         }
 
         public LeisureCardRegistrationResponse Login(string cardCode)
@@ -53,16 +56,27 @@ namespace GRG.LeisureCards.Service
             if (leisureCard == null)
                 return new LeisureCardRegistrationResponse {Status = RegistrationResult.CodeNotFound.ToString()};
 
-            if (leisureCard.Suspended)
-                return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardSuspended.ToString() };
+            switch (leisureCard.StatusEnum)
+            {
+                case LeisureCardStatus.Suspended:
+                    return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardSuspended.ToString() };
 
-            if (leisureCard.RenewalDate != null && leisureCard.RenewalDate < DateTime.Now)
-                return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardExpired.ToString() };
+                case LeisureCardStatus.Expired:
+                    return new LeisureCardRegistrationResponse { Status = RegistrationResult.CardExpired.ToString() };
 
-            leisureCard.RegistrationDate = DateTime.Now;
-             _cardRenewalLogic.SetRenewalDate(leisureCard);
+                case LeisureCardStatus.Inactive:
+                     leisureCard.RegistrationDate = DateTime.Now;
+                     _cardRenewalLogic.SetRenewalDate(leisureCard);
+                     _leisureCardRepository.SaveOrUpdate(leisureCard);
+                    break;
+            }
 
-            _leisureCardRepository.SaveOrUpdate(leisureCard);
+            _leisureCardUsageRepository.SaveOrUpdate(
+                new LeisureCardUsage
+                {
+                    LeisureCard = leisureCard,
+                    LoginDateTime = DateTime.Now
+                });
 
             return new LeisureCardRegistrationResponse
             {
@@ -84,7 +98,7 @@ namespace GRG.LeisureCards.Service
                 string newCode;
                 do
                 {
-                    newCode = Guid.NewGuid().ToString().Substring(0, 20);
+                    newCode = Guid.NewGuid().ToString().Substring(0, 20).ToUpper();
                 } 
                 while (allCardCodes.Contains(newCode));
 

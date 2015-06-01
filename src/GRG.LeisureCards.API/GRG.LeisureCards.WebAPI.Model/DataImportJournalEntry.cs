@@ -6,7 +6,7 @@ namespace GRG.LeisureCards.WebAPI.Model
     {
         public int Id { get; set; }
 
-        public DateTime ImportedDateTime { get; set; }
+        public DateTime LastRun { get; set; }
 
         //E.G. RedLetter, 2-4-1 offers
         public string UploadKey { get; set; }
@@ -15,8 +15,8 @@ namespace GRG.LeisureCards.WebAPI.Model
 
         public string Message { get; set; }
 
-        public string StackTrace { get; set; }
+        public string FileName { get; set; }
 
-        public string FileKey { get; set; }
+        public string Status { get; set; }
     }
 }

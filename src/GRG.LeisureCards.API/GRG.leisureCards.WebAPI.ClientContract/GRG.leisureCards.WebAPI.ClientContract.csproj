@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4F14B810-CA75-408D-B21E-D6F693D2047A}</ProjectGuid>
+    <ProjectGuid>{1BC74F7C-CFA9-4258-BD80-E676CACF8DB5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GRG.leisureCards.WebAPI.ClientContract</RootNamespace>
-    <AssemblyName>GRG.leisureCards.WebAPI.ClientContract</AssemblyName>
+    <RootNamespace>GRG.LeisureCards.WebAPI.ClientContract</RootNamespace>
+    <AssemblyName>GRG.LeisureCards.WebAPI.ClientContract</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

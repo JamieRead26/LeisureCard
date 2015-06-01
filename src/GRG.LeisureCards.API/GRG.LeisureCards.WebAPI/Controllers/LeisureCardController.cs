@@ -64,7 +64,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [SessionAuthFilter(true)]
         [Route("LeisureCard/Update/{cardNumberOrRef}/{renewalDate}/{suspended}")]
         [UnitOfWork]
-        public CardUpdateResponse Update(string cardNumberOrRef, DateTime? renewalDate, bool suspended)
+        public Model.CardUpdateResponse Update(string cardNumberOrRef, DateTime? renewalDate, bool suspended)
         {
             var crd = _leisureCardRepository.Get(cardNumberOrRef);
             var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
@@ -120,7 +120,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [HttpGet]
         [SessionAuthFilter(true)]
         [Route("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}")]
-        public CardGenerationResponse GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
+        public Model.CardGenerationResponse GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
         {
             try
             {

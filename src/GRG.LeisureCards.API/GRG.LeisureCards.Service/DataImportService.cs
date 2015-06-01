@@ -12,7 +12,7 @@ namespace GRG.LeisureCards.Service
 {
     public interface IDataImportService
     {
-        void Import(DataImportJournalEntry journalEntry);
+        void Import(DataImportJournalEntry journalEntry, Func<string,string> mapPath );
     }
 
     public class DataImportService : IDataImportService
@@ -43,6 +43,7 @@ namespace GRG.LeisureCards.Service
             return ImportData(journalEntry, () =>
             {
                 var allProducts = _redLetterProductRepository.GetAll().ToDictionary(p => p.Id, p => p);
+                
                 var keywords = _redLetterProductRepository.GetAllKeywords().ToDictionary(k => k.Keyword, k => k);
 
                 using (var txtReader = new StreamReader(fileStream))
@@ -54,7 +55,7 @@ namespace GRG.LeisureCards.Service
                     foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("RedLetterProduct"))
                     {
                         var id = int.Parse(productNode.SelectSingleNode("Key").InnerText);
-                        var product = allProducts[id] ?? new RedLetterProduct {Id = id};
+                        var product = allProducts.ContainsKey(id) ? allProducts[id] : new RedLetterProduct {Id = id};
 
                         product.Title = productNode.SelectSingleNode("Title").InnerText;
                         product.InspirationalDescription = productNode.SelectSingleNode("InspirationalDescription").InnerText;
@@ -207,7 +208,7 @@ namespace GRG.LeisureCards.Service
                 importAction();
 
                 journalEntry.Success = true;
-                journalEntry.ImportedDateTime = DateTime.Now;
+                journalEntry.LastRun = DateTime.Now;
                
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
@@ -219,7 +220,6 @@ namespace GRG.LeisureCards.Service
 
                 journalEntry.Success = false;
                 journalEntry.Message = ex.Message;
-                journalEntry.StackTrace = ex.StackTrace;
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
@@ -227,13 +227,13 @@ namespace GRG.LeisureCards.Service
             }
         }
 
-        public void Import(DataImportJournalEntry journalEntry)
+        [UnitOfWork]
+        public void Import(DataImportJournalEntry journalEntry, Func<string, string> mapPath)
         {
             if (journalEntry.UploadKey == DataImportKey.RedLetter.Key)
             {
-
                 ImportRedLetterOffers(
-                    File.OpenRead(DataImportKey.RedLetter.UploadPath + "\\" + journalEntry.FileName),
+                    File.OpenRead(mapPath( DataImportKey.RedLetter.UploadPath) + "\\" + journalEntry.FileName),
                     journalEntry);
             }
         }

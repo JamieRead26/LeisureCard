@@ -108,9 +108,9 @@
       <Project>{04306782-9793-4aec-82a1-3299fa426e0f}</Project>
       <Name>GRG.LeisureCards.TestResources</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GRG.leisureCards.WebAPI.ClientContract\GRG.leisureCards.WebAPI.ClientContract.csproj">
-      <Project>{1bc74f7c-cfa9-4258-bd80-e676cacf8db5}</Project>
-      <Name>GRG.leisureCards.WebAPI.ClientContract</Name>
+    <ProjectReference Include="..\GRG.leisureCards.WebAPI.ClientContract\GRG.LeisureCards.WebAPI.ClientContract.csproj">
+      <Project>{4F14B810-CA75-408D-B21E-D6F693D2047A}</Project>
+      <Name>GRG.LeisureCards.WebAPI.ClientContract</Name>
     </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.WebAPI.Client\GRG.LeisureCards.WebAPI.Client.csproj">
       <Project>{79311c7c-a059-472c-b271-0fdd80d210d9}</Project>

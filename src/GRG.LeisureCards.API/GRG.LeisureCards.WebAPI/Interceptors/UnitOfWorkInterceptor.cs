@@ -70,7 +70,9 @@ namespace GRG.LeisureCards.WebAPI.Interceptors
 
         private static bool RequiresDbConnection(MethodInfo methodInfo)
         {
-            return (HasUnitOfWorkAttribute(methodInfo) || IsRepositoryMethod(methodInfo));
+            var value = (HasUnitOfWorkAttribute(methodInfo) || IsRepositoryMethod(methodInfo));
+
+            return value;
         }
 
         public static bool IsRepositoryMethod(MethodInfo methodInfo)

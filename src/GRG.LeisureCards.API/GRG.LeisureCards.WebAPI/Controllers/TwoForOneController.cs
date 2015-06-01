@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
@@ -47,7 +46,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("TwoForOne/Get/{Id}")]
         public ApiModel.TwoForOneOffer Get(int id)
         {
-            return Mapper.Map<ApiModel.TwoForOneOffer>(_twoForOneRepository.Get(id));
+            return Mapper.Map<TwoForOneOffer>(_twoForOneRepository.Get(id));
         }
 
         [HttpGet]

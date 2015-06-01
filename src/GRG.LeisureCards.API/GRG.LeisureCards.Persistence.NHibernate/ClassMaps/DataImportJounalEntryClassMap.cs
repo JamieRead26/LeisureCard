@@ -9,14 +9,11 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
         public DataImportJounalEntryClassMap()
         {
             Id(x => x.Id);
-            Map(x => x.ImportedDateTime);
+            Map(x => x.LastRun);
             Map(x => x.UploadKey);
             Map(x => x.Message);
-            Map(x => x.StackTrace).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
             Map(x => x.FileName);
             Map(x => x.Success);
-            Map(x => x.FileAcquiredDateTime);
-            Map(x => x.ExecutedDateTime);
         }
     }
 }

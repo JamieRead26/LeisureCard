@@ -1,5 +1,5 @@
 ﻿using System;
-using GRG.leisureCards.WebAPI.ClientContract;
+using GRG.LeisureCards.WebAPI.ClientContract;
 using NUnit.Framework;
 
 namespace GRG.LeisureCards.API.IntegrationTests

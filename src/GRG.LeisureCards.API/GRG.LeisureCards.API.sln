@@ -42,7 +42,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.GenerateDB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{C3C33222-B349-4FD8-818B-5A10A7F47305}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.leisureCards.WebAPI.ClientContract", "GRG.leisureCards.WebAPI.ClientContract\GRG.leisureCards.WebAPI.ClientContract.csproj", "{4F14B810-CA75-408D-B21E-D6F693D2047A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.WebAPI.ClientContract", "GRG.leisureCards.WebAPI.ClientContract\GRG.LeisureCards.WebAPI.ClientContract.csproj", "{4F14B810-CA75-408D-B21E-D6F693D2047A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.WebAPI.Client", "GRG.LeisureCards.WebAPI.Client\GRG.LeisureCards.WebAPI.Client.csproj", "{79311C7C-A059-472C-B271-0FDD80D210D9}"
 EndProject

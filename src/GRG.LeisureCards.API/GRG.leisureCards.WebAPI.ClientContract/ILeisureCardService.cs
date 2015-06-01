@@ -1,7 +1,7 @@
 ﻿using System;
 using GRG.LeisureCards.WebAPI.Model;
 
-namespace GRG.leisureCards.WebAPI.ClientContract
+namespace GRG.LeisureCards.WebAPI.ClientContract
 {
     public interface ILeisureCardService
     {

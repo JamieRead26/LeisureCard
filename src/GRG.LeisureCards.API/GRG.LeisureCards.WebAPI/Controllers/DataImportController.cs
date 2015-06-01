@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
@@ -31,100 +30,84 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             _fileImportManager = fileImportManager;
         }
 
-        [HttpPost]
-        [Route("DataImport/RedLetter/")]
-        public void ImportRedLetterData()
+        [HttpGet]
+        [Route("DataImport/RetrieveRedLetter/")]
+        public Model.DataImportJournalEntry RetrieveRedLetter()
         {
-            ThreadPool.QueueUserWorkItem(state=>
-                _dataImportJournalEntryRepository.SaveOrUpdate(
-                    _fileImportManager.StoreDataFile(DataImportKey.RedLetter, DataImportKey.RedLetter.UploadPath, _fileImportManager.GetRedLetterData())));
+            return AcquireRedLetter(()=> _fileImportManager.GetRedLetterData());
         }
 
         [HttpPost]
+        [Route("DataImport/UploadRedLetter/")]
+        public Model.DataImportJournalEntry UploadRedLetter()
+        {
+            return AcquireRedLetter(()=> HttpContext.Current.Request.Files[0].InputStream);
+        }
+
+        public Model.DataImportJournalEntry AcquireRedLetter(Func<Stream> getStream)
+        {
+            var journalEntry = _fileImportManager.StoreDataFile(DataImportKey.RedLetter, getStream);
+
+            _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+            return Mapper.Map<Model.DataImportJournalEntry>(journalEntry);
+        }
+
+        [HttpGet]
         [Route("DataImport/ProcessRedLetter/")]
         public Model.DataImportJournalEntry ProcessRedLetterData()
         {
-            var latest = _dataImportJournalEntryRepository.GetLast(true, DataImportKey.RedLetter);
+            var latest = _dataImportJournalEntryRepository.GetLast(DataImportKey.RedLetter);
 
-            _dataImportService.Import(latest);
-
-            return Mapper.Map<Model.DataImportJournalEntry>(latest);
-        }
-  
-        [HttpPost]
-        [Route("DataImport/TwoForOne/")]
-        public Model.DataImportJournalEntry ImportTwoForOneData()
-        {
-            var httpRequest = HttpContext.Current.Request;
-
-            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.SaveOrUpdate(
-                _fileImportManager.StoreDataFile(DataImportKey.TwoForOne,
-                DataImportKey.TwoForOne.UploadPath, httpRequest.Files[0].InputStream)));
-        }
-
-
-        [HttpPost]
-        [Route("DataImport/ProcessTwoForOne/")]
-        public Model.DataImportJournalEntry ProcessTwoForOne()
-        {
-            var latest = _dataImportJournalEntryRepository.GetLast(true, DataImportKey.TwoForOne);
-
-            _dataImportService.Import(latest);
+            _dataImportService.Import(latest, path=>HttpContext.Current.Server.MapPath(path));
 
             return Mapper.Map<Model.DataImportJournalEntry>(latest);
         }
-
+        
         [HttpGet]
-        [Route("DataImport/GetLastGoodRedLetterImportJournal")]
-        public Model.DataImportJournalEntry GetLastGoodRedLetterImportJournal()
+        [Route("DataImport/GetRedLetterImportJournal")]
+        public Model.DataImportJournalEntry GetRedLetterImportJournal()
         {
-            return GetLastImportJournal(true, DataImportKey.RedLetter);
-        }
-        private Model.DataImportJournalEntry GetLastImportJournal(bool good, DataImportKey importKey)
-        {
-            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.GetLast(good, importKey));
+            return GetLastImportJournal(DataImportKey.RedLetter);
         }
 
-        [HttpGet]
-        [Route("DataImport/GetLastBadRedLetterImportJournal")]
-        public Model.DataImportJournalEntry GetLastBadRedLetterImportJournal()
+        [HttpPost]
+        [Route("DataImport/Upload241/")]
+        public Model.DataImportJournalEntry Upload241()
         {
-            return GetLastImportJournal(false,DataImportKey.RedLetter);
+            return Acquire241(() => HttpContext.Current.Request.Files[0].InputStream);
         }
 
-        [HttpGet]
-        [Route("DataImport/GetLastGoodTwoForOneImportJournal")]
-        public Model.DataImportJournalEntry GetLastGoodTwoForOneImportJournal()
+        public Model.DataImportJournalEntry Acquire241(Func<Stream> getStream)
         {
-            return GetLastImportJournal(true,DataImportKey.TwoForOne);
+            var journalEntry = _fileImportManager.StoreDataFile(DataImportKey.TwoForOne, getStream);
+
+            _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+            return Mapper.Map<Model.DataImportJournalEntry>(journalEntry);
         }
 
         [HttpGet]
-        [Route("DataImport/GetLastBadTwoForOneImportJournal")]
-        public Model.DataImportJournalEntry GetLastBadTwoForOneImportJournal()
+        [Route("DataImport/Process241/")]
+        public Model.DataImportJournalEntry Process241Data()
         {
-            return GetLastImportJournal(false,DataImportKey.TwoForOne);
+            var latest = _dataImportJournalEntryRepository.GetLast(DataImportKey.TwoForOne);
+
+            _dataImportService.Import(latest, path => HttpContext.Current.Server.MapPath(path));
+
+            return Mapper.Map<Model.DataImportJournalEntry>(latest);
         }
 
         [HttpGet]
-        [Route("DataImport/GetRedLetterImportJournal/{count}/{toId}")]
-        public IEnumerable<Model.DataImportJournalEntry> GetRedLetterImportJournal(int count, int toId)
+        [Route("DataImport/Get241ImportJournal")]
+        public Model.DataImportJournalEntry Get241ImportJournal()
         {
-            return GetImportJournal(DataImportKey.RedLetter, count, toId);
+            return GetLastImportJournal(DataImportKey.TwoForOne);
         }
 
-        [HttpGet]
-        [Route("DataImport/GetTwoForOneImportJournal/{count}/{toId}")]
-        public IEnumerable<Model.DataImportJournalEntry> GetTwoForOneImportJournal(int count, int toId)
+        private Model.DataImportJournalEntry GetLastImportJournal(DataImportKey importKey)
         {
-            var results = GetImportJournal(DataImportKey.TwoForOne, count, toId);
-
-            return results;
-        }
-
-        private IEnumerable<Model.DataImportJournalEntry> GetImportJournal(DataImportKey importKey, int count, int toId)
-        {
-            return _dataImportJournalEntryRepository.Get(importKey, count, toId).Select(Mapper.Map<Model.DataImportJournalEntry>);
+            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.GetLast(importKey));
         }
     }
 }

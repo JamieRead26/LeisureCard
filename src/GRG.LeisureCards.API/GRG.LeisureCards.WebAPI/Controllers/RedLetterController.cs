@@ -42,11 +42,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         
         [HttpGet]
         [Route("Get/{id}")]
-        public RedLetterProduct Get(int id)
+        public RedLetterProductSummary Get(int id)
         {
-            var result =  _redLetterProductRepository.Get(id);
-
-            return result;
+            return Mapper.Map<RedLetterProductSummary>(_redLetterProductRepository.Get(id));
         }
 
         [HttpGet]

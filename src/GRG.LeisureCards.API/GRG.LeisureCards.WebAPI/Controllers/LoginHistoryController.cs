@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using AutoMapper;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.WebAPI.Filters;
@@ -25,16 +27,16 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("LoginHistory/Get/{count}/{toId}")]
-        public IEnumerable<LeisureCardUsage> Get(int count, int toId)
+        public IEnumerable<Model.LeisureCardUsage> Get(int count, int toId)
         {
-            return _leisureCardUsageRepository.Get(count, toId);
+            return _leisureCardUsageRepository.Get(count, toId).Select(Mapper.Map<Model.LeisureCardUsage>);
         }
 
         [HttpGet]
         [Route("LoginHistory/GetForCard/{cardId}/{count}/{toId}")]
-        public IEnumerable<LeisureCardUsage> GetForCard(string cardId, int count, int toId)
+        public IEnumerable<Model.LeisureCardUsage> GetForCard(string cardId, int count, int toId)
         {
-            return _leisureCardUsageRepository.Get(cardId, count, toId);
+            return _leisureCardUsageRepository.Get(cardId, count, toId).Select(Mapper.Map<Model.LeisureCardUsage>);
         }
     }
 }

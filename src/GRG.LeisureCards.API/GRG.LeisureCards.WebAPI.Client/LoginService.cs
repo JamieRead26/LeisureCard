@@ -1,4 +1,4 @@
-﻿using GRG.leisureCards.WebAPI.ClientContract;
+﻿using GRG.LeisureCards.WebAPI.ClientContract;
 using GRG.LeisureCards.WebAPI.Model;
 using RestSharp;
 

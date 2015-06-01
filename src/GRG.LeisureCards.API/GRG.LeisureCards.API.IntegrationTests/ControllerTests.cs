@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using GRG.leisureCards.WebAPI.ClientContract;
+using GRG.LeisureCards.WebAPI.ClientContract;
 using GRG.LeisureCards.Data;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using GRG.LeisureCards.WebAPI.Client;

@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.Configuration;
+using System.Web;
 using System.Web.Mvc;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
@@ -24,7 +25,7 @@ using GRG.LeisureCards.WebAPI.App_Start;
 
 using WebActivatorEx;
 
-[assembly: PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(StructuremapMvc), "End")]
 
 namespace GRG.LeisureCards.WebAPI.App_Start {
@@ -60,13 +61,12 @@ namespace GRG.LeisureCards.WebAPI.App_Start {
 
             DailyTaskScheduler.Instance.ScheduleTask(() =>
             {
-                var journalEntry = fileImportManager.StoreDataFile(DataImportKey.RedLetter,
-                    DataImportKey.RedLetter.UploadPath, fileImportManager.GetRedLetterData());
+                var journalEntry = fileImportManager.StoreDataFile(DataImportKey.RedLetter,()=>fileImportManager.GetRedLetterData());
 
                 dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
                 if (journalEntry.Success)
-                    dataImportService.Import(journalEntry);
+                    dataImportService.Import(journalEntry, path => HttpContext.Current.Server.MapPath(path));
             },
             int.Parse(ConfigurationManager.AppSettings["RedLetterAutoDownloadDayMinutes"]));
         }

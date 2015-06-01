@@ -1,4 +1,4 @@
-﻿using GRG.leisureCards.WebAPI.ClientContract;
+﻿using GRG.LeisureCards.WebAPI.ClientContract;
 using GRG.LeisureCards.WebAPI.Model;
 
 namespace GRG.LeisureCards.WebAPI.Client
@@ -24,6 +24,11 @@ namespace GRG.LeisureCards.WebAPI.Client
         public ILeisureCardService GetLeisureCardService()
         {
             return new LeisureCardService(_baseurl, _sessionInfo.SessionToken);
+        }
+
+        public IDataImportService GetDataImportService()
+        {
+            return new DataImportService(_baseurl, _sessionInfo.SessionToken);
         }
     }
 }

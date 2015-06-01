@@ -11,7 +11,7 @@ namespace GRG.LeisureCards.WebAPI
     {
         Stream GetRedLetterData();
 
-        DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, string filePath, Stream file);
+        DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, Func<Stream> getStream);
     }
 
     public class FileImportManager : IFileImportManager
@@ -28,22 +28,21 @@ namespace GRG.LeisureCards.WebAPI
             _redLetterPwd = redLetterPwd;
         }
 
-        public DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, string uploadFolder, Stream file)
+        public DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, Func<Stream> getStream)
         {
+            string uploadFolder = string.Empty;
             try
             {
-                uploadFolder = System.Web.Hosting.HostingEnvironment.MapPath(uploadFolder);
+                uploadFolder = System.Web.Hosting.HostingEnvironment.MapPath(dataImportKey.UploadPath);
                 var uploadFileName = dataImportKey.Key + "_" + DateTime.Now.ToString("O") + ".csv";
                 uploadFileName = uploadFileName.Replace(":", "_").Replace("+", "_").Replace("-", "_");
 
-                var memStream = new MemoryStream();
-                file.CopyTo(memStream);
-
-                using (var fileStream = File.Open(uploadFolder + "\\" + uploadFileName , FileMode.CreateNew))
+                using (var stream = getStream())
+                using (var fileStream = File.Open(uploadFolder + "\\" + uploadFileName, FileMode.CreateNew))
                 {
-                    memStream.CopyTo(fileStream);
+                    stream.CopyTo(fileStream);
                 }
-               
+                
                 //Best effort clean up, if fails must not disrupt flow
                 ThreadPool.QueueUserWorkItem(state =>
                 {
@@ -68,8 +67,7 @@ namespace GRG.LeisureCards.WebAPI
                 return new DataImportJournalEntry
                 {
                     Success = true,
-                    ExecutedDateTime = now,
-                    FileAcquiredDateTime = now,
+                    LastRun = now,
                     UploadKey = dataImportKey.Key,
                     FileName = uploadFileName
                 };
@@ -82,9 +80,8 @@ namespace GRG.LeisureCards.WebAPI
                 {
                     Success = false,
                     UploadKey = dataImportKey.Key,
-                    ExecutedDateTime = DateTime.Now,
+                    LastRun = DateTime.Now,
                     Message = ex.Message,
-                    StackTrace = ex.StackTrace
                 };
             }
         }

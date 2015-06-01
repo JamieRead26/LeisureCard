@@ -21,16 +21,18 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly IOfferCategoryRepository _offerCategoryRepository;
-        private readonly UserSessionService _userSessionService;
+        private readonly IUserSessionService _userSessionService;
 
-        public RedLetterController(IRedLetterProductRepository redLetterProductRepository,
+        public RedLetterController(
+            IRedLetterProductRepository redLetterProductRepository,
             ISelectedOfferRepository selectedOfferRepository,
-            IOfferCategoryRepository offerCategoryRepository)
+            IOfferCategoryRepository offerCategoryRepository,
+            IUserSessionService userSessionService)
         {
             _redLetterProductRepository = redLetterProductRepository;
             _selectedOfferRepository = selectedOfferRepository;
             _offerCategoryRepository = offerCategoryRepository;
-            _userSessionService = UserSessionService.Instance;
+            _userSessionService = userSessionService;
         }
 
         [HttpGet]

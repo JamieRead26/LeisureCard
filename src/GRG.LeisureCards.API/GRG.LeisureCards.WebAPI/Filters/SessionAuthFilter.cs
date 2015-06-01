@@ -7,6 +7,7 @@ using System.Web.Http.Filters;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
+using GRG.LeisureCards.WebAPI.DependencyResolution;
 
 namespace GRG.LeisureCards.WebAPI.Filters
 {
@@ -18,7 +19,7 @@ namespace GRG.LeisureCards.WebAPI.Filters
         public SessionAuthFilter(bool admin = false)
         {
             _admin = admin;
-            _userSessionService = UserSessionService.Instance;
+            _userSessionService = IoC.Container.GetInstance<IUserSessionService>();
         }
 
         public bool AllowMultiple { get; private set; }

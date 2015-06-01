@@ -123,6 +123,19 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
             For<IGoogleLocationService>()
                 .Use(() => new GoogleLocationService(true, ConfigurationManager.AppSettings["GoogleApiKey"]))
                 .SetLifecycleTo<SingletonLifecycle>();
+
+            if (bool.Parse(ConfigurationManager.AppSettings["StatelessMode"]))
+            {
+                For<IUserSessionService>()
+                    .Use(new DbUserSessionService(int.Parse(ConfigurationManager.AppSettings["SessionDurationMinutes"])))
+                    .SetLifecycleTo<SingletonLifecycle>();
+            }
+            else
+            {
+                 For<IUserSessionService>()
+                    .Use(new InMemoryUserSessionService(int.Parse(ConfigurationManager.AppSettings["SessionDurationMinutes"])))
+                    .SetLifecycleTo<SingletonLifecycle>();
+            }
         }
 
         public void ConfigureBusinessLogic()

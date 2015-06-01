@@ -38,8 +38,9 @@ namespace GRG.LeisureCards.API.IntegrationTests
         {
             var service = AdminSession.GetDataImportService();
             var journalEntry = op(service);
+            var journalEntry2 = getJournal(service);
             Assert.IsTrue(journalEntry.Success);
-            Assert.AreEqual(journalEntry.Id, getJournal(service).Id);
+            Assert.AreEqual(journalEntry.Id, journalEntry2.Id);
         }
     }
 }

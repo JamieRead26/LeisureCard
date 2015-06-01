@@ -30,5 +30,25 @@ namespace GRG.LeisureCards.WebAPI.Client
         {
             return new DataImportService(_baseurl, _sessionInfo.SessionToken);
         }
+
+        public IRedLetterService GetRedLetterService()
+        {
+            return new RedLetterService(_baseurl, _sessionInfo.SessionToken);
+        }
+
+        public ITwoForOneService GetTwoforOneService()
+        {
+            return new TwoForOneService(_baseurl, _sessionInfo.SessionToken);
+        }
+
+        public IShortBreakService GetShortBreakService()
+        {
+            return new ShortBreakService(_baseurl, _sessionInfo.SessionToken);
+        }
+
+        public IReportService GetReportsService()
+        {
+            return new ReportService(_baseurl, _sessionInfo.SessionToken);
+        }
     }
 }

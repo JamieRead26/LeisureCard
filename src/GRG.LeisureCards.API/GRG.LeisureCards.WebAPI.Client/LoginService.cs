@@ -15,13 +15,11 @@ namespace GRG.LeisureCards.WebAPI.Client
 
         public LeisureCardRegistrationResponse Login(string code, out ISession session)
         {
-            var client = new RestClient(_baseurl);
-
             var request = new RestRequest("LeisureCard/Login/{code}", Method.GET);
             request.AddParameter("code", code);
             request.AddHeader("accepts", "application/json");
 
-            var response = client.Execute<LeisureCardRegistrationResponse>(request);
+            var response = new RestClient(_baseurl).Execute<LeisureCardRegistrationResponse>(request);
 
             session = response.Data.Status.ToUpper() == "OK" ? new Session(_baseurl, response.Data.LeisureCard, response.Data.SessionInfo) : null;
 

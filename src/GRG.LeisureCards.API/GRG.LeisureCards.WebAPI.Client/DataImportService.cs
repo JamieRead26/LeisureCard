@@ -12,13 +12,7 @@ namespace GRG.LeisureCards.WebAPI.Client
 
         public DataImportJournalEntry RetrieveRedLetterData()
         {
-            var client = new RestClient(BaseUrl);
-
-            var request = new RestRequest("DataImport/RetrieveRedLetter/", Method.GET);
-            request.AddHeader("accepts", "application/json");
-            request.AddHeader("SessionToken", SessionToken);
-
-            return client.Execute<DataImportJournalEntry>(request).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/RetrieveRedLetter/", Method.GET)).Data;
         }
 
         public DataImportJournalEntry UploadRedLetterData(Stream stream)
@@ -28,37 +22,21 @@ namespace GRG.LeisureCards.WebAPI.Client
                 stream.CopyTo(memStream);
                 var fileBytes = memStream.ToArray();
 
-                var client = new RestClient(BaseUrl);
-
-                var request = new RestRequest("DataImport/UploadRedLetter/", Method.POST);
+                var request = GetRestRequest("DataImport/UploadRedLetter/", Method.POST);
                 request.AddFile("rldata.csv", fileBytes, "rldata.csv");
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", SessionToken);
 
-                return client.Execute<DataImportJournalEntry>(request).Data;
+                return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(request).Data;
             }
         }
 
         public DataImportJournalEntry ProcessRedLetterData()
         {
-            var client = new RestClient(BaseUrl);
-
-            var request = new RestRequest("DataImport/ProcessRedLetter/", Method.GET);
-            request.AddHeader("accepts", "application/json");
-            request.AddHeader("SessionToken", SessionToken);
-
-            return client.Execute<DataImportJournalEntry>(request).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/ProcessRedLetter/", Method.GET)).Data;
         }
 
         public DataImportJournalEntry GetRedLetterImportJournal()
         {
-            var client = new RestClient(BaseUrl);
-
-            var request = new RestRequest("DataImport/GetRedLetterImportJournal/", Method.GET);
-            request.AddHeader("accepts", "application/json");
-            request.AddHeader("SessionToken", SessionToken);
-
-            return client.Execute<DataImportJournalEntry>(request).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/GetRedLetterImportJournal/", Method.GET)).Data;
         }
 
         public DataImportJournalEntry Upload241Data(Stream stream)
@@ -68,37 +46,22 @@ namespace GRG.LeisureCards.WebAPI.Client
                 stream.CopyTo(memStream);
                 var fileBytes = memStream.ToArray();
 
-                var client = new RestClient(BaseUrl);
-
-                var request = new RestRequest("DataImport/Upload241/", Method.POST);
+                var request = GetRestRequest("DataImport/Upload241/", Method.POST);
+                
                 request.AddFile("rldata.csv", fileBytes, "rldata.csv");
-                request.AddHeader("accepts", "application/json");
-                request.AddHeader("SessionToken", SessionToken);
 
-                return client.Execute<DataImportJournalEntry>(request).Data;
+                return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(request).Data;
             }
         }
 
         public DataImportJournalEntry Process241Data()
         {
-            var client = new RestClient(BaseUrl);
-
-            var request = new RestRequest("DataImport/Process241/", Method.GET);
-            request.AddHeader("accepts", "application/json");
-            request.AddHeader("SessionToken", SessionToken);
-
-            return client.Execute<DataImportJournalEntry>(request).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/Process241/", Method.GET)).Data;
         }
 
         public DataImportJournalEntry Get241ImportJournal()
         {
-            var client = new RestClient(BaseUrl);
-
-            var request = new RestRequest("DataImport/Get241ImportJournal/", Method.GET);
-            request.AddHeader("accepts", "application/json");
-            request.AddHeader("SessionToken", SessionToken);
-
-            return client.Execute<DataImportJournalEntry>(request).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/Get241ImportJournal/", Method.GET)).Data;
         }
     }
 }

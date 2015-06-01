@@ -24,11 +24,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         
         public LeisureCardController(
             ILeisureCardService leisureCardService, 
-            ILeisureCardRepository leisureCardRepository)
+            ILeisureCardRepository leisureCardRepository,
+            IUserSessionService userSessionService)
         {
             _leisureCardService = leisureCardService;
             _leisureCardRepository = leisureCardRepository;
-            _userSessionService = UserSessionService.Instance;
+            _userSessionService = userSessionService;
         }
 
         [HttpGet]

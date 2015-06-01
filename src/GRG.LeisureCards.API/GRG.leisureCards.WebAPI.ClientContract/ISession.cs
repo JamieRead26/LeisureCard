@@ -5,5 +5,9 @@
         bool IsAdmin { get; }
         ILeisureCardService GetLeisureCardService();
         IDataImportService GetDataImportService();
+        IRedLetterService GetRedLetterService();
+        ITwoForOneService GetTwoforOneService();
+        IShortBreakService GetShortBreakService();
+        IReportService GetReportsService();
     }
 }

@@ -21,7 +21,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution {
 	
     public static class IoC {
         public static IContainer Initialize() {
-            return new Container(c => c.AddRegistry<DefaultRegistry>());
+            return Container = new Container(c => c.AddRegistry<DefaultRegistry>());
         }
+
+        public static IContainer Container;
     }
 }

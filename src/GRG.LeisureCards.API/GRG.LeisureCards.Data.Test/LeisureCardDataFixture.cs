@@ -36,7 +36,7 @@ namespace GRG.LeisureCards.Data.Test
                 {
                     Code = "Registered2",
                     RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
-                    RegistrationDate = DateTime.Now,
+                    RegistrationDate = DateTime.Now + TimeSpan.FromDays(1),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold
                 },
@@ -44,7 +44,7 @@ namespace GRG.LeisureCards.Data.Test
                 {
                     Code = "Registered3",
                     RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
-                    RegistrationDate = DateTime.Now,
+                    RegistrationDate = DateTime.Now + TimeSpan.FromDays(2),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold
                 },
@@ -52,7 +52,7 @@ namespace GRG.LeisureCards.Data.Test
                 {
                     Code = "Registered4",
                     RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
-                    RegistrationDate = DateTime.Now,
+                    RegistrationDate = DateTime.Now + TimeSpan.FromDays(3),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold
                 },

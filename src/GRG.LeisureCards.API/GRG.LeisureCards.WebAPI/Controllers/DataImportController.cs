@@ -7,15 +7,12 @@ using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Filters;
-using log4net;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
     [SessionAuthFilter(true)]
     public class DataImportController : ApiController
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(DataImportController));
-
         private readonly IDataImportService _dataImportService;
         private readonly IDataImportJournalEntryRepository _dataImportJournalEntryRepository;
         private readonly IFileImportManager _fileImportManager;

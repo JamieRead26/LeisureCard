@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using GRG.LeisureCards.WebAPI.Model;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using RestSharp;
+﻿using NUnit.Framework;
 
 namespace GRG.LeisureCards.API.IntegrationTests
 {
@@ -12,7 +7,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
     {
         
 
-        [Test]
+       /* [Test]
 
         public void Page()
         {
@@ -38,6 +33,6 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
                 toId = history.FirstOrDefault().Id;
             }
-        }
+        }*/
     }
 }

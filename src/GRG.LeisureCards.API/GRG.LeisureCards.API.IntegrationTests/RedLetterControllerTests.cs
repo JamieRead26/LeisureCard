@@ -4,7 +4,6 @@ using System.Net;
 using GRG.LeisureCards.WebAPI.Model;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using RestSharp;
 
 namespace GRG.LeisureCards.API.IntegrationTests
 {
@@ -13,7 +12,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
     {
        
 
-        [Test]
+      /*  [Test]
         public void FindByKeyword_401()
         {
             var client = new RestClient(Config.BaseAddress);
@@ -56,40 +55,31 @@ namespace GRG.LeisureCards.API.IntegrationTests
             var response = client.Execute<RedLetterProductSummary>(request);
 
             Assert.IsFalse(string.IsNullOrWhiteSpace(response.Data.Title));
-        }
+        }*/
 
         //TODO : Fix data race
-        //[Test]
-        //public void GetRandomSpecialOffers()
-        //{
-        //    const int count = 3;
-
-        //    var products = GetSpecialOffers(count);
-        //    Assert.AreEqual(count, products.Count);
-        //    var key1 = products.Aggregate(string.Empty, (s, summary) => s + summary.Id.ToString());
-
-        //    products = GetSpecialOffers(count);
-        //    Assert.AreEqual(count, products.Count);
-        //    var key2 = products.Aggregate(string.Empty, (s, summary) => s + summary.Id.ToString());
-
-        //    products = GetSpecialOffers(count);
-        //    Assert.AreEqual(count, products.Count);
-        //    var key3 = products.Aggregate(string.Empty, (s, summary) => s + summary.Id.ToString());
-
-        //    Assert.IsFalse((key1==key2)&&(key1==key3)&&(key2==key3));
-        //}
-
-        private List<RedLetterProductSummary> GetSpecialOffers(int count)
+        [Test]
+        public void GetRandomSpecialOffers()
         {
-            var request = new RestRequest("RedLetter/GetRandomSpecialOffers/{count}", Method.GET);
-            request.AddParameter("count", count);
-            request.AddHeader("accepts", "application/json");
-            request.AddHeader("SessionToken", Config.GetSessionToken());
+            var service = UserSession.GetRedLetterService();
 
-            var response = new RestClient(Config.BaseAddress).Execute(request);
-            return JsonConvert.DeserializeObject<List<RedLetterProductSummary>>(response.Content);
+            const int count = 3;
+
+            var products = service.GetSpecialOffers(count);
+            Assert.AreEqual(count, products.Count());
+            var key1 = products.Aggregate(string.Empty, (s, summary) => s + summary.Id.ToString());
+
+            products = service.GetSpecialOffers(count);
+            Assert.AreEqual(count, products.Count());
+            var key2 = products.Aggregate(string.Empty, (s, summary) => s + summary.Id.ToString());
+
+            products = service.GetSpecialOffers(count);
+            Assert.AreEqual(count, products.Count());
+            var key3 = products.Aggregate(string.Empty, (s, summary) => s + summary.Id.ToString());
+
+            Assert.IsFalse((key1==key2)&&(key1==key3)&&(key2==key3));
         }
 
-        
+       
     }
 }

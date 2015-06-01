@@ -43,9 +43,10 @@
     <Compile Include="ILeisureCardService.cs" />
     <Compile Include="ILoginHistoryService.cs" />
     <Compile Include="ILoginService.cs" />
+    <Compile Include="IRedLetterService.cs" />
     <Compile Include="IReportService.cs" />
     <Compile Include="ISession.cs" />
-    <Compile Include="IShortBreaksService.cs" />
+    <Compile Include="IShortBreakService.cs" />
     <Compile Include="ITwoForOneService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

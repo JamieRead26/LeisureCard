@@ -14,13 +14,16 @@ namespace GRG.LeisureCards.WebAPI.Controllers
     {
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly IOfferCategoryRepository _offerCategoryRepository;
-        private readonly UserSessionService _userSessionService;
+        private readonly IUserSessionService _userSessionService;
 
-        public ShortBreaksController(ISelectedOfferRepository selectedOfferRepository, IOfferCategoryRepository offerCategoryRepository)
+        public ShortBreaksController(
+            ISelectedOfferRepository selectedOfferRepository, 
+            IOfferCategoryRepository offerCategoryRepository,
+            IUserSessionService userSessionService)
         {
             _selectedOfferRepository = selectedOfferRepository;
             _offerCategoryRepository = offerCategoryRepository;
-            _userSessionService = UserSessionService.Instance;
+            _userSessionService = userSessionService;
 
         }
 

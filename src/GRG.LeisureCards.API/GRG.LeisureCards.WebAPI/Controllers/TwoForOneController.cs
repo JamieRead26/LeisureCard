@@ -26,12 +26,13 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             ITwoForOneRepository twoForOneRepository, 
             ISelectedOfferRepository selectedOfferRepository,
             IOfferCategoryRepository offerCategoryRepository,
-            IUkLocationService locationService)
+            IUkLocationService locationService,
+            IUserSessionService userSessionService)
         {
             _twoForOneRepository = twoForOneRepository;
             _selectedOfferRepository = selectedOfferRepository;
             _offerCategoryRepository = offerCategoryRepository;
-            _userSessionService = UserSessionService.Instance;
+            _userSessionService = userSessionService;
             _locationService = locationService;
         }
 

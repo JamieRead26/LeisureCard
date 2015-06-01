@@ -6,7 +6,7 @@ namespace GRG.LeisureCards.DomainModel
     {
         public virtual int Id { get; set; }
 
-        public virtual LeisureCard LeisureCard { get; set; }
+        public virtual string LeisureCardCode { get; set; }
 
         public virtual DateTime SelectedDateTime { get; set; }
 

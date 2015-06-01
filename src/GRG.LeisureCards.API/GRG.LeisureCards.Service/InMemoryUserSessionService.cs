@@ -23,18 +23,49 @@ namespace GRG.LeisureCards.Service
 
         public string GetToken(LeisureCard card)
         {
+            //lock (card.Code)
+            //{
+            //    var session = _sessions.SingleOrDefault(c => c.CardCode == card.Code);
+
+            //    if (session != null) return session.Token;
+
+            //    session = new Session(_sessionDuration, card);
+
+
+            //    _sessions.Add(session);
+
+            //    return session.Token;
+            //}
+
             throw new NotImplementedException();
         }
 
         public ISession GetSession(string token)
         {
+            //lock (token)
+            //{
+            //    var session = _sessions.FirstOrDefault(t => t.Token == token);
+
+            //    if (session == null)
+            //        return null;
+
+            //    if (session.HasExpired)
+            //    {
+            //        _sessions.Remove(session);
+            //        return null;
+            //    }
+
+            //    session.Renew();
+            //    return session;
+            //}
+
             throw new NotImplementedException();
         }
     }
 
     public class InMemoryUserSessionService : IUserSessionService
     {
-        private readonly IList<Session> _tokenCards = new List<Session>();
+        private readonly IList<Session> _sessions = new List<Session>();
 
         private readonly TimeSpan _sessionDuration;
 
@@ -48,12 +79,14 @@ namespace GRG.LeisureCards.Service
         {
             lock (card.Code)
             {
-                var session = _tokenCards.SingleOrDefault(c => c.LeisureCard.Code == card.Code);
+                var session = _sessions.SingleOrDefault(c => c.CardCode == card.Code);
 
                 if (session != null) return session.Token;
 
                 session = new Session(_sessionDuration, card);
-                _tokenCards.Add(session);
+                
+                
+                _sessions.Add(session);
 
                 return session.Token;
             }
@@ -63,14 +96,14 @@ namespace GRG.LeisureCards.Service
         {
             lock (token)
             {
-                var session = _tokenCards.FirstOrDefault(t => t.Token == token);
+                var session = _sessions.FirstOrDefault(t => t.Token == token);
 
                 if (session == null)
                     return null;
 
                 if (session.HasExpired)
                 {
-                    _tokenCards.Remove(session);
+                    _sessions.Remove(session);
                     return null;
                 }
 
@@ -86,7 +119,8 @@ namespace GRG.LeisureCards.Service
             public Session(TimeSpan sessionDuration, LeisureCard card)
             {
                 _sessionDuration = sessionDuration;
-                LeisureCard = card;
+                CardCode = card.Code;
+                RenewalDate = card.RenewalDate;
                 ExpiryUtc = DateTime.UtcNow + _sessionDuration;
                 Token = Guid.NewGuid().ToString();
             }
@@ -98,7 +132,7 @@ namespace GRG.LeisureCards.Service
 
             public string Token { get; private set; }
             private DateTime ExpiryUtc { get; set; }
-            public LeisureCard LeisureCard { get; private set; }
+            public string CardCode { get; private set; }
 
             public bool HasExpired
             {
@@ -107,8 +141,10 @@ namespace GRG.LeisureCards.Service
 
             public bool IsAdmin
             {
-                get { return LeisureCard == AdminLeisureCard.Instance; }
+                get { return CardCode == AdminLeisureCard.Instance.Code; }
             }
+
+            public DateTime? RenewalDate { get; set; }
         }
     }
 }

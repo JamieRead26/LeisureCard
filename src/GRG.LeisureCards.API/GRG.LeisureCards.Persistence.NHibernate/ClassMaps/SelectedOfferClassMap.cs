@@ -11,7 +11,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.OfferId);
             Map(x => x.OfferTitle);
             References(x => x.OfferCategory);
-            References(x => x.LeisureCard);
+            Map(x => x.LeisureCardCode);
             Map(x => x.SelectedDateTime);
         }
     }

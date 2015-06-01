@@ -20,7 +20,7 @@ namespace GRG.LeisureCards.WebAPI.Mappings
                 .ForMember(dest => dest.LeisureCardCode, opt => opt.MapFrom(src => src.LeisureCard.Code));
 
             Mapper.CreateMap<DomainModel.SelectedOffer, Model.SelectedOffer>()
-               .ForMember(dest => dest.LeisureCardCode, opt => opt.MapFrom(src => src.LeisureCard.Code));
+               .ForMember(dest => dest.LeisureCardCode, opt => opt.MapFrom(src => src.LeisureCardCode));
 
             Mapper.CreateMap<DomainModel.RedLetterProduct, Model.RedLetterProductSummary>();
 

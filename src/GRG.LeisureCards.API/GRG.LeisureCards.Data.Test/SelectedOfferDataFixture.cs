@@ -23,7 +23,7 @@ namespace GRG.LeisureCards.Data.Test
                     {
                         selectedOffers.Add(new SelectedOffer
                         {
-                            LeisureCard = leisureCard,
+                            LeisureCardCode = leisureCard.Code,
                             OfferCategory = offerCategory,
                             SelectedDateTime = from + TimeSpan.FromDays(i),
                             OfferId = i.ToString(),

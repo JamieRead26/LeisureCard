@@ -60,7 +60,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
             _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
             {
-                LeisureCard = session.LeisureCard,
+                LeisureCardCode = session.CardCode,
                 OfferCategory = _offerCategoryRepository.TwoForOne,
                 OfferId = id.ToString(),
                 OfferTitle = offer.Description

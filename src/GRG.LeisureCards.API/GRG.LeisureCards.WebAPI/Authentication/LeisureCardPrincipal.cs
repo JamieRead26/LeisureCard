@@ -8,7 +8,8 @@ namespace GRG.LeisureCards.WebAPI.Authentication
     {
         public SessionInfo SessionInfo { get; private set; }
 
-        public LeisureCardPrincipal(LeisureCard card, SessionInfo sessionInfo) : base(new GenericIdentity(card.Code))
+        public LeisureCardPrincipal(string cardCode, SessionInfo sessionInfo)
+            : base(new GenericIdentity(cardCode))
         {
             SessionInfo = sessionInfo;
         }

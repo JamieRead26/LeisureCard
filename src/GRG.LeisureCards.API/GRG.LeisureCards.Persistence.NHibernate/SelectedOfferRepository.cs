@@ -17,7 +17,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
 
             foreach (var selectedOffer in results)
             {
-                NHibernateUtil.Initialize(selectedOffer.LeisureCard);
+                NHibernateUtil.Initialize(selectedOffer.LeisureCardCode);
                 NHibernateUtil.Initialize(selectedOffer.OfferCategory);
             }
 

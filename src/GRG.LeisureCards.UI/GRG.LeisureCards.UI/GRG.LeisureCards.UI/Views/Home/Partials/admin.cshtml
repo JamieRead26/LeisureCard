@@ -48,22 +48,27 @@
             <p><strong>URN Update</strong></p>
             <hr />
             <div class="clear"></div>
-            <div class="twocol">
+            <div class="fourcol">
                 <label>URN or ref:</label>
                 <autocomplete ng-model="cardNumber" data="card_numbers" on-type="change"></autocomplete>
                 <div class="clear"></div>
             </div>
-            <div class="twocol">
+            <div class="fourcol">
                 <label>Expiry Date:</label>
-                <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" date-formatter />
+                <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" readonly="readonly" date-formatter />
                 <div class="clear"></div>
             </div>
-            <div class="twocol">
+            <div class="fourcol">
+                <label>Status:</label>
+                <input type="text" ng-model="status" readonly="readonly" />
+                <div class="clear"></div>
+            </div>
+            <div class="fourcol">
                 <label style="display: block;" for="suspended">Suspended:</label>
                 <input type="checkbox" ng-model="suspended" id="suspended" />
                 <div class="clear"></div>
             </div>
-            <div class="twocol last">
+            <div class="fourcol last">
                 <label>Renewal Date:</label>
                 <input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" date-formatter />
                 <div class="clear"></div>
@@ -123,8 +128,7 @@
                         <option value="card_activation" ng-selected="selected">Card Activation</option>
                         <option value="offers_claimed">Offers Claimed</option>
                         <option value="card_usage">Card Usage</option>
-                        <option value="generation_history">Card Generation History</option>
-                        <option value="all_card_numbers">All Card Numbers</option>
+                        <option value="urn_report">URN Report</option>
                     </select>
                 </div>
 
@@ -171,32 +175,22 @@
                         <td ng-bind="r.LoginDateTime | date:'dd/MM/yyyy hh:mm'"></td>
                     </tr>
                 </table>
-                <table ng-show="generation_history.length">
-                    <tr>
-                        <th>Reference</th>
-                        <th>Generated Date</th>
-                    </tr>
-                    <tr ng-repeat="r in generation_history">
-                        <td>{{ r.Ref }}</td>
-                        <td ng-bind="r.GeneratedDate | date:'dd/MM/yyyy hh:mm'"></td>
-                    </tr>
-                </table>
-                <table ng-show="all_card_numbers.length">
+                <table ng-show="urn_report.length">
                     <tr>
                         <th>Code</th>
                         <th>Reference</th>
                         <th>Renewal Period Months</th>
-                        <th>Suspended</th>
+                        <th>Status</th>
                         <th>Expiry Date</th>
                         <th>Renewal Date</th>
                         <th>Registration Date</th>
                         <th class="last">Uploaded Date</th>
                     </tr>
-                    <tr ng-repeat="r in all_card_numbers">
+                    <tr ng-repeat="r in urn_report">
                         <td>{{ r.Code }}</td>
                         <td>{{ r.Reference }}</td>
                         <td>{{ r.RenewalPeriodMonths }}</td>
-                        <td>{{ r.Suspended }}</td>
+                        <td>{{ r.Status }}</td>
                         <td ng-bind="r.ExpiryDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.RenewalDate | date:'dd/MM/yyyy hh:mm'"></td>
                         <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>
@@ -209,7 +203,7 @@
                 <button ng-show="reports_offers_claimed.length" type="button" csv-header="getClaimedOffersHeader()" ng-csv="getClaimedOffersReport()" filename="ClaimedOffersReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="reports_card_usage.length" type="button" csv-header="getCardUsageHeader()" ng-csv="getCardUsageReport()" filename="CardUsageReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="generation_history.length" type="button" csv-header="getGenerationHistoryHeader()" ng-csv="getGenerationHistoryReport()" filename="CardGenerationHistoryReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-                <button ng-show="all_card_numbers.length" type="button" csv-header="getAllCardsHeader()" ng-csv="getAllCardsReport()" filename="AllCardsReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+                <button ng-show="urn_report.length" type="button" csv-header="getAllCardsHeader()" ng-csv="getAllCardsReport()" filename="AllCardsReport.csv" field-separator="," decimal-separator=".">Download Details</button>
                 <button ng-show="show_print" ng-click="print()">Print Results</button>
             </div>
         </div>

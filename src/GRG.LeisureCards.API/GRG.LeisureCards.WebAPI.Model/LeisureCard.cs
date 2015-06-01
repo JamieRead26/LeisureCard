@@ -19,5 +19,7 @@ namespace GRG.LeisureCards.WebAPI.Model
         public string Status { get; set; }
 
         public string Reference { get; set; }
+
+        public int RenewalPeriodMonths { get; set; }
     }
 }

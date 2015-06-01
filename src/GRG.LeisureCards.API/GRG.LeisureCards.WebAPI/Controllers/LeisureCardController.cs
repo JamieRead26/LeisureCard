@@ -101,7 +101,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             var allCards = _leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>).ToList();
 
-            foreach (var reference in allCards.Select(c => c.Reference).Distinct())
+            foreach (var reference in allCards.Select(c => c.Reference).ToList().Distinct())
             {
                 var card = allCards.First(c => c.Reference == reference);
 

@@ -20,8 +20,12 @@ adminController.factory('GetAllCardNumbers', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/GetAllCardNumbers');
 });
 
+adminController.factory('GetCardNumbersForUpdate', function ($resource, config) {
+    return $resource(config.apiUrl + '/LeisureCard/GetCardNumbersForUpdate');
+});
+
 adminController.factory('LeisureCardUpdate', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumberOrRef/:expiryDate/:renewalDate/:suspended');
+    return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumberOrRef/:renewalDate/:suspended');
 });
 
 // Red letter data import
@@ -233,13 +237,13 @@ adminController.controller('AdminCardGenerateController', function ($scope, Gene
 
 });
 
-adminController.controller('AdminUpdateCardController', function ($scope, $filter, GetAllCardNumbers, LeisureCardUpdate) {
+adminController.controller('AdminUpdateCardController', function ($scope, $filter, GetCardNumbersForUpdate, LeisureCardUpdate) {
     
     $scope.cards = {};
     $scope.card_numbers = [];
     $scope.suspended = false;
 
-    GetAllCardNumbers.get(function (data) {
+    GetCardNumbersForUpdate.get(function (data) {
         var cards = data.$values;
       
         // pushes cards to key values
@@ -286,13 +290,12 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
 
         $scope.cardupdate_error = null;
 
-        if (!valid_iso_date($scope.expiryDate) || !valid_iso_date($scope.renewalDate)) {
-            return $scope.cardupdate_error = 'Expiry and Renewal dates must match format dd-mm-yyyy';
+        if (!valid_iso_date($scope.renewalDate)) {
+            return $scope.cardupdate_error = 'Renewal date must match format dd-mm-yyyy';
         }
 
         var postData = {
             cardNumberOrRef: $scope.cardNumber,
-            expiryDate: $filter('date')($scope.expiryDate, "yyyy-MM-dd"),
             renewalDate: $filter('date')($scope.renewalDate, "yyyy-MM-dd"),
             suspended: $scope.suspended
         };
@@ -318,13 +321,13 @@ adminController.controller('AdminReportController', function ($scope, $filter,
     $scope.reports_offers_claimed = [];
     $scope.reports_card_usage = [];
     $scope.generation_history = [];
-    $scope.all_card_numbers = [];
+    $scope.urn_report = [];
     $scope.show_print = false;
     $scope.hide_dates = false;
     $scope.report_type = 'card_activation';
 
     $scope.reportChange = function () {
-        $scope.hide_dates = $scope.report_type == 'all_card_numbers';
+        $scope.hide_dates = $scope.report_type == 'urn_report';
     }
 
     $scope.get_report = function () {
@@ -333,7 +336,7 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         $scope.reports_offers_claimed = [];
         $scope.reports_card_usage = [];
         $scope.generation_history = [];
-        $scope.all_card_numbers = [];
+        $scope.urn_report = [];
         $scope.report_error = null;
 
         var no_results_check = function (array) {
@@ -345,10 +348,10 @@ adminController.controller('AdminReportController', function ($scope, $filter,
             }
         };
 
-        if ($scope.report_type != 'all_card_numbers') {
-            if (!valid_iso_date($scope.from_date) || !valid_iso_date($scope.to_date)) {
-                return $scope.report_error = 'From and To dates must match format dd-mm-yyyy';
-            }
+        if ($scope.report_type != 'urn_report') {
+            //if (!valid_iso_date($scope.from_date) || !valid_iso_date($scope.to_date)) {
+            //    return $scope.report_error = 'From and To dates must match format dd-mm-yyyy';
+            //}
             var search_data = {
                 from: $filter('date')($scope.from_date, "yyyy-MM-dd"),
                 to: $filter('date')($scope.to_date, "yyyy-MM-dd")
@@ -387,11 +390,11 @@ adminController.controller('AdminReportController', function ($scope, $filter,
             });
 
         }
-        else if ($scope.report_type == 'all_card_numbers') {
+        else if ($scope.report_type == 'urn_report') {
 
             GetAllCardNumbers.get(function (data) {
-                $scope.all_card_numbers = data.$values;
-                no_results_check($scope.all_card_numbers);
+                $scope.urn_report = data.$values;
+                no_results_check($scope.urn_report);
             });
 
         }
@@ -454,7 +457,7 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         var data = ['Code', 
             'Reference', 
             'Renewal Period Months', 
-            'Suspended',
+            'Status',
             'Expiry Date', 
             'Renewal Date', 
             'Registration Date', 
@@ -462,14 +465,14 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         return data;
     };
     $scope.getAllCardsReport = function () {
-        var report = $scope.all_card_numbers;
+        var report = $scope.urn_report;
         var data = [];
         for (var i = 0; i < report.length; i++) {
             data.push({
                 'Code': report[i].Code,
                 'Reference': report[i].Reference,
                 'Renewal Period Months': report[i].RenewalPeriodMonths,
-                'Suspended': report[i].Suspended,
+                'Status': report[i].Status,
                 'Expiry Date': report[i].ExpiryDate,
                 'Renewal Date': report[i].RenewalDate,
                 'Registration Date': report[i].RegistrationDate,

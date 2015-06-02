@@ -121,94 +121,32 @@
         <div class="fourcol print-hide adminform2cont">
             <h2>Search Critera</h2>
 
-            <form ng-submit="get_report()" class="adminform2">
-                <div class="field">
-                    <label>Report Type</label>
-                    <select ng-model="report_type" ng-change="reportChange()">
-                        <option value="card_activation" ng-selected="selected">Card Activation</option>
-                        <option value="offers_claimed">Offers Claimed</option>
-                        <option value="card_usage">Card Usage</option>
-                        <option value="urn_report">URN Report</option>
-                    </select>
-                </div>
-
-                <div class="field" ng-show="!hide_dates">
-                    <label>Date Range</label>
-                    <input placeholder="from e.g: dd-mm-yyyy" type="text" style="margin-bottom: 10px;" ng-model="from_date" date-formatter />
-                    <input placeholder="to e.g: dd-mm-yyyy" type="text" ng-model="to_date" date-formatter />
-                </div>
-                <div class="errors" ng-show="report_error != null">{{ report_error }}</div>
-                <input type="submit" value="Update" class="buttondef" />
-            </form>
+			<form ng-submit="get_report()" class="adminform2">
+				<div class="field">
+					<label>Report Type</label>
+					<select ng-model="report_type" ng-change="reportChange()">
+						<option value="card_activation" ng-selected="selected">Card Activation</option>
+						<option value="offers_claimed">Offers Claimed</option>
+						<option value="card_usage">Card Usage</option>
+						<option value="urn_report">URN Report</option>
+					</select>
+				</div>
+				<div class="field" ng-show="!hide_dates">
+					<label>Date Range</label>
+					<input placeholder="from e.g: dd-mm-yyyy" type="text" style="margin-bottom: 10px;" ng-model="from_date" date-formatter />
+					<input placeholder="to e.g: dd-mm-yyyy" type="text" ng-model="to_date" date-formatter />
+				</div>
+				<div class="errors" ng-show="report_error != null">{{ report_error }}</div>
+				<input type="submit" value="Download CSV" class="buttondef" />
+				<div style="display: none;">
+					<button id="download_reports_card_activation" type="button" csv-header="getCardActivationHeader()" ng-csv="getCardActivationReport()" filename="CardActivationReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+					<button id="download_reports_offers_claimed" type="button" csv-header="getClaimedOffersHeader()" ng-csv="getClaimedOffersReport()" filename="ClaimedOffersReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+					<button id="download_reports_card_usage" type="button" csv-header="getCardUsageHeader()" ng-csv="getCardUsageReport()" filename="CardUsageReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+					<button id="download_reports_generation_history" type="button" csv-header="getGenerationHistoryHeader()" ng-csv="getGenerationHistoryReport()" filename="CardGenerationHistoryReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+					<button id="download_reports_urn_report" type="button" csv-header="getAllCardsHeader()" ng-csv="getAllCardsReport()" filename="AllCardsReport.csv" field-separator="," decimal-separator=".">Download Details</button>
+				</div>
+			</form>
         </div>
-        <div class="eightcol last adminform4">
-            <div class="scroll-h">
-                <table ng-show="reports_card_activation.length">
-                    <tr>
-                        <th>Card Number</th>
-                        <th>Activation Date</th>
-                    </tr>
-                    <tr ng-repeat="r in reports_card_activation">
-                        <td>{{ r.Code }}</td>
-                        <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>
-                    </tr>
-                </table>
-                <table ng-show="reports_offers_claimed.length">
-                    <tr>
-                        <th>Card Number</th>
-                        <th>Offer Name</th>
-                        <th>Claimed Date</th>
-                    </tr>
-                    <tr ng-repeat="r in reports_offers_claimed">
-                        <td>{{ r.LeisureCardCode }}</td>
-                        <td>{{ r.OfferTitle }}</td>
-                        <td ng-bind="r.SelectedDateTime | date:'dd/MM/yyyy'"></td>
-                    </tr>
-                </table>
-                <table ng-show="reports_card_usage.length">
-                    <tr>
-                        <th>Card Number</th>
-                        <th>Login Date &amp; Time</th>
-                    </tr>
-                    <tr ng-repeat="r in reports_card_usage">
-                        <td>{{ r.LeisureCardCode }}</td>
-                        <td ng-bind="r.LoginDateTime | date:'dd/MM/yyyy hh:mm'"></td>
-                    </tr>
-                </table>
-                <table ng-show="urn_report.length">
-                    <tr>
-                        <th>Code</th>
-                        <th>Reference</th>
-                        <th>Renewal Period Months</th>
-                        <th>Status</th>
-                        <th>Expiry Date</th>
-                        <th>Renewal Date</th>
-                        <th>Registration Date</th>
-                        <th class="last">Uploaded Date</th>
-                    </tr>
-                    <tr ng-repeat="r in urn_report">
-                        <td>{{ r.Code }}</td>
-                        <td>{{ r.Reference }}</td>
-                        <td>{{ r.RenewalPeriodMonths }}</td>
-                        <td>{{ r.Status }}</td>
-                        <td ng-bind="r.ExpiryDate | date:'dd/MM/yyyy hh:mm'"></td>
-                        <td ng-bind="r.RenewalDate | date:'dd/MM/yyyy hh:mm'"></td>
-                        <td ng-bind="r.RegistrationDate | date:'dd/MM/yyyy hh:mm'"></td>
-                        <td class="last" ng-bind="r.UploadedDate | date:'dd/MM/yyyy hh:mm'"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="print-hide">
-                <button ng-show="reports_card_activation.length" type="button" csv-header="getCardActivationHeader()" ng-csv="getCardActivationReport()" filename="CardActivationReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-                <button ng-show="reports_offers_claimed.length" type="button" csv-header="getClaimedOffersHeader()" ng-csv="getClaimedOffersReport()" filename="ClaimedOffersReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-                <button ng-show="reports_card_usage.length" type="button" csv-header="getCardUsageHeader()" ng-csv="getCardUsageReport()" filename="CardUsageReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-                <button ng-show="generation_history.length" type="button" csv-header="getGenerationHistoryHeader()" ng-csv="getGenerationHistoryReport()" filename="CardGenerationHistoryReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-                <button ng-show="urn_report.length" type="button" csv-header="getAllCardsHeader()" ng-csv="getAllCardsReport()" filename="AllCardsReport.csv" field-separator="," decimal-separator=".">Download Details</button>
-                <button ng-show="show_print" ng-click="print()">Print Results</button>
-            </div>
-        </div>
-        <div class="clear"></div>
     </div>
-
 </div>
 

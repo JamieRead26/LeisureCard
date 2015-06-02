@@ -313,16 +313,14 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
 
 });
 
-adminController.controller('AdminReportController', function ($scope, $filter,
-    GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory, GetAllCardNumbers) {
+adminController.controller('AdminReportController', function ($scope, $filter, GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory, GetAllCardNumbers) {
 
     $scope.global.slideshow = [];
     $scope.reports_card_activation = [];
     $scope.reports_offers_claimed = [];
     $scope.reports_card_usage = [];
-    $scope.generation_history = [];
-    $scope.urn_report = [];
-    $scope.show_print = false;
+    $scope.reports_generation_history = [];
+    $scope.reports_urn_report = [];
     $scope.hide_dates = false;
     $scope.report_type = 'card_activation';
 
@@ -330,70 +328,57 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         $scope.hide_dates = $scope.report_type == 'urn_report';
     }
 
+    var validateResultsReturned = function (array) {
+    	if (array.length == 0) {
+    		$scope.report_error = 'No results to show.';
+    		return false;
+    	}
+
+    	return true;
+    };
+
     $scope.get_report = function () {
 
-        $scope.reports_card_activation = [];
+    	$scope.reports_card_activation = [];
         $scope.reports_offers_claimed = [];
         $scope.reports_card_usage = [];
-        $scope.generation_history = [];
-        $scope.urn_report = [];
+        $scope.reports_generation_history = [];
+        $scope.reports_urn_report = [];
         $scope.report_error = null;
 
-        var no_results_check = function (array) {
-            if (array.length == 0) {
-                $scope.show_print = false;
-                return $scope.report_error = 'No results to show.';
-            } else {
-                $scope.show_print = true;
-            }
-        };
-        var search_data = {};
+	    var request = {}, action;
 
 	    if ($scope.report_type != 'urn_report') {
-	    	search_data.from = $filter('date')($scope.from_date, "yyyy-MM-dd") || '2000-01-01';
-	        search_data.to = $filter('date')($scope.to_date, "yyyy-MM-dd") || '3000-01-01';
+	        request.from = $filter('date')($scope.from_date, "yyyy-MM-dd") || '2000-01-01';
+	        request.to = $filter('date')($scope.to_date, "yyyy-MM-dd") || '3000-01-01';
         }
  
-        if ($scope.report_type == 'card_activation') {
+	    switch ($scope.report_type) {
+	    	case 'card_activation':
+	    		action = GetCardActivationHistory;
+	    		break;
+	    	case 'offers_claimed':
+	    		action = GetSelectedOfferHistory;
+	    		break;
+	    	case 'card_usage':
+	    		action = GetLoginHistory;
+	    		break;
+	    	case 'generation_history':
+	    		action = GetCardGenerationHistory;
+	    		break;
+	    	case 'urn_report':
+	    		action = GetAllCardNumbers;
+	    		break;
+	    	default :
+			    throw 'Unexpected report type ' + $scope.report_type;
+	    }
 
-            GetCardActivationHistory.get(search_data, function (data) {
-                $scope.reports_card_activation = data.$values;
-                no_results_check($scope.reports_card_activation);
-            });
-
-        }
-        else if ($scope.report_type == 'offers_claimed') {
-
-            GetSelectedOfferHistory.get(search_data, function (data) {
-                $scope.reports_offers_claimed = data.$values;
-                no_results_check($scope.reports_offers_claimed);
-            });
-
-        }
-        else if ($scope.report_type == 'card_usage') {
-
-            GetLoginHistory.get(search_data, function (data) {
-                $scope.reports_card_usage = data.$values;
-                no_results_check($scope.reports_card_usage);
-            });
-
-        }
-        else if ($scope.report_type == 'generation_history') {
-
-            GetCardGenerationHistory.get(search_data, function (data) {
-                $scope.generation_history = data.$values;
-                no_results_check($scope.generation_history);
-            });
-
-        }
-        else if ($scope.report_type == 'urn_report') {
-
-            GetAllCardNumbers.get(function (data) {
-                $scope.urn_report = data.$values;
-                no_results_check($scope.urn_report);
-            });
-
-        }
+	    action.get(request, function(data) {
+	    	$scope['reports_' + $scope.report_type] = data.$values;
+		    if (validateResultsReturned($scope['reports_' + $scope.report_type])) {
+			    setTimeout(function() { $('#download_reports_' + $scope.report_type).click(); });
+		    }
+	    });
     };
 
     $scope.getCardActivationHeader = function () { return ['Card Number', 'Activation Date'] };
@@ -438,7 +423,7 @@ adminController.controller('AdminReportController', function ($scope, $filter,
 
     $scope.getGenerationHistoryHeader = function () { return ['Reference', 'Generated Date'] };
     $scope.getGenerationHistoryReport = function () {
-        var report = $scope.generation_history;
+        var report = $scope.reports_generation_history;
         var data = [];
         for (var i = 0; i < report.length; i++) {
             data.push({
@@ -461,7 +446,7 @@ adminController.controller('AdminReportController', function ($scope, $filter,
         return data;
     };
     $scope.getAllCardsReport = function () {
-        var report = $scope.urn_report;
+        var report = $scope.reports_urn_report;
         var data = [];
         for (var i = 0; i < report.length; i++) {
             data.push({

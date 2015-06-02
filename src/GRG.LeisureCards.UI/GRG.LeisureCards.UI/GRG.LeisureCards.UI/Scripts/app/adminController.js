@@ -260,6 +260,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
         $scope.expiryDate = '';
         $scope.renewalDate = '';
         $scope.cardNumber = '';
+        $scope.status = '';
     }
 
     $scope.change = function (cardNumber) {
@@ -280,6 +281,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $filte
             }
            
             $scope.suspended = card.Suspended;
+            $scope.status = card.Status || '';
         }
         else {
             $scope.cardNumber = cardNumber;

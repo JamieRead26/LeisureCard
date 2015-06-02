@@ -3,89 +3,84 @@
 }
 
 <div class="twelvecol">
-
-    <div ng-controller="AdminDataImportController">
-        <table class="print-hide">
-            <tr>
-                <th>System</th>
-                <th>Last Run</th>
-                <th>Status</th>
-                <th>Error Message</th>
-                <th style="width: 120px;">Reload Data</th>
-                <th style="width: 120px;">Download File</th>
-                <th style="width: 220px;" class="last">Upload File</th>
-            </tr>
-            <tr ng-repeat="i in imports">
-                <td><!--<span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>-->{{ i.UploadKey }}</td>
-                <td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
-                <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
-                <td>{{ i.Message }}</td>
-                <td>
-                    <div ng-if="i.UploadKey == 'RedLetter'">
-                        <button ng-click="uploadRedLetter()">Reload</button>
-                    </div>
-                </td>
-                <td>
-                    <a ng-if="i.FileKey" ng-href="{{ apiUrl }}/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
-                </td>
-                <td class="last">
-
-                    <div ng-if="i.UploadKey == '241'">
-                        <input type="file" file-model="files.file241" />
-                        <button ng-click="uploadFile(i.UploadKey)">Upload</button>
-                    </div>
-
-                    <div class="clear"></div>
-                </td>
-            </tr>
-        </table>
-        <div class="errors" ng-show="file_error">{{ file_error }}</div>
-        <div class="success" ng-show="file_success">{{ file_success }}</div>
-    </div>
-
-    <div ng-controller="AdminUpdateCardController">
-        <form ng-submit="submit()" class="one-line print-hide adminform1">
-            <p><strong>URN Update</strong></p>
-            <hr />
-            <div class="clear"></div>
-            <div class="fourcol">
-                <label>URN or ref:</label>
-                <autocomplete ng-model="cardNumber" data="card_numbers" on-type="change"></autocomplete>
-                <div class="clear"></div>
-            </div>
-            <div class="fourcol">
-                <label>Expiry Date:</label>
-                <input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" readonly="readonly" date-formatter />
-                <div class="clear"></div>
-            </div>
-            <div class="fourcol">
-                <label>Status:</label>
-                <input type="text" ng-model="status" readonly="readonly" />
-                <div class="clear"></div>
-            </div>
-            <div class="fourcol">
-                <label style="display: block;" for="suspended">Suspended:</label>
-                <input type="checkbox" ng-model="suspended" id="suspended" />
-                <div class="clear"></div>
-            </div>
-            <div class="fourcol last">
-                <label>Renewal Date:</label>
-                <input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" date-formatter />
-                <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
-            <div class="fourcol last">
-                <a ng-click="reset()" class="button" href="#">Reset</a>
-                <input type="submit" value="Update" />
-                <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
-        </form>
-        <div class="errors" ng-show="cardupdate_error != null">{{ cardupdate_error }}</div>
-        <div class="success" ng-show="cardupdate_success != null">{{ cardupdate_success }}</div>
-    </div>
-
-    <div ng-controller="AdminCardGenerateController">
+	<div ng-controller="AdminDataImportController">
+		<table class="print-hide">
+			<tr>
+				<th>System</th>
+				<th>Last Run</th>
+				<th>Status</th>
+				<th>Error Message</th>
+				<th style="width: 120px;">Reload Data</th>
+				<th style="width: 120px;">Download File</th>
+				<th style="width: 220px;" class="last">Upload File</th>
+			</tr>
+			<tr ng-repeat="i in imports">
+				<td><!--<span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>-->{{ i.UploadKey }}</td>
+				<td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
+				<td>{{ i.Success ? 'Success' : 'Failed' }}</td>
+				<td>{{ i.Message }}</td>
+				<td>
+					<div ng-if="i.UploadKey == 'RedLetter'">
+						<button ng-click="uploadRedLetter()">Reload</button>
+					</div>
+				</td>
+				<td>
+					<a ng-if="i.FileKey" ng-href="{{ apiUrl }}/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
+				</td>
+				<td class="last">
+					<div ng-if="i.UploadKey == '241'">
+						<input type="file" file-model="files.file241" />
+						<button ng-click="uploadFile(i.UploadKey)">Upload</button>
+					</div>
+					<div class="clear"></div>
+				</td>
+			</tr>
+		</table>
+		<div class="errors" ng-show="file_error">{{ file_error }}</div>
+		<div class="success" ng-show="file_success">{{ file_success }}</div>
+	</div>
+	<div ng-controller="AdminUpdateCardController">
+		<form ng-submit="submit()" class="one-line print-hide adminform1">
+			<div class="row">
+				<p><strong>URN Update</strong></p>
+				<hr />
+			</div>
+			<div class="row urn-update-fields">
+				<div class="onecol">
+					<label>URN or ref:</label>
+					<autocomplete ng-model="cardNumber" data="card_numbers" on-type="change"></autocomplete>
+					<div class="clear"></div>
+				</div>
+				<div class="onecol">
+					<label>Expiry Date:</label>
+					<input placeholder="dd-mm-yyyy" type="text" ng-model="expiryDate" readonly="readonly" date-formatter />
+				</div>
+				<div class="onecol">
+					<label>Status:</label>
+					<input type="text" ng-model="status" readonly="readonly" />
+				</div>
+				<div class="onecol">
+					<label style="display: block;" for="suspended">Suspended:</label>
+					<input type="checkbox" ng-model="suspended" id="suspended" />
+				</div>
+				<div class="onecol last">
+					<label>Renewal Date:</label>
+					<input placeholder="dd-mm-yyyy" type="text" ng-model="renewalDate" date-formatter />
+				</div>
+			</div>
+			<div class="row">
+				<div class="action-buttons">
+					<input class="button" type="submit" value="Update" />
+					<a ng-click="reset()" class="button" href="#">Reset</a>
+				</div>
+			</div>
+		<div class="clear"></div>
+	</form>
+		<div class="errors" ng-show="cardupdate_error != null">{{ cardupdate_error }}</div>
+		<div class="success" ng-show="cardupdate_success != null">{{ cardupdate_success }}</div>
+	</div>
+	
+	<div ng-controller="AdminCardGenerateController">
         <form ng-submit="submit()" class="one-line print-hide adminform1">
             <p><strong>URN Generate</strong></p>
             <hr />

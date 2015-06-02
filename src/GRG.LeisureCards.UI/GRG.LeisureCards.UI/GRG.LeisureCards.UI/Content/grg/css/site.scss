@@ -462,6 +462,19 @@ body.admin {
                 width:90%;
                 border: 1px solid white;
             }
+			.onecol {
+				width: 16.9%;
+			}
+			.action-buttons {
+				float: right;
+
+				.button, input[type=submit] {
+					float: right;
+					width: auto;
+					margin-top: 20px;
+                    margin-left: 4px;
+				}
+			}
             div.twocol, div.threecol {
                 width:24%;
                 margin-right:1.3%;

@@ -347,15 +347,11 @@ adminController.controller('AdminReportController', function ($scope, $filter,
                 $scope.show_print = true;
             }
         };
+        var search_data = {};
 
-        if ($scope.report_type != 'urn_report') {
-            //if (!valid_iso_date($scope.from_date) || !valid_iso_date($scope.to_date)) {
-            //    return $scope.report_error = 'From and To dates must match format dd-mm-yyyy';
-            //}
-            var search_data = {
-                from: $filter('date')($scope.from_date, "yyyy-MM-dd"),
-                to: $filter('date')($scope.to_date, "yyyy-MM-dd")
-            };
+	    if ($scope.report_type != 'urn_report') {
+	    	search_data.from = $filter('date')($scope.from_date, "yyyy-MM-dd") || '2000-01-01';
+	        search_data.to = $filter('date')($scope.to_date, "yyyy-MM-dd") || '3000-01-01';
         }
  
         if ($scope.report_type == 'card_activation') {

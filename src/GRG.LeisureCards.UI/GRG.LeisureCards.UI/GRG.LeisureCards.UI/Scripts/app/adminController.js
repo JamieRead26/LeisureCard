@@ -29,22 +29,22 @@ adminController.factory('LeisureCardUpdate', function ($resource, config) {
 });
 
 // Red letter data import
-adminController.factory('UploadRedLetter', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/RedLetter/');
+adminController.factory('ProcessRedLetter', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/ProcessRedLetter/');
 });
-adminController.factory('GetLastGoodRedLetter', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetLastGoodRedLetterImportJournal');
+adminController.factory('RetrieveRedLetter', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/RetrieveRedLetter/');
 });
-adminController.factory('GetLastBadRedLetter', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetLastBadRedLetterImportJournal');
+adminController.factory('GetRedLetterImportJournal', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/GetRedLetterImportJournal');
 });
 
 // Two for one data import
-adminController.factory('GetLastGoodTwoForOne', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetLastGoodTwoForOneImportJournal');
+adminController.factory('Process241', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/Process241/');
 });
-adminController.factory('GetLastBadTwoForOne', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetLastBadTwoForOneImportJournal');
+adminController.factory('Get241ImportJournal', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/Get241ImportJournal');
 });
 
 // LeisureCards data import
@@ -61,10 +61,10 @@ adminController.factory('GenerateCards', function ($resource, config) {
 });
 
 adminController.controller('AdminDataImportController', function ($scope,
-    GetLastGoodRedLetter, GetLastBadRedLetter,
-    GetLastGoodTwoForOne, GetLastBadTwoForOne,
+    GetRedLetterImportJournal,
+    Get241ImportJournal,
     GetLastGoodLeisureCard, GetLastBadLeisureCard,
-    fileUpload, UploadRedLetter, config) {
+    fileUpload, ProcessRedLetter, RetrieveRedLetter, Process241, config) {
 
     $scope.global.bodyclass = 'admin';
 
@@ -72,83 +72,89 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.apiUrl = config.apiUrl;
 
     $scope.files = {};
-    $scope.files.redletter = {};
+    $scope.files.fileRedLetter = {};
     $scope.files.file241 = {};
 
     $scope.file_error = '';
     $scope.file_success = '';
 
-    var push_current_import = function (good, bad, default_key) {
+    var push_current_import = function (data, default_key) {
 
         var _push = function (data) {
+
+            // Find any existing import records of the same UploadKey
+            var i = -1;
+            $.grep($scope.imports, function(item, index) {
+                if (item.UploadKey == default_key)
+                    i = index;
+            });
+
+            // If any existing records were found of the same UploadKey then remove them
+            if (i != -1)
+                $scope.imports.splice(i, 1);
+
+            // Now add the data to the list of records.
             return $scope.imports.push(data);
         };
 
-        if (!good.ImportedDateTime && !bad.ImportedDateTime) {
+        if (!data.LastRun) {
             // default 
-            var doc = {
-                ImportedDateTime: null,
-                Message: null,
-                StackTrace: null,
-                Success: null,
+            return _push({
+                LastRun: null,
                 UploadKey: default_key,
-            }
-            return _push(doc);
+                Success: null,
+                Message: null,
+                FileName: null,
+                Status: null
+            });
         }
 
-        if (!bad.ImportedDateTime) {
-            // use last good data
-            return _push(good);
-        }
-        if (!good.ImportedDateTime) {
-            // use last bad data
-            return _push(bad);
-        }
-        
-        if (good.ImportedDateTime >= bad.ImportedDateTime) {
-            // last good data more recent than bad data
-            return _push(good);
-        } else {
-            return _push(bad);
-        }
+        return _push(data);
     };
 
-    GetLastGoodRedLetter.get(function (data) {
-        var good_data = data;
-        GetLastBadRedLetter.get(function (data) {
-            var bad_data = data;
-            push_current_import(good_data, bad_data, 'RedLetter');
-        });
+    GetRedLetterImportJournal.get(function (data) {
+        push_current_import(data, 'RedLetter');
     });
 
-    GetLastGoodTwoForOne.get(function (data) {
-        var good_data = data;
-        GetLastBadTwoForOne.get(function (data) {
-            var bad_data = data;
-            push_current_import(good_data, bad_data, '241');
-        });
+    Get241ImportJournal.get(function (data) {
+        push_current_import(data, '241');
     });
 
     $scope.refresh = function () {
         window.location.reload();
     };
 
-    $scope.uploadRedLetter = function () {
-        UploadRedLetter.save();
-        return $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
+    $scope.processRedLetter = function () {
+        $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
+        ProcessRedLetter.get(function (data) {
+            push_current_import(data, 'RedLetter');
+            $scope.file_success = 'The import is complete. The result is shown in the table above.';
+            setTimeout(function() { $scope.$apply('file_success = \'\''); }, 5000);
+        });
+    }
+
+    $scope.retrieveRedLetter = function () {
+        $scope.file_success = 'The download is running, please refresh page after a few minutes to see results.';
+        RetrieveRedLetter.get(function (data) {
+            console.log(data);
+        });
+    }
+
+    $scope.process241 = function () {
+        $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
+        Process241.get(function (data) {
+            push_current_import(data, '241');
+            $scope.file_success = 'The import is complete. The result is shown in the table above.';
+            setTimeout(function () { $scope.$apply('file_success = \'\''); }, 5000);
+        });
     }
 
     $scope.uploadFile = function (key) {
-        var file = '';
-        var path = '';
+        var file = $scope.files['file' + key];
+        var path = '/DataImport/Upload' + key + '/';
 
         $scope.file_error = '';
         $scope.file_success = '';
-
-        if(key == '241'){
-            file = $scope.files.file241;
-            path = '/DataImport/TwoForOne/';
-        }
 
         if(!key || !path || !file){
             return console.error('Missing path, key or file.');

@@ -16,22 +16,26 @@
 			</tr>
 			<tr ng-repeat="i in imports">
 				<td><!--<span ng-class="i.Success ? 'success-icon' : 'fail-icon'">&bull;</span>-->{{ i.UploadKey }}</td>
-				<td ng-bind="i.ImportedDateTime | date:'dd/MM/yyyy hh:mm:ss'"></td>
+				<td ng-bind="i.LastRun | date:'dd/MM/yyyy HH:mm:ss'"></td>
 				<td>{{ i.Success ? 'Success' : 'Failed' }}</td>
 				<td>{{ i.Message }}</td>
 				<td>
-					<div ng-if="i.UploadKey == 'RedLetter'">
-						<button ng-click="uploadRedLetter()">Reload</button>
-					</div>
+                    <button ng-click="i.UploadKey == 'RedLetter' ? processRedLetter() : process241()">Reload</button>
 				</td>
-				<td>
-					<a ng-if="i.FileKey" ng-href="{{ apiUrl }}/UploadFiles/{{ i.UploadKey }}/{{ i.FileKey }}.csv" class="button">Download</a>
-				</td>
+			    <td>
+                    <div ng-if="i.UploadKey == 'RedLetter'">
+                        <button ng-click="retrieveRedLetter()" class="button">Download</button>
+                    </div>
+			    </td>
 				<td class="last">
-					<div ng-if="i.UploadKey == '241'">
-						<input type="file" file-model="files.file241" />
-						<button ng-click="uploadFile(i.UploadKey)">Upload</button>
-					</div>
+				    <div ng-if="i.UploadKey == '241'">
+				        <input type="file" file-model="files.file241" />
+				        <button ng-click="uploadFile(i.UploadKey)">Upload</button>
+				    </div>
+                    <div ng-if="i.UploadKey == 'RedLetter'">
+                        <input type="file" file-model="files.fileRedLetter" />
+                        <button ng-click="uploadFile(i.UploadKey)">Upload</button>
+                    </div>
 					<div class="clear"></div>
 				</td>
 			</tr>

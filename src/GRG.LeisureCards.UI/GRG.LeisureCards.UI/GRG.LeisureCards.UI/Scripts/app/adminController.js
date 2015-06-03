@@ -134,7 +134,7 @@ adminController.controller('AdminDataImportController', function ($scope,
     }
 
     $scope.retrieveRedLetter = function () {
-        $scope.file_success = 'The download is running, please refresh page after a few minutes to see results.';
+        $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
         RetrieveRedLetter.get(function (data) {
             console.log(data);
         });
@@ -206,7 +206,7 @@ var valid_iso_date = function (date) {
     return reg.test(date);
 }
 
-adminController.controller('AdminCardGenerateController', function ($scope, GenerateCards) {
+adminController.controller('AdminCardGenerateController', function ($scope, $rootScope, GenerateCards) {
 
     $scope.reference = '';
     $scope.num_cards = '';
@@ -234,6 +234,7 @@ adminController.controller('AdminCardGenerateController', function ($scope, Gene
 
         GenerateCards.get(postData, function (data) {
             if (data.Success) {
+                $rootScope.$broadcast('cards_generated');
                 return $scope.cardgenerate_success = 'Cards "' + data.CardGenerationLog.Ref + '" generated successfully.'
             }
             return $scope.cardgenerate_error = data.ErrorMessage;
@@ -243,23 +244,31 @@ adminController.controller('AdminCardGenerateController', function ($scope, Gene
 
 });
 
-adminController.controller('AdminUpdateCardController', function ($scope, $filter, GetCardNumbersForUpdate, LeisureCardUpdate) {
+adminController.controller('AdminUpdateCardController', function ($scope, $rootScope, $filter, GetCardNumbersForUpdate, LeisureCardUpdate) {
     
     $scope.cards = {};
     $scope.card_numbers = [];
     $scope.suspended = false;
 
-    GetCardNumbersForUpdate.get(function (data) {
-        var cards = data.$values;
-      
-        // pushes cards to key values
-        for (var i = 0; i < cards.length; i++) {
-            var code = cards[i].Code;
+    var refreshCardsForUpdate = function() {
+        GetCardNumbersForUpdate.get(function (data) {
+            $scope.card_numbers.length = 0; // Empty array
 
-            $scope.cards[code] = cards[i];
-            $scope.card_numbers.push(code);
-        }
-    });
+            var cards = data.$values;
+
+            // pushes cards to key values
+            for (var i = 0; i < cards.length; i++) {
+                var code = cards[i].Code;
+
+                $scope.cards[code] = cards[i];
+                $scope.card_numbers.push(code);
+            }
+        });
+    }
+
+    refreshCardsForUpdate();
+
+    $rootScope.$on('cards_generated', refreshCardsForUpdate);
     
     $scope.reset = function () {
         $scope.suspended = false;

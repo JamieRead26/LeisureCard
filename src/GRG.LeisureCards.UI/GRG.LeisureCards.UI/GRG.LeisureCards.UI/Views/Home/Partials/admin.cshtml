@@ -11,6 +11,7 @@
 				<th>Status</th>
 				<th>Error Message</th>
 				<th style="width: 120px;">Reload Data</th>
+                <th style="width: 120px;">Retrieve Data</th>
 				<th style="width: 120px;">Download File</th>
 				<th style="width: 220px;" class="last">Upload File</th>
 			</tr>
@@ -23,8 +24,13 @@
                     <button ng-click="i.UploadKey == 'RedLetter' ? processRedLetter() : process241()">Reload</button>
 				</td>
 			    <td>
-                    <div ng-if="i.UploadKey == 'RedLetter'">
-                        <button ng-click="retrieveRedLetter()" class="button">Download</button>
+			        <div ng-if="i.UploadKey == 'RedLetter'">
+			            <button ng-click="retrieveRedLetter()" class="button">Retrieve</button>
+			        </div>
+			    </td>
+			    <td>
+                    <div ng-if="i.FileName">
+                        <a class="button" href="{{apiUrl}}/UploadFiles/{{i.UploadKey}}/{{i.FileName}}">Download</a>
                     </div>
 			    </td>
 				<td class="last">

@@ -64,6 +64,7 @@
     <Compile Include="ILeisureCardUsageRepository.cs" />
     <Compile Include="ILocationRepository.cs" />
     <Compile Include="IOfferCategoryRepository.cs" />
+    <Compile Include="IRedLetterBulkInsert.cs" />
     <Compile Include="IRedLetterProductRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISelectedOfferRepository.cs" />

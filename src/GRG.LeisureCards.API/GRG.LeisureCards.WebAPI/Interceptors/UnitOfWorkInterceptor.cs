@@ -4,6 +4,7 @@ using Castle.DynamicProxy;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
 using NHibernate;
+using NHibernate.Util;
 using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
 namespace GRG.LeisureCards.WebAPI.Interceptors
@@ -37,10 +38,11 @@ namespace GRG.LeisureCards.WebAPI.Interceptors
                 invocation.Proceed();
                 return;
             }
-
+            
             try
             {
                 UnitOfWork.Current = new UnitOfWork(_sessionFactory);
+                
                 UnitOfWork.Current.BeginTransaction();
 
                 try

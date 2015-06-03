@@ -45,12 +45,12 @@ namespace GRG.LeisureCards.Data.Test
 
             var facts = new List<RedLetterFact>();
 
-            foreach (var key in _facts.Keys)
-            {
-                var product = productFixture.Products.First(p=>p.Id==key);
+            //foreach (var key in _facts.Keys)
+            //{
+            //    var product = productFixture.Products.First(p=>p.Id==key);
 
-                facts.AddRange(_facts[key].Select(redLetterFact => product.AddFact(redLetterFact)));
-            }
+            //    facts.AddRange(_facts[key].Select(redLetterFact => product.AddFact(redLetterFact)));
+            //}
 
             return facts.ToArray();
         }

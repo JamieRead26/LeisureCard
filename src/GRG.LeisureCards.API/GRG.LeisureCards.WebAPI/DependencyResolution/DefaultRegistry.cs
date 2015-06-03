@@ -58,6 +58,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
 
             var proxyGenerator = new ProxyGenerator();
 
+            For<IRedLetterBulkInsert>().Use<RedLetterBulkInsert>(new RedLetterBulkInsert(sessionFactory))
+               .SetLifecycleTo<SingletonLifecycle>();
+
             var interceptor = new UnitOfWorkInterceptor(sessionFactory);
 
             ConfigureIntercepts(proxyGenerator, interceptor);

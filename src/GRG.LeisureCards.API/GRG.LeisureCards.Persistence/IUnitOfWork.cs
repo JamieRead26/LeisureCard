@@ -19,5 +19,7 @@
         /// Rollbacks transaction and closes database connection.
         /// </summary>
         void Rollback();
+
+        
     }
 }

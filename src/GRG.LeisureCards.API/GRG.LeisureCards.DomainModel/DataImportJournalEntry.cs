@@ -17,9 +17,6 @@ namespace GRG.LeisureCards.DomainModel
 
         public virtual string FileName { get; set; }
 
-        public virtual string Status
-        {
-            get { return Success ? "Success" : "Failure"; }
-        }
+        public virtual string Status { get; set; }
     }
 }

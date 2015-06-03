@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Xml;
 using GRG.LeisureCards.CSV;
 using GRG.LeisureCards.DomainModel;
@@ -23,39 +25,57 @@ namespace GRG.LeisureCards.Service
         private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ITwoForOneRepository _twoForOneRepository;
         private readonly IUkLocationService _locationService;
+        private readonly IRedLetterBulkInsert _redLetterBulkInsert;
 
         public DataImportService(
             IDataImportJournalEntryRepository dataImportJournalEntryRepository, 
             IRedLetterProductRepository redLetterProductRepository,
             ITwoForOneRepository twoForOneRepository,
             IUkLocationService locationService,
-            ILeisureCardRepository leisureCardRepository)
+            IRedLetterBulkInsert redLetterBulkInsert)
         {
             _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
             _redLetterProductRepository = redLetterProductRepository;
             _twoForOneRepository = twoForOneRepository;
             _locationService = locationService;
+            _redLetterBulkInsert = redLetterBulkInsert;
         }
 
-        [UnitOfWork]
         public DataImportJournalEntry ImportRedLetterOffers(Stream fileStream, DataImportJournalEntry journalEntry)
         {
-            return ImportData(journalEntry, () =>
-            {
-                var allProducts = _redLetterProductRepository.GetAll().ToDictionary(p => p.Id, p => p);
+            journalEntry.Status = "Running";
+            journalEntry.LastRun = DateTime.Now;
+            _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+            var inserts = new List<RedLetterProduct>();
+            var updates = new List<RedLetterProduct>();
+            var allProducts = _redLetterBulkInsert.GetAll().ToDictionary(p => p.Id, p => p);
                 
-                var keywords = _redLetterProductRepository.GetAllKeywords().ToDictionary(k => k.Keyword, k => k);
+            //var keywords = _redLetterProductRepository.GetAllKeywords().ToDictionary(k => k.Keyword, k => k);
 
-                using (var txtReader = new StreamReader(fileStream))
+            using (var txtReader = new StreamReader(fileStream))
+            {
+                var xmlDoc = new XmlDocument();
+
+                xmlDoc.Load(txtReader);
+
+                foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("Product"))
                 {
-                    var xmlDoc = new XmlDocument();
-
-                    xmlDoc.Load(txtReader);
-
-                    foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("RedLetterProduct"))
+                    try
                     {
-                        var id = int.Parse(productNode.SelectSingleNode("Key").InnerText);
-                        var product = allProducts.ContainsKey(id) ? allProducts[id] : new RedLetterProduct {Id = id};
+                        var id = int.Parse(productNode.SelectSingleNode("Id").InnerText);
+                        RedLetterProduct product;
+
+                        if (allProducts.ContainsKey(id))
+                        {
+                            product = allProducts[id];
+                            updates.Add(product);
+                        }
+                        else
+                        {
+                            product =  new RedLetterProduct { Id = id };
+                            inserts.Add(product);
+                        }
 
                         product.Title = productNode.SelectSingleNode("Title").InnerText;
                         product.InspirationalDescription = productNode.SelectSingleNode("InspirationalDescription").InnerText;
@@ -90,66 +110,67 @@ namespace GRG.LeisureCards.Service
                         product.DeliveryTime = productNode.SelectSingleNode("DeliveryTime").InnerText;
                         product.DeliveryCost = productNode.SelectSingleNode("DeliveryCost").InnerText;
 
-                        foreach (var redLetterKeyword in product.Keywords.ToArray())
-                        {
-                            redLetterKeyword.Products.Remove(product);
-                            product.Keywords.Remove(redLetterKeyword);
-                        }
+                        //foreach (var redLetterKeyword in product.Keywords.ToArray())
+                        //{
+                        //    redLetterKeyword.Products.Remove(product);
+                        //    product.Keywords.Remove(redLetterKeyword);
+                        //}
 
-                        foreach (var fact in product.Facts.ToArray())
-                        {
-                            fact.RedLetterProduct=null;
-                            product.Facts.Remove(fact);
-                        }
+                        //foreach (var fact in product.Facts.ToArray())
+                        //{
+                        //    fact.RedLetterProduct = null;
+                        //    product.Facts.Remove(fact);
+                        //}
 
-                        foreach (var venue in product.Venues.ToArray())
-                        {
-                            venue.RedLetterProduct = null;
-                            product.Venues.Remove(venue);
-                        }
+                        //foreach (var venue in product.Venues.ToArray())
+                        //{
+                        //    venue.RedLetterProduct = null;
+                        //    product.Venues.Remove(venue);
+                        //}
 
-                        foreach (var keyword in productNode.SelectSingleNode("Keywords").InnerText.Split(",".ToCharArray()))
-                        {
-                            if (!keywords.ContainsKey(keyword))
-                                keywords.Add(keyword, new RedLetterKeyword {Keyword = keyword});
-                            
-                            product.AddKeyword(keywords[keyword]);
-                        }
+                        //foreach (var keyword in productNode.SelectSingleNode("Keywords").InnerText.Split(",".ToCharArray()))
+                        //{
+                        //    if (!keywords.ContainsKey(keyword))
+                        //        keywords.Add(keyword, new RedLetterKeyword { Keyword = keyword });
 
-                        foreach (XmlNode venueNode in productNode.SelectSingleNode("Venues").ChildNodes)
-                        {
-                            product.AddVenue(new RedLetterVenue
-                            {
-                                RedLetterId = int.Parse(venueNode.SelectSingleNode("Key").InnerText),
-                                Name = venueNode.SelectSingleNode("Name").InnerText,
-                                County = venueNode.SelectSingleNode("County").InnerText,
-                                Town = venueNode.SelectSingleNode("Town").InnerText,
-                                PostCode = venueNode.SelectSingleNode("PostCode").InnerText,
-                                Latitude = decimal.Parse(venueNode.SelectSingleNode("Latitude").InnerText),
-                                Longitude = decimal.Parse(venueNode.SelectSingleNode("Longitude").InnerText)
-                            });
-                        }
+                        //    product.AddKeyword(keywords[keyword]);
+                        //}
 
-                        foreach (var fact in from XmlNode factNode in productNode.SelectSingleNode("Facts").ChildNodes
-                            select new RedLetterFact {Fact = factNode.InnerText})
-                            product.AddFact(fact);
+                        //foreach (XmlNode venueNode in productNode.SelectSingleNode("Venues").ChildNodes)
+                        //{
+                        //    product.AddVenue(new RedLetterVenue
+                        //    {
+                        //        RedLetterId = int.Parse(venueNode.SelectSingleNode("Id").InnerText),
+                        //        Name = venueNode.SelectSingleNode("Name").InnerText,
+                        //        County = venueNode.SelectSingleNode("County").InnerText,
+                        //        Town = venueNode.SelectSingleNode("Town").InnerText,
+                        //        PostCode = venueNode.SelectSingleNode("PostCode").InnerText,
+                        //        Latitude = decimal.Parse(venueNode.SelectSingleNode("Latitude").InnerText),
+                        //        Longitude = decimal.Parse(venueNode.SelectSingleNode("Longitude").InnerText)
+                        //    });
+                        //}
 
-
-                        _redLetterProductRepository.SaveOrUpdate(product);
+                        //foreach (var fact in from XmlNode factNode in productNode.SelectSingleNode("Facts").ChildNodes
+                        //                     select new RedLetterFact { Fact = factNode.InnerText })
+                        //    product.AddFact(fact);
 
                         allProducts.Remove(product.Id);
                     }
+                    catch (Exception ex)
+                    {
+                        Log.Error("Error reading product from redletter data", ex);
+                    }
                 }
+            }
 
-                foreach(var product in allProducts.Values)
-                    _redLetterProductRepository.Delete(product);
-            });
+            _redLetterBulkInsert.Insert(inserts, updates, allProducts.Values, journalEntry) ;
+
+            return journalEntry;
         }
 
-        [UnitOfWork]
         public DataImportJournalEntry ImportTwoForOneOffers(Stream fileStream, DataImportJournalEntry journalEntry)
         {
-            return ImportData(journalEntry, () =>
+            try
             {
                 var offers = _twoForOneRepository.GetAll().ToDictionary(o => o.Id, o => o);
 
@@ -191,51 +212,49 @@ namespace GRG.LeisureCards.Service
                             offerToPersist.Latitude = latLong.Latitude;
                             offerToPersist.Longitude = latLong.Longitude;
                         }
-                      
+
                         _twoForOneRepository.SaveOrUpdate(offerToPersist);
                     }
                 }
 
                 foreach (var twoForOneOffer in offers.Values)
                     _twoForOneRepository.Delete(twoForOneOffer);
-            });
-        }
-
-        private DataImportJournalEntry ImportData(DataImportJournalEntry journalEntry, Action importAction )
-        {
-            try
-            {
-                importAction();
 
                 journalEntry.Success = true;
                 journalEntry.LastRun = DateTime.Now;
-               
+                journalEntry.Status = "Success";
+
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
                 return journalEntry;
             }
             catch (Exception ex)
             {
-                Log.Error("Error on file import", ex);
-
                 journalEntry.Success = false;
+                journalEntry.LastRun = DateTime.Now;
+                journalEntry.Status = "Failure";
                 journalEntry.Message = ex.Message;
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
                 return journalEntry;
             }
+            
         }
 
-        [UnitOfWork]
         public void Import(DataImportJournalEntry journalEntry, Func<string, string> mapPath)
         {
-            if (journalEntry.UploadKey == DataImportKey.RedLetter.Key)
-            {
+            var importKey = DataImportKey.All.First(d => d.Key == journalEntry.UploadKey);
+
+            if (importKey==DataImportKey.RedLetter)
                 ImportRedLetterOffers(
-                    File.OpenRead(mapPath( DataImportKey.RedLetter.UploadPath) + "\\" + journalEntry.FileName),
+                    File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
                     journalEntry);
-            }
+
+            if (importKey == DataImportKey.TwoForOne)
+                ImportTwoForOneOffers(
+                    File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
+                    journalEntry);
         }
     }
 }

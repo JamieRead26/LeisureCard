@@ -30,6 +30,14 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         /// </summary>
         private readonly ISessionFactory _sessionFactory;
 
+        public ISessionFactory SessionFactory
+        {
+            get
+            {
+                return _sessionFactory;
+            }
+        }
+
         /// <summary>
         /// Reference to the currently running transcation.
         /// </summary>

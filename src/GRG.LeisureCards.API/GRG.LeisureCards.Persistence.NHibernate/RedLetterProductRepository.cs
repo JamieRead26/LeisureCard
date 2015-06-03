@@ -21,11 +21,11 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             var product = base.Get(key);
 
-            if (product == null)
-                return null;
+            //if (product == null)
+            //    return null;
 
-            NHibernateUtil.Initialize(product.Facts);
-            NHibernateUtil.Initialize(product.Venues);
+         //   NHibernateUtil.Initialize(product.Facts);
+           // NHibernateUtil.Initialize(product.Venues);
             
             return product;
         }

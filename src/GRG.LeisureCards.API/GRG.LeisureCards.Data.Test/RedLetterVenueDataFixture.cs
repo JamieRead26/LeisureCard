@@ -59,12 +59,12 @@ namespace GRG.LeisureCards.Data.Test
 
             var venues = new List<RedLetterVenue>();
            
-            foreach (var key in _venues.Keys)
-            {
-                var product = productFixture.Products.First(p=>p.Id==key);
+            //foreach (var key in _venues.Keys)
+            //{
+            //    var product = productFixture.Products.First(p=>p.Id==key);
 
-                venues.AddRange(_venues[key].Select(venue => product.AddVenue(venue)));
-            }
+            //    venues.AddRange(_venues[key].Select(venue => product.AddVenue(venue)));
+            //}
 
             return venues.ToArray();
         }

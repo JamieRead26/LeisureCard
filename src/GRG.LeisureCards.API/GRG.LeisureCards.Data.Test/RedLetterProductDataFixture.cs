@@ -62,13 +62,13 @@ namespace GRG.LeisureCards.Data.Test
                 
                     Products.Add(product);
 
-                    foreach (var keyword in productNode.SelectSingleNode("Keywords").InnerText.Split(",".ToCharArray()))
-                    {
-                        if (!_keywords.ContainsKey(keyword))
-                            _keywords.Add(keyword, new RedLetterKeyword { Keyword = keyword });
+                    //foreach (var keyword in productNode.SelectSingleNode("Keywords").InnerText.Split(",".ToCharArray()))
+                    //{
+                    //    if (!_keywords.ContainsKey(keyword))
+                    //        _keywords.Add(keyword, new RedLetterKeyword { Keyword = keyword });
 
-                        product.AddKeyword(_keywords[keyword]);
-                    }
+                    //    product.AddKeyword(_keywords[keyword]);
+                    //}
                 }
             }
         }

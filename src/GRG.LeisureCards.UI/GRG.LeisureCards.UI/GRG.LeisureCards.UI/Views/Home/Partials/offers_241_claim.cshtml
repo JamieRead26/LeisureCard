@@ -11,18 +11,13 @@
     <div class="claim-offer" ng-controller="offers241ClaimController">
         <div class="offer-copy">
             <h1>{{ offer.OutletName }}</h1>
-    <p ng-show="offer.BookingInstructions">{{ offer.BookingInstructions }}</p>
-
-    <p ng-show="offer.ClaimCode">Your claim code is: {{ offer.ClaimCode }}</p>
-
-    <p ng-bind-html="offer.Website" ng-show="offer.Website"></p>
-
-</div>
-            <p>Your claim code is: </p>
-            
-        </div>
-        <p class="button-claim" ng-bind-html="offer.Website">
-            <a href="#"><img src="~/Content/grg/img/redeem-here.jpg" /></a>
-        </p>        
+            <p ng-show="offer.BookingInstructions">{{ offer.BookingInstructions }}</p>
+            <p ng-show="offer.ClaimCode">Your claim code is: {{ offer.ClaimCode }}</p>
+        </div> 
+            <p class="button-claim">
+                <a href="#"><img src="http://grg.leisurecards.ui.shiftkey.uk.com/Content/GRG/img/redeem-here.jpg" /></a>
+                <br/><br/>
+            </p>
+    
+        </div>                
     </div>
-</div>

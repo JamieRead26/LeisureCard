@@ -12,8 +12,9 @@
         public string Phone { get; set; }
         public string Website { get; set; }
         public string Description { get; set; }
-        public bool DisabledAccess { get; set; }
+        public string DisabledAccess { get; set; }
         public string ClaimCode { get; set; }
         public string BookingInstructions { get; set; }
+        public string CategoryKey { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Reflection;
 using System.Web.Http;
 using GRG.LeisureCards.Data;
@@ -21,7 +22,8 @@ namespace GRG.LeisureCards.WebAPI
 
             AreaRegistration.RegisterAllAreas();
 //#if DEBUG
-            DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, false);
+            if (bool.Parse(ConfigurationSettings.AppSettings["ResetDB"]))
+                DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, false);
 //#endif
             Mappings.Mapping.Register();
             GlobalConfiguration.Configure(WebApiConfig.Register);

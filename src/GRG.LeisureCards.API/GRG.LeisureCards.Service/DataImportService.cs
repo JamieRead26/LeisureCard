@@ -51,8 +51,6 @@ namespace GRG.LeisureCards.Service
             var updates = new List<RedLetterProduct>();
             var allProducts = _redLetterBulkInsert.GetAll().ToDictionary(p => p.Id, p => p);
                 
-            //var keywords = _redLetterProductRepository.GetAllKeywords().ToDictionary(k => k.Keyword, k => k);
-
             using (var txtReader = new StreamReader(fileStream))
             {
                 var xmlDoc = new XmlDocument();
@@ -110,50 +108,6 @@ namespace GRG.LeisureCards.Service
                         product.DeliveryTime = productNode.SelectSingleNode("DeliveryTime").InnerText;
                         product.DeliveryCost = productNode.SelectSingleNode("DeliveryCost").InnerText;
 
-                        //foreach (var redLetterKeyword in product.Keywords.ToArray())
-                        //{
-                        //    redLetterKeyword.Products.Remove(product);
-                        //    product.Keywords.Remove(redLetterKeyword);
-                        //}
-
-                        //foreach (var fact in product.Facts.ToArray())
-                        //{
-                        //    fact.RedLetterProduct = null;
-                        //    product.Facts.Remove(fact);
-                        //}
-
-                        //foreach (var venue in product.Venues.ToArray())
-                        //{
-                        //    venue.RedLetterProduct = null;
-                        //    product.Venues.Remove(venue);
-                        //}
-
-                        //foreach (var keyword in productNode.SelectSingleNode("Keywords").InnerText.Split(",".ToCharArray()))
-                        //{
-                        //    if (!keywords.ContainsKey(keyword))
-                        //        keywords.Add(keyword, new RedLetterKeyword { Keyword = keyword });
-
-                        //    product.AddKeyword(keywords[keyword]);
-                        //}
-
-                        //foreach (XmlNode venueNode in productNode.SelectSingleNode("Venues").ChildNodes)
-                        //{
-                        //    product.AddVenue(new RedLetterVenue
-                        //    {
-                        //        RedLetterId = int.Parse(venueNode.SelectSingleNode("Id").InnerText),
-                        //        Name = venueNode.SelectSingleNode("Name").InnerText,
-                        //        County = venueNode.SelectSingleNode("County").InnerText,
-                        //        Town = venueNode.SelectSingleNode("Town").InnerText,
-                        //        PostCode = venueNode.SelectSingleNode("PostCode").InnerText,
-                        //        Latitude = decimal.Parse(venueNode.SelectSingleNode("Latitude").InnerText),
-                        //        Longitude = decimal.Parse(venueNode.SelectSingleNode("Longitude").InnerText)
-                        //    });
-                        //}
-
-                        //foreach (var fact in from XmlNode factNode in productNode.SelectSingleNode("Facts").ChildNodes
-                        //                     select new RedLetterFact { Fact = factNode.InnerText })
-                        //    product.AddFact(fact);
-
                         allProducts.Remove(product.Id);
                     }
                     catch (Exception ex)
@@ -173,6 +127,7 @@ namespace GRG.LeisureCards.Service
             try
             {
                 var offers = _twoForOneRepository.GetAll().ToDictionary(o => o.Id, o => o);
+                var missingLocation = false;
 
                 using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
                 {
@@ -202,16 +157,16 @@ namespace GRG.LeisureCards.Service
                             offerToPersist = offer;
                         }
 
-                        var latLong =
-                            _locationService.GetMapPoint(string.IsNullOrWhiteSpace(offerToPersist.PostCode)
-                                ? offerToPersist.TownCity
-                                : offerToPersist.PostCode);
+                        var mapPoint =
+                            _locationService.GetMapPoint(offerToPersist.PostCode, offerToPersist.TownCity);
 
-                        if (latLong != null)
+                        if (mapPoint != null)
                         {
-                            offerToPersist.Latitude = latLong.Latitude;
-                            offerToPersist.Longitude = latLong.Longitude;
+                            offerToPersist.Latitude = mapPoint.Latitude;
+                            offerToPersist.Longitude = mapPoint.Longitude;
                         }
+                        else
+                            missingLocation = true;
 
                         _twoForOneRepository.SaveOrUpdate(offerToPersist);
                     }
@@ -223,6 +178,9 @@ namespace GRG.LeisureCards.Service
                 journalEntry.Success = true;
                 journalEntry.LastRun = DateTime.Now;
                 journalEntry.Status = "Success";
+
+                if (missingLocation)
+                    journalEntry.Message = "Unable to determine all locations";
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 

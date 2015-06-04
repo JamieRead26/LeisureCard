@@ -18,6 +18,8 @@ namespace GRG.LeisureCards.Service
             Action<TDestination> updateLatLong) where TDestination : ILatLong;
 
         MapPoint GetMapPoint(string ukPostCodeOrTown);
+        MapPoint GetMapPoint(params string[] locations);
+
     }
 
     public class UkLocationService : IUkLocationService
@@ -38,33 +40,46 @@ namespace GRG.LeisureCards.Service
 
         public MapPoint GetMapPoint(string ukPostCodeOrTown)
         {
-            if (string.IsNullOrWhiteSpace(ukPostCodeOrTown))
+            return GetMapPoint(new[] { ukPostCodeOrTown });
+        }
+        public MapPoint GetMapPoint(params string[] locations)
+        {
+            if (locations.All(string.IsNullOrWhiteSpace))
                 return null;
 
-            ukPostCodeOrTown = ukPostCodeOrTown.Trim().ToUpper();
+            locations = locations.Where(l=>!string.IsNullOrWhiteSpace(l)).Select(l=>l.Trim().ToUpper()).ToArray();
 
-            if (_locations.ContainsKey(ukPostCodeOrTown))
+            foreach (var location in from loc in locations where _locations.ContainsKey(loc) select _locations[loc])
             {
-                var location = _locations[ukPostCodeOrTown];
-                return new MapPoint {Latitude = location.Latitude, Longitude = location.Longitude};
+                return new MapPoint { Latitude = location.Latitude, Longitude = location.Longitude };
             }
-
-            try
+            
+            foreach (var location in locations.Where(location => !string.IsNullOrWhiteSpace(location)))
             {
-                var mapPoint = _googleLocationService.GetLatLongFromAddress(new AddressData
+                try
                 {
-                    UkPostCodeOrTown = ukPostCodeOrTown,
-                });
+                    var mapPoint = _googleLocationService.GetLatLongFromAddress(new AddressData
+                    {
+                        UkPostCodeOrTown = location,
+                    });
 
-                ThreadPool.QueueUserWorkItem(CacheLocation, new Tuple<MapPoint, string>(mapPoint, ukPostCodeOrTown));
+                    if (mapPoint == null)
+                    {
+                        Log.Error("Unable to get map point for " + location);
+                        continue;
+                    }
 
-                return mapPoint;
+                    ThreadPool.QueueUserWorkItem(CacheLocation, new Tuple<MapPoint, string>(mapPoint, location));
+
+                    return mapPoint;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Exception occurred calling google maps API : " + location + " : " + ex);
+                }
             }
-            catch (Exception ex)
-            {
-                Log.Error("Exception occurred calling google maps API " + ex);
-                return null;
-            }
+
+            return null;
         }
 
         private readonly object _cacheLock = new object();
@@ -72,7 +87,7 @@ namespace GRG.LeisureCards.Service
         {
             var tuple = (Tuple<MapPoint, string>) state;
 
-            if (_locations.ContainsKey(tuple.Item2))
+            if (_locations.ContainsKey(tuple.Item2) || tuple.Item1==null)
                 return;
 
             lock (_cacheLock)
@@ -92,7 +107,7 @@ namespace GRG.LeisureCards.Service
                 _locationRepository.SaveOrUpdate(location);
             }
         }
-
+        
         public IEnumerable<Tuple<TDestination, double>> Filter<TDestination>(
             string ukPostCodeOrTown, 
             int radiusMiles,
@@ -114,7 +129,7 @@ namespace GRG.LeisureCards.Service
                 {
                     if (!destination.Latitude.HasValue || !destination.Longitude.HasValue)
                     {
-                        var mapPoint = GetMapPoint(destination.UkPostCodeOrTown);
+                        var mapPoint = GetMapPoint(destination.Locations);
 
                         if (mapPoint == null)
                             continue;
@@ -135,7 +150,7 @@ namespace GRG.LeisureCards.Service
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("Unable to calc distance for destination  " + destination.UkPostCodeOrTown, ex);
+                    Log.Error("Unable to calc distance for destination  " + destination.Locations.Aggregate(string.Empty, (a,s)=>a+":"+s), ex);
                 }
             }
 

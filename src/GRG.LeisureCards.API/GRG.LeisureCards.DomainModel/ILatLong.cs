@@ -2,7 +2,7 @@
 {
     public interface ILatLong
     {
-        string UkPostCodeOrTown { get; }
+        string[] Locations { get; }
         double? Latitude { get; set; }
         double? Longitude { get; set; } 
     }

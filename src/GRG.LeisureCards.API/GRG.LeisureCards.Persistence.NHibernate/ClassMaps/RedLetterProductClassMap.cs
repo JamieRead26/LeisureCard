@@ -16,13 +16,11 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.Type);
             Map(x => x.GeneralPrice);
             Map(x => x.PriceBeforeVAT);
-           // HasMany(x => x.Venues).Inverse().Cascade.All();
             Map(x => x.Territory).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
             Map(x => x.DisplayLocations).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
             Map(x => x.MainSectionName).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
             Map(x => x.SectionName).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
             Map(x => x.Priority);
-           // HasMany(x => x.Facts).Inverse().Cascade.All();
             Map(x => x.WhatsIncluded).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
             Map(x => x.Availability).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
             Map(x => x.Weather).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
@@ -43,10 +41,6 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.IsSpecialOffer);
             Map(x => x.DeliveryTime).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
             Map(x => x.DeliveryCost).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
-
-            //HasManyToMany(x => x.Keywords)
-            //    .Cascade.All()
-            //    .Table("ProductKeywords");
         }
     }
 }

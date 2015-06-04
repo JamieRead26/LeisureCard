@@ -169,9 +169,6 @@
     <None Include="UploadFiles\241\placeholder.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="UploadFiles\LeisureCards\placeholder.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="UploadFiles\RedLetter\placeholder.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

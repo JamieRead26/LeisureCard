@@ -15,16 +15,18 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly ILeisureCardRepository _leisureCardRepository;
+        private readonly ITwoForOneRepository _twoForOneRepository;
 
         public ReportsController(
             ILeisureCardUsageRepository leisureCardUsageRepository,
             ISelectedOfferRepository selectedOfferRepository,
             ILeisureCardRepository leisureCardRepository,
-            ICardGenerationLogRepository cardGenerationLogRepository)
+            ITwoForOneRepository twoForOneRepository)
         {
             _leisureCardUsageRepository = leisureCardUsageRepository;
             _selectedOfferRepository = selectedOfferRepository;
             _leisureCardRepository = leisureCardRepository;
+            _twoForOneRepository = twoForOneRepository;
         }
 
         [HttpGet]
@@ -49,6 +51,13 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         public IEnumerable<Model.LeisureCard> GetCardActivationHistory(DateTime from, DateTime to)
         {
             return _leisureCardRepository.GetRegistrationHistory(from, to).Select(Mapper.Map<Model.LeisureCard>);
+        }
+
+        [HttpGet]
+        [Route("GetTwoForOneMissingLocation/")]
+        public IEnumerable<Model.TwoForOneOffer> GetTwoForOneMissingLocation()
+        {
+            return _twoForOneRepository.GetWithNoLatLong().Select(Mapper.Map<Model.TwoForOneOffer>);
         }
     }
 }

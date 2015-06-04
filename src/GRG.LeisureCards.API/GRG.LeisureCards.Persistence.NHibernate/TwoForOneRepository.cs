@@ -7,7 +7,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
     {
         public IEnumerable<TwoForOneOffer> GetWithNoLatLong()
         {
-            return Session.QueryOver<TwoForOneOffer>().Where(o => o.Latitude == 0).Where(o => o.Longitude == 0).List();
+            return Session.QueryOver<TwoForOneOffer>().Where(o => o.Latitude == null).List();
         }
     }
 }

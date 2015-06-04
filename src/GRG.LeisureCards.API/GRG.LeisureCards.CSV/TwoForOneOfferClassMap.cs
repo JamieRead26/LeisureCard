@@ -20,6 +20,7 @@ namespace GRG.LeisureCards.CSV
             Map(m => m.DisabledAccess).Name("Disabled access");
             Map(m => m.BookingInstructions).Name("BookingInstructions");
             Map(m => m.ClaimCode).Name("ClaimCode");
+            Map(m => m.CategoryKey).Name("CategoryKey");
         }
     }
 }

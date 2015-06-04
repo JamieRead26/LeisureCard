@@ -12,20 +12,16 @@
         public virtual string Phone { get; set; }
         public virtual string Website { get; set; }
         public virtual string Description { get; set; }
-        public virtual bool DisabledAccess { get; set; }
+        public virtual string DisabledAccess { get; set; }
         public virtual string ClaimCode { get; set; }
         public virtual string BookingInstructions { get; set; }
         public virtual double? Latitude { get; set; }
         public virtual double? Longitude { get; set; }
 
-        public virtual string UkPostCodeOrTown
+        public virtual string CategoryKey { get; set; }
+        public virtual string[] Locations
         {
-            get
-            {
-                return (string.IsNullOrWhiteSpace(PostCode))
-                    ? TownCity
-                    : PostCode;
-            }
+            get { return new[] {PostCode, TownCity, County}; }
         }
     }
 }

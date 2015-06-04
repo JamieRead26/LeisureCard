@@ -28,6 +28,10 @@ adminController.factory('LeisureCardUpdate', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumberOrRef/:renewalDate/:suspended');
 });
 
+adminController.factory('GetTwoForOneMissingLocation', function ($resource, config) {
+    return $resource(config.apiUrl + '/Reports/GetTwoForOneMissingLocation/');
+});
+
 // Red letter data import
 adminController.factory('ProcessRedLetter', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/ProcessRedLetter/');
@@ -330,7 +334,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
 
 });
 
-adminController.controller('AdminReportController', function ($scope, $filter, GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory, GetAllCardNumbers) {
+adminController.controller('AdminReportController', function ($scope, $filter, GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory, GetAllCardNumbers, GetTwoForOneMissingLocation) {
 
     $scope.global.slideshow = [];
     $scope.reports_card_activation = [];
@@ -338,11 +342,12 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
     $scope.reports_card_usage = [];
     $scope.reports_generation_history = [];
     $scope.reports_urn_report = [];
+    $scope.reports_missing_location = [];
     $scope.hide_dates = false;
     $scope.report_type = 'card_activation';
 
     $scope.reportChange = function () {
-        $scope.hide_dates = $scope.report_type == 'urn_report';
+        $scope.hide_dates = $scope.report_type == 'urn_report' || $scope.report_type == 'missing_location';
     }
 
     var validateResultsReturned = function (array) {
@@ -361,11 +366,12 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
         $scope.reports_card_usage = [];
         $scope.reports_generation_history = [];
         $scope.reports_urn_report = [];
+        $scope.reports_missing_location = [];
         $scope.report_error = null;
 
 	    var request = {}, action;
 
-	    if ($scope.report_type != 'urn_report') {
+	    if ($scope.report_type != 'urn_report' && $scope.report_type != 'missing_location') {
 	        request.from = $filter('date')($scope.from_date, "yyyy-MM-dd") || '2000-01-01';
 	        request.to = $filter('date')($scope.to_date, "yyyy-MM-dd") || '3000-01-01';
         }
@@ -386,6 +392,9 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
 	    	case 'urn_report':
 	    		action = GetAllCardNumbers;
 	    		break;
+	        case 'missing_location':
+	            action = GetTwoForOneMissingLocation;
+	            break;
 	    	default :
 			    throw 'Unexpected report type ' + $scope.report_type;
 	    }
@@ -475,6 +484,33 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
                 'Renewal Date': report[i].RenewalDate,
                 'Registration Date': report[i].RegistrationDate,
                 'Uploaded Date': report[i].UploadedDate
+            });
+        }
+        return data;
+    };
+
+    $scope.get241MissingLocationHeader = function () {
+        var data = ['Id',
+            'OutletName',
+            'Address1',
+            'Address2',
+            'TownCity',
+            'County',
+            'PostCode'];
+        return data;
+    };
+    $scope.get241MissingLocationReport = function () {
+        var report = $scope.reports_missing_location;
+        var data = [];
+        for (var i = 0; i < report.length; i++) {
+            data.push({
+                'Id': report[i].Id,
+                'OutletName': report[i].OutletName,
+                'Address1': report[i].Address1,
+                'Address2': report[i].Address2,
+                'TownCity': report[i].TownCity,
+                'County': report[i].County,
+                'PostCode': report[i].PostCode
             });
         }
         return data;

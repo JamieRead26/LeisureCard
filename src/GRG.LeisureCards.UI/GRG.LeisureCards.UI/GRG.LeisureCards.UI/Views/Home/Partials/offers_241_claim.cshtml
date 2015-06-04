@@ -14,10 +14,10 @@
             <p ng-show="offer.BookingInstructions">{{ offer.BookingInstructions }}</p>
             <p ng-show="offer.ClaimCode">Your claim code is: {{ offer.ClaimCode }}</p>
         </div> 
-            <p class="button-claim">
-                <a href="#"><img src="http://grg.leisurecards.ui.shiftkey.uk.com/Content/GRG/img/redeem-here.jpg" /></a>
-                <br/><br/>
-            </p>
+        <p ng-bind-html="offer.Website" ng-show="offer.Website" class="ng-binding button-claim">
+            <img src="http://grg.leisurecards.ui.shiftkey.uk.com/Content/GRG/img/redeem-here.jpg" />
+            <br /><br />
+        </p>
     
         </div>                
     </div>

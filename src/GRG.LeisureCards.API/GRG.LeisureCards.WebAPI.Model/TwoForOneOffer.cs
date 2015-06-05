@@ -16,5 +16,9 @@
         public string ClaimCode { get; set; }
         public string BookingInstructions { get; set; }
         public string CategoryKey { get; set; }
+
+        public string Latitude { get; set; }
+
+        public string Longitude { get; set; }
     }
 }

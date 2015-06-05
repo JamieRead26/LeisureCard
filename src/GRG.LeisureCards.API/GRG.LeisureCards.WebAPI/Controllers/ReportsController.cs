@@ -52,12 +52,5 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             return _leisureCardRepository.GetRegistrationHistory(from, to).Select(Mapper.Map<Model.LeisureCard>);
         }
-
-        [HttpGet]
-        [Route("GetTwoForOneMissingLocation/")]
-        public IEnumerable<Model.TwoForOneOffer> GetTwoForOneMissingLocation()
-        {
-            return _twoForOneRepository.GetWithNoLatLong().Select(Mapper.Map<Model.TwoForOneOffer>);
-        }
     }
 }

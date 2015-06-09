@@ -294,7 +294,7 @@ body .content {
         padding:30px 0;
         ul {
             li {
-                width: 32%;
+                width: 49%;
                 max-height:111px;
                 float: left;
                 margin-right: 2%;
@@ -309,12 +309,12 @@ body .content {
                 }
                 img {
                     float:left;
-                    width: 40%;
+                    width: 28%;
                 }
                 div.special-offer-copy {
                     float:left;
                     width: 60%;
-                    max-height:111px;
+                    max-height:100px;
                     background:#ce0a0e;
                     color:#ffffff;
                     padding: 10px;
@@ -323,7 +323,7 @@ body .content {
                     }
                 }
             }
-            li:nth-child(3n) {
+            li:nth-child(2n) {
                 margin-right:0px;
             }
         }
@@ -331,6 +331,7 @@ body .content {
     .offers241-l {
         background:#d9e280;
         border-radius: 10px;
+        height: 842px;
         .offers241-l-inner {
             padding:40px 40px 0 40px;
         }
@@ -859,7 +860,9 @@ padding-top: 30px;
 }
 
 /*claim offer*/
-
+.claim-strip {
+    padding-top: 15px;
+}
 .claim-wrap {
     margin-bottom: 50px;
 }

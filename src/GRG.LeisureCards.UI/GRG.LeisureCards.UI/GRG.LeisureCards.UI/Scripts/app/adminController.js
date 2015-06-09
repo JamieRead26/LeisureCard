@@ -214,12 +214,12 @@ adminController.controller('AdminCardGenerateController', function ($scope, $roo
 
     $scope.reference = '';
     $scope.num_cards = '';
-    $scope.duration = '';
+    $scope.duration = 12;
 
     $scope.reset = function () {
         $scope.reference = '';
         $scope.num_cards = '';
-        $scope.duration = '';
+        $scope.duration = 12;
     }
 
     $scope.submit = function () {

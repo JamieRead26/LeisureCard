@@ -10,7 +10,7 @@
         <div class="offers241-l-inner">
             <h1>{{ offer.OutletName }}</h1>
             <p ng-repeat="(key, value) in removeNull(offer)">
-                {{ key }}: <span ng-bind-html="value"></span>
+                <!--{{ key }}: --><span ng-bind-html="value"></span>
             </p>
         </div>
         <div class="claim-strip"><a ng-click="claim()" ng-href="/#/offers/241/claim/{{ id }}" target="_blank"><img src="~/Content/grg/img/claim-code-button.png" /></a></div>
@@ -19,7 +19,6 @@
         <img src="http://placehold.it/550x300" />
         <div id="offers241-r-top">
             <h1>Location</h1>
-            <p><a href="#">View Larger Map</a></p>
             <div class="tidy"></div>
         </div>
         <div id="map241Offer" class="google-map" postcode="{{ offer.PostCode }}"></div>

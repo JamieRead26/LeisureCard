@@ -31,12 +31,11 @@
     <div class="scroll-h">
         <div class="sixcol" ng-repeat="o in offers" ng-class="$index % 2 ? 'last' : ''">            
             <div class="offer-241-offer">
+                <div class="distance-tab"><p class="distance" ng-show="o.Distance">{{ o.Distance }} miles</p></div>
                 <div class="offer-left">
                     <img src="http://placehold.it/220x150" />
                 </div>                
-                <div class="offer-right">
-                    <div class="distance-tab"><p class="distance" ng-show="o.Distance">{{ o.Distance }} miles</p></div>
-                    <div class="clear"></div>                   
+                <div class="offer-right">                
                     <h3>{{ o.TwoForOneOffer.OutletName || o.OutletName }}</h3>                    
                     <p class="town">{{ o.TwoForOneOffer.TownCity || o.TownCity }}</p>                    
                     <p><a href="/#/offers/241/{{ o.TwoForOneOffer.Id || o.Id }}">Find out more ></a></p>

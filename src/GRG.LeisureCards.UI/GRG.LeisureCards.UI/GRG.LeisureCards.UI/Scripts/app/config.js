@@ -91,15 +91,64 @@ app.service('slideshow', function (config) {
     }];
 
     this.offerdiscount = [{
-        img: '/Content/' + tenant + '/img/banner-6.jpg',
+        img: '/Content/' + tenant + '/img/banner-11.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-12.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-13.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-14.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-15.jpg',
         link: 'http://google.co.uk'
     }];
+
     this.offerdiscountcottage = [{
         img: '/Content/' + tenant + '/img/banner-11.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-12.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-13.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-14.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-15.jpg',
         link: 'http://google.co.uk'
     }];
     this.offerdiscounthoseasons = [{
         img: '/Content/' + tenant + '/img/banner-11.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-12.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-13.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-14.jpg',
+        link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-15.jpg',
         link: 'http://google.co.uk'
     }];
     this.offerdiscountclaim = [];

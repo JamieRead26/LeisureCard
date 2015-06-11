@@ -827,14 +827,16 @@ color: #545453;
 .offer-left {float:left; max-width: 242px;}
 
 .offer-right {float: right; width: 280px}
-
+.offer-241-offer {
+    position:relative;
+}
 .distance-tab {
+    position:absolute;
+    right:0px;
+    top:0px;
     background: #555555;
      width: 108px;
       height: 37px;
-       float: right;
-        margin-top: -11px;
-         margin-right: -11px;
           border-radius: 0px 15px 0px 0px;
            margin-bottom: 14px;
             font-size: 16px;
@@ -910,6 +912,10 @@ padding-top: 30px;
     color: #FFF;
     font-size: 16px;
        font-family:  Tahoma, Verdana, Geneva, sans-serif;
+}
+.terms-copy ul {
+    color:#ffffff;
+    margin-bottom:10px;
 }
 
 /* offer-discount-details */
@@ -1043,7 +1049,7 @@ text-decoration: none;
 
 @media screen and (max-width: 600px) {
     body {
-        .content { 
+        div.content { 
             .special-offers-banner {
                 background:url(../img/ed-banner-tag-1-small.jpg) 0 0 no-repeat;
                 padding: 20px 70px;
@@ -1051,11 +1057,27 @@ text-decoration: none;
                     background:url(../img/ed-banner-tag-2-small.jpg) 0 0 no-repeat;
                 }
             }
+            form {
+                &.home {
+                    margin:0px;
+                }
+            }
         }
     }
     .offer-discount-details .button-claim .button {
         height: 110px;
     }
+}
+
+@media print {
+   header,
+   .breadcrumb,
+   .slideshow,
+   .claim-strip,
+   .offers241-r img,
+   footer {
+       display:none;
+   }
 }
 
 

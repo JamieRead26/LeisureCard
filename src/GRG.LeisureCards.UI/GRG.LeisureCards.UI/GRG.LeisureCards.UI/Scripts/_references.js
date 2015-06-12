@@ -24,3 +24,4 @@
 /// <reference path="angular-autocomplete.js" />
 /// <reference path="app/offersdiscountcontroller.js" />
 /// <reference path="app/generalcontentcontroller.js" />
+/// <reference path="angular-ie8.js" />

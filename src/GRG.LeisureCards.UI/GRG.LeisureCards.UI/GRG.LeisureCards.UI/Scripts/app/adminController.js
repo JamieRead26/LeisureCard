@@ -140,7 +140,7 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.retrieveRedLetter = function () {
         $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
         RetrieveRedLetter.get(function (data) {
-            console.log(data);
+           
         });
     }
 
@@ -164,7 +164,7 @@ adminController.controller('AdminDataImportController', function ($scope,
             return console.error('Missing path, key or file.');
         }
 
-        console.log('file is ' + JSON.stringify(file));
+        //console.log('file is ' + JSON.stringify(file));
         var uploadUrl = config.apiUrl + path;
         fileUpload.uploadFileToUrl(file, uploadUrl, function(data){
             

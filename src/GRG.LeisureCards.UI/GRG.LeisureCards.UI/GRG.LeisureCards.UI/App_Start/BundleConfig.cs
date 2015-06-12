@@ -43,6 +43,7 @@ namespace GRG.LeisureCards.UI
 
             var angularScriptsBundle = new Bundle("~/bundles/angular");
             angularScriptsBundle.Include(
+                        "~/Scripts/angular-ie8.js",
                         "~/Scripts/angular.js",
                         "~/Scripts/angular.resource.js",
                         "~/Scripts/angular-cookies.js",

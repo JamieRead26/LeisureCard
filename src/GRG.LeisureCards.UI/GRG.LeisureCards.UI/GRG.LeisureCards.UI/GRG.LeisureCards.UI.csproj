@@ -175,6 +175,7 @@
     <Content Include="Content\grg\img\logo.png" />
     <Content Include="Scripts\angular-autocomplete.js" />
     <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular-ie8.js" />
     <Content Include="Scripts\angular-ng-storage.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-sanitize.js" />

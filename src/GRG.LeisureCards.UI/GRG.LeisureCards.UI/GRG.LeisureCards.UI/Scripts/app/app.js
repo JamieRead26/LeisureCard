@@ -86,7 +86,7 @@ globalController.controller('globalCtrl', function ($scope, breadcrumbs, $locati
     };
 
     $scope.to_top = function () {
-        $location.hash('to-top');
+        $location.hash('ng-app');
         $anchorScroll();
     };
 

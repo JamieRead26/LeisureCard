@@ -7,7 +7,6 @@ using System.Xml;
 using GRG.LeisureCards.CSV;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
-using GRG.LeisureCards.Persistence.NHibernate;
 using log4net;
 
 namespace GRG.LeisureCards.Service
@@ -158,7 +157,7 @@ namespace GRG.LeisureCards.Service
                         }
 
                         var mapPoint =
-                            _locationService.GetMapPoint(offerToPersist.PostCode, offerToPersist.TownCity);
+                            _locationService.GetMapPoint(new []{ offerToPersist.PostCode, offerToPersist.TownCity});
 
                         if (mapPoint != null)
                         {

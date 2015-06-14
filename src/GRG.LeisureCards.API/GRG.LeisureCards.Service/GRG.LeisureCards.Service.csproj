@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="BusinessLogic\CardRenewalLogic.cs" />
     <Compile Include="DataImportService.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="GoogleLocationService.cs" />
     <Compile Include="IAdminCodeProvider.cs" />
     <Compile Include="ISession.cs" />

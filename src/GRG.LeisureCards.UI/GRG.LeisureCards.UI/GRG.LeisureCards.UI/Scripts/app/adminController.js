@@ -323,9 +323,10 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
         
         LeisureCardUpdate.get(postData, function (data) {
 
-            $scope.expiryDate = '';
-            $scope.renewalDate = '';
-            $scope.suspended = false;
+            $scope.expiryDate = data.Prototype.ExpiryDate;
+            $scope.renewalDate = data.Prototype.RenewalDate;
+            $scope.suspended = data.Prototype.Suspened;
+            $scope.status = data.Prototype.Status;
 
             return $scope.cardupdate_success = data.CardsUpdated + ' card/s updated successfully.';
 

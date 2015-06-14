@@ -18,7 +18,7 @@ namespace GRG.LeisureCards.Service
             Action<TDestination> updateLatLong) where TDestination : ILatLong;
 
         MapPoint GetMapPoint(string ukPostCodeOrTown);
-        MapPoint GetMapPoint(params string[] locations);
+        MapPoint GetMapPoint(string[] locations, int retries = 3);
     }
 
     public class UkLocationService : IUkLocationService
@@ -39,42 +39,41 @@ namespace GRG.LeisureCards.Service
 
         public MapPoint GetMapPoint(string ukPostCodeOrTown)
         {
-            return GetMapPoint(new[] { ukPostCodeOrTown });
+            return GetMapPoint(new []{ukPostCodeOrTown});
         }
-        public MapPoint GetMapPoint(params string[] locations)
+        public MapPoint GetMapPoint(string[] locations, int retries = 3)
         {
             if (locations.All(string.IsNullOrWhiteSpace))
                 return null;
 
-            locations = locations.Where(l=>!string.IsNullOrWhiteSpace(l)).Select(l=>l.Trim().ToUpper()).ToArray();
+            var locationKey = locations.Union(new[]{"UK"}).GetCommaSeparatedKey();
 
-            foreach (var location in from loc in locations where _locations.ContainsKey(loc) select _locations[loc])
+            if (_locations.ContainsKey(locationKey))
+                return new MapPoint { Latitude = _locations[locationKey].Latitude, Longitude = _locations[locationKey].Longitude }; ;
+
+            try
             {
-                return new MapPoint { Latitude = location.Latitude, Longitude = location.Longitude };
-            }
-            
-            foreach (var location in locations.Where(location => !string.IsNullOrWhiteSpace(location)))
-            {
-                try
+                var mapPoint = _googleLocationService.GetLatLongFromAddress(locationKey);
+
+                if (mapPoint == null)
                 {
-                    var mapPoint = _googleLocationService.GetLatLongFromAddress(new AddressData
-                    {
-                        UkPostCodeOrTown = location,
-                    });
-
-                    if (mapPoint == null)
-                    {
-                        Log.Error("Unable to get map point for " + location);
-                        continue;
-                    }
-
-                    ThreadPool.QueueUserWorkItem(CacheLocation, new Tuple<MapPoint, string>(mapPoint, location));
+                    Log.Error("Unable to get map point for " + locationKey);
+                }
+                else
+                {
+                    ThreadPool.QueueUserWorkItem(CacheLocation, new Tuple<MapPoint, string>(mapPoint, locationKey));
 
                     return mapPoint;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Exception occurred calling google maps API : " + locationKey + " : " + ex);
+
+                if (retries-- > 0)
                 {
-                    Log.Error("Exception occurred calling google maps API : " + location + " : " + ex);
+                    Thread.Sleep(500);
+                    return GetMapPoint(locations, retries);
                 }
             }
 

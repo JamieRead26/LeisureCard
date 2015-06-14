@@ -19,7 +19,6 @@ namespace GRG.LeisureCards.Service
 
         MapPoint GetMapPoint(string ukPostCodeOrTown);
         MapPoint GetMapPoint(params string[] locations);
-
     }
 
     public class UkLocationService : IUkLocationService
@@ -119,7 +118,7 @@ namespace GRG.LeisureCards.Service
 
             if (from == null)
             {
-                Log.Error("Unable to filter location results as no coordinates available for from point: " +ukPostCodeOrTown);
+                Log.Error("Unable to filter location results as no coordinates available for from point: " + ukPostCodeOrTown);
                 return set.Select(s=>new Tuple<TDestination, double>(s, -1));
             }
             
@@ -154,7 +153,7 @@ namespace GRG.LeisureCards.Service
                 }
             }
 
-            return results;
+            return results.OrderBy(i=>i.Item2);
         }
     }
 }

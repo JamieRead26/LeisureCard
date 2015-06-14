@@ -27,7 +27,7 @@ offersExperienceController.controller('offersExperienceController', function ($s
         {
             name: 'Couples',
             description: '',
-            link: '/Experience/Gourmet?source=rld&affid=212&dealid=28582'
+            link: '/Experience/Couples?source=rld&affid=212&dealid=28582'
         },
         {
             name: 'Gourmet',

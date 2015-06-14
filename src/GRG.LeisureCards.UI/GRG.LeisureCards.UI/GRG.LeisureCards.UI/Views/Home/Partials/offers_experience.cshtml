@@ -16,12 +16,12 @@
 
         <ul>
             <li ng-repeat="s in special_offers">
-                <a href="{{ s.Url }}" target="_blank">
+                <a href="{{ s.Url }}?source=rld&affid=212&dealid=28582" target="_blank">
                     <img ng-src="{{ s.ThumbnailUrl }}" />
                     <div class="special-offer-copy">
                         <p>{{ s.Title }}</p>
-                    <!--<p>{{ s.InspirationalDescription }}</p>-->
-                                                <div class="tidy"></div>
+                        <!--<p>{{ s.InspirationalDescription }}</p>-->
+                        <div class="tidy"></div>
                     </div>
                     <div class="clear"></div>
                 </a>

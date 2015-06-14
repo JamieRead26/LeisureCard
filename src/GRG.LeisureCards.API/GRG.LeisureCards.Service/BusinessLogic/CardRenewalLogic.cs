@@ -32,7 +32,7 @@ namespace GRG.LeisureCards.Service.BusinessLogic
             int newMonth;
             var years = Math.DivRem(totalMonths, 12, out newMonth);
 
-            return new DateTime(registrationDate.Year+years, newMonth, registrationDate.Day);
+            return new DateTime(registrationDate.Year+years, newMonth == 0 ? 12 : newMonth, registrationDate.Day);
         }
     }
 }

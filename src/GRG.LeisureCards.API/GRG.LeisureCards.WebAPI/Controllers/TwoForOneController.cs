@@ -38,14 +38,14 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [Route("TwoForOne/GetAll")]
-        public IEnumerable<ApiModel.TwoForOneOffer> GetAll()
+        public IEnumerable<TwoForOneOffer> GetAll()
         {
-            return _twoForOneRepository.GetAll().Select(Mapper.Map<ApiModel.TwoForOneOffer>);
+            return _twoForOneRepository.GetAll().Select(Mapper.Map<TwoForOneOffer>);
         }
 
         [HttpGet]
         [Route("TwoForOne/Get/{Id}")]
-        public ApiModel.TwoForOneOffer Get(int id)
+        public TwoForOneOffer Get(int id)
         {
             return Mapper.Map<TwoForOneOffer>(_twoForOneRepository.Get(id));
         }
@@ -73,7 +73,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             var results = _locationService.Filter(postCodeOrTown, radiusMiles, _twoForOneRepository.GetAll(), twoForOneOffer => _twoForOneRepository.SaveOrUpdate(twoForOneOffer));
 
-            return results.Select(i => new TwoForOneOfferGeoSearchResult { TwoForOneOffer = Mapper.Map<ApiModel.TwoForOneOffer>(i.Item1), Distance = Math.Round(i.Item2,1) });
+            return results.Select(i => new TwoForOneOfferGeoSearchResult { TwoForOneOffer = Mapper.Map<TwoForOneOffer>(i.Item1), Distance = Math.Round(i.Item2,1) });
         }
     }
 }

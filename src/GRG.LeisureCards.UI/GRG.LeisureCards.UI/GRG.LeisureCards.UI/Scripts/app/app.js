@@ -159,7 +159,7 @@ app.config(['$routeProvider', function ($routeProvider) {
             label: 'hide'
         }).
         when('/logout', {
-            template: '',
+            template: 'partial/logout',
             controller: 'logoutController'
         }).
         otherwise({

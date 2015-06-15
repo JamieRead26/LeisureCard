@@ -50,10 +50,10 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
 
 var logoutController = angular.module('logoutController', []);
 logoutController.controller('logoutController', function ($scope, $cookies, $location, $timeout, $localStorage) {
-   
+
     $cookies.SessionToken = '';
     $localStorage.$reset();
-
+    
     $timeout(function () {
         $location.path('/');
     },100);

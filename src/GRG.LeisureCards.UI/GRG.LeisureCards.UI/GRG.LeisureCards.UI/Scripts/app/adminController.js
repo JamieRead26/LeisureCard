@@ -239,7 +239,6 @@ adminController.controller('AdminCardGenerateController', function ($scope, $roo
         GenerateCards.get(postData, function (data) {
             if (data.Success) {
                 $rootScope.$broadcast('cards_generated');
-                debugger;
                 return $scope.cardgenerate_success = 'Cards "' + data.CardGenerationLog.Ref + '" generated successfully.'
             }
             return $scope.cardgenerate_error = data.ErrorMessage;

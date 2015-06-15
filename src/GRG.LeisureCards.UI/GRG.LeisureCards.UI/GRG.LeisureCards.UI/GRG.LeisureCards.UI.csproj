@@ -175,6 +175,7 @@
     <Content Include="Content\grg\img\logo.png" />
     <Content Include="Scripts\angular-autocomplete.js" />
     <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular-ie-shiv.js" />
     <Content Include="Scripts\angular-ie8.js" />
     <Content Include="Scripts\angular-ng-storage.js" />
     <Content Include="Scripts\angular-route.js" />
@@ -226,6 +227,7 @@
     <Content Include="Views\Home\Partials\offers_discount_cottage.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount_claim.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount_hoseasons.cshtml" />
+    <Content Include="Views\Home\Partials\logout.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />

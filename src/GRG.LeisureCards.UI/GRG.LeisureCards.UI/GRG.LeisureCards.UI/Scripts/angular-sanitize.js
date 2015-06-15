@@ -1,5 +1,5 @@
 ﻿/**
- * @license AngularJS v1.3.9
+ * @license AngularJS v1.2.9
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -9,7 +9,7 @@
     var $sanitizeMinErr = angular.$$minErr('$sanitize');
 
     /**
-     * @ngdoc module
+     * @ngdoc overview
      * @name ngSanitize
      * @description
      *
@@ -17,6 +17,7 @@
      *
      * The `ngSanitize` module provides functionality to sanitize HTML.
      *
+     * {@installModule sanitize}
      *
      * <div doc-module-components="ngSanitize"></div>
      *
@@ -42,37 +43,36 @@
 
     /**
      * @ngdoc service
-     * @name $sanitize
-     * @kind function
+     * @name ngSanitize.$sanitize
+     * @function
      *
      * @description
-     *   The input is sanitized by parsing the HTML into tokens. All safe tokens (from a whitelist) are
+     *   The input is sanitized by parsing the html into tokens. All safe tokens (from a whitelist) are
      *   then serialized back to properly escaped html string. This means that no unsafe input can make
      *   it into the returned string, however, since our parser is more strict than a typical browser
      *   parser, it's possible that some obscure input, which would be recognized as valid HTML by a
-     *   browser, won't make it through the sanitizer. The input may also contain SVG markup.
+     *   browser, won't make it through the sanitizer.
      *   The whitelist is configured using the functions `aHrefSanitizationWhitelist` and
      *   `imgSrcSanitizationWhitelist` of {@link ng.$compileProvider `$compileProvider`}.
      *
-     * @param {string} html HTML input.
-     * @returns {string} Sanitized HTML.
+     * @param {string} html Html input.
+     * @returns {string} Sanitized html.
      *
      * @example
-       <example module="sanitizeExample" deps="angular-sanitize.js">
-       <file name="index.html">
+       <doc:example module="ngSanitize">
+       <doc:source>
          <script>
-             angular.module('sanitizeExample', ['ngSanitize'])
-               .controller('ExampleController', ['$scope', '$sce', function($scope, $sce) {
-                 $scope.snippet =
-                   '<p style="color:blue">an html\n' +
-                   '<em onmouseover="this.textContent=\'PWN3D!\'">click here</em>\n' +
-                   'snippet</p>';
-                 $scope.deliberatelyTrustDangerousSnippet = function() {
-                   return $sce.trustAsHtml($scope.snippet);
-                 };
-               }]);
+           function Ctrl($scope, $sce) {
+             $scope.snippet =
+               '<p style="color:blue">an html\n' +
+               '<em onmouseover="this.textContent=\'PWN3D!\'">click here</em>\n' +
+               'snippet</p>';
+             $scope.deliberatelyTrustDangerousSnippet = function() {
+               return $sce.trustAsHtml($scope.snippet);
+             };
+           }
          </script>
-         <div ng-controller="ExampleController">
+         <div ng-controller="Ctrl">
             Snippet: <textarea ng-model="snippet" cols="60" rows="3"></textarea>
            <table>
              <tr>
@@ -104,39 +104,37 @@
              </tr>
            </table>
            </div>
-       </file>
-       <file name="protractor.js" type="protractor">
+       </doc:source>
+       <doc:scenario>
          it('should sanitize the html snippet by default', function() {
-           expect(element(by.css('#bind-html-with-sanitize div')).getInnerHtml()).
+           expect(using('#bind-html-with-sanitize').element('div').html()).
              toBe('<p>an html\n<em>click here</em>\nsnippet</p>');
          });
     
          it('should inline raw snippet if bound to a trusted value', function() {
-           expect(element(by.css('#bind-html-with-trust div')).getInnerHtml()).
+           expect(using('#bind-html-with-trust').element("div").html()).
              toBe("<p style=\"color:blue\">an html\n" +
                   "<em onmouseover=\"this.textContent='PWN3D!'\">click here</em>\n" +
                   "snippet</p>");
          });
     
          it('should escape snippet without any filter', function() {
-           expect(element(by.css('#bind-default div')).getInnerHtml()).
+           expect(using('#bind-default').element('div').html()).
              toBe("&lt;p style=\"color:blue\"&gt;an html\n" +
                   "&lt;em onmouseover=\"this.textContent='PWN3D!'\"&gt;click here&lt;/em&gt;\n" +
                   "snippet&lt;/p&gt;");
          });
     
          it('should update', function() {
-           element(by.model('snippet')).clear();
-           element(by.model('snippet')).sendKeys('new <b onclick="alert(1)">text</b>');
-           expect(element(by.css('#bind-html-with-sanitize div')).getInnerHtml()).
-             toBe('new <b>text</b>');
-           expect(element(by.css('#bind-html-with-trust div')).getInnerHtml()).toBe(
+           input('snippet').enter('new <b onclick="alert(1)">text</b>');
+           expect(using('#bind-html-with-sanitize').element('div').html()).toBe('new <b>text</b>');
+           expect(using('#bind-html-with-trust').element('div').html()).toBe(
              'new <b onclick="alert(1)">text</b>');
-           expect(element(by.css('#bind-default div')).getInnerHtml()).toBe(
+           expect(using('#bind-default').element('div').html()).toBe(
              "new &lt;b onclick=\"alert(1)\"&gt;text&lt;/b&gt;");
          });
-       </file>
-       </example>
+       </doc:scenario>
+       </doc:example>
      */
     function $SanitizeProvider() {
         this.$get = ['$$sanitizeUri', function ($$sanitizeUri) {
@@ -160,15 +158,14 @@
 
     // Regular Expressions for parsing tags and attributes
     var START_TAG_REGEXP =
-           /^<((?:[a-zA-Z])[\w:-]*)((?:\s+[\w:-]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)\s*(>?)/,
-      END_TAG_REGEXP = /^<\/\s*([\w:-]+)[^>]*>/,
+           /^<\s*([\w:-]+)((?:\s+[\w:-]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)\s*>/,
+      END_TAG_REGEXP = /^<\s*\/\s*([\w:-]+)[^>]*>/,
       ATTR_REGEXP = /([\w:-]+)(?:\s*=\s*(?:(?:"((?:[^"])*)")|(?:'((?:[^'])*)')|([^>\s]+)))?/g,
       BEGIN_TAG_REGEXP = /^</,
-      BEGING_END_TAGE_REGEXP = /^<\//,
+      BEGING_END_TAGE_REGEXP = /^<\s*\//,
       COMMENT_REGEXP = /<!--(.*?)-->/g,
       DOCTYPE_REGEXP = /<!DOCTYPE([^>]*?)>/i,
       CDATA_REGEXP = /<!\[CDATA\[(.*?)]]>/g,
-      SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g,
       // Match everything outside of normal chars and " (quote character)
       NON_ALPHANUMERIC_REGEXP = /([^\#-~| |!])/g;
 
@@ -199,12 +196,6 @@
             "bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,q,ruby,rp,rt,s," +
             "samp,small,span,strike,strong,sub,sup,time,tt,u,var"));
 
-    // SVG Elements
-    // https://wiki.whatwg.org/wiki/Sanitization_rules#svg_Elements
-    var svgElements = makeMap("animate,animateColor,animateMotion,animateTransform,circle,defs," +
-            "desc,ellipse,font-face,font-face-name,font-face-src,g,glyph,hkern,image,linearGradient," +
-            "line,marker,metadata,missing-glyph,mpath,path,polygon,polyline,radialGradient,rect,set," +
-            "stop,svg,switch,text,title,tspan,use");
 
     // Special Elements (can contain anything)
     var specialElements = makeMap("script,style");
@@ -213,41 +204,16 @@
                                        voidElements,
                                        blockElements,
                                        inlineElements,
-                                       optionalEndTagElements,
-                                       svgElements);
+                                       optionalEndTagElements);
 
     //Attributes that have href and hence need to be sanitized
-    var uriAttrs = makeMap("background,cite,href,longdesc,src,usemap,xlink:href");
-
-    var htmlAttrs = makeMap('abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacing,class,clear,' +
+    var uriAttrs = makeMap("background,cite,href,longdesc,src,usemap");
+    var validAttrs = angular.extend({}, uriAttrs, makeMap(
+        'abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacing,class,clear,' +
         'color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,' +
         'ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,' +
         'scope,scrolling,shape,size,span,start,summary,target,title,type,' +
-        'valign,value,vspace,width');
-
-    // SVG attributes (without "id" and "name" attributes)
-    // https://wiki.whatwg.org/wiki/Sanitization_rules#svg_Attributes
-    var svgAttrs = makeMap('accent-height,accumulate,additive,alphabetic,arabic-form,ascent,' +
-        'attributeName,attributeType,baseProfile,bbox,begin,by,calcMode,cap-height,class,color,' +
-        'color-rendering,content,cx,cy,d,dx,dy,descent,display,dur,end,fill,fill-rule,font-family,' +
-        'font-size,font-stretch,font-style,font-variant,font-weight,from,fx,fy,g1,g2,glyph-name,' +
-        'gradientUnits,hanging,height,horiz-adv-x,horiz-origin-x,ideographic,k,keyPoints,' +
-        'keySplines,keyTimes,lang,marker-end,marker-mid,marker-start,markerHeight,markerUnits,' +
-        'markerWidth,mathematical,max,min,offset,opacity,orient,origin,overline-position,' +
-        'overline-thickness,panose-1,path,pathLength,points,preserveAspectRatio,r,refX,refY,' +
-        'repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,rotate,rx,ry,slope,stemh,' +
-        'stemv,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,stroke,' +
-        'stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,' +
-        'stroke-opacity,stroke-width,systemLanguage,target,text-anchor,to,transform,type,u1,u2,' +
-        'underline-position,underline-thickness,unicode,unicode-range,units-per-em,values,version,' +
-        'viewBox,visibility,width,widths,x,x-height,x1,x2,xlink:actuate,xlink:arcrole,xlink:role,' +
-        'xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,xmlns,xmlns:xlink,y,y1,y2,' +
-        'zoomAndPan');
-
-    var validAttrs = angular.extend({},
-                                    uriAttrs,
-                                    svgAttrs,
-                                    htmlAttrs);
+        'valign,value,vspace,width'));
 
     function makeMap(str) {
         var obj = {}, items = str.split(','), i;
@@ -269,18 +235,10 @@
      * @param {object} handler
      */
     function htmlParser(html, handler) {
-        if (typeof html !== 'string') {
-            if (html === null || typeof html === 'undefined') {
-                html = '';
-            } else {
-                html = '' + html;
-            }
-        }
-        var index, chars, match, stack = [], last = html, text;
+        var index, chars, match, stack = [], last = html;
         stack.last = function () { return stack[stack.length - 1]; };
 
         while (html) {
-            text = '';
             chars = true;
 
             // Make sure we're not in a script or style element
@@ -319,23 +277,16 @@
                     match = html.match(START_TAG_REGEXP);
 
                     if (match) {
-                        // We only have a valid start-tag if there is a '>'.
-                        if (match[4]) {
-                            html = html.substring(match[0].length);
-                            match[0].replace(START_TAG_REGEXP, parseStartTag);
-                        }
+                        html = html.substring(match[0].length);
+                        match[0].replace(START_TAG_REGEXP, parseStartTag);
                         chars = false;
-                    } else {
-                        // no ending tag found --- this piece should be encoded as an entity.
-                        text += '<';
-                        html = html.substring(1);
                     }
                 }
 
                 if (chars) {
                     index = html.indexOf("<");
 
-                    text += index < 0 ? html : html.substring(0, index);
+                    var text = index < 0 ? html : html.substring(0, index);
                     html = index < 0 ? "" : html.substring(index);
 
                     if (handler.chars) handler.chars(decodeEntities(text));
@@ -448,16 +399,11 @@
      * resulting string can be safely inserted into attribute or
      * element text.
      * @param value
-     * @returns {string} escaped text
+     * @returns escaped text
      */
     function encodeEntities(value) {
         return value.
           replace(/&/g, '&amp;').
-          replace(SURROGATE_PAIR_REGEXP, function (value) {
-              var hi = value.charCodeAt(0);
-              var low = value.charCodeAt(1);
-              return '&#' + (((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000) + ';';
-          }).
           replace(NON_ALPHANUMERIC_REGEXP, function (value) {
               return '&#' + value.charCodeAt(0) + ';';
           }).
@@ -529,8 +475,8 @@
 
     /**
      * @ngdoc filter
-     * @name linky
-     * @kind function
+     * @name ngSanitize.filter:linky
+     * @function
      *
      * @description
      * Finds links in text input and turns them into html links. Supports http/https/ftp/mailto and
@@ -546,21 +492,20 @@
        <span ng-bind-html="linky_expression | linky"></span>
      *
      * @example
-       <example module="linkyExample" deps="angular-sanitize.js">
-         <file name="index.html">
+       <doc:example module="ngSanitize">
+         <doc:source>
            <script>
-             angular.module('linkyExample', ['ngSanitize'])
-               .controller('ExampleController', ['$scope', function($scope) {
-                 $scope.snippet =
-                   'Pretty text with some links:\n'+
-                   'http://angularjs.org/,\n'+
-                   'mailto:us@somewhere.org,\n'+
-                   'another@somewhere.org,\n'+
-                   'and one more: ftp://127.0.0.1/.';
-                 $scope.snippetWithTarget = 'http://angularjs.org/';
-               }]);
+             function Ctrl($scope) {
+               $scope.snippet =
+                 'Pretty text with some links:\n'+
+                 'http://angularjs.org/,\n'+
+                 'mailto:us@somewhere.org,\n'+
+                 'another@somewhere.org,\n'+
+                 'and one more: ftp://127.0.0.1/.';
+               $scope.snippetWithTarget = 'http://angularjs.org/';
+             }
            </script>
-           <div ng-controller="ExampleController">
+           <div ng-controller="Ctrl">
            Snippet: <textarea ng-model="snippet" cols="60" rows="3"></textarea>
            <table>
              <tr>
@@ -592,44 +537,43 @@
                <td><div ng-bind="snippet"></div></td>
              </tr>
            </table>
-         </file>
-         <file name="protractor.js" type="protractor">
+         </doc:source>
+         <doc:scenario>
            it('should linkify the snippet with urls', function() {
-             expect(element(by.id('linky-filter')).element(by.binding('snippet | linky')).getText()).
-                 toBe('Pretty text with some links: http://angularjs.org/, us@somewhere.org, ' +
-                      'another@somewhere.org, and one more: ftp://127.0.0.1/.');
-             expect(element.all(by.css('#linky-filter a')).count()).toEqual(4);
+             expect(using('#linky-filter').binding('snippet | linky')).
+               toBe('Pretty text with some links:&#10;' +
+                    '<a href="http://angularjs.org/">http://angularjs.org/</a>,&#10;' +
+                    '<a href="mailto:us@somewhere.org">us@somewhere.org</a>,&#10;' +
+                    '<a href="mailto:another@somewhere.org">another@somewhere.org</a>,&#10;' +
+                    'and one more: <a href="ftp://127.0.0.1/">ftp://127.0.0.1/</a>.');
            });
     
-           it('should not linkify snippet without the linky filter', function() {
-             expect(element(by.id('escaped-html')).element(by.binding('snippet')).getText()).
-                 toBe('Pretty text with some links: http://angularjs.org/, mailto:us@somewhere.org, ' +
-                      'another@somewhere.org, and one more: ftp://127.0.0.1/.');
-             expect(element.all(by.css('#escaped-html a')).count()).toEqual(0);
+           it ('should not linkify snippet without the linky filter', function() {
+             expect(using('#escaped-html').binding('snippet')).
+               toBe("Pretty text with some links:\n" +
+                    "http://angularjs.org/,\n" +
+                    "mailto:us@somewhere.org,\n" +
+                    "another@somewhere.org,\n" +
+                    "and one more: ftp://127.0.0.1/.");
            });
     
            it('should update', function() {
-             element(by.model('snippet')).clear();
-             element(by.model('snippet')).sendKeys('new http://link.');
-             expect(element(by.id('linky-filter')).element(by.binding('snippet | linky')).getText()).
-                 toBe('new http://link.');
-             expect(element.all(by.css('#linky-filter a')).count()).toEqual(1);
-             expect(element(by.id('escaped-html')).element(by.binding('snippet')).getText())
-                 .toBe('new http://link.');
+             input('snippet').enter('new http://link.');
+             expect(using('#linky-filter').binding('snippet | linky')).
+               toBe('new <a href="http://link">http://link</a>.');
+             expect(using('#escaped-html').binding('snippet')).toBe('new http://link.');
            });
     
            it('should work with the target property', function() {
-            expect(element(by.id('linky-target')).
-                element(by.binding("snippetWithTarget | linky:'_blank'")).getText()).
-                toBe('http://angularjs.org/');
-            expect(element(by.css('#linky-target a')).getAttribute('target')).toEqual('_blank');
+            expect(using('#linky-target').binding("snippetWithTarget | linky:'_blank'")).
+              toBe('<a target="_blank" href="http://angularjs.org/">http://angularjs.org/</a>');
            });
-         </file>
-       </example>
+         </doc:scenario>
+       </doc:example>
      */
     angular.module('ngSanitize').filter('linky', ['$sanitize', function ($sanitize) {
         var LINKY_URL_REGEXP =
-              /((ftp|https?):\/\/|(www\.)|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"â€â€™]/,
+              /((ftp|https?):\/\/|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>]/,
             MAILTO_REGEXP = /^mailto:/;
 
         return function (text, target) {
@@ -642,10 +586,8 @@
             while ((match = raw.match(LINKY_URL_REGEXP))) {
                 // We can not end in these as they are sometimes found at the end of the sentence
                 url = match[0];
-                // if we did not match ftp/http/www/mailto then assume mailto
-                if (!match[2] && !match[4]) {
-                    url = (match[3] ? 'http://' : 'mailto:') + url;
-                }
+                // if we did not match ftp/http/mailto then assume mailto
+                if (match[2] == match[3]) url = 'mailto:' + url;
                 i = match.index;
                 addText(raw.substr(0, i));
                 addLink(url, match[0].replace(MAILTO_REGEXP, ''));
@@ -664,13 +606,13 @@
             function addLink(url, text) {
                 html.push('<a ');
                 if (angular.isDefined(target)) {
-                    html.push('target="',
-                              target,
-                              '" ');
+                    html.push('target="');
+                    html.push(target);
+                    html.push('" ');
                 }
-                html.push('href="',
-                          url.replace(/"/g, '&quot;'),
-                          '">');
+                html.push('href="');
+                html.push(url);
+                html.push('">');
                 addText(text);
                 html.push('</a>');
             }

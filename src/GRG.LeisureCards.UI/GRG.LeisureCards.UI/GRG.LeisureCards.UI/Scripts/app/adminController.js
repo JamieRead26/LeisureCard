@@ -239,6 +239,7 @@ adminController.controller('AdminCardGenerateController', function ($scope, $roo
         GenerateCards.get(postData, function (data) {
             if (data.Success) {
                 $rootScope.$broadcast('cards_generated');
+                debugger;
                 return $scope.cardgenerate_success = 'Cards "' + data.CardGenerationLog.Ref + '" generated successfully.'
             }
             return $scope.cardgenerate_error = data.ErrorMessage;
@@ -259,13 +260,14 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
             $scope.card_numbers.length = 0; // Empty array
 
             var cards = data.$values;
+            if(cards){
+                // pushes cards to key values
+                for (var i = 0; i < cards.length; i++) {
+                    var code = cards[i].Code;
 
-            // pushes cards to key values
-            for (var i = 0; i < cards.length; i++) {
-                var code = cards[i].Code;
-
-                $scope.cards[code] = cards[i];
-                $scope.card_numbers.push(code);
+                    $scope.cards[code] = cards[i];
+                    $scope.card_numbers.push(code);
+                }
             }
         });
     }

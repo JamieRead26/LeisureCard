@@ -71,7 +71,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("TwoForOne/FindByLocation/{postCodeOrTown}/{radiusMiles}")]
         public IEnumerable<TwoForOneOfferGeoSearchResult> FindByLocation(string postCodeOrTown, int radiusMiles)
         {
-            var results = _locationService.Filter(postCodeOrTown, radiusMiles, _twoForOneRepository.GetAll(), twoForOneOffer => _twoForOneRepository.SaveOrUpdate(twoForOneOffer));
+            var results = _locationService.Filter(postCodeOrTown, radiusMiles, _twoForOneRepository.GetAllWithLocation(), twoForOneOffer => _twoForOneRepository.SaveOrUpdate(twoForOneOffer));
 
             return results.Select(i => new TwoForOneOfferGeoSearchResult { TwoForOneOffer = Mapper.Map<TwoForOneOffer>(i.Item1), Distance = Math.Round(i.Item2,1) });
         }

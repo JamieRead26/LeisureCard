@@ -83,7 +83,7 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     $scope.offer = {};
     $scope.global.bodyclass = 'offer-241-details';
     $scope.global.slideshow = slideshow.offer241details;
-  
+    
     Offer241GetById.get({ id: $scope.id }, function (data) {
 
         var website = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>') : '';
@@ -124,9 +124,20 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
 
 offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, Offer241GetById, slideshow) {
 
+    var now = new Date();
+    now.setDate(now.getDate() + 14);
+
+    var strDateTime = [[AddZero(now.getDate()), AddZero(now.getMonth() + 1), now.getFullYear()].join("/"), [AddZero(now.getHours()), AddZero(now.getMinutes())].join(":"), now.getHours() >= 12 ? "PM" : "AM"].join(" ");
+
+    //Pad given value to the left with "0"
+    function AddZero(num) {
+        return (num >= 0 && num < 10) ? "0" + num : num + "";
+    }
+
     $scope.global.slideshow = slideshow.offer241claim;
     $scope.global.bodyclass = 'offer-241-claim';
     $scope.id = $routeParams.id;
+    $scope.validUntil = strDateTime;
 
     Offer241GetById.get({ id: $scope.id }, function (data) {
 
@@ -139,5 +150,9 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
             Website: url
         };
     });
+
+    $scope.print = function () {
+        Window.print();
+    };
 
 });

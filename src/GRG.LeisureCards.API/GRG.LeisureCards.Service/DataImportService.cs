@@ -148,13 +148,14 @@ namespace GRG.LeisureCards.Service
                             offerToPersist.Phone = offer.Phone;
                             offerToPersist.TownCity = offer.TownCity;
                             offerToPersist.Website = offer.Website;
-
                             offers.Remove(offer.Id);
                         }
                         else
                         {
                             offerToPersist = offer;
                         }
+
+                        offerToPersist.CategoryKey = string.IsNullOrWhiteSpace(offer.CategoryKey) ? "Daysoutgen" : offer.CategoryKey;
 
                         var mapPoint =
                             _locationService.GetMapPoint(new []{ offerToPersist.PostCode, offerToPersist.TownCity});

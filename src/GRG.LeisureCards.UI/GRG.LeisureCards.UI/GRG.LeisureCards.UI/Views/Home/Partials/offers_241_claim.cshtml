@@ -7,17 +7,45 @@
     </div>
 </div>
 <div class="clear"></div>
+
 <div class="claim-wrap">
     <div class="claim-offer" ng-controller="offers241ClaimController">
+        
         <div class="offer-copy">
+            <p>
+                Your 2 for 1 days out voucher<br/><br/>
+                NAME...............................<br/><br/>
+                Valid until: {{ validUntil }}
+            </p>
             <h1>{{ offer.OutletName }}</h1>
             <p ng-show="offer.BookingInstructions">{{ offer.BookingInstructions }}</p>
             <p ng-show="offer.ClaimCode">Your claim code is: {{ offer.ClaimCode }}</p>
-        </div> 
-        <p ng-bind-html="offer.Website" ng-show="offer.Website" class="ng-binding button-claim">
-            <img src="http://grg.leisurecards.ui.shiftkey.uk.com/Content/GRG/img/redeem-here.jpg" />
-            <br /><br />
+        </div>
+        <p class="ng-binding button-claim" >
+            <img src="http://grg.leisurecards.ui.shiftkey.uk.com/Content/GRG/img/redeem-here.jpg" onclick="print()" />
+            <br/><br/>
         </p>
-    
-        </div>                
+
+        <p>
+            Days Out Terms and Conditions<br/>
+            1. This voucher entitles the bearer to 2 for 1 entry into participating attractions across the UK. This offer is open to all UK residents. The offer is not available to employees of the Promotion Supplier or agencies appointed by the Promotion Supplier and their immediate family members<br/>
+            2. Offer is subject to availability.<br/>
+            3. Each participating location will have variable opening times, admission prices and may be closed at certain times of the year. Please ensure you check directly with the attraction in advance<br/>
+            4. The offer is only valid at participating attractions by visiting the website <a href="http://www.leisure-card.co.uk">www.leisure-card.co.uk</a><br/>
+            5. voucher must be presented at the ticket office of the attraction before purchasing additional ticket to allow one free entry<br/>
+            6. cannot be used in conjunction with vouchers or any other promotional discount or offer<br/>
+            7. the promotion supplier and the promoter further reserve the right to withdraw this offer without notice<br/>
+            8. no responsibility can be accepted for lost, damaged, illegible, incomplete or mislaid vouchers and the promotion supplier accepts no liability whatsoever (excluding liability for death or personal
+            injury caused by its negligence or for fraudulent misrepresentation) for any loss or damage
+            whatsoever resulting from any goods or services purchased with the voucher; or any inability to use the voucher for reasons outside of the promotion suppliers control.<br/>
+            9. only one voucher can be used per person, not valid for group admissions<br/>
+            10. the attractions reserve the right to refuse admission. general terms and conditions of the attraction also apply<br/>
+            11. tickets purchased with this voucher must be redeemed on the same day<br/>
+            12. the voucher has no monetary value, is non transferable and cannot be redeemed in whole or part for cash<br/>
+            13. these terms and conditions shall be governed by the laws of england and wales and the courts of england shall have exclusive jurisdiction<br/>
+            14. the promotion supplier is not responsible for any offer misrepresentation (written or verbal) on warranties by anyone />group other than the Promotion Supplier<br/>
+            15. Promotion Supplier: Grass Roots Group, Pennyroyal Court, Station Road, Tring, Herts. HP23 5QY<br/>
+        </p>
+
+    </div>                
     </div>

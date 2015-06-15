@@ -98,7 +98,8 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
             Phone: data.Phone,
             PostCode: data.PostCode,
             TownCity: data.TownCity,
-            Website: website
+            Website: website,
+            CategoryKey : data.CategoryKey
         };
     });
     

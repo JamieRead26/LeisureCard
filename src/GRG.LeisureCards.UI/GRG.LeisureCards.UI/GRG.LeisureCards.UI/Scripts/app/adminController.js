@@ -140,7 +140,7 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.retrieveRedLetter = function () {
         $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
         RetrieveRedLetter.get(function (data) {
-            console.log(data);
+           
         });
     }
 
@@ -164,7 +164,7 @@ adminController.controller('AdminDataImportController', function ($scope,
             return console.error('Missing path, key or file.');
         }
 
-        console.log('file is ' + JSON.stringify(file));
+        //console.log('file is ' + JSON.stringify(file));
         var uploadUrl = config.apiUrl + path;
         fileUpload.uploadFileToUrl(file, uploadUrl, function(data){
             
@@ -259,13 +259,14 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
             $scope.card_numbers.length = 0; // Empty array
 
             var cards = data.$values;
+            if(cards){
+                // pushes cards to key values
+                for (var i = 0; i < cards.length; i++) {
+                    var code = cards[i].Code;
 
-            // pushes cards to key values
-            for (var i = 0; i < cards.length; i++) {
-                var code = cards[i].Code;
-
-                $scope.cards[code] = cards[i];
-                $scope.card_numbers.push(code);
+                    $scope.cards[code] = cards[i];
+                    $scope.card_numbers.push(code);
+                }
             }
         });
     }

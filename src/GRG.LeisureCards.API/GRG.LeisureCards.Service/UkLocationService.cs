@@ -88,13 +88,13 @@ namespace GRG.LeisureCards.Service
             }
             catch (Exception ex)
             {
-                Log.Error("Exception occurred calling google maps API : " + locationKey + " : " + ex);
-
                 if (retries-- > 0)
                 {
                     Thread.Sleep(500);
                     return GetMapPoint(locations, retries);
                 }
+                 
+                Log.Error("Exception occurred calling google maps API : " + locationKey + " : " + ex);
             }
 
             return null;

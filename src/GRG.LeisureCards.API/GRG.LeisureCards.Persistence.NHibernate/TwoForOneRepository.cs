@@ -9,5 +9,13 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             return Session.QueryOver<TwoForOneOffer>().Where(o => o.Latitude == null).List();
         }
+
+        public IEnumerable<TwoForOneOffer> GetAllWithLocation()
+        {
+            return Session.QueryOver<TwoForOneOffer>()
+                .Where(o => o.Latitude != null)
+                .Where(o=>o.Longitude!=null)
+                .List();
+        }
     }
 }

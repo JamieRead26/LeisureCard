@@ -21,7 +21,7 @@
         public virtual string CategoryKey { get; set; }
         public virtual string[] Locations
         {
-            get { return new[] {PostCode, TownCity, County}; }
+            get { return new[] {PostCode, TownCity, County, "UK"}; }
         }
     }
 }

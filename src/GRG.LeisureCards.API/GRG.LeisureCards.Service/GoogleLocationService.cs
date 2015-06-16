@@ -10,9 +10,9 @@ namespace GRG.LeisureCards.Service
         /// <summary>
         /// Gets the latitude and longitude that belongs to an address.
         /// </summary>
-        /// <param name="address">The address.</param>
+        /// <param name="commaSeparatedAddress">The address.</param>
         /// <returns></returns>
-        MapPoint GetLatLongFromAddress(AddressData address);
+        MapPoint GetLatLongFromAddress(string commaSeparatedAddress);
     }
 
     public class GoogleLocationService : IGoogleLocationService
@@ -81,12 +81,14 @@ namespace GRG.LeisureCards.Service
         /// <summary>
         /// Gets the latitude and longitude that belongs to an address.
         /// </summary>
-        /// <param name="address">The address.</param>
+        /// <param name="commaSeparatedAddress">The address.</param>
         /// <returns></returns>
         /// <exception cref="System.Net.WebException"></exception>
-        public MapPoint GetLatLongFromAddress(string address)
+        public MapPoint GetLatLongFromAddress(string commaSeparatedAddress)
         {
-            XDocument doc = XDocument.Load(string.Format(APIUrlLatLongFromAddress, Uri.EscapeDataString(address)));
+            var url = string.Format(APIUrlLatLongFromAddress, Uri.EscapeDataString(commaSeparatedAddress));
+
+            XDocument doc = XDocument.Load(url);
 
             string status = doc.Descendants("status").FirstOrDefault().Value;
             if (status == "OVER_QUERY_LIMIT" || status == "REQUEST_DENIED")
@@ -97,27 +99,16 @@ namespace GRG.LeisureCards.Service
             var els = doc.Descendants("result").Descendants("geometry").Descendants("location").FirstOrDefault();
             if (null != els)
             {
-                var latitude = ParseUS((els.Nodes().First() as XElement).Value);
-                var longitude = ParseUS((els.Nodes().ElementAt(1) as XElement).Value);
+                var latitude = ParseUK((els.Nodes().First() as XElement).Value);
+                var longitude = ParseUK((els.Nodes().ElementAt(1) as XElement).Value);
                 return new MapPoint() { Latitude = latitude, Longitude = longitude };
             }
             return null;
         }
 
-        /// <summary>
-        /// Gets the latitude and longitude that belongs to an address.
-        /// </summary>
-        /// <param name="address">The address.</param>
-        /// <returns></returns>
-        public MapPoint GetLatLongFromAddress(AddressData address)
+        double ParseUK(string value)
         {
-            return GetLatLongFromAddress(address.ToString());
-        }
-
-
-        double ParseUS(string value)
-        {
-            return Double.Parse(value, new CultureInfo("en-US"));
+            return Double.Parse(value, new CultureInfo("en-gb"));
         }
     }
 
@@ -125,17 +116,5 @@ namespace GRG.LeisureCards.Service
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-    }
-
-    public class AddressData
-    {
-        public string UkPostCodeOrTown { get; set; }
-
-        public override string ToString()
-        {
-            return string.Format(
-                "{0},United Kingdom",
-                UkPostCodeOrTown);
-        }
     }
 }

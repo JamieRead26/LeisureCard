@@ -28,8 +28,8 @@ adminController.factory('LeisureCardUpdate', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumberOrRef/:renewalDate/:suspended');
 });
 
-adminController.factory('GetTwoForOneMissingLocation', function ($resource, config) {
-    return $resource(config.apiUrl + '/Reports/GetTwoForOneMissingLocation/');
+adminController.factory('GetAllTwoForOne', function ($resource, config) {
+    return $resource(config.apiUrl + '/TwoForOne/GetAll/');
 });
 
 // Red letter data import
@@ -214,12 +214,12 @@ adminController.controller('AdminCardGenerateController', function ($scope, $roo
 
     $scope.reference = '';
     $scope.num_cards = '';
-    $scope.duration = '';
+    $scope.duration = 12;
 
     $scope.reset = function () {
         $scope.reference = '';
         $scope.num_cards = '';
-        $scope.duration = '';
+        $scope.duration = 12;
     }
 
     $scope.submit = function () {
@@ -324,9 +324,10 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
         
         LeisureCardUpdate.get(postData, function (data) {
 
-            $scope.expiryDate = '';
-            $scope.renewalDate = '';
-            $scope.suspended = false;
+            $scope.expiryDate = data.Prototype.ExpiryDate;
+            $scope.renewalDate = data.Prototype.RenewalDate;
+            $scope.suspended = data.Prototype.Suspened;
+            $scope.status = data.Prototype.Status;
 
             return $scope.cardupdate_success = data.CardsUpdated + ' card/s updated successfully.';
 
@@ -335,7 +336,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
 
 });
 
-adminController.controller('AdminReportController', function ($scope, $filter, GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory, GetAllCardNumbers, GetTwoForOneMissingLocation) {
+adminController.controller('AdminReportController', function ($scope, $filter, GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory, GetAllCardNumbers, GetAllTwoForOne) {
 
     $scope.global.slideshow = [];
     $scope.reports_card_activation = [];
@@ -394,7 +395,7 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
 	    		action = GetAllCardNumbers;
 	    		break;
 	        case 'missing_location':
-	            action = GetTwoForOneMissingLocation;
+	            action = GetAllTwoForOne;
 	            break;
 	    	default :
 			    throw 'Unexpected report type ' + $scope.report_type;
@@ -497,7 +498,9 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
             'Address2',
             'TownCity',
             'County',
-            'PostCode'];
+            'PostCode',
+            'Latitude',
+            'Longitude'];
         return data;
     };
     $scope.get241MissingLocationReport = function () {
@@ -511,7 +514,9 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
                 'Address2': report[i].Address2,
                 'TownCity': report[i].TownCity,
                 'County': report[i].County,
-                'PostCode': report[i].PostCode
+                'PostCode': report[i].PostCode,
+                'Latitude': report[i].Latitude,
+                'Longitude': report[i].Longitude
             });
         }
         return data;

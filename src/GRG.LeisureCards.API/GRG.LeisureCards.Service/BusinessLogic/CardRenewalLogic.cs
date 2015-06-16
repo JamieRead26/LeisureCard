@@ -22,7 +22,7 @@ namespace GRG.LeisureCards.Service.BusinessLogic
             if (!leisureCard.RegistrationDate.HasValue)
                 throw new Exception("Can not calculate renewal date of unregistered card ");
 
-            leisureCard.RenewalDate = AddMonths(leisureCard.RegistrationDate.Value,
+            leisureCard.ExpiryDate = AddMonths(leisureCard.RegistrationDate.Value,
                 leisureCard.RenewalPeriodMonths);
         }
 
@@ -32,7 +32,7 @@ namespace GRG.LeisureCards.Service.BusinessLogic
             int newMonth;
             var years = Math.DivRem(totalMonths, 12, out newMonth);
 
-            return new DateTime(registrationDate.Year+years, newMonth, registrationDate.Day);
+            return new DateTime(registrationDate.Year+years, newMonth == 0 ? 12 : newMonth, registrationDate.Day);
         }
     }
 }

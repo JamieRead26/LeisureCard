@@ -19,7 +19,8 @@ namespace GRG.LeisureCards.Data.Test
                 new LeisureCard
                 {
                     Code = "Admin",
-                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RenewalDate = DateTime.Now,
+                    ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now,
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
@@ -27,7 +28,8 @@ namespace GRG.LeisureCards.Data.Test
                 new LeisureCard
                 {
                     Code = "Registered1",
-                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RenewalDate = DateTime.Now,
+                    ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now,
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold
@@ -35,7 +37,8 @@ namespace GRG.LeisureCards.Data.Test
                 new LeisureCard
                 {
                     Code = "Registered2",
-                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RenewalDate = DateTime.Now,
+                    ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(1),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold
@@ -43,7 +46,8 @@ namespace GRG.LeisureCards.Data.Test
                 new LeisureCard
                 {
                     Code = "Registered3",
-                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RenewalDate = DateTime.Now,
+                    ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(2),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold
@@ -51,7 +55,8 @@ namespace GRG.LeisureCards.Data.Test
                 new LeisureCard
                 {
                     Code = "Registered4",
-                    RenewalDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RenewalDate = DateTime.Now,
+                    ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(3),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold

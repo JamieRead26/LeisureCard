@@ -7,7 +7,6 @@ using System.Xml;
 using GRG.LeisureCards.CSV;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
-using GRG.LeisureCards.Persistence.NHibernate;
 using log4net;
 
 namespace GRG.LeisureCards.Service
@@ -149,7 +148,6 @@ namespace GRG.LeisureCards.Service
                             offerToPersist.Phone = offer.Phone;
                             offerToPersist.TownCity = offer.TownCity;
                             offerToPersist.Website = offer.Website;
-
                             offers.Remove(offer.Id);
                         }
                         else
@@ -157,8 +155,10 @@ namespace GRG.LeisureCards.Service
                             offerToPersist = offer;
                         }
 
+                        offerToPersist.CategoryKey = string.IsNullOrWhiteSpace(offer.CategoryKey) ? "Daysoutgen" : offer.CategoryKey;
+
                         var mapPoint =
-                            _locationService.GetMapPoint(offerToPersist.PostCode, offerToPersist.TownCity);
+                            _locationService.GetMapPoint(new []{ offerToPersist.PostCode, offerToPersist.TownCity});
 
                         if (mapPoint != null)
                         {

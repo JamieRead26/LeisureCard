@@ -6,5 +6,6 @@ namespace GRG.LeisureCards.Persistence
     public interface ITwoForOneRepository : IRepository<TwoForOneOffer,int>
     {
         IEnumerable<TwoForOneOffer> GetWithNoLatLong();
+        IEnumerable<TwoForOneOffer> GetAllWithLocation();
     }
 }

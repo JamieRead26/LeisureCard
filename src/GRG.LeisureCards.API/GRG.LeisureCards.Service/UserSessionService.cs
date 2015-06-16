@@ -85,7 +85,6 @@ namespace GRG.LeisureCards.Service
 
                 session = new Session(_sessionDuration, card);
                 
-                
                 _sessions.Add(session);
 
                 return session.Token;
@@ -123,6 +122,7 @@ namespace GRG.LeisureCards.Service
                 RenewalDate = card.RenewalDate;
                 ExpiryUtc = DateTime.UtcNow + _sessionDuration;
                 Token = Guid.NewGuid().ToString();
+                TenantKey = card.Tenant.Key;
             }
 
             public void Renew()
@@ -133,6 +133,7 @@ namespace GRG.LeisureCards.Service
             public string Token { get; private set; }
             private DateTime ExpiryUtc { get; set; }
             public string CardCode { get; private set; }
+            public string TenantKey { get; private set; }
 
             public bool HasExpired
             {

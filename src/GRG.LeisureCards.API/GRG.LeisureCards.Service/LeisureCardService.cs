@@ -19,7 +19,7 @@ namespace GRG.LeisureCards.Service
     public interface ILeisureCardService
     {
         LeisureCardRegistrationResponse Login(string cardCode);
-        CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths);
+        CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths, string tenantKey);
     }
 
     public class LeisureCardService : ILeisureCardService
@@ -29,19 +29,22 @@ namespace GRG.LeisureCards.Service
         private readonly ICardGenerationLogRepository _cardGenerationLogRepository;
         private readonly IAdminCodeProvider _adminCodeProvider;
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
+        private readonly ITenantRepository _tenantRepository;
 
         public LeisureCardService(
             ICardRenewalLogic cardRenewalLogic, 
             ILeisureCardRepository leisureCardRepository,
             ICardGenerationLogRepository cardGenerationLogRepository,
             IAdminCodeProvider adminCodeProvider,
-            ILeisureCardUsageRepository leisureCardUsageRepository)
+            ILeisureCardUsageRepository leisureCardUsageRepository,
+            ITenantRepository tenantRepository)
         {
             _cardRenewalLogic = cardRenewalLogic;
             _leisureCardRepository = leisureCardRepository;
             _cardGenerationLogRepository = cardGenerationLogRepository;
             _adminCodeProvider = adminCodeProvider;
             _leisureCardUsageRepository = leisureCardUsageRepository;
+            _tenantRepository = tenantRepository;
         }
 
         public LeisureCardRegistrationResponse Login(string cardCode)
@@ -86,10 +89,12 @@ namespace GRG.LeisureCards.Service
         }
 
         [UnitOfWork]
-        public CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
+        public CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths, string tenantKey)
         {
             if (_cardGenerationLogRepository.Get(reference)!=null)
                 throw new Exception("Card generation reference is not unique : " + reference);
+
+            var tenant = _tenantRepository.Get(tenantKey);
 
             var allCardCodes = _leisureCardRepository.GetAllIncludingDeleted().Select(c=>c.Code).ToArray();
             
@@ -109,7 +114,8 @@ namespace GRG.LeisureCards.Service
                     Code = newCode,
                     Reference = reference,
                     RenewalPeriodMonths = renewalPeriodMonths,
-                    UploadedDate = now
+                    UploadedDate = now,
+                    Tenant = tenant
                 });
             }
 

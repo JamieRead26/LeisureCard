@@ -12,6 +12,7 @@ namespace GRG.LeisureCards.Data.Test
         {
             var offerCategoryFixture = fixtureContainer.Get<OfferCategoryDataFixture>();
             var membershipTierDataFixture = fixtureContainer.Get<MembershipTierDataFixture>();
+            var tenantFixture = fixtureContainer.Get<TenantDataFixture>();
             
             Cards = new[]
             {
@@ -24,6 +25,7 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now,
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.GRG
                 },
                 new LeisureCard
                 {
@@ -32,7 +34,8 @@ namespace GRG.LeisureCards.Data.Test
                     ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now,
                     UploadedDate = DateTime.Now,
-                    MembershipTier = membershipTierDataFixture.Gold
+                    MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.GRG
                 },
                 new LeisureCard
                 {
@@ -41,7 +44,8 @@ namespace GRG.LeisureCards.Data.Test
                     ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(1),
                     UploadedDate = DateTime.Now,
-                    MembershipTier = membershipTierDataFixture.Gold
+                    MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.GRG
                 },
                 new LeisureCard
                 {
@@ -50,7 +54,8 @@ namespace GRG.LeisureCards.Data.Test
                     ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(2),
                     UploadedDate = DateTime.Now,
-                    MembershipTier = membershipTierDataFixture.Gold
+                    MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.GRG
                 },
                 new LeisureCard
                 {
@@ -59,9 +64,16 @@ namespace GRG.LeisureCards.Data.Test
                     ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(3),
                     UploadedDate = DateTime.Now,
-                    MembershipTier = membershipTierDataFixture.Gold
+                    MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.GRG
                 },
-                new LeisureCard {Code = "Cancelled", Suspended = true, UploadedDate = DateTime.Now}
+                new LeisureCard
+                {
+                    Code = "Cancelled", 
+                    Suspended = true, 
+                    UploadedDate = DateTime.Now,
+                    Tenant = tenantFixture.GRG
+                }
             };
 
             foreach (var leisureCard in Cards)
@@ -78,7 +90,8 @@ namespace GRG.LeisureCards.Data.Test
                 return new[]
                 {
                     typeof(OfferCategoryDataFixture),
-                    typeof(MembershipTierDataFixture)
+                    typeof(MembershipTierDataFixture),
+                    typeof(TenantDataFixture)
                 };  
             } 
         }

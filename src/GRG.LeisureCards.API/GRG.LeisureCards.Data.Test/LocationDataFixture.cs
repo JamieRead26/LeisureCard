@@ -36,5 +36,7 @@ namespace GRG.LeisureCards.Data.Test
                 new Location {UkPostcodeOrTown = "SK12 1BY",    Longitude = -2.1150463, Latitude = 53.3615038},
             };
         }
+
+       
     }
 }

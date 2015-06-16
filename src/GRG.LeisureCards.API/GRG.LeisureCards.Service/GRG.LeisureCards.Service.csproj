@@ -80,7 +80,7 @@
     <Compile Include="UkLocationService.cs" />
     <Compile Include="Model\UkLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="InMemoryUserSessionService.cs" />
+    <Compile Include="UserSessionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GRG.LeisureCards.CSV\GRG.LeisureCards.CSV.csproj">

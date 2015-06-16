@@ -10,7 +10,6 @@ using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
 using GRG.LeisureCards.WebAPI.Model;
-using NHibernate.Util;
 using LeisureCard = GRG.LeisureCards.DomainModel.LeisureCard;
 using SessionInfo = GRG.LeisureCards.DomainModel.SessionInfo;
 
@@ -120,16 +119,19 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [SessionAuthFilter(true)]
-        [Route("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}")]
-        public Model.CardGenerationResponse GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
+        [Route("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}/{tenantKey}")]
+        public CardGenerationResponse GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths, string tenantKey)
         {
             try
             {
                 return new CardGenerationResponse
                 {
                     CardGenerationLog =
-                        Mapper.Map<Model.CardGenerationLog>(_leisureCardService.GenerateCards(reference, numberOfCards,
-                            renewalPeriodMonths)),
+                        Mapper.Map<Model.CardGenerationLog>(_leisureCardService.GenerateCards(
+                            reference, 
+                            numberOfCards,
+                            renewalPeriodMonths,
+                            tenantKey)),
                     Success = true
                 };
             }

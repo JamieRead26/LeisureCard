@@ -111,6 +111,10 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
             For<ICardGenerationLogRepository>().Use<CardGenerationLogRepository>()
             .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
             .SetLifecycleTo<SingletonLifecycle>();
+
+            For<ITenantRepository>().Use<TenantRepository>()
+            .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+            .SetLifecycleTo<SingletonLifecycle>();
         }
 
         private void ConfigureServiceIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)

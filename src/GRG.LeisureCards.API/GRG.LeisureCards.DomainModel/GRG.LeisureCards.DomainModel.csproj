@@ -78,6 +78,7 @@
     <Compile Include="SelectedOffer.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SessionInfo.cs" />
+    <Compile Include="Tenant.cs" />
     <Compile Include="TwoForOneOffer.cs" />
   </ItemGroup>
   <ItemGroup>

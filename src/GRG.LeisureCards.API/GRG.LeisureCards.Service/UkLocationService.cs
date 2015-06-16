@@ -27,14 +27,34 @@ namespace GRG.LeisureCards.Service
 
         private readonly ILocationRepository _locationRepository;
         private readonly IGoogleLocationService _googleLocationService;
-        private readonly IDictionary<string,Location> _locations;
+        
+        private IDictionary<string,Location> _locations;
+        private readonly object _locationLock = new object();
+        private IDictionary<string, Location> Locations
+        {
+            get
+            {
+                if (_locations == null)
+                {
+                    lock (_locationLock)
+                    {
+                        if (_locations == null)
+                        {
+                            _locations = _locationRepository.GetAll().ToDictionary(x => x.UkPostcodeOrTown, x => x);
+                        }
+                    }
+                }
+
+                return _locations;
+            }
+        }
 
         public UkLocationService(ILocationRepository locationRepository, IGoogleLocationService googleLocationService)
         {
             _locationRepository = locationRepository;
             _googleLocationService = googleLocationService;
 
-            _locations = _locationRepository.GetAll().ToDictionary(x=>x.UkPostcodeOrTown, x=>x);
+            
         }
 
         public MapPoint GetMapPoint(string ukPostCodeOrTown)
@@ -48,8 +68,8 @@ namespace GRG.LeisureCards.Service
 
             var locationKey = locations.Union(new[]{"UK"}).GetCommaSeparatedKey();
 
-            if (_locations.ContainsKey(locationKey))
-                return new MapPoint { Latitude = _locations[locationKey].Latitude, Longitude = _locations[locationKey].Longitude }; ;
+            if (Locations.ContainsKey(locationKey))
+                return new MapPoint { Latitude = Locations[locationKey].Latitude, Longitude = Locations[locationKey].Longitude }; ;
 
             try
             {
@@ -85,12 +105,12 @@ namespace GRG.LeisureCards.Service
         {
             var tuple = (Tuple<MapPoint, string>) state;
 
-            if (_locations.ContainsKey(tuple.Item2) || tuple.Item1==null)
+            if (Locations.ContainsKey(tuple.Item2) || tuple.Item1 == null)
                 return;
 
             lock (_cacheLock)
             {
-                if (_locations.ContainsKey(tuple.Item2))
+                if (Locations.ContainsKey(tuple.Item2))
                     return;
 
                 var location = new Location
@@ -100,7 +120,7 @@ namespace GRG.LeisureCards.Service
                     Longitude = tuple.Item1.Longitude
                 };
 
-                _locations.Add(location.UkPostcodeOrTown, location);
+                Locations.Add(location.UkPostcodeOrTown, location);
 
                 _locationRepository.SaveOrUpdate(location);
             }

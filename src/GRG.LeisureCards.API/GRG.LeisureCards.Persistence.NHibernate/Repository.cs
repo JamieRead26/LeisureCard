@@ -10,7 +10,9 @@ namespace GRG.LeisureCards.Persistence.NHibernate
 
         public virtual IEnumerable<TEntity> GetAll()
         {
-            return Session.QueryOver<TEntity>().List();
+            var query = Session.QueryOver<TEntity>();
+            
+            return query.List();
         }
 
         public TEntity SaveOrUpdate(TEntity entity)

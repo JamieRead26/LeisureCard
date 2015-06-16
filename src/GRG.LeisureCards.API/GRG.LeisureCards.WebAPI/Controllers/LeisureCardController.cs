@@ -42,7 +42,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             {
                 result.SessionInfo = new SessionInfo
                 {
-                    CardRenewalDate = result.LeisureCard.RenewalDate.Value,
+                    CardExpiryDate = result.LeisureCard.ExpiryDate.Value,
                     SessionToken = _userSessionService.GetToken(result.LeisureCard),
                     IsAdmin = result.LeisureCard == AdminLeisureCard.Instance
                 };

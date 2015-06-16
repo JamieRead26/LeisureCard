@@ -1,16 +1,13 @@
 ﻿var offersExperienceController = angular.module('offersExperienceController', []);
 
-offersExperienceController.factory('RedLetterGetSpecialOffers', function ($resource, config) {
-    return $resource(config.apiUrl + '/RedLetter/GetRandomSpecialOffers/:count');
-});
-
-offersExperienceController.controller('offersExperienceController', function ($scope, RedLetterGetSpecialOffers, slideshow) {
+offersExperienceController.controller('offersExperienceController', function ($scope, $http, config, slideshow) {
 
     $scope.global.bodyclass = 'offer-experience';
     $scope.global.slideshow = slideshow.offerexperience;
 
-    RedLetterGetSpecialOffers.get({ count: 6 }, function(data) {
-        $scope.special_offers = data.$values;
+    var url = config.apiUrl + '/RedLetter/GetRandomSpecialOffers/6';
+    $http.get(url).then(function(r){
+        $scope.special_offers = r.data.$values;
     });
 
     $scope.cateogies = [

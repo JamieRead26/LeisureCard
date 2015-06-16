@@ -8,8 +8,8 @@ var filterResults = function (expectedNames, key) {
     });
 };
 
-offers241Controller.factory('Offer241GetAll', function ($resource, config) {
-    return $resource(config.apiUrl + '/TwoForOne/GetAll');
+offers241Controller.factory('Offer241GetAll', function ($http, config) {
+    return $http.get(config.apiUrl + '/TwoForOne/GetAll');
 });
 
 offers241Controller.factory('Offer241GetById', function ($resource, config) {
@@ -20,11 +20,7 @@ offers241Controller.factory('Offer241Claim', function ($resource, config) {
     return $resource(config.apiUrl + '/TwoForOne/ClaimOffer/:id');
 });
 
-offers241Controller.factory('Offer241FindByLocation', function ($resource, config) {
-    return $resource(config.apiUrl + '/TwoForOne/FindByLocation/:postCodeOrTown/:radiusMiles');
-});
-
-offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll, Offer241FindByLocation, slideshow) {
+offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll, slideshow, $http, config) {
 
     $scope.offers = {};
     $scope.global.bodyclass = 'offer-241';
@@ -55,21 +51,18 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
         value: 5000
     }];
 
-    /*Offer241GetAll.get(function (data) {
-        $scope.offers = data.$values;
+    /*Offer241GetAll.then(function (r) {
+        $scope.offers = r.data.$values;
     });*/
 
     $scope.submit = function () {
         if ($scope.location) {
 
-            var postData = {
-                postCodeOrTown: $scope.location,
-                radiusMiles: $scope.miles.value
-            };
-
-            Offer241FindByLocation.get(postData, function (data) {
-                $scope.offers = data.$values;
+            var url = config.apiUrl + '/TwoForOne/FindByLocation/' + $scope.location + '/' + $scope.miles.value;
+            $http.get(url).then(function (r) {
+                $scope.offers = r.data.$values;
             });
+
         } else {
             $scope.errors = 'You must provide a location.';
         }
@@ -77,7 +70,7 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
 });
 
 offers241Controller.controller('offers241DetailsController', function ($scope, $sce, $window, $routeParams,
-    Offer241GetById, Offer241Claim, slideshow) {
+    Offer241GetById, Offer241Claim, slideshow, $location) {
 
     $scope.id = $routeParams.id;
     $scope.offer = {};
@@ -85,7 +78,7 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     $scope.global.slideshow = slideshow.offer241details;
     
     Offer241GetById.get({ id: $scope.id }, function (data) {
-
+    
         var website = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>') : '';
 
         $scope.offer = {
@@ -113,11 +106,12 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
         return result;
     }
 
-    $scope.claim = function () {
+    $scope.claim = function (url) {
         Offer241Claim.get({ id: $scope.id }, function (data) {
             if(!data.$resolved){
-                alert('Something when wrong when claiming this offer.');
+                return alert('Something when wrong when claiming this offer.');
             }
+            $location.path(url);
         });
     };
 

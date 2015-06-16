@@ -90,6 +90,10 @@ globalController.controller('globalCtrl', function ($scope, breadcrumbs, $locati
         $anchorScroll();
     };
 
+    $scope.redirectTo = function (url) {
+        $location.path(url);
+    };
+
 });
 
 app.config(['$routeProvider', function ($routeProvider) {

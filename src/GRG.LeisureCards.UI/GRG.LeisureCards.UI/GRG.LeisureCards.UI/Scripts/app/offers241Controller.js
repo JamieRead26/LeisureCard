@@ -55,9 +55,10 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
         value: 5000
     }];
 
-    /*Offer241GetAll.get(function (data) {
+    Offer241GetAll.get(function (data) {
+        debugger;
         $scope.offers = data.$values;
-    });*/
+    });
 
     $scope.submit = function () {
         if ($scope.location) {
@@ -68,6 +69,7 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
             };
 
             Offer241FindByLocation.get(postData, function (data) {
+                debugger;
                 $scope.offers = data.$values;
             });
         } else {

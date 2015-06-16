@@ -1,36 +1,10 @@
 ﻿var adminController = angular.module('adminController', []);
 
-adminController.factory('GetCardActivationHistory', function ($resource, config) {
-    return $resource(config.apiUrl + '/Reports/GetCardActivationHistory/:from/:to');
-});
-// Gets Offers Claimed
-adminController.factory('GetSelectedOfferHistory', function ($resource, config) {
-    return $resource(config.apiUrl + '/Reports/GetSelectedOfferHistory/:from/:to');
-});
-// Gets Card Usage
-adminController.factory('GetLoginHistory', function ($resource, config) {
-    return $resource(config.apiUrl + '/Reports/GetLoginHistory/:from/:to');
-});
-
-adminController.factory('GetCardGenerationHistory', function ($resource, config) {
-    return $resource(config.apiUrl + '/Reports/GetCardGenerationHistory/:from/:to');
-});
-
-adminController.factory('GetAllCardNumbers', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/GetAllCardNumbers');
-});
-
-adminController.factory('GetCardNumbersForUpdate', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/GetCardNumbersForUpdate');
-});
 
 adminController.factory('LeisureCardUpdate', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumberOrRef/:renewalDate/:suspended');
 });
 
-adminController.factory('GetAllTwoForOne', function ($resource, config) {
-    return $resource(config.apiUrl + '/TwoForOne/GetAll/');
-});
 
 // Red letter data import
 adminController.factory('ProcessRedLetter', function ($resource, config) {
@@ -248,17 +222,18 @@ adminController.controller('AdminCardGenerateController', function ($scope, $roo
 
 });
 
-adminController.controller('AdminUpdateCardController', function ($scope, $rootScope, $filter, GetCardNumbersForUpdate, LeisureCardUpdate) {
+adminController.controller('AdminUpdateCardController', function ($scope, $rootScope, $filter, $http, config, LeisureCardUpdate) {
     
     $scope.cards = {};
     $scope.card_numbers = [];
     $scope.suspended = false;
 
-    var refreshCardsForUpdate = function() {
-        GetCardNumbersForUpdate.get(function (data) {
+    var refreshCardsForUpdate = function () {
+        var url = config.apiUrl + '/LeisureCard/GetCardNumbersForUpdate';
+        $http.get(url).then(function (r) {
             $scope.card_numbers.length = 0; // Empty array
-
-            var cards = data.$values;
+            
+            var cards = r.data.$values;
             if(cards){
                 // pushes cards to key values
                 for (var i = 0; i < cards.length; i++) {
@@ -336,7 +311,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
 
 });
 
-adminController.controller('AdminReportController', function ($scope, $filter, GetLoginHistory, GetCardActivationHistory, GetSelectedOfferHistory, GetCardGenerationHistory, GetAllCardNumbers, GetAllTwoForOne) {
+adminController.controller('AdminReportController', function ($scope, $filter, $http, config) {
 
     $scope.global.slideshow = [];
     $scope.reports_card_activation = [];
@@ -353,7 +328,7 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
     }
 
     var validateResultsReturned = function (array) {
-    	if (array.length == 0) {
+        if (!array) {
     		$scope.report_error = 'No results to show.';
     		return false;
     	}
@@ -371,38 +346,38 @@ adminController.controller('AdminReportController', function ($scope, $filter, G
         $scope.reports_missing_location = [];
         $scope.report_error = null;
 
-	    var request = {}, action;
+        var url, postData;
 
-	    if ($scope.report_type != 'urn_report' && $scope.report_type != 'missing_location') {
-	        request.from = $filter('date')($scope.from_date, "yyyy-MM-dd") || '2000-01-01';
-	        request.to = $filter('date')($scope.to_date, "yyyy-MM-dd") || '3000-01-01';
+        if ($scope.report_type != 'urn_report' && $scope.report_type != 'missing_location') {
+            var postData = ($filter('date')($scope.from_date, "yyyy-MM-dd") || '2000-01-01') + '/' +
+                           ($filter('date')($scope.to_date, "yyyy-MM-dd") || '3000-01-01');
         }
- 
+	    
 	    switch ($scope.report_type) {
 	    	case 'card_activation':
-	    		action = GetCardActivationHistory;
+	    	    url = config.apiUrl + '/Reports/GetCardActivationHistory/' + postData;
 	    		break;
 	    	case 'offers_claimed':
-	    		action = GetSelectedOfferHistory;
+	    	    url = config.apiUrl + '/Reports/GetSelectedOfferHistory/' + postData;
 	    		break;
 	    	case 'card_usage':
-	    		action = GetLoginHistory;
+	    	    url = config.apiUrl + '/Reports/GetLoginHistory/' + postData;
 	    		break;
 	    	case 'generation_history':
-	    		action = GetCardGenerationHistory;
+	    	    url = config.apiUrl + '/Reports/GetCardGenerationHistory/' + postData;
 	    		break;
 	    	case 'urn_report':
-	    		action = GetAllCardNumbers;
+	    	    url = config.apiUrl + '/LeisureCard/GetAllCardNumbers';
 	    		break;
 	        case 'missing_location':
-	            action = GetAllTwoForOne;
+	            url = config.apiUrl + '/TwoForOne/GetAll/';
 	            break;
 	    	default :
 			    throw 'Unexpected report type ' + $scope.report_type;
 	    }
 
-	    action.get(request, function(data) {
-	    	$scope['reports_' + $scope.report_type] = data.$values;
+	    $http.get(url).then(function (r) {
+	    	$scope['reports_' + $scope.report_type] = r.data.$values;
 		    if (validateResultsReturned($scope['reports_' + $scope.report_type])) {
 			    setTimeout(function() { $('#download_reports_' + $scope.report_type).click(); });
 		    }

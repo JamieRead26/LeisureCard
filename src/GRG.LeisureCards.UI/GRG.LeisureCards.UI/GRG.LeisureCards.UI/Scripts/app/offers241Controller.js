@@ -52,7 +52,6 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     }];
 
     /*Offer241GetAll.then(function (r) {
-        debugger;
         $scope.offers = r.data.$values;
     });*/
 

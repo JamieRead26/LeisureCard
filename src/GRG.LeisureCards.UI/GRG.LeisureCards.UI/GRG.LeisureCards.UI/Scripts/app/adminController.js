@@ -5,6 +5,10 @@ adminController.factory('LeisureCardUpdate', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/Update/:cardNumberOrRef/:renewalDate/:suspended');
 });
 
+adminController.factory('LeisureCardSuspend', function ($resource, config) {
+    return $resource(config.apiUrl + '/LeisureCard/Suspend/:cardNumberOrRef/:suspended');
+});
+
 
 // Red letter data import
 adminController.factory('ProcessRedLetter', function ($resource, config) {
@@ -222,7 +226,7 @@ adminController.controller('AdminCardGenerateController', function ($scope, $roo
 
 });
 
-adminController.controller('AdminUpdateCardController', function ($scope, $rootScope, $filter, $http, config, LeisureCardUpdate) {
+adminController.controller('AdminUpdateCardController', function ($scope, $rootScope, $filter, $http, config, LeisureCardUpdate, LeisureCardSuspend) {
     
     $scope.cards = {};
     $scope.card_numbers = [];
@@ -287,26 +291,51 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
 
         $scope.cardupdate_error = null;
 
-        if (!valid_iso_date($scope.renewalDate)) {
+        //debugger;
+        if ($scope.renewalDate!=null && $scope.renewalDate!='' && !valid_iso_date($scope.renewalDate)) {
             return $scope.cardupdate_error = 'Renewal date must match format dd-mm-yyyy';
         }
 
-        var postData = {
-            cardNumberOrRef: $scope.cardNumber,
-            renewalDate: $filter('date')($scope.renewalDate, "yyyy-MM-dd"),
-            suspended: $scope.suspended
-        };
+        var postData = {};
+
+        if ($scope.renewalDate!='')
+        {
+            postData = {
+                cardNumberOrRef: $scope.cardNumber,
+                renewalDate: $filter('date')($scope.renewalDate, "yyyy-MM-dd"),
+                suspended: $scope.suspended
+            };
+
+            LeisureCardUpdate.get(postData, function (data) {
+
+                $scope.expiryDate = data.Prototype.ExpiryDate;
+                $scope.renewalDate = data.Prototype.RenewalDate;
+                $scope.suspended = data.Prototype.Suspended;
+                $scope.status = data.Prototype.Status;
+
+                return $scope.cardupdate_success = data.CardsUpdated + ' card/s updated successfully.';
+
+            });
+
+        } else {
+            postData = {
+                cardNumberOrRef: $scope.cardNumber,
+                suspended: $scope.suspended
+            };
+
+            LeisureCardSuspend.get(postData, function (data) {
+
+                $scope.expiryDate = data.Prototype.ExpiryDate;
+                $scope.renewalDate = data.Prototype.RenewalDate;
+                $scope.suspended = data.Prototype.Suspended;
+                $scope.status = data.Prototype.Status;
+
+                return $scope.cardupdate_success = data.CardsUpdated + ' card/s updated successfully.';
+
+            });
+        }
         
-        LeisureCardUpdate.get(postData, function (data) {
-
-            $scope.expiryDate = data.Prototype.ExpiryDate;
-            $scope.renewalDate = data.Prototype.RenewalDate;
-            $scope.suspended = data.Prototype.Suspened;
-            $scope.status = data.Prototype.Status;
-
-            return $scope.cardupdate_success = data.CardsUpdated + ' card/s updated successfully.';
-
-        });
+       
     }
 
 });

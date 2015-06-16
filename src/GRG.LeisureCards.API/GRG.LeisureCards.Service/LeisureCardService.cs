@@ -24,14 +24,14 @@ namespace GRG.LeisureCards.Service
 
     public class LeisureCardService : ILeisureCardService
     {
-        private readonly ICardRenewalLogic _cardExpiryLogic;
+        private readonly ICardExpiryLogic _cardExpiryLogic;
         private readonly ILeisureCardRepository _leisureCardRepository;
         private readonly ICardGenerationLogRepository _cardGenerationLogRepository;
         private readonly IAdminCodeProvider _adminCodeProvider;
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
 
         public LeisureCardService(
-            ICardRenewalLogic cardExpiryLogic, 
+            ICardExpiryLogic cardExpiryLogic, 
             ILeisureCardRepository leisureCardRepository,
             ICardGenerationLogRepository cardGenerationLogRepository,
             IAdminCodeProvider adminCodeProvider,

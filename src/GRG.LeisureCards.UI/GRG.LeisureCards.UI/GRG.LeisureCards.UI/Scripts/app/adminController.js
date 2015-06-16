@@ -286,15 +286,19 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
     $scope.submit = function () {
 
         $scope.cardupdate_error = null;
-
-        if (!valid_iso_date($scope.renewalDate)) {
-            return $scope.cardupdate_error = 'Renewal date must match format dd-mm-yyyy';
+        var renewalDate = false;
+ 
+        if ($scope.renewalDate) {
+            if (!valid_iso_date($scope.renewalDate)) {
+                return $scope.cardupdate_error = 'Renewal date must match format dd-mm-yyyy';
+            }
+            renewalDate = $filter('date')($scope.renewalDate, "yyyy-MM-dd");
         }
 
         var postData = {
             cardNumberOrRef: $scope.cardNumber,
-            renewalDate: $filter('date')($scope.renewalDate, "yyyy-MM-dd"),
-            suspended: $scope.suspended
+            renewalDate: renewalDate,
+            suspended: $scope.suspended || false
         };
         
         LeisureCardUpdate.get(postData, function (data) {

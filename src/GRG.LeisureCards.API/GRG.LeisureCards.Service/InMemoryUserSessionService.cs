@@ -120,7 +120,6 @@ namespace GRG.LeisureCards.Service
             {
                 _sessionDuration = sessionDuration;
                 CardCode = card.Code;
-                RenewalDate = card.RenewalDate;
                 ExpiryUtc = DateTime.UtcNow + _sessionDuration;
                 Token = Guid.NewGuid().ToString();
             }
@@ -131,7 +130,7 @@ namespace GRG.LeisureCards.Service
             }
 
             public string Token { get; private set; }
-            private DateTime ExpiryUtc { get; set; }
+            public DateTime ExpiryUtc { get; private set; }
             public string CardCode { get; private set; }
 
             public bool HasExpired
@@ -143,8 +142,6 @@ namespace GRG.LeisureCards.Service
             {
                 get { return CardCode == AdminLeisureCard.Instance.Code; }
             }
-
-            public DateTime? RenewalDate { get; set; }
         }
     }
 }

@@ -41,13 +41,19 @@ namespace GRG.LeisureCards.WebAPI.Filters
                 return;
             }
 
+            if (session.HasExpired)
+            {
+                context.ErrorResult = new AuthenticationFailureResult("Card has expired", context.Request);
+                return;
+            }
+
             if (_admin && !session.IsAdmin)
             {
                 context.ErrorResult = new AuthenticationFailureResult("Admin access denied", context.Request);
                 return;
             }
 
-            context.Principal = new LeisureCardPrincipal(session.CardCode, new SessionInfo { SessionToken = vals.First(), CardExpiryDate = session.RenewalDate.Value, IsAdmin = session.IsAdmin });
+            context.Principal = new LeisureCardPrincipal(session.CardCode, new SessionInfo { SessionToken = vals.First(), CardExpiryDate = session.ExpiryUtc, IsAdmin = session.IsAdmin });
         }
 
         public async Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)

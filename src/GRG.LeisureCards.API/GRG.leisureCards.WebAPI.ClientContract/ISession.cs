@@ -9,5 +9,6 @@
         ITwoForOneService GetTwoforOneService();
         IShortBreakService GetShortBreakService();
         IReportService GetReportsService();
+        ITenantService GetTenantService();
     }
 }

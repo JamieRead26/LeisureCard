@@ -64,7 +64,8 @@ namespace GRG.LeisureCards.DomainModel
 
         public virtual bool Deleted { get; set; }
 
-       
+        public virtual DateTime? MembershipTermsAccepted { get; set; }
+
         public virtual void AddOfferCategory(OfferCategory offerCategory)
         {
             OfferCategories.Add(offerCategory);

@@ -10,6 +10,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
     public class DataImportControllerTests : ControllerTests
     {
         [Test]
+        [Ignore("Too long as pull large file")]
         public void RetrieveRedLetterData()
         {
             TestDataImportOp(service => service.RetrieveRedLetterData(), service => service.GetRedLetterImportJournal());
@@ -25,6 +26,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         }
 
         [Test]
+        [Ignore("Too long as hits google API, will reduce test data")]
         public void Upload241Data()
         {
             TestDataImportOp(service => service.Upload241Data(ResourceStreams.Get241LetterDataStream()),

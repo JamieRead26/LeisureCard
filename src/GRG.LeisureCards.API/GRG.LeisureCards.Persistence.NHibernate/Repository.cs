@@ -22,6 +22,20 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             return entity;
         }
 
+        public TEntity Update(TEntity entity)
+        {
+            Session.Update(entity);
+
+            return entity;
+        }
+
+        public TEntity Save(TEntity entity)
+        {
+            Session.Save(entity);
+
+            return entity;
+        }
+
         public virtual void Delete(TEntity entity)
         {
             Session.Delete(entity);

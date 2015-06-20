@@ -16,11 +16,13 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.Deleted);
             Map(x => x.Reference);
             Map(x => x.RenewalPeriodMonths);
+            Map(x => x.MembershipTermsAccepted);
             References(x => x.MembershipTier);
             HasManyToMany(x => x.OfferCategories)
                .Cascade.All()
                .Table("LeisureCardOfferCategories");
             References(x => x.Tenant);
+            
         }
     }
 }

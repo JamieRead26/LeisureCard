@@ -21,5 +21,9 @@ namespace GRG.LeisureCards.WebAPI.Model
         public string Reference { get; set; }
 
         public int RenewalPeriodMonths { get; set; }
+
+        public DateTime? MembershipTermsAccepted { get; set; }
+
+       // public bool IsMembershipTermsAccepted { get; set; }
     }
 }

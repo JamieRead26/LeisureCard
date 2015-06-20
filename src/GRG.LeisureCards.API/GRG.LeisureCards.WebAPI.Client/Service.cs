@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using System;
+using RestSharp;
 
 namespace GRG.LeisureCards.WebAPI.Client
 {
@@ -15,10 +16,11 @@ namespace GRG.LeisureCards.WebAPI.Client
 
         protected RestRequest GetRestRequest(string url, Method method)
         {
-            var request = new RestRequest(url, method);
-
+            var request = new RestRequest(url, method) {RequestFormat = DataFormat.Json};
+            
             request.AddHeader("accepts", "application/json");
             request.AddHeader("SessionToken", SessionToken);
+           // request.AddHeader("Host", new Uri(BaseUrl).Host);
 
             return request;
         }

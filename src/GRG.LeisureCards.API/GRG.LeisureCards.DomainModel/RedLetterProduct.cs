@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-
-namespace GRG.LeisureCards.DomainModel
+﻿namespace GRG.LeisureCards.DomainModel
 {
     public class RedLetterProduct
     {

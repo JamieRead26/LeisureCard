@@ -44,6 +44,7 @@
     <Compile Include="RedLetterProductSummary.cs" />
     <Compile Include="SelectedOffer.cs" />
     <Compile Include="SessionInfo.cs" />
+    <Compile Include="Tenant.cs" />
     <Compile Include="TwoForOneOffer.cs" />
     <Compile Include="TwoForOneOfferGeoSearchResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,8 +5,9 @@ namespace GRG.LeisureCards.WebAPI.ClientContract
 {
     public interface ILeisureCardService
     {
-        CardUpdateResponse Update(string codeOrRef, DateTime renewalDateTime, bool suspended);
+        CardUpdateResponse Update(string codeOrRef, DateTime renewalDate, bool suspended);
         SessionInfo GetSessionInfo();
-        CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths);
+        CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths, string tenantKey);
+        void AcceptTerms();
     }
 }

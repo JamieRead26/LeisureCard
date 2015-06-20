@@ -42,5 +42,16 @@ namespace GRG.LeisureCards.WebAPI.Client
             var response = new RestClient(BaseUrl).Execute(request).Content;
             return JsonConvert.DeserializeObject<List<LeisureCard>>(response);
         }
+
+        public IEnumerable<LeisureCard> GetLoginPopupReport(string tenantKey, DateTime @from, DateTime to)
+        {
+            var request = GetRestRequest("Reports/GetLoginPopupReport/{tenantKey}/{from}/{to}", Method.GET);
+            request.AddParameter("tenantKey", tenantKey);
+            request.AddParameter("from", from);
+            request.AddParameter("to", to);
+
+            var response = new RestClient(BaseUrl).Execute(request).Content;
+            return JsonConvert.DeserializeObject<List<LeisureCard>>(response);
+        }
     }
 }

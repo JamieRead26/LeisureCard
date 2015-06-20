@@ -34,6 +34,32 @@ namespace GRG.LeisureCards.Persistence.NHibernate
                 .List();
         }
 
+        public int CountUrns(string tenantKey)
+        {
+            return Session.QueryOver<LeisureCard>()
+                .Where(u => !u.Deleted)
+                .Where(u => u.Tenant.Key == tenantKey)
+                .RowCount();
+        }
+
+        public IEnumerable<LeisureCard> GetLoginPopupReportIncludingNotAccepted(string tenantKey, DateTime @from, DateTime to)
+        {
+            return Session.QueryOver<LeisureCard>()
+                .Where(u => !u.Deleted)
+                .Where(u => u.Tenant.Key == tenantKey)
+                .Where(u => u.RegistrationDate.HasValue)
+                .List();
+        }
+
+        public IEnumerable<LeisureCard> GetLoginPopupReport(string tenantKey, DateTime @from, DateTime to)
+        {
+            return Session.QueryOver<LeisureCard>()
+                .Where(u => !u.Deleted)
+                .Where(u => u.Tenant.Key == tenantKey)
+                .Where(u => u.MembershipTermsAccepted.HasValue)
+                .List();
+        }
+
         public override void Delete(LeisureCard entity)
         {
             entity.Deleted = true;

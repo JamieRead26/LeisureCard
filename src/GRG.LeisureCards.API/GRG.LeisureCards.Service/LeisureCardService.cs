@@ -13,13 +13,15 @@ namespace GRG.LeisureCards.Service
         CardAlreadyRegistered,
         CardSuspended,
         Ok,
-        CardExpired
+        CardExpired,
+        ClientInactive
     }
 
     public interface ILeisureCardService
     {
         LeisureCardRegistrationResponse Login(string cardCode);
         CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths, string tenantKey);
+        void AcceptMembershipTerms(string cardCode);
     }
 
     public class LeisureCardService : ILeisureCardService
@@ -47,6 +49,7 @@ namespace GRG.LeisureCards.Service
             _tenantRepository = tenantRepository;
         }
 
+        [UnitOfWork]
         public LeisureCardRegistrationResponse Login(string cardCode)
         {
             if (_adminCodeProvider.IsAdminCode(cardCode))
@@ -58,6 +61,9 @@ namespace GRG.LeisureCards.Service
 
             if (leisureCard == null)
                 return new LeisureCardRegistrationResponse {Status = RegistrationResult.CodeNotFound.ToString()};
+
+            if (!leisureCard.Tenant.Active)
+                return new LeisureCardRegistrationResponse { Status = RegistrationResult.ClientInactive.ToString() };
 
             switch (leisureCard.StatusEnum)
             {
@@ -84,8 +90,19 @@ namespace GRG.LeisureCards.Service
             return new LeisureCardRegistrationResponse
             {
                 Status = RegistrationResult.Ok.ToString(), 
-                LeisureCard = leisureCard
+                LeisureCard = leisureCard,
+                DisplayMemberLoginPopup = !leisureCard.MembershipTermsAccepted.HasValue && leisureCard.Tenant.MemberLoginPopupDisplayed,
+                MemberLoginPopupAcceptanceMandatory = leisureCard.Tenant.MemberLoginPopupMandatory
             };
+        }
+
+        public void AcceptMembershipTerms(string cardCode)
+        {
+            var card = _leisureCardRepository.Get(cardCode);
+
+            card.MembershipTermsAccepted = DateTime.Now;
+
+            _leisureCardRepository.Save(card);
         }
 
         [UnitOfWork]
@@ -132,5 +149,10 @@ namespace GRG.LeisureCards.Service
         public string Status { get; set; }
         public LeisureCard LeisureCard { get; set; }
         public SessionInfo SessionInfo { get; set; }
+
+        public bool DisplayMemberLoginPopup { get; set; }
+
+        public bool MemberLoginPopupAcceptanceMandatory { get; set; }
+
     }
 }

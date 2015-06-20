@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bootstrap4NHibernate.Data;
+﻿using Bootstrap4NHibernate.Data;
 using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Data.Test

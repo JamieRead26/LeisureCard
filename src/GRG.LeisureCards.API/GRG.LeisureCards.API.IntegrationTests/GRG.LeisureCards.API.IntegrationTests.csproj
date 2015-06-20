@@ -81,6 +81,7 @@
     <Compile Include="RedLetterControllerTests.cs" />
     <Compile Include="ReportsControllerTests.cs" />
     <Compile Include="ShortBreakControllerTests.cs" />
+    <Compile Include="TenantControllerTests.cs" />
     <Compile Include="TwoForControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>

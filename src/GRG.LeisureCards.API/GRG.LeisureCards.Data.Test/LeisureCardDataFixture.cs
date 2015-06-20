@@ -13,10 +13,25 @@ namespace GRG.LeisureCards.Data.Test
             var offerCategoryFixture = fixtureContainer.Get<OfferCategoryDataFixture>();
             var membershipTierDataFixture = fixtureContainer.Get<MembershipTierDataFixture>();
             var tenantFixture = fixtureContainer.Get<TenantDataFixture>();
+
             
+
             Cards = new[]
             {
-                new LeisureCard {Code = "Unregistered", UploadedDate = DateTime.Now},
+                new LeisureCard
+                {
+                    Code = "InactiveClient", 
+                    UploadedDate = DateTime.Now,
+                    MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.Inactive
+                },
+                new LeisureCard
+                {
+                    Code = "Unregistered", 
+                    UploadedDate = DateTime.Now,
+                    MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.GRG
+                },
                 new LeisureCard
                 {
                     Code = "Admin",
@@ -66,6 +81,26 @@ namespace GRG.LeisureCards.Data.Test
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
                     Tenant = tenantFixture.GRG
+                },
+                new LeisureCard
+                {
+                    Code = "PopupNotMandatory",
+                    RenewalDate = DateTime.Now,
+                    ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RegistrationDate = DateTime.Now + TimeSpan.FromDays(3),
+                    UploadedDate = DateTime.Now,
+                    MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.PopupNotMandatory
+                },
+                new LeisureCard
+                {
+                    Code = "PopupMandatory",
+                    RenewalDate = DateTime.Now,
+                    ExpiryDate = DateTime.Now + TimeSpan.FromDays(365),
+                    RegistrationDate = DateTime.Now + TimeSpan.FromDays(3),
+                    UploadedDate = DateTime.Now,
+                    MembershipTier = membershipTierDataFixture.Gold,
+                    Tenant = tenantFixture.PopupMandatory
                 },
                 new LeisureCard
                 {

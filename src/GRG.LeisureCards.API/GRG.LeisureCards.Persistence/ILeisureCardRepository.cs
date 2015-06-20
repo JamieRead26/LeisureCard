@@ -9,5 +9,8 @@ namespace GRG.LeisureCards.Persistence
         IEnumerable<LeisureCard> GetRegistrationHistory(DateTime @from, DateTime to);
         IEnumerable<LeisureCard> GetAllIncludingDeleted();
         IEnumerable<LeisureCard> GetByRef(string cardNumberOrRef);
+        int CountUrns(string tenantKey);
+        IEnumerable<LeisureCard> GetLoginPopupReportIncludingNotAccepted(string tenantKey, DateTime @from, DateTime to);
+        IEnumerable<LeisureCard> GetLoginPopupReport(string tenantKey, DateTime @from, DateTime to);
     }
 }

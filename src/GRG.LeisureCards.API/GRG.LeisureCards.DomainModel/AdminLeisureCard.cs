@@ -9,7 +9,12 @@ namespace GRG.LeisureCards.DomainModel
             Code = "Admin",
             ExpiryDate = DateTime.Parse( "1/1/3000"), 
             RenewalDate = DateTime.Parse( "1/1/3000"),
-            RegistrationDate = DateTime.Parse("1/1/2000")
+            RegistrationDate = DateTime.Parse("1/1/2000"),
+            Tenant = new Tenant
+            {
+                Name = "Grasss Roots Group",
+                Key = "GRG"
+            }
         };
 
         private AdminLeisureCard() { }

@@ -6,13 +6,11 @@ namespace GRG.LeisureCards.WebAPI.Client
     public class Session : ISession
     {
         private readonly string _baseurl;
-        private readonly LeisureCard _leisureCard;
         private readonly SessionInfo _sessionInfo;
 
-        public Session(string baseurl, LeisureCard leisureCard, SessionInfo sessionInfo)
+        public Session(string baseurl, SessionInfo sessionInfo)
         {
             _baseurl = baseurl;
-            _leisureCard = leisureCard;
             _sessionInfo = sessionInfo;
         }
 
@@ -49,6 +47,11 @@ namespace GRG.LeisureCards.WebAPI.Client
         public IReportService GetReportsService()
         {
             return new ReportService(_baseurl, _sessionInfo.SessionToken);
+        }
+
+        public ITenantService GetTenantService()
+        {
+            return new TenantService(_baseurl, _sessionInfo.SessionToken);
         }
     }
 }

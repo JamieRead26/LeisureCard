@@ -14,7 +14,7 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
         if ($scope.card_number) {
             // login and store session
             Login.get({ id: $scope.card_number }, function (data) {
-            
+             
                 if (data.Status == 'CodeNotFound') {
                     $scope.errors = 'Number is not recognised, please try again.';
                 }
@@ -50,10 +50,10 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
 
 var logoutController = angular.module('logoutController', []);
 logoutController.controller('logoutController', function ($scope, $cookies, $location, $timeout, $localStorage) {
-   
+
     $cookies.SessionToken = '';
     $localStorage.$reset();
-
+    
     $timeout(function () {
         $location.path('/');
     },100);

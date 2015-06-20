@@ -147,8 +147,8 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
 
         public void ConfigureBusinessLogic()
         {
-            For<ICardRenewalLogic>()
-                .Use(() => new CardRenewalLogic(int.Parse(ConfigurationManager.AppSettings["DefaultCardRenewalPeriodMonths"])))
+            For<ICardExpiryLogic>()
+                .Use(() => new CardExpiryLogic(int.Parse(ConfigurationManager.AppSettings["DefaultCardRenewalPeriodMonths"])))
                 .SetLifecycleTo<SingletonLifecycle>();
         }
 

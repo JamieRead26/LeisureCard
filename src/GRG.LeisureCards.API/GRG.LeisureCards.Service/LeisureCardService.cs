@@ -24,7 +24,7 @@ namespace GRG.LeisureCards.Service
 
     public class LeisureCardService : ILeisureCardService
     {
-        private readonly ICardRenewalLogic _cardRenewalLogic;
+        private readonly ICardExpiryLogic _cardExpiryLogic;
         private readonly ILeisureCardRepository _leisureCardRepository;
         private readonly ICardGenerationLogRepository _cardGenerationLogRepository;
         private readonly IAdminCodeProvider _adminCodeProvider;
@@ -32,14 +32,14 @@ namespace GRG.LeisureCards.Service
         private readonly ITenantRepository _tenantRepository;
 
         public LeisureCardService(
-            ICardRenewalLogic cardRenewalLogic, 
+            ICardExpiryLogic cardExpiryLogic, 
             ILeisureCardRepository leisureCardRepository,
             ICardGenerationLogRepository cardGenerationLogRepository,
             IAdminCodeProvider adminCodeProvider,
             ILeisureCardUsageRepository leisureCardUsageRepository,
             ITenantRepository tenantRepository)
         {
-            _cardRenewalLogic = cardRenewalLogic;
+            _cardExpiryLogic = cardExpiryLogic;
             _leisureCardRepository = leisureCardRepository;
             _cardGenerationLogRepository = cardGenerationLogRepository;
             _adminCodeProvider = adminCodeProvider;
@@ -69,7 +69,7 @@ namespace GRG.LeisureCards.Service
 
                 case LeisureCardStatus.Inactive:
                      leisureCard.RegistrationDate = DateTime.Now;
-                     _cardRenewalLogic.SetRenewalDate(leisureCard);
+                     _cardExpiryLogic.SetExpiryDate(leisureCard);
                      _leisureCardRepository.SaveOrUpdate(leisureCard);
                     break;
             }

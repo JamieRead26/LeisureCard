@@ -8,6 +8,6 @@ namespace GRG.LeisureCards.Service
         string CardCode { get; }
         bool HasExpired { get; }
         bool IsAdmin { get; }
-        DateTime? RenewalDate { get; set; }
+        DateTime ExpiryUtc { get;  }
     }
 }

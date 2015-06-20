@@ -8,7 +8,7 @@
         </nav>
 
         <div class="end-date" ng-if="$storage.user">
-			<span ng-hide="$storage.user.IsAdmin"><strong>Your Card Expiry Date</strong> <span class="date-head" ng-bind="$storage.user.RenewalDate | date:'dd/MM/yyyy'"></span></span><a class="logout" href="/#/logout">Sign Out</a>
+			<span ng-hide="$storage.user.IsAdmin"><strong>Your Card Expiry Date</strong> <span class="date-head" ng-bind="$storage.user.ExpiryDate | date:'dd/MM/yyyy'"></span></span><a class="logout" href="/#/logout">Sign Out</a>
         </div>
        
 		<div class="clear"></div>

@@ -7,6 +7,7 @@ using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
 using GRG.LeisureCards.Service;
+using GRG.LeisureCards.Service.BusinessLogic;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
 using GRG.LeisureCards.WebAPI.Model;
@@ -20,15 +21,18 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly ILeisureCardService _leisureCardService;
         private readonly ILeisureCardRepository _leisureCardRepository;
         private readonly IUserSessionService _userSessionService;
-        
+        private readonly ICardExpiryLogic _cardExpiryLogic;
+
         public LeisureCardController(
             ILeisureCardService leisureCardService, 
             ILeisureCardRepository leisureCardRepository,
-            IUserSessionService userSessionService)
+            IUserSessionService userSessionService,
+            ICardExpiryLogic cardExpiryLogic)
         {
             _leisureCardService = leisureCardService;
             _leisureCardRepository = leisureCardRepository;
             _userSessionService = userSessionService;
+            _cardExpiryLogic = cardExpiryLogic;
         }
 
         [HttpGet]
@@ -41,7 +45,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             {
                 result.SessionInfo = new SessionInfo
                 {
-                    CardRenewalDate = result.LeisureCard.RenewalDate.Value,
+                    CardExpiryDate = result.LeisureCard.ExpiryDate.Value,
                     SessionToken = _userSessionService.GetToken(result.LeisureCard),
                     IsAdmin = result.LeisureCard == AdminLeisureCard.Instance
                 };
@@ -64,7 +68,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [SessionAuthFilter(true)]
         [Route("LeisureCard/Update/{cardNumberOrRef}/{renewalDate}/{suspended}")]
         [UnitOfWork]
-        public CardUpdateResponse Update(string cardNumberOrRef, DateTime? renewalDate, bool suspended)
+        public CardUpdateResponse Update(string cardNumberOrRef, DateTime renewalDate, bool suspended)
         {
             var crd = _leisureCardRepository.Get(cardNumberOrRef);
             var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
@@ -73,15 +77,44 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             foreach (var card in leisureCards)
             {
                 card.RenewalDate = renewalDate;
+                _cardExpiryLogic.SetExpiryDate(card, card.RenewalDate.Value);
                 card.Suspended = suspended;
 
                 _leisureCardRepository.SaveOrUpdate(card);
             }
 
+            var prototype = leisureCards.Any() ? Mapper.Map<Model.LeisureCard>(leisureCards[0]) : null;
+
             return new CardUpdateResponse
             {
-                CardsUpdated = leisureCards.Count(), 
-                Prototype = leisureCards.Any()? Mapper.Map<Model.LeisureCard>(leisureCards[0]): null
+                CardsUpdated = leisureCards.Count(),
+                Prototype = prototype
+            };
+        }
+
+        [HttpGet]
+        [SessionAuthFilter(true)]
+        [Route("LeisureCard/Suspend/{cardNumberOrRef}/{suspended}")]
+        [UnitOfWork]
+        public CardUpdateResponse Suspend(string cardNumberOrRef, bool suspended)
+        {
+            var crd = _leisureCardRepository.Get(cardNumberOrRef);
+            var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
+
+            var leisureCards = cards as LeisureCard[] ?? cards.ToArray();
+            foreach (var card in leisureCards)
+            {
+                card.Suspended = suspended;
+
+                _leisureCardRepository.SaveOrUpdate(card);
+            }
+
+            var prototype = leisureCards.Any() ? Mapper.Map<Model.LeisureCard>(leisureCards[0]) : null;
+
+            return new CardUpdateResponse
+            {
+                CardsUpdated = leisureCards.Count(),
+                Prototype = prototype
             };
         }
 

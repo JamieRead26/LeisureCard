@@ -1,28 +1,33 @@
 ﻿using System;
 using GRG.LeisureCards.DomainModel;
-using GRG.LeisureCards.Persistence;
 
 namespace GRG.LeisureCards.Service.BusinessLogic
 {
-    public interface ICardRenewalLogic
+    public interface ICardExpiryLogic
     {
-        void SetRenewalDate(LeisureCard leisureCard);
+        void SetExpiryDate(LeisureCard leisureCard);
+        void SetExpiryDate(LeisureCard leisureCard, DateTime renewalDate);
     }
-    public class CardRenewalLogic : ICardRenewalLogic
+    public class CardExpiryLogic : ICardExpiryLogic
     {
         private readonly int _defaultRenewalPeriodMonths;
 
-        public CardRenewalLogic(int defaultCardRenewalPeriodMonths)
+        public CardExpiryLogic(int defaultCardRenewalPeriodMonths)
         {
             _defaultRenewalPeriodMonths = defaultCardRenewalPeriodMonths;
         }
 
-        public void SetRenewalDate(LeisureCard leisureCard)
+        public void SetExpiryDate(LeisureCard leisureCard)
         {
             if (!leisureCard.RegistrationDate.HasValue)
                 throw new Exception("Can not calculate renewal date of unregistered card ");
 
-            leisureCard.ExpiryDate = AddMonths(leisureCard.RegistrationDate.Value,
+            SetExpiryDate(leisureCard, leisureCard.RegistrationDate.Value);
+        }
+
+        public void SetExpiryDate(LeisureCard leisureCard, DateTime renewalDate)
+        {
+            leisureCard.ExpiryDate = AddMonths(renewalDate,
                 leisureCard.RenewalPeriodMonths);
         }
 

@@ -15,28 +15,28 @@
     <![endif]-->
 
 </head>
-<body ng-app="leisureApp" ng-controller="globalCtrl" ng-class="global.bodyclass" id="to-top">
+<body ng-app="leisureApp" ng-controller="globalCtrl" ng-class="global.bodyclass" id="ng-app">
 
     @{Html.RenderPartial("Header");}
 
     <div class="content">
-        <div class="container slideshow slideshowcont" ng-show="global.slideshow.length != 0">            
-                <div class="row">
-                    <div class="twelvecol last">
-                        <div slideit="global.slideshow"></div>
-                    </div>
-                </div>
-                <div class="slideshowmask">
-                    <div class="mask"><img src="~/Content/grg/img/mask-blank.png" /></div>
+        <div class="container slideshow slideshowcont" ng-show="global.slideshow.length != 0">
+            <div class="row">
+                <div class="twelvecol last">
+                    <div slideit="global.slideshow"></div>
                 </div>
             </div>
+            <div class="slideshowmask">
+                <div class="mask"><img src="~/Content/grg/img/mask-blank.png" /></div>
+            </div>
+        </div>
         <div class="admin-banner"><div class="admin-banner-inner"><img src="~/Content/grg/img/admin-banner.jpg" /></div></div>
         <div class="container">
             <div class="row">
                 <div class=twelvecol">
                     <ol class="ab-nav breadcrumb">
                         <li ng-repeat="breadcrumb in breadcrumbs.get() track by breadcrumb.path" ng-class="{ active: $last }">
-                            <a ng-if="!$last" ng-href="#{{ breadcrumb.path }}" ng-bind="breadcrumb.label" class="margin-right-xs"></a>
+                            <a ng-if="!$last" ng-bind="breadcrumb.label" ng-click="redirectTo(breadcrumb.path)" href="#" class="margin-right-xs"></a>
                             <span ng-if="$last" ng-bind="breadcrumb.label"></span>
                         </li>
                     </ol>
@@ -54,8 +54,25 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
 
-    @Scripts.Render("~/bundles/angular")
+    @*Scripts.Render("~/bundles/angular")*@
+
+    <script src="/Scripts/angular-ie8.js" type="text/javascript"></script>
+    <script src="/Scripts/angular.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+
+    <script src="/Scripts/angular.resource.js" type="text/javascript"></script>
+    <script src="/Scripts/angular-cookies.js" type="text/javascript"></script>
+    <script src="/Scripts/angular-route.js" type="text/javascript"></script>
+    <script src="/Scripts/angular-autocomplete.js" type="text/javascript"></script>
+    <script src="/Scripts/angular-ng-breadcrumbs.js" type="text/javascript"></script>
+    <script src="/Scripts/angular-ng-storage.js" type="text/javascript"></script>
+    <script src="/Scripts/angular-sanitize.js" type="text/javascript"></script>
+    <script src="/Scripts/ng-csv.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.bxslider.min.js" type="text/javascript"></script>
+
     @Scripts.Render("~/bundles/appjs")
+
+    <!--[if lte IE 8]> <script src="/Scripts/angular-ie-shiv.js"></script><![endif]-->
 
 </body>
 </html>

@@ -86,8 +86,12 @@ globalController.controller('globalCtrl', function ($scope, breadcrumbs, $locati
     };
 
     $scope.to_top = function () {
-        $location.hash('to-top');
+        $location.hash('ng-app');
         $anchorScroll();
+    };
+
+    $scope.redirectTo = function (url) {
+        $location.path(url);
     };
 
 });
@@ -159,7 +163,7 @@ app.config(['$routeProvider', function ($routeProvider) {
             label: 'hide'
         }).
         when('/logout', {
-            template: '',
+            template: 'partial/logout',
             controller: 'logoutController'
         }).
         otherwise({

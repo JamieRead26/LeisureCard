@@ -20,6 +20,7 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
             $scope.ftpUsername = t.FtpUsername;
             $scope.ftpAddress = t.FtpServer;
             $scope.ftpPassword = t.FtpPassword;
+            $scope.ftpFilePath = t.FtpFilePath;
         }
     }
 
@@ -43,7 +44,8 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
                 MemberLoginPopupMandatory: $scope.memberLoginPopupMandatory,
                 FtpUsername: $scope.ftpUsername,
                 FtpServer: $scope.ftpAddress,
-                FtpPassword: $scope.ftpPassword
+                FtpPassword: $scope.ftpPassword,
+                FtpFilePath: $scope.ftpFilePath
             };
 
             $http.post(config.apiUrl + '/Tenant/Update', tenant);

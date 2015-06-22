@@ -15,7 +15,8 @@
     'globalController',
     'logoutController',
     'loginController',
-    'adminController'
+    'adminReportsController',
+    'adminClientController'
 ]);
 
 app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $timeout, $localStorage) {
@@ -26,8 +27,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
             config.headers = config.headers || {};
             if ($cookies.SessionToken) {
                 config.headers['SessionToken'] = $cookies.SessionToken;
-
-                if (config.url == 'partial/login' || (config.url == 'partial/admin' && !$localStorage.user.IsAdmin)) {
+               
+                if (config.url == 'partial/login' || (config.url.indexOf('admin') != -1 && !$localStorage.user.IsAdmin)) {
                     $location.path('/offers');
                 }
 
@@ -107,6 +108,11 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'partial/admin',
             controller: 'AdminReportController',
             label: 'Admin'
+        }).
+        when('/admin/client-details', {
+            templateUrl: 'partial/admin_client_details',
+            controller: 'AdminClientDetailsController',
+            label: 'Client Details'
         }).
         when('/about', {
             templateUrl: 'partial/about',

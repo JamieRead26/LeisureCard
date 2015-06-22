@@ -45,6 +45,12 @@
     }
 }
 
+body.admin .content  {
+    .inline-form label {
+        text-align: left;
+    }
+}
+
 /* AUTOCOMPLETE */
 
 .autocomplete{

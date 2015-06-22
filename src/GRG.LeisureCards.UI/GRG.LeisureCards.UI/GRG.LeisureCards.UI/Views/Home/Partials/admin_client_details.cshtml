@@ -12,40 +12,40 @@
 
             <div class="field">
                 <label>Client ID:</label>
-                <select ng-model="clientId" required ng-options="option.name for option in clientId"></select>
+                <select ng-model="currentTenant" required ng-options="t.Key for t in tenants" ng-change="selectTenant()"></select>
             </div>
             <div class="field">
                 <label>Client Name:</label>
-                <input type="text" ng-model="clientName" />
+                <input type="text" ng-model="tenantName" />
             </div>
             <div class="field">
-                <label>Client Status:</label>
-                <input type="checkbox" ng-model="clientStatus" />
+                <label>Client Ative:</label>
+                <input type="checkbox" ng-model="tenantActive" />
             </div>
             <div class="field">
                 <label>Domain Name:</label>
-                <input type="text" ng-model="domainName" />
+                <input type="text" ng-model="domain" />
             </div>
             <div class="field">
                 <label>Comments:</label>
                 <input type="text" ng-model="comments" />
             </div>
-            <div class="field checkboxes">
+            <div class="field checkboxes" style="display: none;">
                 <label>
-                    <input type="checkbox" ng-model="showLoginPopup" />
-                    Member Login Pop-Up Displayed:
+                    <input type="checkbox" ng-model="memberLoginPopupDisplayed" />
+                    Member Login Pop-Up Displayed
                 </label>
             </div>
-            <div class="field checkboxes">
+            <div class="field checkboxes" style="display: none;">
                 <label>
-                    <input type="checkbox" ng-model="loginPopupRequired" />
-                    Member Login Pop-Up Displayed Agreement Required to Continue:
+                    <input type="checkbox" ng-model="memberLoginPopupMandatory" />
+                    Member Login Pop-Up Agreement Required to Continue
                 </label>
             </div>
 
             <div class="field">
                 <label>Total URNs Used:</label>
-                <input type="text" readonly="readonly" ng-model="totalUrns" />
+                <input type="text" readonly="readonly" ng-model="urnCount" />
             </div>
         </div>
     </div>
@@ -64,19 +64,21 @@
                 <input type="text" ng-model="ftpPassword" />
             </div>
         </div>
-        <div class="form-box">
+        <div class="form-box" style="display: none;">
             <h2>Login Pop-Up Report</h2>
+            <form class="no-bg" ng-controller="AdminPopupReportController">
 
-            <div class="field">
-                <label>Date From:</label>
-                <input placeholder="dd-mm-yyyy" type="text" ng-model="dateFrom" date-formatter />
-            </div>
-            <div class="field">
-                <label>Date To:</label>
-                <input placeholder="dd-mm-yyyy" type="text" ng-model="dateTo" date-formatter />
-            </div>
-
-            <button>Download</button>
+                <div class="field">
+                    <label>Date From:</label>
+                    <input placeholder="dd-mm-yyyy" type="text" ng-model="dateFrom" date-formatter />
+                </div>
+                <div class="field">
+                    <label>Date To:</label>
+                    <input placeholder="dd-mm-yyyy" type="text" ng-model="dateTo" date-formatter />
+                </div>
+                <div class="errors" ng-show="report_error != null">{{ report_error }}</div>
+                <button type="button" csv-header="getHeader()" ng-csv="getnReport()" filename="LoginPopupReport.csv" field-separator="," decimal-separator=".">Download</button>
+            </form>
 
         </div>
     </div>
@@ -125,6 +127,11 @@
             </td>
         </tr>
     </table>
+
+    <div class="success" ng-show="tenant_success != null">{{ tenant_success }}</div>
+    <div class="errors" ng-show="tenant_error != null">{{ tenant_error }}</div>
+
+    <button ng-click="saveTenant()">Accept</button>
 
 </div>
 

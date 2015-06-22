@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "";
+}
+
+<p>Lorum Ipsums</p>
+
+<form ng-submit="check_terms()">
+    <label>
+        <input type="checkbox" ng-required="{{ terms_required }}" ng-model="terms.terms_checked" />
+        Please check to confirm agreement to the above.
+    </label>
+    <div class="field">
+        <input type="submit" value="Enter" />
+    </div>
+</form>
+

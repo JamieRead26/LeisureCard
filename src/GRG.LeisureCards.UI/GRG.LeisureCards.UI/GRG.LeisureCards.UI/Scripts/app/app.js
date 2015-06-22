@@ -5,6 +5,7 @@
     'ngCookies',
     'ngSanitize',
     'ngCsv',
+    'ngDialog',
     'autocomplete',
     'ng-breadcrumbs',
     'offersExperienceController',

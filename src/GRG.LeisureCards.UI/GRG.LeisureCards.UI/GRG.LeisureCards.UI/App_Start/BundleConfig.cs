@@ -49,6 +49,7 @@ namespace GRG.LeisureCards.UI
                         "~/Scripts/angular.resource.js",
                         "~/Scripts/angular-cookies.js",
                         "~/Scripts/angular-route.js",
+                        "~/Scripts/angular-dialog.js",
                         "~/Scripts/angular-autocomplete.js",
                         "~/Scripts/angular-ng-breadcrumbs.js",
                         "~/Scripts/angular-ng-storage.js",
@@ -67,6 +68,7 @@ namespace GRG.LeisureCards.UI
                         string.Format("~/Content/global/css/1140-grid.scss"),
                         string.Format("~/Content/global/css/bxslider.scss"),
                         string.Format("~/Content/global/css/admin.scss"),
+                        string.Format("~/Content/global/css/ngdialog.scss"),
 
                         string.Format("~/Content/{0}/css/footer.scss", tenant),
                         string.Format("~/Content/{0}/css/header.scss", tenant),

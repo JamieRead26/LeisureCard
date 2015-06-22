@@ -23,7 +23,7 @@ namespace GRG.LeisureCards.WebAPI
             AreaRegistration.RegisterAllAreas();
 //#if DEBUG
             if (bool.Parse(ConfigurationSettings.AppSettings["ResetDB"]))
-                DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, false);
+                DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, true);
 //#endif
             Mappings.Mapping.Register();
             GlobalConfiguration.Configure(WebApiConfig.Register);

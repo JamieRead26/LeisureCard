@@ -8,7 +8,6 @@ using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
-using GRG.LeisureCards.WebAPI.Mappings;
 using GRG.LeisureCards.WebAPI.Model;
 using SelectedOffer = GRG.LeisureCards.DomainModel.SelectedOffer;
 

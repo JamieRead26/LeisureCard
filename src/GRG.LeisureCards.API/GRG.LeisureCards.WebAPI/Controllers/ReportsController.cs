@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
@@ -15,18 +16,18 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly ILeisureCardRepository _leisureCardRepository;
-        private readonly ITwoForOneRepository _twoForOneRepository;
+        private readonly IReportService _reportService;
 
         public ReportsController(
             ILeisureCardUsageRepository leisureCardUsageRepository,
             ISelectedOfferRepository selectedOfferRepository,
             ILeisureCardRepository leisureCardRepository,
-            ITwoForOneRepository twoForOneRepository)
+            IReportService reportService)
         {
             _leisureCardUsageRepository = leisureCardUsageRepository;
             _selectedOfferRepository = selectedOfferRepository;
             _leisureCardRepository = leisureCardRepository;
-            _twoForOneRepository = twoForOneRepository;
+            _reportService = reportService;
         }
 
         [HttpGet]
@@ -51,6 +52,13 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         public IEnumerable<Model.LeisureCard> GetCardActivationHistory(DateTime from, DateTime to)
         {
             return _leisureCardRepository.GetRegistrationHistory(from, to).Select(Mapper.Map<Model.LeisureCard>);
+        }
+
+        [HttpGet]
+        [Route("GetLoginPopupReport/{tenantKey}/{from}/{to}")]
+        public IEnumerable<Model.LeisureCard> GetLoginPopupReport(string tenantKey, DateTime from, DateTime to)
+        {
+            return _reportService.GetLoginPopupReport(tenantKey, from, to).Select(Mapper.Map<Model.LeisureCard>);
         }
     }
 }

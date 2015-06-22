@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="ClassMaps\SelectedOfferClassMap.cs" />
     <Compile Include="ClassMaps\SessionClassMap.cs" />
+    <Compile Include="ClassMaps\TenantClassMap.cs" />
     <Compile Include="ClassMaps\TwoForOneClassMap.cs" />
     <Compile Include="DataImportJournalEntryRepository.cs" />
     <Compile Include="CardGenerationLogRepository.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Repository.cs" />
     <Compile Include="SelectedOfferRepository.cs" />
     <Compile Include="SessionRepository.cs" />
+    <Compile Include="TenantRepository.cs" />
     <Compile Include="TwoForOneRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkAttribute.cs" />

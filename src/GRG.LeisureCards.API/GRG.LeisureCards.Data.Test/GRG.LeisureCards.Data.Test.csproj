@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="DataBootstrap.cs" />
     <Compile Include="DataImportJournalEntryDataFixture.cs" />
+    <Compile Include="TenantDataFixture.cs" />
     <Compile Include="LeisureCardDataFixture.cs">
       <SubType>Code</SubType>
     </Compile>

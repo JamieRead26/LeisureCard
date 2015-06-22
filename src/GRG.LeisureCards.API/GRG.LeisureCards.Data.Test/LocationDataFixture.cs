@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bootstrap4NHibernate.Data;
+﻿using Bootstrap4NHibernate.Data;
 using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Data.Test
@@ -36,5 +31,7 @@ namespace GRG.LeisureCards.Data.Test
                 new Location {UkPostcodeOrTown = "SK12 1BY",    Longitude = -2.1150463, Latitude = 53.3615038},
             };
         }
+
+       
     }
 }

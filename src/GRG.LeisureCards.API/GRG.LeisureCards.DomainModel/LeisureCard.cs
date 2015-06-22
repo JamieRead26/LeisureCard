@@ -25,6 +25,8 @@ namespace GRG.LeisureCards.DomainModel
 
         public virtual DateTime? RegistrationDate { get; set; }
 
+        public virtual Tenant Tenant { get; set; }
+
         public virtual LeisureCardStatus StatusEnum
         {
             get
@@ -62,7 +64,8 @@ namespace GRG.LeisureCards.DomainModel
 
         public virtual bool Deleted { get; set; }
 
-       
+        public virtual DateTime? MembershipTermsAccepted { get; set; }
+
         public virtual void AddOfferCategory(OfferCategory offerCategory)
         {
             OfferCategories.Add(offerCategory);

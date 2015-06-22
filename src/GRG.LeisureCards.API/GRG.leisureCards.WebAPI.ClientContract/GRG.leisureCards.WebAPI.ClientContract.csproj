@@ -47,6 +47,7 @@
     <Compile Include="IReportService.cs" />
     <Compile Include="ISession.cs" />
     <Compile Include="IShortBreakService.cs" />
+    <Compile Include="ITenantService.cs" />
     <Compile Include="ITwoForOneService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -26,6 +26,9 @@ namespace GRG.LeisureCards.WebAPI.Mappings
 
             Mapper.CreateMap<DomainModel.CardGenerationLog, Model.CardGenerationLog>();
 
+            Mapper.CreateMap<DomainModel.Tenant, Model.Tenant>();
+            Mapper.CreateMap<Model.Tenant, DomainModel.Tenant>();
+
         }
     }
 }

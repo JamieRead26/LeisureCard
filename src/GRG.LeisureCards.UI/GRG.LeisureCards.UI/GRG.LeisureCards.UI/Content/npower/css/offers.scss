@@ -1,0 +1,117 @@
+﻿@import 'mixin.scss';
+
+body .content {
+    a.offer {
+        background: $site-color2;
+        height: 300px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        h2 {
+            font-size: 20px;
+            color: #fff;
+        }
+    }
+    .spcial-offers {
+        background: $special-offer-bg;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 40px;
+        h2 {
+            color: $special-offer-text;
+        }
+        ul {
+            float: left;
+            list-style: none;
+            width: 100%;
+            li {
+                float: left;
+                width: 32%;
+                margin: 0.5%;
+                @include breakpoint(site-width){
+                    width: 24%
+                }
+                @include breakpoint(small-screen){
+                    width: 100%;
+                    margin: 0 0 10px 0;
+                }
+                span, a, p {
+                    color: $special-offer-text;
+                    margin: 0;
+                }
+                a {
+                    text-decoration: none;
+                    display: block;
+                    padding: 5px;
+                    &:hover {
+                        background: rgba(0,0,0,0.2);
+                    }
+                    span {
+                        text-decoration: underline;
+                        margin-bottom: 10px;
+                        display: block;
+                    }
+                }
+                img {
+                    margin: 0 10px 0 0;
+                    border-radius: 3px;
+                    min-width: 163px;
+                    float: left;
+                }
+            }
+        }
+    }
+    .experience-offers {
+        float: left;
+        width: 100%;
+        list-style: none;
+        margin-top: 30px;
+        li {
+            width: 24%;
+            float: left;
+            margin: 0.5%;
+            @include breakpoint(site-width){
+                width: 24%
+            }
+            @include breakpoint(small-screen){
+                width: 100%;
+                margin: 0 0 10px 0;
+            }
+            a {
+                padding: 20px;
+                border-radius: 5px;
+                background: $site-color2;
+                font-size: 16px;
+                display: block;
+                color: $experience-offer-text;
+                text-align: center;
+                text-decoration: none;
+                min-height: 85px;
+                p {
+                    margin: 0;       
+                }
+                &:hover {
+                    background: #222;
+                    @include ease(0.2s);
+                }
+                span {
+                    font-size: 17px;
+                    display: block;
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+    .results {
+        div {
+            padding: 20px;
+            img {
+                float: left;
+                margin: 0 20px 20px 0;
+            }
+        }
+    }
+}

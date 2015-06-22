@@ -9,5 +9,7 @@ namespace GRG.LeisureCards.WebAPI.ClientContract
         IEnumerable<LeisureCardUsage> GetloginHistory(DateTime from, DateTime to);
         IEnumerable<SelectedOffer> GetSelectedOfferHistory(DateTime from, DateTime to);
         IEnumerable<LeisureCard> GetCardActivationHistory(DateTime from, DateTime to);
+
+        IEnumerable<LeisureCard> GetLoginPopupReport(string tenantKey, DateTime from, DateTime to);
     }
 }

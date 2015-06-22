@@ -21,6 +21,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,11 +52,19 @@
     <Reference Include="BundleTransformer.SassAndScss">
       <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.52\lib\net40\BundleTransformer.SassAndScss.dll</HintPath>
     </Reference>
+    <Reference Include="GRG.LeisureCards.WebAPI.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\GRG.LeisureCards.API\GRG.LeisureCards.WebAPI.Model\bin\Debug\GRG.LeisureCards.WebAPI.Model.dll</HintPath>
+    </Reference>
     <Reference Include="IronRuby">
       <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.52\lib\net40\IronRuby.dll</HintPath>
     </Reference>
     <Reference Include="IronRuby.Libraries">
       <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.52\lib\net40\IronRuby.Libraries.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Dynamic">
@@ -175,6 +185,77 @@
     <Content Include="Content\grg\img\carousel-mask.png" />
     <Content Include="Content\grg\img\logo.jpg" />
     <Content Include="Content\grg\img\logo.png" />
+    <Content Include="Content\npower\241Category\Action_large.png" />
+    <Content Include="Content\npower\241Category\Action_small.png" />
+    <Content Include="Content\npower\241Category\Animals_large.png" />
+    <Content Include="Content\npower\241Category\Animals_small.png" />
+    <Content Include="Content\npower\241Category\ArtsandCrafts_large.png" />
+    <Content Include="Content\npower\241Category\ArtsandCrafts_small.png" />
+    <Content Include="Content\npower\241Category\Daysoutgen_large.png" />
+    <Content Include="Content\npower\241Category\Daysoutgen_small.png" />
+    <Content Include="Content\npower\241Category\Historic_large.png" />
+    <Content Include="Content\npower\241Category\Historic_small.png" />
+    <Content Include="Content\npower\241Category\Treasurehunt_large.png" />
+    <Content Include="Content\npower\241Category\Treasurehunt_small.png" />
+    <Content Include="Content\npower\css\offers.css" />
+    <Content Include="Content\npower\css\offers.min.css" />
+    <Content Include="Content\npower\img\2-4-1-offers.png" />
+    <Content Include="Content\npower\img\admin-banner.jpg" />
+    <Content Include="Content\npower\img\back-to-top.png" />
+    <Content Include="Content\npower\img\banner-1.jpg" />
+    <Content Include="Content\npower\img\banner-10.jpg" />
+    <Content Include="Content\npower\img\banner-11.jpg" />
+    <Content Include="Content\npower\img\banner-12.jpg" />
+    <Content Include="Content\npower\img\banner-13.jpg" />
+    <Content Include="Content\npower\img\banner-14.jpg" />
+    <Content Include="Content\npower\img\banner-15.jpg" />
+    <Content Include="Content\npower\img\banner-16.jpg" />
+    <Content Include="Content\npower\img\banner-17.jpg" />
+    <Content Include="Content\npower\img\banner-18.jpg" />
+    <Content Include="Content\npower\img\banner-19.jpg" />
+    <Content Include="Content\npower\img\banner-2.jpg" />
+    <Content Include="Content\npower\img\banner-20.jpg" />
+    <Content Include="Content\npower\img\banner-21.jpg" />
+    <Content Include="Content\npower\img\banner-3.jpg" />
+    <Content Include="Content\npower\img\banner-4.jpg" />
+    <Content Include="Content\npower\img\banner-5.jpg" />
+    <Content Include="Content\npower\img\banner-6.jpg" />
+    <Content Include="Content\npower\img\banner-7.jpg" />
+    <Content Include="Content\npower\img\banner-8.jpg" />
+    <Content Include="Content\npower\img\banner-9.jpg" />
+    <Content Include="Content\npower\img\buttonArrow.jpg" />
+    <Content Include="Content\npower\img\buttonArrowBlue.jpg" />
+    <Content Include="Content\npower\img\carousel-mask-green.png" />
+    <Content Include="Content\npower\img\carousel-mask-pink.png" />
+    <Content Include="Content\npower\img\carousel-mask-turq.png" />
+    <Content Include="Content\npower\img\carousel-mask.png" />
+    <Content Include="Content\npower\img\claim-code-button.png" />
+    <Content Include="Content\npower\img\claim-discount-button.jpg" />
+    <Content Include="Content\npower\img\cottages-for-you.jpg" />
+    <Content Include="Content\npower\img\ed-banner-tag-1-small.jpg" />
+    <Content Include="Content\npower\img\ed-banner-tag-1.jpg" />
+    <Content Include="Content\npower\img\ed-banner-tag-2-small.jpg" />
+    <Content Include="Content\npower\img\ed-banner-tag-2.jpg" />
+    <Content Include="Content\npower\img\ed-title.jpg" />
+    <Content Include="Content\npower\img\grassroots-product.png" />
+    <Content Include="Content\npower\img\home-icons.png" />
+    <Content Include="Content\npower\img\hoseasons-banner.jpg" />
+    <Content Include="Content\npower\img\location-icon.png" />
+    <Content Include="Content\npower\img\logo.jpg" />
+    <Content Include="Content\npower\img\logo.png" />
+    <Content Include="Content\npower\img\mask-blank.png" />
+    <Content Include="Content\npower\img\offer-mask.png" />
+    <Content Include="Content\npower\img\offers241-r-top.jpg" />
+    <Content Include="Content\npower\img\redeem-here.jpg" />
+    <Content Include="Content\npower\img\redeem-your-discount.png" />
+    <Content Include="Content\npower\img\select-arrow.jpg" />
+    <Content Include="Content\npower\img\star.png" />
+    <Content Include="Content\npower\img\submit-button-arrow.png" />
+    <Content Include="Content\npower\img\t-and-cs.png" />
+    <Content Include="Content\npower\img\travelandwk-l.jpg" />
+    <Content Include="Content\npower\img\travelandwk-r.jpg" />
+    <Content Include="Content\npower\img\tw-title.jpg" />
+    <Content Include="Content\npower\img\welcome-to-leisure-card.png" />
     <Content Include="Scripts\angular-autocomplete.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-ie-shiv.js" />
@@ -224,6 +305,13 @@
     <Content Include="Content\grg\css\presets.scss" />
     <Content Include="Content\grg\css\site.scss" />
     <Content Include="Content\global\css\mixin.scss" />
+    <Content Include="Content\npower\css\footer.scss" />
+    <Content Include="Content\npower\css\form.scss" />
+    <Content Include="Content\npower\css\header.scss" />
+    <Content Include="Content\npower\css\mixin.scss" />
+    <Content Include="Content\npower\css\offers.scss" />
+    <Content Include="Content\npower\css\presets.scss" />
+    <Content Include="Content\npower\css\site.scss" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Views\Home\Partials\offers_241_claim.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount_cottage.cshtml" />
@@ -250,6 +338,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tenant\TenantCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -268,10 +357,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\grg\241Category\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\app\adminClientController.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\GRG.LeisureCards.API\GRG.leisureCards.WebAPI.ClientContract\GRG.leisureCards.WebAPI.ClientContract.csproj">
+      <Project>{4f14b810-ca75-408d-b21e-d6f693d2047a}</Project>
+      <Name>GRG.leisureCards.WebAPI.ClientContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GRG.LeisureCards.API\GRG.LeisureCards.WebAPI.Client\GRG.LeisureCards.WebAPI.Client.csproj">
+      <Project>{79311c7c-a059-472c-b271-0fdd80d210d9}</Project>
+      <Name>GRG.LeisureCards.WebAPI.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -285,20 +385,26 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57214</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57212/</IISUrl>
+          <IISUrl>http://localhost:57214/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://LeisureCards.GRG</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

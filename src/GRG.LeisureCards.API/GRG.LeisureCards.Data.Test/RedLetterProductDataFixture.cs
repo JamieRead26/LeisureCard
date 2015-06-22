@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Xml;
 using Bootstrap4NHibernate.Data;
 using GRG.LeisureCards.DomainModel;
@@ -22,53 +21,43 @@ namespace GRG.LeisureCards.Data.Test
 
                 xmlDoc.Load(txtReader);
 
-                foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("RedLetterProduct"))
+                foreach (XmlNode productNode in xmlDoc.GetElementsByTagName("Product"))
                 {
-                    var product = new RedLetterProduct{
-                        Id = int.Parse(productNode.SelectSingleNode("Key").InnerText),
-                        Title = productNode.SelectSingleNode("Title").InnerText,
-                        InspirationalDescription = productNode.SelectSingleNode("InspirationalDescription").InnerText,
-                        VoucherText = productNode.SelectSingleNode("VoucherText").InnerText,
-                        ExpRef = productNode.SelectSingleNode("ExpRef").InnerText,
-                        Type = productNode.SelectSingleNode("Type").InnerText,
-                        GeneralPrice = decimal.Parse(productNode.SelectSingleNode("GeneralPrice").InnerText),
-                        PriceBeforeVAT = decimal.Parse(productNode.SelectSingleNode("PriceBeforeVAT").InnerText),
-                        Territory = productNode.SelectSingleNode("Territory").InnerText,
-                        DisplayLocations = productNode.SelectSingleNode("DisplayLocations").InnerText,
-                        MainSectionName = productNode.SelectSingleNode("MainSectionName").InnerText,
-                        SectionName = productNode.SelectSingleNode("SectionName").InnerText,
-                        Priority = int.Parse(productNode.SelectSingleNode("Priority").InnerText),
-                        WhatsIncluded = productNode.SelectSingleNode("WhatsIncluded").InnerText,
-                        Availability = productNode.SelectSingleNode("Availability").InnerText,
-                        Weather = productNode.SelectSingleNode("Weather").InnerText,
-                        Duration = productNode.SelectSingleNode("Duration").InnerText,
-                        ShortDuration = productNode.SelectSingleNode("ShortDuration").InnerText,
-                        HowManyPeople = productNode.SelectSingleNode("HowManyPeople").InnerText,
-                        FriendsAndFamily = productNode.SelectSingleNode("FriendsAndFamily").InnerText,
-                        DressCode = productNode.SelectSingleNode("DressCode").InnerText,
-                        AnyOtherInfo = productNode.SelectSingleNode("AnyOtherInfo").InnerText,
-                        WhoCanTakePart = productNode.SelectSingleNode("WhoCanTakePart").InnerText,
-                        WhereIsItHeld = productNode.SelectSingleNode("WhereIsItHeld").InnerText,
-                        HowToGetThere = productNode.SelectSingleNode("HowToGetThere").InnerText,
-                        PermaLink = productNode.SelectSingleNode("PermaLink").InnerText,
-                        Url = productNode.SelectSingleNode("Url").InnerText,
-                        ImageUrl = productNode.SelectSingleNode("ImageUrl").InnerText,
-                        ThumbnailUrl = productNode.SelectSingleNode("ThumbnailUrl").InnerText,
-                        LargeImageName = productNode.SelectSingleNode("LargeImageName").InnerText,
-                        IsSpecialOffer = true,// bool.Parse(productNode.SelectSingleNode("IsSpecialOffer").InnerText),
-                        DeliveryTime = productNode.SelectSingleNode("DeliveryTime").InnerText,
-                        DeliveryCost = productNode.SelectSingleNode("DeliveryCost").InnerText
-                    };
-                
+                    var product = new RedLetterProduct();
+                    product.Id = int.Parse(productNode.SelectSingleNode("Id").InnerText);
+                    product.Title = productNode.SelectSingleNode("Title").InnerText;
+                    product.InspirationalDescription = productNode.SelectSingleNode("InspirationalDescription").InnerText;
+                    product.VoucherText = productNode.SelectSingleNode("VoucherText").InnerText;
+                    product.ExpRef = productNode.SelectSingleNode("ExpRef").InnerText;
+                    product.Type = productNode.SelectSingleNode("Type").InnerText;
+                    product.GeneralPrice = decimal.Parse(productNode.SelectSingleNode("GeneralPrice").InnerText);
+                    product.PriceBeforeVAT = decimal.Parse(productNode.SelectSingleNode("PriceBeforeVAT").InnerText);
+                    product.Territory = productNode.SelectSingleNode("Territory").InnerText;
+                    product.DisplayLocations = productNode.SelectSingleNode("DisplayLocations").InnerText;
+                    product.MainSectionName = productNode.SelectSingleNode("MainSectionName").InnerText;
+                    product.SectionName = productNode.SelectSingleNode("SectionName").InnerText;
+                    product.Priority = int.Parse(productNode.SelectSingleNode("Priority").InnerText);
+                    product.WhatsIncluded = productNode.SelectSingleNode("WhatsIncluded").InnerText;
+                    product.Availability = productNode.SelectSingleNode("Availability").InnerText;
+                    product.Weather = productNode.SelectSingleNode("Weather").InnerText;
+                    product.Duration = productNode.SelectSingleNode("Duration").InnerText;
+                    product.ShortDuration = productNode.SelectSingleNode("ShortDuration").InnerText;
+                    product.HowManyPeople = productNode.SelectSingleNode("HowManyPeople").InnerText;
+                    product.FriendsAndFamily = productNode.SelectSingleNode("FriendsAndFamily").InnerText;
+                    product.DressCode = productNode.SelectSingleNode("DressCode").InnerText;
+                    product.AnyOtherInfo = productNode.SelectSingleNode("AnyOtherInfo").InnerText;
+                    product.WhoCanTakePart = productNode.SelectSingleNode("WhoCanTakePart").InnerText;
+                    product.WhereIsItHeld = productNode.SelectSingleNode("WhereIsItHeld").InnerText;
+                    product.HowToGetThere = productNode.SelectSingleNode("HowToGetThere").InnerText;
+                    product.PermaLink = productNode.SelectSingleNode("PermaLink").InnerText;
+                    product.Url = productNode.SelectSingleNode("Url").InnerText;
+                    product.ImageUrl = productNode.SelectSingleNode("ImageUrl").InnerText;
+                    product.ThumbnailUrl = productNode.SelectSingleNode("ThumbnailUrl").InnerText;
+                    product.LargeImageName = productNode.SelectSingleNode("LargeImageName").InnerText;
+                    product.IsSpecialOffer = true;// bool.Parse(productNode.SelectSingleNode("IsSpecialOffer").InnerText),
+                    product.DeliveryTime = productNode.SelectSingleNode("DeliveryTime").InnerText;
+                    product.DeliveryCost = productNode.SelectSingleNode("DeliveryCost").InnerText;
                     Products.Add(product);
-
-                    //foreach (var keyword in productNode.SelectSingleNode("Keywords").InnerText.Split(",".ToCharArray()))
-                    //{
-                    //    if (!_keywords.ContainsKey(keyword))
-                    //        _keywords.Add(keyword, new RedLetterKeyword { Keyword = keyword });
-
-                    //    product.AddKeyword(_keywords[keyword]);
-                    //}
                 }
             }
         }

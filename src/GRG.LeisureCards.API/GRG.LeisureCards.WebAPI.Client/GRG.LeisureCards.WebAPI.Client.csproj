@@ -59,12 +59,13 @@
     <Compile Include="Service.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="ShortBreakService.cs" />
+    <Compile Include="TenantService.cs" />
     <Compile Include="TwoForOneService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GRG.leisureCards.WebAPI.ClientContract\GRG.LeisureCards.WebAPI.ClientContract.csproj">
+    <ProjectReference Include="..\GRG.leisureCards.WebAPI.ClientContract\GRG.leisureCards.WebAPI.ClientContract.csproj">
       <Project>{4f14b810-ca75-408d-b21e-d6f693d2047a}</Project>
-      <Name>GRG.LeisureCards.WebAPI.ClientContract</Name>
+      <Name>GRG.leisureCards.WebAPI.ClientContract</Name>
     </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.WebAPI.Model\GRG.LeisureCards.WebAPI.Model.csproj">
       <Project>{19f9b535-a681-4ee3-b954-347011c3fdec}</Project>

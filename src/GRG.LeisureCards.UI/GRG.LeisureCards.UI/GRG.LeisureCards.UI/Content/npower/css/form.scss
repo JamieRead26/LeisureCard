@@ -1,0 +1,154 @@
+@import 'mixin.scss';
+
+body div.content {
+    input, textarea {
+       outline: none;
+       background: #FAFAFA;
+       border: 1px solid #A7A7A7;
+       padding: 8px 11px;
+       font-size: 15px;
+       font-weight: normal;
+       width: 100%;
+       &.errors {
+          border: 1px solid $site-color !important;
+       }
+    }
+    select {
+        width: 100%;
+        font-size: 15px;
+        padding: 8px 11px;
+    }
+    input[type=text], input[type=password] {
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        appearance:none;
+    }
+    textarea {
+        min-height: 80px;
+        resize: vertical;
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        appearance:none;
+    }
+    .field {
+        margin-bottom: 20px;
+    }
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: normal;
+    }
+    input[type=checkbox]{
+        width: auto;
+        display: inline-block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+  
+    form {
+        margin: 0 0 20px 0;
+        padding: 20px;
+        border-radius: 5px;
+        background: #f3f3f3;        
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border: 1px solid #c3c3c3;
+        &.one-line {
+            padding: 5px;
+            margin: 30px 0;
+            label, input, select {
+                display: inline-block;
+            }
+            input[type=submit], input[type=reset] {
+                 margin-top: 20px;
+            }
+            input[type=reset] {
+                margin-right: 10px;
+            }
+        }
+        &.home {
+            margin: 20px 100px;
+            padding: 0;
+            .field {
+                padding: 20px 40px;
+                text-align: center;
+            }
+            label {
+                color: #fff;
+                background: $site-color2;
+                padding: 14px;
+                font-size: 19px;
+                display: block;
+                margin: 0;
+                text-align: center;
+            }
+            input[type=text]{
+                border: 2px solid #ffffff;
+                background: #e5e5e5;
+                margin-bottom: 20px;
+            }
+            input[type=submit]{
+                border: 2px solid #ffffff;
+                background: #0971ce;
+                border-radius:0px;
+                padding:5px 100px 5px 5px;
+                background:url(/Content/img/buttonArrow.jpg) no-repeat;
+                background-position: 95% center;
+            }
+        }
+    }
+    form.inline {
+        label {
+            display: inline-block;
+            width: 30%;
+            padding-right: 20px;
+            margin-top: 7px;
+            text-align: right;
+            vertical-align: top;
+            @include breakpoint(smart-phone){
+                width: auto;
+                display: block;
+                text-align: left;
+            }
+        }
+        .field {
+            margin-bottom: 10px;
+        }
+        input[type=password], input[type=text], input[type=file], input[type=email], textarea {
+            display: inline-block;
+            width: 69%;
+            @include breakpoint(smart-phone){
+                width: 100%; 
+            }
+        }
+        div.checkboxes {
+            label {
+                width: 88%;
+                text-align: left;
+            }
+        }
+        ul.errorlist, input[type=submit] {
+            margin-left: 30.5%;
+            @include breakpoint(small-screen){
+                margin-left: 0;
+            }
+        }
+    }
+    .errors, .warning {
+        margin: 0 0 20px 0;
+        padding: 5px;
+        font-size: 15px;
+        border: 1px solid #000;
+    }
+    .errors {
+        color: #a94442;
+        background-color: #f2dede;
+        border-color: #ebccd1;   
+    }
+    .warning {
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+    }
+}

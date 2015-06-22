@@ -172,7 +172,9 @@
     <None Include="UploadFiles\RedLetter\placeholder.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\StructuremapMvc.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Controllers\RedLetterController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\ShortBreaksController.cs" />
+    <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="Controllers\TwoForOneController.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />

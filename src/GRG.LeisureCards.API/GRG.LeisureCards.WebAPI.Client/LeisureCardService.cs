@@ -10,12 +10,12 @@ namespace GRG.LeisureCards.WebAPI.Client
         public LeisureCardService(string baseUrl, string sessionToken) : base(baseUrl, sessionToken)
         {}
 
-        public CardUpdateResponse Update(string codeOrRef, DateTime renewalDateTime, bool suspended)
+        public CardUpdateResponse Update(string codeOrRef, DateTime renewalDate, bool suspended)
         {
-            var request = GetRestRequest("LeisureCard/Update/{cardNumberOrRef}/{renewalDate}/{suspended]", Method.GET);
+            var request = GetRestRequest("LeisureCard/Update/{cardNumberOrRef}/{renewalDate}/{suspended}", Method.GET);
            
             request.AddParameter("cardNumberOrRef", codeOrRef);
-            request.AddParameter("renewalDate", renewalDateTime);
+            request.AddParameter("renewalDate", renewalDate);
             request.AddParameter("suspended", suspended);
             
             return new RestClient(BaseUrl).Execute<CardUpdateResponse>(request).Data;
@@ -26,14 +26,20 @@ namespace GRG.LeisureCards.WebAPI.Client
             return new RestClient(BaseUrl).Execute<SessionInfo>(GetRestRequest("LeisureCard/GetSessionInfo", Method.GET)).Data;
         }
 
-        public CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths)
+        public CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths, string tenantKey)
         {
-            var request = GetRestRequest("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}", Method.GET);
+            var request = GetRestRequest("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}/{tenantKey}", Method.GET);
             request.AddParameter("reference", reference);
             request.AddParameter("numberOfCards", numOfcards);
             request.AddParameter("renewalPeriodMonths", renewalPeriodMonths);
+            request.AddParameter("tenantKey", tenantKey);
 
             return new RestClient(BaseUrl).Execute<CardGenerationResponse>(request).Data;
+        }
+
+        public void AcceptTerms()
+        {
+            new RestClient(BaseUrl).Execute<CardGenerationResponse>(GetRestRequest("LeisureCard/AcceptTerms", Method.GET));
         }
     }
 }

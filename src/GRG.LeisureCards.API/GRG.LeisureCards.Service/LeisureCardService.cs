@@ -13,13 +13,15 @@ namespace GRG.LeisureCards.Service
         CardAlreadyRegistered,
         CardSuspended,
         Ok,
-        CardExpired
+        CardExpired,
+        ClientInactive
     }
 
     public interface ILeisureCardService
     {
         LeisureCardRegistrationResponse Login(string cardCode);
-        CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths);
+        CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths, string tenantKey);
+        void AcceptMembershipTerms(string cardCode);
     }
 
     public class LeisureCardService : ILeisureCardService
@@ -29,21 +31,25 @@ namespace GRG.LeisureCards.Service
         private readonly ICardGenerationLogRepository _cardGenerationLogRepository;
         private readonly IAdminCodeProvider _adminCodeProvider;
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
+        private readonly ITenantRepository _tenantRepository;
 
         public LeisureCardService(
             ICardExpiryLogic cardExpiryLogic, 
             ILeisureCardRepository leisureCardRepository,
             ICardGenerationLogRepository cardGenerationLogRepository,
             IAdminCodeProvider adminCodeProvider,
-            ILeisureCardUsageRepository leisureCardUsageRepository)
+            ILeisureCardUsageRepository leisureCardUsageRepository,
+            ITenantRepository tenantRepository)
         {
             _cardExpiryLogic = cardExpiryLogic;
             _leisureCardRepository = leisureCardRepository;
             _cardGenerationLogRepository = cardGenerationLogRepository;
             _adminCodeProvider = adminCodeProvider;
             _leisureCardUsageRepository = leisureCardUsageRepository;
+            _tenantRepository = tenantRepository;
         }
 
+        [UnitOfWork]
         public LeisureCardRegistrationResponse Login(string cardCode)
         {
             if (_adminCodeProvider.IsAdminCode(cardCode))
@@ -55,6 +61,9 @@ namespace GRG.LeisureCards.Service
 
             if (leisureCard == null)
                 return new LeisureCardRegistrationResponse {Status = RegistrationResult.CodeNotFound.ToString()};
+
+            if (!leisureCard.Tenant.Active)
+                return new LeisureCardRegistrationResponse { Status = RegistrationResult.ClientInactive.ToString() };
 
             switch (leisureCard.StatusEnum)
             {
@@ -81,15 +90,28 @@ namespace GRG.LeisureCards.Service
             return new LeisureCardRegistrationResponse
             {
                 Status = RegistrationResult.Ok.ToString(), 
-                LeisureCard = leisureCard
+                LeisureCard = leisureCard,
+                DisplayMemberLoginPopup = !leisureCard.MembershipTermsAccepted.HasValue && leisureCard.Tenant.MemberLoginPopupDisplayed,
+                MemberLoginPopupAcceptanceMandatory = leisureCard.Tenant.MemberLoginPopupMandatory
             };
         }
 
+        public void AcceptMembershipTerms(string cardCode)
+        {
+            var card = _leisureCardRepository.Get(cardCode);
+
+            card.MembershipTermsAccepted = DateTime.Now;
+
+            _leisureCardRepository.Save(card);
+        }
+
         [UnitOfWork]
-        public CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
+        public CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths, string tenantKey)
         {
             if (_cardGenerationLogRepository.Get(reference)!=null)
                 throw new Exception("Card generation reference is not unique : " + reference);
+
+            var tenant = _tenantRepository.Get(tenantKey);
 
             var allCardCodes = _leisureCardRepository.GetAllIncludingDeleted().Select(c=>c.Code).ToArray();
             
@@ -109,7 +131,8 @@ namespace GRG.LeisureCards.Service
                     Code = newCode,
                     Reference = reference,
                     RenewalPeriodMonths = renewalPeriodMonths,
-                    UploadedDate = now
+                    UploadedDate = now,
+                    Tenant = tenant
                 });
             }
 
@@ -126,5 +149,10 @@ namespace GRG.LeisureCards.Service
         public string Status { get; set; }
         public LeisureCard LeisureCard { get; set; }
         public SessionInfo SessionInfo { get; set; }
+
+        public bool DisplayMemberLoginPopup { get; set; }
+
+        public bool MemberLoginPopupAcceptanceMandatory { get; set; }
+
     }
 }

@@ -21,7 +21,7 @@ namespace GRG.LeisureCards.WebAPI.Client
 
             var response = new RestClient(_baseurl).Execute<LeisureCardRegistrationResponse>(request);
 
-            session = response.Data.Status.ToUpper() == "OK" ? new Session(_baseurl, response.Data.LeisureCard, response.Data.SessionInfo) : null;
+            session = response.Data.Status.ToUpper() == "OK" ? new Session(_baseurl, response.Data.SessionInfo) : null;
 
             return response.Data;
         }

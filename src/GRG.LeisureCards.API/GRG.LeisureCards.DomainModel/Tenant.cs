@@ -19,5 +19,7 @@
         public virtual string FtpUsername { get; set; }
 
         public virtual string FtpPassword { get; set; }
+
+        public virtual string FtpPath { get; set; }
     }
 }

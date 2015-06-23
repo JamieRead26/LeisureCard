@@ -62,7 +62,9 @@ namespace GRG.LeisureCards.Service
             if (leisureCard == null)
                 return new LeisureCardRegistrationResponse {Status = RegistrationResult.CodeNotFound.ToString()};
 
-            if (!leisureCard.Tenant.Active)
+            var tenant = _tenantRepository.Get(leisureCard.TenantKey);
+            
+            if (!tenant.Active)
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.ClientInactive.ToString() };
 
             switch (leisureCard.StatusEnum)
@@ -91,8 +93,8 @@ namespace GRG.LeisureCards.Service
             {
                 Status = RegistrationResult.Ok.ToString(), 
                 LeisureCard = leisureCard,
-                DisplayMemberLoginPopup = !leisureCard.MembershipTermsAccepted.HasValue && leisureCard.Tenant.MemberLoginPopupDisplayed,
-                MemberLoginPopupAcceptanceMandatory = leisureCard.Tenant.MemberLoginPopupMandatory
+                DisplayMemberLoginPopup = !leisureCard.MembershipTermsAccepted.HasValue && tenant.MemberLoginPopupDisplayed,
+                MemberLoginPopupAcceptanceMandatory = tenant.MemberLoginPopupMandatory
             };
         }
 
@@ -132,7 +134,7 @@ namespace GRG.LeisureCards.Service
                     Reference = reference,
                     RenewalPeriodMonths = renewalPeriodMonths,
                     UploadedDate = now,
-                    Tenant = tenant
+                    TenantKey = tenant.Key
                 });
             }
 

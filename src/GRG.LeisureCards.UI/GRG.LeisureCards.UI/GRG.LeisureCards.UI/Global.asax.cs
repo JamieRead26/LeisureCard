@@ -24,18 +24,36 @@ namespace GRG.LeisureCards.UI
             //BundleConfig.RegisterBundles(BundleTable.Bundles, "GRG");
         }
 
-        protected void Application_BeginRequest(object sender, EventArgs ea)
+        //protected void Application_BeginRequest(object sender, EventArgs ea)
+        //{
+        //    Log.Debug("Application_BeginRequest : " + Request.Url.Host);
+
+        //    var incomingUrl = ConfigurationManager.AppSettings["IncomingUrl"];
+
+        //    if (string.IsNullOrEmpty(incomingUrl)) 
+        //        incomingUrl = Request.Url.Host;
+
+        //    Log.Debug("Looking up tenant based on  : " + incomingUrl);
+
+        //    BundleConfig.RegisterBundles(BundleTable.Bundles, TenantCache.Instance.GetTenant(incomingUrl).Key);
+        //}
+
+        protected void Session_Start(object sender, EventArgs ea)
         {
             Log.Debug("Application_BeginRequest : " + Request.Url.Host);
 
             var incomingUrl = ConfigurationManager.AppSettings["IncomingUrl"];
 
-            if (string.IsNullOrEmpty(incomingUrl)) 
+            if (string.IsNullOrEmpty(incomingUrl))
                 incomingUrl = Request.Url.Host;
 
             Log.Debug("Looking up tenant based on  : " + incomingUrl);
 
-            BundleConfig.RegisterBundles(BundleTable.Bundles, TenantCache.Instance.GetTenant(incomingUrl).Key);
+            var tenantKey = TenantCache.Instance.GetTenant(incomingUrl).Key;
+
+            Session["TenantKey"] = tenantKey;
+
+            BundleConfig.RegisterBundles(BundleTable.Bundles, tenantKey);
         }
     }
 }

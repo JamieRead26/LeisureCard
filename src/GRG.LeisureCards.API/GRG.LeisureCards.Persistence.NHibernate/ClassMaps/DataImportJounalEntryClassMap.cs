@@ -3,7 +3,8 @@ using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
 {
-    public class DataImportJounalEntryClassMap : ClassMap<DataImportJournalEntry>
+    public class 
+        DataImportJounalEntryClassMap : ClassMap<DataImportJournalEntry>
     {
         public DataImportJounalEntryClassMap()
         {
@@ -14,6 +15,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.FileName);
             Map(x => x.Success);
             References(x => x.Tenant);
+            Map(x => x.Supplemental);
         }
     }
 }

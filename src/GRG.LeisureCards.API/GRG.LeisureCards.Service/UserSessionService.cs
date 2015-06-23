@@ -121,7 +121,7 @@ namespace GRG.LeisureCards.Service
                 CardCode = card.Code;
                 ExpiryUtc = DateTime.UtcNow + _sessionDuration;
                 Token = Guid.NewGuid().ToString();
-                TenantKey = card.Tenant.Key;
+                TenantKey = card.TenantKey;
             }
 
             public void Renew()

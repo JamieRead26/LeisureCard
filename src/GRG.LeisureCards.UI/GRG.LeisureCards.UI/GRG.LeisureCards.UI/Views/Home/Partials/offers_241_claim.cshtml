@@ -3,7 +3,7 @@
 }
 <div class="twelvecol">
     <div class="title-img">
-        <img src="~/Content/grg/img/redeem-your-discount.png" />
+        <img src="~/Content/@Session["TenantKey"]/img/redeem-your-discount.png" />
     </div>
 </div>
 <div class="clear"></div>
@@ -22,7 +22,7 @@
             <p ng-show="offer.ClaimCode">Your claim code is: {{ offer.ClaimCode }}</p>
         </div>
         <p class="ng-binding button-claim" >
-            <img src="http://grg.leisurecards.ui.shiftkey.uk.com/Content/GRG/img/redeem-here.jpg" onclick="print()" />
+            <img src="~/Content/@Session["TenantKey"]/img/redeem-here.jpg" onclick="print()" />
             <br/><br/>
         </p>
 

@@ -21,7 +21,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             HasManyToMany(x => x.OfferCategories)
                .Cascade.All()
                .Table("LeisureCardOfferCategories");
-            References(x => x.Tenant);
+            Map(x => x.TenantKey);
             
         }
     }

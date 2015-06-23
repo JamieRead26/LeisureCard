@@ -3,7 +3,7 @@
 }
 <div ng-controller="offers241Controller" class="twelvecol">
 <div class="twelvecol ">
-    <div class="title-img"><img src="~/Content/grg/img/2-4-1-offers.png"/>
+    <div class="title-img"><img src="~/Content/@Session["TenantKey"]/img/2-4-1-offers.png" />
     </div>
     <form ng-submit="submit()" class="location-search">
         <div class="location-icon"></div>
@@ -33,7 +33,7 @@
             <div class="offer-241-offer">
                 <div class="distance-tab"><p class="distance" ng-show="o.Distance">{{ o.Distance }} miles</p></div>
                 <div class="offer-left">
-                    <img src="~/Content/grg/241Category/{{ o.TwoForOneOffer.CategoryKey || o.CategoryKey }}_small.png" />
+                    <img src="~/Content/@Session["TenantKey"]/241Category/{{ o.TwoForOneOffer.CategoryKey || o.CategoryKey }}_small.png" />
                 </div>                
                 <div class="offer-right">                
                     <h3>{{ o.TwoForOneOffer.OutletName || o.OutletName }}</h3>                    

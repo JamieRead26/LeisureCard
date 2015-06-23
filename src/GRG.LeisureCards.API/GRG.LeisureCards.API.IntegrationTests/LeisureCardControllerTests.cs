@@ -101,7 +101,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void CardGenerationTest()
         {
-            var result = AdminSession.GetLeisureCardService().GenerateCards("TEST", 10, 12, "GRG");
+            var result = AdminSession.GetLeisureCardService().GenerateCards("TEST", 10, 12);
             
             Assert.AreEqual("TEST", result.CardGenerationLog.Ref);
             Assert.IsTrue(result.Success);

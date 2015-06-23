@@ -25,7 +25,7 @@ namespace GRG.LeisureCards.DomainModel
 
         public virtual DateTime? RegistrationDate { get; set; }
 
-        public virtual Tenant Tenant { get; set; }
+        public virtual string TenantKey { get; set; }
 
         public virtual LeisureCardStatus StatusEnum
         {

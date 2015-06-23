@@ -64,8 +64,6 @@ namespace GRG.LeisureCards.WebAPI.Client
             return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/Get241ImportJournal/", Method.GET)).Data;
         }
 
-      
-
         public DataImportJournalEntry UploadNewUrnData(string tenantKey, Stream stream)
         {
             using (var memStream = new MemoryStream())

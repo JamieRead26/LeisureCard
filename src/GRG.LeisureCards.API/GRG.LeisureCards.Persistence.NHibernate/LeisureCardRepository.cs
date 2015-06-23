@@ -38,7 +38,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             return Session.QueryOver<LeisureCard>()
                 .Where(u => !u.Deleted)
-                .Where(u => u.Tenant.Key == tenantKey)
+                .Where(u => u.TenantKey == tenantKey)
                 .RowCount();
         }
 
@@ -46,7 +46,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             return Session.QueryOver<LeisureCard>()
                 .Where(u => !u.Deleted)
-                .Where(u => u.Tenant.Key == tenantKey)
+                .Where(u => u.TenantKey == tenantKey)
                 .Where(u => u.RegistrationDate.HasValue)
                 .List();
         }
@@ -55,7 +55,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             return Session.QueryOver<LeisureCard>()
                 .Where(u => !u.Deleted)
-                .Where(u => u.Tenant.Key == tenantKey)
+                .Where(u => u.TenantKey == tenantKey)
                 .Where(u => u.MembershipTermsAccepted.HasValue)
                 .List();
         }

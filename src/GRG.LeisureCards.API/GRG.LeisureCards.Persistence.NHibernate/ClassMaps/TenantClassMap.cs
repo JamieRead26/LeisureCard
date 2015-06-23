@@ -17,6 +17,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.FtpPassword);
             Map(x => x.FtpServer);
             Map(x => x.FtpUsername);
+            Map(x => x.FtpPath);
         }
     }
 }

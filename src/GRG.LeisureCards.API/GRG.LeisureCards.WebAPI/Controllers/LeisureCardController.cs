@@ -171,8 +171,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [SessionAuthFilter(true)]
-        [Route("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}/{tenantKey}")]
-        public CardGenerationResponse GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths, string tenantKey)
+        [Route("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}")]
+        public CardGenerationResponse GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths)
         {
             try
             {
@@ -183,7 +183,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                             reference, 
                             numberOfCards,
                             renewalPeriodMonths,
-                            tenantKey)),
+                            "GRG")),
+
                     Success = true
                 };
             }

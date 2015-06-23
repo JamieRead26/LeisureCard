@@ -26,13 +26,12 @@ namespace GRG.LeisureCards.WebAPI.Client
             return new RestClient(BaseUrl).Execute<SessionInfo>(GetRestRequest("LeisureCard/GetSessionInfo", Method.GET)).Data;
         }
 
-        public CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths, string tenantKey)
+        public CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths)
         {
-            var request = GetRestRequest("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}/{tenantKey}", Method.GET);
+            var request = GetRestRequest("LeisureCard/GenerateCards/{reference}/{numberOfCards}/{renewalPeriodMonths}", Method.GET);
             request.AddParameter("reference", reference);
             request.AddParameter("numberOfCards", numOfcards);
             request.AddParameter("renewalPeriodMonths", renewalPeriodMonths);
-            request.AddParameter("tenantKey", tenantKey);
 
             return new RestClient(BaseUrl).Execute<CardGenerationResponse>(request).Data;
         }

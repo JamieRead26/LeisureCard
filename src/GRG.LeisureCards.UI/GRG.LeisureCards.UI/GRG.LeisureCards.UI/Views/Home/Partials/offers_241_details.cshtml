@@ -13,10 +13,10 @@
                 <!--{{ key }}: --><span ng-bind-html="value"></span>
             </p>
         </div>
-        <div class="claim-strip"><a ng-click="claim('/offers/241/claim/{{ id }}')" href="#" target="_blank"><img src="~/Content/grg/img/claim-code-button.png" /></a></div>
+        <div class="claim-strip"><a ng-click="claim('/offers/241/claim/{{ id }}')" href="#" target="_blank"><img src="~/Content/@Session["TenantKey"]/img/claim-code-button.png" /></a></div>
     </div>
     <div class="sixcol last offers241-r">
-        <img src="~/Content/grg/241Category/{{ offer.CategoryKey }}_large.png" />
+        <img src="~/Content/@Session["TenantKey"]/241Category/{{ offer.CategoryKey }}_large.png" />
         <div id="offers241-r-top">
             <h1>Location</h1>
             <div class="tidy"></div>

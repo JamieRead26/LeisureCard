@@ -7,7 +7,7 @@ namespace GRG.LeisureCards.WebAPI.ClientContract
     {
         CardUpdateResponse Update(string codeOrRef, DateTime renewalDate, bool suspended);
         SessionInfo GetSessionInfo();
-        CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths, string tenantKey);
+        CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths);
         void AcceptTerms();
     }
 }

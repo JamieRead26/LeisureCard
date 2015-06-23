@@ -22,5 +22,7 @@
         public string FtpPassword { get; set; }
 
         public string FtpUsername { get; set; }
+
+        public string FtpPath { get; set; }
     }
 }

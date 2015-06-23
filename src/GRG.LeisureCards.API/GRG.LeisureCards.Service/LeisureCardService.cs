@@ -102,7 +102,7 @@ namespace GRG.LeisureCards.Service
 
             card.MembershipTermsAccepted = DateTime.Now;
 
-            _leisureCardRepository.Save(card);
+            _leisureCardRepository.Update(card);
         }
 
         [UnitOfWork]

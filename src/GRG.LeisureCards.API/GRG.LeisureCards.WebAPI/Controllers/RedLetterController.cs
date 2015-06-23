@@ -15,7 +15,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 {
     [RoutePrefix("RedLetter")]
     [SessionAuthFilter]
-    public class RedLetterController : ApiController
+    public class RedLetterController : LcApiController
     {
         private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
@@ -38,43 +38,49 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("FindByKeyword/{keyword}")]
         public List<RedLetterProductSummary> Find(string keyword)
         {
-            return _redLetterProductRepository.FindByKeyword(keyword).Select(Mapper.Map<RedLetterProductSummary>).ToList();
+            return Dispatch(()=>  _redLetterProductRepository.FindByKeyword(keyword).Select(Mapper.Map<RedLetterProductSummary>).ToList());
         }
         
         [HttpGet]
         [Route("Get/{id}")]
         public RedLetterProductSummary Get(int id)
         {
-            return Mapper.Map<RedLetterProductSummary>(_redLetterProductRepository.Get(id));
+            return Dispatch(()=>  Mapper.Map<RedLetterProductSummary>(_redLetterProductRepository.Get(id)));
         }
 
         [HttpGet]
         [Route("GetRandomSpecialOffers/{count}")]
         public IEnumerable<RedLetterProductSummary> GetRandomSpecialOffers(int count)
         {
-            var products = _redLetterProductRepository.Find(product => product.IsSpecialOffer);
+            return Dispatch(() =>
+            {
+                var products = _redLetterProductRepository.Find(product => product.IsSpecialOffer);
 
-            var shuffled = Shuffle(products.ToArray(), count);
+                var shuffled = Shuffle(products.ToArray(), count);
 
-            var summaries = shuffled.Select(Mapper.Map<RedLetterProductSummary>);
+                var summaries = shuffled.Select(Mapper.Map<RedLetterProductSummary>);
 
-            return summaries;
+                return summaries;
+            });
         }
 
         [HttpGet]
         [Route("ClaimOffer/{Id}")]
         public void ClaimOffer(int id)
         {
-            var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
-            var card = _userSessionService.GetSession(sessionInfo.SessionToken);
-            var offer = _redLetterProductRepository.Get(id);
-
-            _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+            Dispatch(() =>
             {
-                LeisureCardCode = card.CardCode,
-                OfferCategory = _offerCategoryRepository.RedLetter,
-                OfferId = id.ToString(),
-                OfferTitle = offer.Title
+                var sessionInfo = ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
+                var card = _userSessionService.GetSession(sessionInfo.SessionToken);
+                var offer = _redLetterProductRepository.Get(id);
+
+                _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+                {
+                    LeisureCardCode = card.CardCode,
+                    OfferCategory = _offerCategoryRepository.RedLetter,
+                    OfferId = id.ToString(),
+                    OfferTitle = offer.Title
+                });
             });
         }
 
@@ -82,14 +88,17 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LogClickThrough/{category}")]
         public void ClaimOffer(string category)
         {
-            var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
-            var card = _userSessionService.GetSession(sessionInfo.SessionToken);
-
-            _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+            Dispatch(() =>
             {
-                LeisureCardCode = card.CardCode,
-                OfferCategory = _offerCategoryRepository.RedLetter,
-                OfferTitle = category
+                var sessionInfo = ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
+                var card = _userSessionService.GetSession(sessionInfo.SessionToken);
+
+                _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+                {
+                    LeisureCardCode = card.CardCode,
+                    OfferCategory = _offerCategoryRepository.RedLetter,
+                    OfferTitle = category
+                });
             });
         }
 

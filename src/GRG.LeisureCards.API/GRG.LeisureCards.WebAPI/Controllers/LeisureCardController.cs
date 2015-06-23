@@ -16,7 +16,7 @@ using SessionInfo = GRG.LeisureCards.DomainModel.SessionInfo;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
-    public class LeisureCardController : ApiController
+    public class LeisureCardController : LcApiController
     {
         private readonly ILeisureCardService _leisureCardService;
         private readonly ILeisureCardRepository _leisureCardRepository;
@@ -39,21 +39,23 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LeisureCard/Login/{code}")]
         public Model.LeisureCardRegistrationResponse Login(string code)
         {
-            var result = _leisureCardService.Login(code);
+            return Dispatch(() =>{
+                var result = _leisureCardService.Login(code);
 
-            if (result.Status == "Ok")
-            {
-                result.SessionInfo = new SessionInfo
+                if (result.Status == "Ok")
                 {
-                    CardExpiryDate = result.LeisureCard.ExpiryDate.Value,
-                    SessionToken = _userSessionService.GetToken(result.LeisureCard),
-                    IsAdmin = result.LeisureCard == AdminLeisureCard.Instance
-                };
-            }
+                    result.SessionInfo = new SessionInfo
+                    {
+                        CardExpiryDate = result.LeisureCard.ExpiryDate.Value,
+                        SessionToken = _userSessionService.GetToken(result.LeisureCard),
+                        IsAdmin = result.LeisureCard == AdminLeisureCard.Instance
+                    };
+                }
 
-            var returnVal = Mapper.Map<Model.LeisureCardRegistrationResponse>(result);
+                var returnVal = Mapper.Map<Model.LeisureCardRegistrationResponse>(result);
 
-            return returnVal;
+                return returnVal;
+            });
         }
 
         [HttpGet]
@@ -61,8 +63,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LeisureCard/AcceptTerms")]
         public void AcceptTerms()
         {
-            var sessionToken = ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo.SessionToken;
-            _leisureCardService.AcceptMembershipTerms(_userSessionService.GetSession(sessionToken).CardCode);
+            Dispatch(()=> _leisureCardService.AcceptMembershipTerms(_userSessionService.GetSession(((LeisureCardPrincipal) RequestContext.Principal).SessionInfo.SessionToken).CardCode));
         }
 
         [HttpGet]
@@ -70,7 +71,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LeisureCard/GetSessionInfo")]
         public Model.SessionInfo GetSessionInfo()
         {
-            return Mapper.Map<Model.SessionInfo>(((LeisureCardPrincipal) RequestContext.Principal).SessionInfo);
+            return Dispatch(()=>Mapper.Map<Model.SessionInfo>(((LeisureCardPrincipal) RequestContext.Principal).SessionInfo));
         }
 
         [HttpGet]
@@ -79,26 +80,29 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [UnitOfWork]
         public CardUpdateResponse Update(string cardNumberOrRef, DateTime renewalDate, bool suspended)
         {
-            var crd = _leisureCardRepository.Get(cardNumberOrRef);
-            var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
-
-            var leisureCards = cards as LeisureCard[] ?? cards.ToArray();
-            foreach (var card in leisureCards)
+            return Dispatch(() =>
             {
-                card.RenewalDate = renewalDate;
-                _cardExpiryLogic.SetExpiryDate(card, card.RenewalDate.Value);
-                card.Suspended = suspended;
+                var crd = _leisureCardRepository.Get(cardNumberOrRef);
+                var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] {crd};
 
-                _leisureCardRepository.SaveOrUpdate(card);
-            }
+                var leisureCards = cards as LeisureCard[] ?? cards.ToArray();
+                foreach (var card in leisureCards)
+                {
+                    card.RenewalDate = renewalDate;
+                    _cardExpiryLogic.SetExpiryDate(card, card.RenewalDate.Value);
+                    card.Suspended = suspended;
 
-            var prototype = leisureCards.Any() ? Mapper.Map<Model.LeisureCard>(leisureCards[0]) : null;
+                    _leisureCardRepository.SaveOrUpdate(card);
+                }
 
-            return new CardUpdateResponse
-            {
-                CardsUpdated = leisureCards.Count(),
-                Prototype = prototype
-            };
+                var prototype = leisureCards.Any() ? Mapper.Map<Model.LeisureCard>(leisureCards[0]) : null;
+
+                return new CardUpdateResponse
+                {
+                    CardsUpdated = leisureCards.Count(),
+                    Prototype = prototype
+                };
+            });
         }
 
         [HttpGet]
@@ -107,24 +111,27 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [UnitOfWork]
         public CardUpdateResponse Suspend(string cardNumberOrRef, bool suspended)
         {
-            var crd = _leisureCardRepository.Get(cardNumberOrRef);
-            var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
-
-            var leisureCards = cards as LeisureCard[] ?? cards.ToArray();
-            foreach (var card in leisureCards)
+            return Dispatch(() =>
             {
-                card.Suspended = suspended;
+                var crd = _leisureCardRepository.Get(cardNumberOrRef);
+                var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] {crd};
 
-                _leisureCardRepository.SaveOrUpdate(card);
-            }
+                var leisureCards = cards as LeisureCard[] ?? cards.ToArray();
+                foreach (var card in leisureCards)
+                {
+                    card.Suspended = suspended;
 
-            var prototype = leisureCards.Any() ? Mapper.Map<Model.LeisureCard>(leisureCards[0]) : null;
+                    _leisureCardRepository.SaveOrUpdate(card);
+                }
 
-            return new CardUpdateResponse
-            {
-                CardsUpdated = leisureCards.Count(),
-                Prototype = prototype
-            };
+                var prototype = leisureCards.Any() ? Mapper.Map<Model.LeisureCard>(leisureCards[0]) : null;
+
+                return new CardUpdateResponse
+                {
+                    CardsUpdated = leisureCards.Count(),
+                    Prototype = prototype
+                };
+            });
         }
 
         [HttpGet]
@@ -132,7 +139,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LeisureCard/GetAllCardNumbers")]
         public IEnumerable<Model.LeisureCard> GetAllCardNumbers()
         {
-            return _leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>);
+            return Dispatch(()=>_leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>));
         }
 
         [HttpGet]
@@ -140,23 +147,26 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LeisureCard/GetCardNumbersForUpdate")]
         public IEnumerable<Model.LeisureCard> GetCardNumbersForUpdate()
         {
-            var allCards = _leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>).ToList();
-
-            foreach (var reference in allCards.Select(c => c.Reference).ToList().Distinct())
+            return Dispatch(() =>
             {
-                var card = allCards.First(c => c.Reference == reference);
+                var allCards = _leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>).ToList();
 
-                allCards.Add(new Model.LeisureCard
+                foreach (var reference in allCards.Select(c => c.Reference).ToList().Distinct())
                 {
-                    Code = reference,
-                    ExpiryDate = card.ExpiryDate,
-                    Suspended = card.Suspended,
-                    RenewalDate = card.RenewalDate,
-                    Status = card.Status
-                });
-            }
+                    var card = allCards.First(c => c.Reference == reference);
 
-            return allCards;
+                    allCards.Add(new Model.LeisureCard
+                    {
+                        Code = reference,
+                        ExpiryDate = card.ExpiryDate,
+                        Suspended = card.Suspended,
+                        RenewalDate = card.RenewalDate,
+                        Status = card.Status
+                    });
+                }
+
+                return allCards;
+            });
         }
 
         [HttpGet]

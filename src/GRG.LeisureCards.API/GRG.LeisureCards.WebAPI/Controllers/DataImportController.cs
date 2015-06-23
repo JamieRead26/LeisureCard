@@ -33,49 +33,49 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("DataImport/RetrieveRedLetter/")]
         public Model.DataImportJournalEntry RetrieveRedLetter()
         {
-            return Acquire(DataImportKey.RedLetter, ()=> _fileImportManager.GetRedLetterData());
+            return Dispatch(()=>Acquire(DataImportKey.RedLetter, ()=> _fileImportManager.GetRedLetterData()));
         }
 
         [HttpPost]
         [Route("DataImport/UploadRedLetter/")]
         public Model.DataImportJournalEntry UploadRedLetter()
         {
-            return Acquire(DataImportKey.RedLetter, () => HttpContext.Current.Request.Files[0].InputStream);
+            return Dispatch(()=>Acquire(DataImportKey.RedLetter, () => HttpContext.Current.Request.Files[0].InputStream));
         }
 
         [HttpPost]
         [Route("DataImport/Upload241/")]
         public Model.DataImportJournalEntry Upload241()
         {
-            return Acquire(DataImportKey.TwoForOne, () => HttpContext.Current.Request.Files[0].InputStream);
+            return Dispatch(()=>Acquire(DataImportKey.TwoForOne, () => HttpContext.Current.Request.Files[0].InputStream));
         }
 
         [HttpPost]
         [Route("DataImport/UploadNewUrns/{tenantKey}")]
         public Model.DataImportJournalEntry UploadNewUrns(string tenantKey)
         {
-            return Acquire(DataImportKey.NewUrns, () => HttpContext.Current.Request.Files[0].InputStream, tenantKey);
+            return Dispatch(()=>Acquire(DataImportKey.NewUrns, () => HttpContext.Current.Request.Files[0].InputStream, tenantKey));
         }
 
         [HttpPost]
         [Route("DataImport/UploadDeactivateUrns/{tenantKey}")]
         public Model.DataImportJournalEntry UploadDeactivateUrns(string tenantKey)
         {
-            return Acquire(DataImportKey.DeactivatedUrns, () => HttpContext.Current.Request.Files[0].InputStream, tenantKey);
+            return Dispatch(()=>Acquire(DataImportKey.DeactivatedUrns, () => HttpContext.Current.Request.Files[0].InputStream, tenantKey));
         }
 
         [HttpGet]
         [Route("DataImport/ProcessRedLetter/")]
         public Model.DataImportJournalEntry ProcessRedLetterData()
         {
-            return Process(DataImportKey.RedLetter);
+            return Dispatch(()=>Process(DataImportKey.RedLetter));
         }
         
         [HttpGet]
         [Route("DataImport/Process241/")]
         public Model.DataImportJournalEntry Process241Data()
         {
-            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportService.Import(DataImportKey.TwoForOne, path => HttpContext.Current.Server.MapPath(path)));
+            return Dispatch(()=>Mapper.Map<Model.DataImportJournalEntry>(_dataImportService.Import(DataImportKey.TwoForOne, path => HttpContext.Current.Server.MapPath(path))));
         }
         
         [HttpGet]
@@ -84,72 +84,55 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             return Dispatch(() => Process(DataImportKey.NewUrns, cardDurationMonths));
         }
-
-        private T Dispatch<T>(Func<T> func)
-        {
-            try
-            {
-                return func();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-                throw ex;
-            }
-        }
-
+        
         [HttpGet]
         [Route("DataImport/ProcessDeactivateUrnsData/")]
         public Model.DataImportJournalEntry ProcessDeactivateUrnsData()
         {
-            return Process(DataImportKey.DeactivatedUrns);
+            return Dispatch(()=>Process(DataImportKey.DeactivatedUrns));
         }
 
         private DataImportJournalEntry Process(DataImportKey key, params object[] args)
         {
-            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportService.Import(key, path => HttpContext.Current.Server.MapPath(path), args));
+            return Dispatch(()=>Mapper.Map<Model.DataImportJournalEntry>(_dataImportService.Import(key, path => HttpContext.Current.Server.MapPath(path), args)));
         }
 
         [HttpGet]
         [Route("DataImport/GetRedLetterImportJournal")]
         public Model.DataImportJournalEntry GetRedLetterImportJournal()
         {
-            return GetLastImportJournal(DataImportKey.RedLetter);
+            return Dispatch(()=>GetLastImportJournal(DataImportKey.RedLetter));
         }
 
         [HttpGet]
         [Route("DataImport/Get241ImportJournal")]
         public Model.DataImportJournalEntry Get241ImportJournal()
         {
-            return GetLastImportJournal(DataImportKey.TwoForOne);
+            return Dispatch(()=>GetLastImportJournal(DataImportKey.TwoForOne));
         }
 
         [HttpGet]
         [Route("DataImport/GetNewUrnsImportJournal")]
         public Model.DataImportJournalEntry GetNewUrnsImportJournal()
         {
-            return GetLastImportJournal(DataImportKey.NewUrns);
+            return Dispatch(()=>GetLastImportJournal(DataImportKey.NewUrns));
         }
 
         [HttpGet]
         [Route("DataImport/GetDeactivateUrnsImportJournal")]
         public Model.DataImportJournalEntry GetDeactivateUrnsImportJournal()
         {
-            return GetLastImportJournal(DataImportKey.DeactivatedUrns);
+            return Dispatch(()=>GetLastImportJournal(DataImportKey.DeactivatedUrns));
         }
 
         public Model.DataImportJournalEntry Acquire(DataImportKey key, Func<Stream> getStream, string tenant = null)
         {
-            var journalEntry = _fileImportManager.StoreDataFile(key, getStream, tenant);
-
-            _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
-
-            return Mapper.Map<Model.DataImportJournalEntry>(journalEntry);
+            return Dispatch(()=> Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.SaveOrUpdate(_fileImportManager.StoreDataFile(key, getStream, tenant))));
         }
 
         private Model.DataImportJournalEntry GetLastImportJournal(DataImportKey importKey)
         {
-            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.GetLast(importKey));
+            return Dispatch(()=> Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.GetLast(importKey)));
         }
     }
 }

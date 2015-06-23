@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.WebAPI.Filters;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
     [SessionAuthFilter(true)]
-    public class LoginHistoryController : ApiController
+    public class LoginHistoryController : LcApiController
     {
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
 
@@ -29,14 +27,14 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LoginHistory/Get/{count}/{toId}")]
         public IEnumerable<Model.LeisureCardUsage> Get(int count, int toId)
         {
-            return _leisureCardUsageRepository.Get(count, toId).Select(Mapper.Map<Model.LeisureCardUsage>);
+            return Dispatch(()=> _leisureCardUsageRepository.Get(count, toId).Select(Mapper.Map<Model.LeisureCardUsage>));
         }
 
         [HttpGet]
         [Route("LoginHistory/GetForCard/{cardId}/{count}/{toId}")]
         public IEnumerable<Model.LeisureCardUsage> GetForCard(string cardId, int count, int toId)
         {
-            return _leisureCardUsageRepository.Get(cardId, count, toId).Select(Mapper.Map<Model.LeisureCardUsage>);
+            return Dispatch(()=>  _leisureCardUsageRepository.Get(cardId, count, toId).Select(Mapper.Map<Model.LeisureCardUsage>));
         }
     }
 }

@@ -9,7 +9,7 @@ using GRG.LeisureCards.WebAPI.Model;
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
     [RoutePrefix("Tenant")]
-    public class TenantController : ApiController
+    public class TenantController : LcApiController
     {
         private readonly ITenantRepository _tenantRepository;
         private readonly ILeisureCardRepository _leisureCardRepository;
@@ -26,18 +26,21 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("GetAll")]
         public List<Tenant> GetAll()
         {
-            return _tenantRepository.GetAll().Select(Mapper.Map<Tenant>).ToList();
+            return Dispatch(()=>  _tenantRepository.GetAll().Select(Mapper.Map<Tenant>).ToList());
         }
 
         [HttpGet]
         [Route("Get/{key}")]
         public Tenant Get(string key)
         {
-            var tenant = Mapper.Map<Tenant>(_tenantRepository.Get(key));
+            return Dispatch(() =>
+            {
+                var tenant = Mapper.Map<Tenant>(_tenantRepository.Get(key));
 
-            tenant.UrnCount = _leisureCardRepository.CountUrns(key);
+                tenant.UrnCount = _leisureCardRepository.CountUrns(key);
 
-            return tenant;
+                return tenant;
+            });
         }
 
         [SessionAuthFilter(true)]
@@ -45,7 +48,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("Update")]
         public void Update(Tenant tenant)
         {
-            _tenantRepository.Update(Mapper.Map<DomainModel.Tenant>(tenant));
+            Dispatch(()=>  _tenantRepository.Update(Mapper.Map<DomainModel.Tenant>(tenant)));
         }
 
         [SessionAuthFilter(true)]
@@ -53,7 +56,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("Save")]
         public void Save(Tenant tenant)
         {
-            _tenantRepository.Save(Mapper.Map<DomainModel.Tenant>(tenant));
+            Dispatch(()=> _tenantRepository.Save(Mapper.Map<DomainModel.Tenant>(tenant)));
         }
     }
 }

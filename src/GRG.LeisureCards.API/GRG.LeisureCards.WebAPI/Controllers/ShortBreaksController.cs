@@ -10,7 +10,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 {
     [SessionAuthFilter]
     [RoutePrefix("ShortBreaks")]
-    public class ShortBreaksController : ApiController
+    public class ShortBreaksController : LcApiController
     {
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly IOfferCategoryRepository _offerCategoryRepository;
@@ -31,17 +31,20 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("ClaimOffer/{title}")]
         public IHttpActionResult ClaimOffer(string title)
         {
-            var sessionInfo = ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
-            var card = _userSessionService.GetSession(sessionInfo.SessionToken);
-
-            _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+            return Dispatch(() =>
             {
-                LeisureCardCode = card.CardCode,
-                OfferCategory = _offerCategoryRepository.ShortBreaks,
-                OfferTitle = title
-            });
+                var sessionInfo = ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
+                var card = _userSessionService.GetSession(sessionInfo.SessionToken);
 
-            return Ok();
+                _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+                {
+                    LeisureCardCode = card.CardCode,
+                    OfferCategory = _offerCategoryRepository.ShortBreaks,
+                    OfferTitle = title
+                });
+
+                return Ok();
+            });
         }
 
 

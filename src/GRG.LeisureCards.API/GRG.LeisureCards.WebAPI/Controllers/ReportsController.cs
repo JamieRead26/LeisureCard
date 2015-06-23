@@ -11,7 +11,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 {
     [SessionAuthFilter(true)]
     [RoutePrefix("Reports")]
-    public class ReportsController : ApiController
+    public class ReportsController : LcApiController
     {
         private readonly ILeisureCardUsageRepository _leisureCardUsageRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
@@ -34,31 +34,28 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("GetLoginHistory/{from}/{to}")]
         public IEnumerable<Model.LeisureCardUsage> GetLoginHistory(DateTime from, DateTime to)
         {
-            return _leisureCardUsageRepository.Get(from, to).Select(Mapper.Map<Model.LeisureCardUsage>);
+            return Dispatch(()=>  _leisureCardUsageRepository.Get(from, to).Select(Mapper.Map<Model.LeisureCardUsage>));
         }
         
-        //[UnitOfWork]
         [HttpGet]
         [Route("GetSelectedOfferHistory/{from}/{to}")]
         public IEnumerable<Model.SelectedOffer> GetSelectedOfferHistory(DateTime from, DateTime to)
         {
-            var results = _selectedOfferRepository.Get(from, to).Select(Mapper.Map<Model.SelectedOffer>).ToArray();
-
-            return results;
+            return Dispatch(()=>  _selectedOfferRepository.Get(from, to).Select(Mapper.Map<Model.SelectedOffer>).ToArray());
         }
 
         [HttpGet]
         [Route("GetCardActivationHistory/{from}/{to}")]
         public IEnumerable<Model.LeisureCard> GetCardActivationHistory(DateTime from, DateTime to)
         {
-            return _leisureCardRepository.GetRegistrationHistory(from, to).Select(Mapper.Map<Model.LeisureCard>);
+            return Dispatch(()=>  _leisureCardRepository.GetRegistrationHistory(from, to).Select(Mapper.Map<Model.LeisureCard>));
         }
 
         [HttpGet]
         [Route("GetLoginPopupReport/{tenantKey}/{from}/{to}")]
         public IEnumerable<Model.LeisureCard> GetLoginPopupReport(string tenantKey, DateTime from, DateTime to)
         {
-            return _reportService.GetLoginPopupReport(tenantKey, from, to).Select(Mapper.Map<Model.LeisureCard>);
+            return Dispatch(()=>  _reportService.GetLoginPopupReport(tenantKey, from, to).Select(Mapper.Map<Model.LeisureCard>));
         }
     }
 }

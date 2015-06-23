@@ -14,7 +14,7 @@ using SelectedOffer = GRG.LeisureCards.DomainModel.SelectedOffer;
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
     [SessionAuthFilter]
-    public class TwoForOneController : ApiController
+    public class TwoForOneController : LcApiController
     {
         private readonly ITwoForOneRepository _twoForOneRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
@@ -40,30 +40,33 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("TwoForOne/GetAll")]
         public IEnumerable<TwoForOneOffer> GetAll()
         {
-            return _twoForOneRepository.GetAll().Select(Mapper.Map<TwoForOneOffer>);
+            return Dispatch(()=>  _twoForOneRepository.GetAll().Select(Mapper.Map<TwoForOneOffer>));
         }
 
         [HttpGet]
         [Route("TwoForOne/Get/{Id}")]
         public TwoForOneOffer Get(int id)
         {
-            return Mapper.Map<TwoForOneOffer>(_twoForOneRepository.Get(id));
+            return Dispatch(()=>  Mapper.Map<TwoForOneOffer>(_twoForOneRepository.Get(id)));
         }
 
         [HttpGet]
         [Route("TwoForOne/ClaimOffer/{Id}")]
         public void ClaimOffer(int id)
         {
-            var sessionInfo =  ((LeisureCardPrincipal)RequestContext.Principal).SessionInfo;
-            var session = _userSessionService.GetSession(sessionInfo.SessionToken);
-            var offer = _twoForOneRepository.Get(id);
-
-            _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+            Dispatch(() =>
             {
-                LeisureCardCode = session.CardCode,
-                OfferCategory = _offerCategoryRepository.TwoForOne,
-                OfferId = id.ToString(),
-                OfferTitle = offer.Description
+                var sessionInfo = ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
+                var session = _userSessionService.GetSession(sessionInfo.SessionToken);
+                var offer = _twoForOneRepository.Get(id);
+
+                _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+                {
+                    LeisureCardCode = session.CardCode,
+                    OfferCategory = _offerCategoryRepository.TwoForOne,
+                    OfferId = id.ToString(),
+                    OfferTitle = offer.Description
+                });
             });
         }
 
@@ -71,9 +74,21 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("TwoForOne/FindByLocation/{postCodeOrTown}/{radiusMiles}")]
         public IEnumerable<TwoForOneOfferGeoSearchResult> FindByLocation(string postCodeOrTown, int radiusMiles)
         {
-            var results = _locationService.Filter(postCodeOrTown, radiusMiles, _twoForOneRepository.GetAllWithLocation(), twoForOneOffer => _twoForOneRepository.SaveOrUpdate(twoForOneOffer));
+            return Dispatch(() =>
+            {
+                var results = _locationService.Filter(postCodeOrTown, radiusMiles,
+                    _twoForOneRepository.GetAllWithLocation(),
+                    twoForOneOffer => _twoForOneRepository.SaveOrUpdate(twoForOneOffer));
 
-            return results.Select(i => new TwoForOneOfferGeoSearchResult { TwoForOneOffer = Mapper.Map<TwoForOneOffer>(i.Item1), Distance = Math.Round(i.Item2,1) });
+                return
+                    results.Select(
+                        i =>
+                            new TwoForOneOfferGeoSearchResult
+                            {
+                                TwoForOneOffer = Mapper.Map<TwoForOneOffer>(i.Item1),
+                                Distance = Math.Round(i.Item2, 1)
+                            });
+            });
         }
     }
 }

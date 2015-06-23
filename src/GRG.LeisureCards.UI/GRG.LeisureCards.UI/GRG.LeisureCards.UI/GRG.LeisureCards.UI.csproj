@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -19,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -260,10 +262,12 @@
     <Content Include="Scripts\angular-ie8.js" />
     <Content Include="Scripts\angular-ng-storage.js" />
     <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular.resource.js" />
-    <Content Include="Scripts\app\adminController.js" />
+    <Content Include="Scripts\app\adminClientController.js" />
+    <Content Include="Scripts\app\adminReportsController.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\config.js" />
     <Content Include="Scripts\app\directives.js" />
@@ -275,6 +279,7 @@
     <Content Include="Scripts\html5shiv.min.js" />
     <Content Include="Scripts\angular-ng-breadcrumbs.js" />
     <Content Include="Scripts\ng-csv.js" />
+    <Content Include="Scripts\angular-dialog.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -310,18 +315,20 @@
     <Content Include="Content\npower\css\offers.scss" />
     <Content Include="Content\npower\css\presets.scss" />
     <Content Include="Content\npower\css\site.scss" />
+    <Content Include="Content\global\css\ngdialog.scss" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Views\Home\Partials\offers_241_claim.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount_cottage.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount_claim.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount_hoseasons.cshtml" />
     <Content Include="Views\Home\Partials\logout.cshtml" />
+    <Content Include="Views\Home\Partials\admin_client_details.cshtml" />
+    <Content Include="Views\Home\Partials\terms_popup.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />
     <Content Include="Scripts\jquery.bxslider.min.js" />
     <Content Include="Scripts\app\authController.js" />
-    <Content Include="Scripts\site.base.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -372,6 +379,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

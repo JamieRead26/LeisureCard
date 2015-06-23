@@ -1,0 +1,137 @@
+﻿@{
+    Layout = "";
+}
+ 
+<div class="twelvecol inline-form" ng-controller="AdminClientDetailsController">
+
+    <h1>Admin Client Details</h1>
+
+ 
+    <div class="sixcol">
+        <div class="form-box">
+
+            <div class="field">
+                <label>Client ID:</label>
+                <select ng-model="currentTenant" required ng-options="t.Key for t in tenants" ng-change="selectTenant()"></select>
+            </div>
+            <div class="field">
+                <label>Client Name:</label>
+                <input type="text" ng-model="tenantName" />
+            </div>
+            <div class="field">
+                <label>Client Ative:</label>
+                <input type="checkbox" ng-model="tenantActive" />
+            </div>
+            <div class="field">
+                <label>Domain Name:</label>
+                <input type="text" ng-model="domain" />
+            </div>
+            <div class="field">
+                <label>Comments:</label>
+                <input type="text" ng-model="comments" />
+            </div>
+            <div class="field checkboxes" style="display: none;">
+                <label>
+                    <input type="checkbox" ng-model="memberLoginPopupDisplayed" />
+                    Member Login Pop-Up Displayed
+                </label>
+            </div>
+            <div class="field checkboxes" style="display: none;">
+                <label>
+                    <input type="checkbox" ng-model="memberLoginPopupMandatory" />
+                    Member Login Pop-Up Agreement Required to Continue
+                </label>
+            </div>
+
+            <div class="field">
+                <label>Total URNs Used:</label>
+                <input type="text" readonly="readonly" ng-model="urnCount" />
+            </div>
+        </div>
+    </div>
+    <div class="sixcol last">
+        <div class="form-box">
+            <div class="field">
+                <label>sFTP Address:</label>
+                <input type="text" ng-model="ftpAddress" />
+            </div>
+            <div class="field">
+                <label>sFTP Username:</label>
+                <input type="text" ng-model="ftpUsername" />
+            </div>
+            <div class="field">
+                <label>sFTP Password:</label>
+                <input type="text" ng-model="ftpPassword" />
+            </div>
+        </div>
+        <div class="form-box" style="display: none;">
+            <h2>Login Pop-Up Report</h2>
+            <form class="no-bg" ng-controller="AdminPopupReportController">
+
+                <div class="field">
+                    <label>Date From:</label>
+                    <input placeholder="dd-mm-yyyy" type="text" ng-model="dateFrom" date-formatter />
+                </div>
+                <div class="field">
+                    <label>Date To:</label>
+                    <input placeholder="dd-mm-yyyy" type="text" ng-model="dateTo" date-formatter />
+                </div>
+                <div class="errors" ng-show="report_error != null">{{ report_error }}</div>
+                <button type="button" csv-header="getHeader()" ng-csv="getnReport()" filename="LoginPopupReport.csv" field-separator="," decimal-separator=".">Download</button>
+            </form>
+
+        </div>
+    </div>
+    <div class="clear"></div>
+
+
+    <table class="print-hide">
+        <tr>
+            <th>Option</th>
+            <th>Last Run</th>
+            <th>Status</th>
+            <th>Error Message</th>
+            <th>Reference</th>
+            <th>Duration</th>
+            <th>URNs Effected</th>
+            <th style="width: 120px;">Retrieve Data</th>
+            <th style="width: 120px;">Reload Data</th>
+            <th style="width: 120px;">Download File</th>
+            <th style="width: 220px;" class="last">Upload File</th>
+        </tr>
+        <tr ng-repeat="i in imports">
+            <td>{{ i.UploadKey }}</td>
+            <td ng-bind="i.LastRun | date:'dd/MM/yyyy HH:mm:ss'"></td>
+            <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
+            <td>{{ i.Message }}</td>
+            <td><input type="text" required /></td>
+            <td></td>
+            <td></td>
+            <td>
+    
+                    <button ng-click="">Retrieve</button>
+  
+            </td>
+            <td>
+                <button ng-click="">Reload</button>
+            </td>
+            <td>
+                <div ng-if="i.FileName">
+                    <a class="button" href="">Download</a>
+                </div>
+            </td>
+            <td class="last">
+                <input type="file" file-model="files.file241" />
+                <button ng-click="uploadFile(i.UploadKey)">Upload</button>
+                <div class="clear"></div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="success" ng-show="tenant_success != null">{{ tenant_success }}</div>
+    <div class="errors" ng-show="tenant_error != null">{{ tenant_error }}</div>
+
+    <button ng-click="saveTenant()">Accept</button>
+
+</div>
+

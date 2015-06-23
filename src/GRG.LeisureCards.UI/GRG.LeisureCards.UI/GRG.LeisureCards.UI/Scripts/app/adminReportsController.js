@@ -1,4 +1,4 @@
-﻿var adminController = angular.module('adminController', []);
+﻿var adminController = angular.module('adminReportsController', []);
 
 
 adminController.factory('LeisureCardUpdate', function ($resource, config) {

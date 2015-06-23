@@ -62,6 +62,14 @@ body div.content {
             @include ease(0.2s);
         }    
     }
+   .form-box {
+        margin: 0 0 20px 0;
+        padding: 20px;
+        border-radius: 5px;
+        background: #f3f3f3;        
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border: 1px solid #c3c3c3;
+   }
     form {
         margin: 0 0 20px 0;
         padding: 20px;

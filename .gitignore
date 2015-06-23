@@ -21,6 +21,8 @@ build/
 #!packages/*/build/
 
 **/packages/
+
+**/UploadFiles/**/*.csv
  
 # MSTest test Results
 [Tt]est[Rr]esult*/

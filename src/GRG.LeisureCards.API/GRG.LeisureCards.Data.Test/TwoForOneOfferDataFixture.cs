@@ -11,7 +11,7 @@ namespace GRG.LeisureCards.Data.Test
     {
         public override object[] GetEntities(IFixtureContainer fixtureContainer)
         {
-            using (var csvReader = CsvReader.Create(new StreamReader(ResourceStreams.Get241LetterDataStream())))
+            using (var csvReader = CsvReader.Create(new StreamReader(ResourceStreams.GetStream(ResourceStreams.TwoForOneName))))
             {
                 return csvReader.GetRecords<TwoForOneOffer>().ToArray();
             }

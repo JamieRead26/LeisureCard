@@ -66,7 +66,7 @@ namespace GRG.LeisureCards.WebAPI.App_Start {
                 dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
                 if (journalEntry.Success)
-                    dataImportService.Import(journalEntry, path => HttpContext.Current.Server.MapPath(path));
+                    dataImportService.Import(DataImportKey.RedLetter, path => HttpContext.Current.Server.MapPath(path));
             },
             int.Parse(ConfigurationManager.AppSettings["RedLetterAutoDownloadDayMinutes"]));
         }

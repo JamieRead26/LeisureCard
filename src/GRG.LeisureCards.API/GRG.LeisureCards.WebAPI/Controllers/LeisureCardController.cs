@@ -101,31 +101,31 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             };
         }
 
-        //[HttpGet]
-        //[SessionAuthFilter(true)]
-        //[Route("LeisureCard/Suspend/{cardNumberOrRef}/{suspended}")]
-        //[UnitOfWork]
-        //public CardUpdateResponse Suspend(string cardNumberOrRef, bool suspended)
-        //{
-        //    var crd = _leisureCardRepository.Get(cardNumberOrRef);
-        //    var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
+        [HttpGet]
+        [SessionAuthFilter(true)]
+        [Route("LeisureCard/Suspend/{cardNumberOrRef}/{suspended}")]
+        [UnitOfWork]
+        public CardUpdateResponse Suspend(string cardNumberOrRef, bool suspended)
+        {
+            var crd = _leisureCardRepository.Get(cardNumberOrRef);
+            var cards = crd == null ? _leisureCardRepository.GetByRef(cardNumberOrRef) : new[] { crd };
 
-        //    var leisureCards = cards as LeisureCard[] ?? cards.ToArray();
-        //    foreach (var card in leisureCards)
-        //    {
-        //        card.Suspended = suspended;
+            var leisureCards = cards as LeisureCard[] ?? cards.ToArray();
+            foreach (var card in leisureCards)
+            {
+                card.Suspended = suspended;
 
-        //        _leisureCardRepository.SaveOrUpdate(card);
-        //    }
+                _leisureCardRepository.SaveOrUpdate(card);
+            }
 
-        //    var prototype = leisureCards.Any() ? Mapper.Map<Model.LeisureCard>(leisureCards[0]) : null;
+            var prototype = leisureCards.Any() ? Mapper.Map<Model.LeisureCard>(leisureCards[0]) : null;
 
-        //    return new CardUpdateResponse
-        //    {
-        //        CardsUpdated = leisureCards.Count(),
-        //        Prototype = prototype
-        //    };
-        //}
+            return new CardUpdateResponse
+            {
+                CardsUpdated = leisureCards.Count(),
+                Prototype = prototype
+            };
+        }
 
         [HttpGet]
         [SessionAuthFilter(true)]

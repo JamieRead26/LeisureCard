@@ -3,6 +3,8 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using GRG.LeisureCards.DomainModel;
+using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Persistence.NHibernate;
 using log4net;
 
 namespace GRG.LeisureCards.WebAPI
@@ -11,7 +13,21 @@ namespace GRG.LeisureCards.WebAPI
     {
         Stream GetRedLetterData();
 
-        DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, Func<Stream> getStream);
+        DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, Func<Stream> getStream, string tenantKey = null);
+    }
+
+    public class FileImportConfig
+    {
+        public string RedLetterFtpPath { get; set; }
+        public string RedLetterFtpUid { get; set; }
+        public string RedLetterFtpPassword { get; set; }
+
+        public FileImportConfig(string redLetterFtpPath, string redLetterFtpUid, string redLetterFtpPassword)
+        {
+            RedLetterFtpPath = redLetterFtpPath;
+            RedLetterFtpUid = redLetterFtpUid;
+            RedLetterFtpPassword = redLetterFtpPassword;
+        }
     }
 
     public class FileImportManager : IFileImportManager
@@ -19,17 +35,24 @@ namespace GRG.LeisureCards.WebAPI
         private readonly string _redLetterFtpPath;
         private readonly string _redLetterUid;
         private readonly string _redLetterPwd;
+        private readonly ITenantRepository _tenantRepository;
         private static readonly ILog Log = LogManager.GetLogger(typeof(FileImportManager));
 
-        public FileImportManager(string redLetterFtpPath, string redLetterUid, string redLetterPwd)
+        public FileImportManager(FileImportConfig config, ITenantRepository tenantRepository)
         {
-            _redLetterFtpPath = redLetterFtpPath;
-            _redLetterUid = redLetterUid;
-            _redLetterPwd = redLetterPwd;
+            _redLetterFtpPath = config.RedLetterFtpPath;
+            _redLetterUid = config.RedLetterFtpUid;
+            _redLetterPwd = config.RedLetterFtpPassword;
+            _tenantRepository = tenantRepository;
         }
 
-        public DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, Func<Stream> getStream)
+        [UnitOfWork]
+        public DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, Func<Stream> getStream, string tenantKey = null)
         {
+            Tenant tenant = null;
+            if (tenantKey != null)
+                tenant = _tenantRepository.Get(tenantKey);
+
             string uploadFolder = string.Empty;
             try
             {
@@ -69,7 +92,8 @@ namespace GRG.LeisureCards.WebAPI
                     Success = true,
                     LastRun = now,
                     UploadKey = dataImportKey.Key,
-                    FileName = uploadFileName
+                    FileName = uploadFileName,
+                    Tenant = tenant
                 };
             }
             catch (Exception ex)
@@ -82,6 +106,7 @@ namespace GRG.LeisureCards.WebAPI
                     UploadKey = dataImportKey.Key,
                     LastRun = DateTime.Now,
                     Message = ex.Message,
+                    Tenant = tenant
                 };
             }
         }

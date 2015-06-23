@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Xml;
 using GRG.LeisureCards.CSV;
+using GRG.LeisureCards.CSV.CsvModel;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Persistence.NHibernate;
 using log4net;
 
 namespace GRG.LeisureCards.Service
 {
     public interface IDataImportService
     {
-        void Import(DataImportJournalEntry journalEntry, Func<string,string> mapPath );
+        DataImportJournalEntry Import(DataImportKey key, Func<string,string> mapPath, params object[] args );
     }
 
     public class DataImportService : IDataImportService
@@ -25,19 +26,22 @@ namespace GRG.LeisureCards.Service
         private readonly ITwoForOneRepository _twoForOneRepository;
         private readonly IUkLocationService _locationService;
         private readonly IRedLetterBulkInsert _redLetterBulkInsert;
+        private readonly ILeisureCardRepository _leisureCardRepository;
 
         public DataImportService(
             IDataImportJournalEntryRepository dataImportJournalEntryRepository, 
             IRedLetterProductRepository redLetterProductRepository,
             ITwoForOneRepository twoForOneRepository,
             IUkLocationService locationService,
-            IRedLetterBulkInsert redLetterBulkInsert)
+            IRedLetterBulkInsert redLetterBulkInsert,
+            ILeisureCardRepository leisureCardRepository)
         {
             _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
             _redLetterProductRepository = redLetterProductRepository;
             _twoForOneRepository = twoForOneRepository;
             _locationService = locationService;
             _redLetterBulkInsert = redLetterBulkInsert;
+            _leisureCardRepository = leisureCardRepository;
         }
 
         public DataImportJournalEntry ImportRedLetterOffers(Stream fileStream, DataImportJournalEntry journalEntry)
@@ -200,19 +204,120 @@ namespace GRG.LeisureCards.Service
             
         }
 
-        public void Import(DataImportJournalEntry journalEntry, Func<string, string> mapPath)
+        [UnitOfWork]
+        public DataImportJournalEntry Import(DataImportKey importKey, Func<string, string> mapPath, params object[] args)
         {
-            var importKey = DataImportKey.All.First(d => d.Key == journalEntry.UploadKey);
+            var journalEntry = _dataImportJournalEntryRepository.GetLast(importKey);
 
             if (importKey==DataImportKey.RedLetter)
-                ImportRedLetterOffers(
+                return ImportRedLetterOffers(
                     File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
                     journalEntry);
 
             if (importKey == DataImportKey.TwoForOne)
-                ImportTwoForOneOffers(
+                return ImportTwoForOneOffers(
                     File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
                     journalEntry);
+
+            if (importKey == DataImportKey.NewUrns)
+                return ImportNewUrns(
+                    File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
+                    journalEntry,
+                    (int)args[0]);
+
+            if (importKey == DataImportKey.DeactivatedUrns)
+                return ImportDeactivatedUrns(
+                    File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
+                    journalEntry);
+
+            throw new Exception("Unexpected DataImportKey : " + importKey.Key);
+        }
+
+        private DataImportJournalEntry ImportNewUrns(FileStream fileStream, DataImportJournalEntry journalEntry, int cardDurationMonths)
+        {
+            try
+            {
+                var urns = _leisureCardRepository.GetAll().Select(x=>x.Code.ToUpper());
+
+                using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
+                {
+                    foreach (var newUrn in csvReader.GetRecords<NewUrn>().ToArray().Where(newUrn => !urns.Contains(newUrn.Urn.ToUpper())))
+                    {
+                        _leisureCardRepository.Save(
+                            new LeisureCard
+                            {
+                                Code = newUrn.Urn,
+                                Reference = newUrn.Ref,
+                                Tenant = journalEntry.Tenant,
+                                RenewalPeriodMonths = cardDurationMonths
+                            });
+                    }
+                }
+
+                journalEntry.Success = true;
+                journalEntry.LastRun = DateTime.Now;
+                journalEntry.Status = "Success";
+
+                _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+                return journalEntry;
+            }
+            catch (Exception ex)
+            {
+                journalEntry.Success = false;
+                journalEntry.LastRun = DateTime.Now;
+                journalEntry.Status = "Failure";
+                journalEntry.Message = ex.Message;
+
+                _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+                return journalEntry;
+            }
+        }
+
+
+        private DataImportJournalEntry ImportDeactivatedUrns(FileStream fileStream, DataImportJournalEntry journalEntry)
+        {
+            try
+            {
+                var urns = _leisureCardRepository.GetAll();
+
+                using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
+                {
+                    foreach (var deactiveUrn in csvReader.GetRecords<Urn>())
+                    {
+                        var urn =
+                            urns.FirstOrDefault(
+                                x => string.Equals(x.Code, deactiveUrn.Code, StringComparison.CurrentCultureIgnoreCase));
+                       
+                        if (urn != null)
+                        {
+                            urn.Suspended = true;
+
+                            _leisureCardRepository.Update(urn);
+                        }
+                    }
+                }
+
+                journalEntry.Success = true;
+                journalEntry.LastRun = DateTime.Now;
+                journalEntry.Status = "Success";
+
+                _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+                return journalEntry;
+            }
+            catch (Exception ex)
+            {
+                journalEntry.Success = false;
+                journalEntry.LastRun = DateTime.Now;
+                journalEntry.Status = "Failure";
+                journalEntry.Message = ex.Message;
+
+                _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+
+                return journalEntry;
+            }
         }
     }
 }

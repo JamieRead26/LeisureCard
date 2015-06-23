@@ -11,11 +11,10 @@ namespace GRG.LeisureCards.Data.Test
     public class RedLetterProductDataFixture : DataFixture
     {
         public readonly IList<RedLetterProduct> Products = new List<RedLetterProduct>();
-        private readonly IDictionary<string, RedLetterKeyword> _keywords = new Dictionary<string, RedLetterKeyword>();
 
         public RedLetterProductDataFixture()
         {
-            using (var txtReader = new StreamReader(ResourceStreams.GetRedLetterDataStream()))
+            using (var txtReader = new StreamReader(ResourceStreams.GetStream(ResourceStreams.RedLetterName)))
             {
                 var xmlDoc = new XmlDocument();
 

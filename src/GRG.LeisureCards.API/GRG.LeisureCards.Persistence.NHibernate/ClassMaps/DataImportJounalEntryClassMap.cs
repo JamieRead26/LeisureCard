@@ -1,5 +1,4 @@
 ﻿using FluentNHibernate.Mapping;
-using GRG.LeisureCards.Data;
 using GRG.LeisureCards.DomainModel;
 
 namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
@@ -14,6 +13,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.Message);
             Map(x => x.FileName);
             Map(x => x.Success);
+            References(x => x.Tenant);
         }
     }
 }

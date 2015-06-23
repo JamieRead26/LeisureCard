@@ -18,5 +18,7 @@ namespace GRG.LeisureCards.DomainModel
         public virtual string FileName { get; set; }
 
         public virtual string Status { get; set; }
+
+        public virtual Tenant Tenant { get; set; }
     }
 }

@@ -73,6 +73,12 @@
     <EmbeddedResource Include="..\ExampleDataFiles\241_Sample_Data.csv">
       <Link>Data Files\241_Sample_Data.csv</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\ExampleDataFiles\deactiveUrns.csv">
+      <Link>Data Files\deactiveUrns.csv</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ExampleDataFiles\newUrns.csv">
+      <Link>Data Files\newUrns.csv</Link>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

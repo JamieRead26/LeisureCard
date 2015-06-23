@@ -20,20 +20,35 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void UploadRedLetterData()
         {
-            TestDataImportOp(service => service.UploadRedLetterData(ResourceStreams.GetRedLetterDataStream()),
+            TestDataImportOp(service => service.UploadRedLetterData(ResourceStreams.GetStream(ResourceStreams.RedLetterName)),
                 service => service.GetRedLetterImportJournal());
             TestDataImportOp(service => service.ProcessRedLetterData(), service => service.GetRedLetterImportJournal());
+        }
+
+        [Test]
+        public void UploadNewUrnData()
+        {
+            TestDataImportOp(service => service.UploadNewUrnData("GRG", ResourceStreams.GetStream(ResourceStreams.NewUrns)),
+                service => service.GetNewUrnImportJournal());
+            TestDataImportOp(service => service.ProcessNewUrnData(12), service => service.GetNewUrnImportJournal());
+        }
+
+        [Test]
+        public void UploadDeactivateUrnsData()
+        {
+            TestDataImportOp(service => service.UploadDeactivateUrnData("GRG", ResourceStreams.GetStream(ResourceStreams.DeactivateUrns)),
+                service => service.GetDeactivateUrnImportJournal());
+            TestDataImportOp(service => service.ProcessDeactivateUrnData(), service => service.GetDeactivateUrnImportJournal());
         }
 
         [Test]
         [Ignore("Too long as hits google API, will reduce test data")]
         public void Upload241Data()
         {
-            TestDataImportOp(service => service.Upload241Data(ResourceStreams.Get241LetterDataStream()),
+            TestDataImportOp(service => service.Upload241Data(ResourceStreams.GetStream(ResourceStreams.TwoForOneName)),
                 service => service.Get241ImportJournal());
             TestDataImportOp(service => service.Process241Data(), service => service.Get241ImportJournal());
         }
-
 
         public void TestDataImportOp(Func<IDataImportService, DataImportJournalEntry> op,
             Func<IDataImportService, DataImportJournalEntry> getJournal)

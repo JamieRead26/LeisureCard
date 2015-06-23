@@ -61,7 +61,7 @@ namespace GRG.LeisureCards.WebAPI.Interceptors
 
                     }
 
-                    //throw;
+                    throw;
                 }
             }
             finally

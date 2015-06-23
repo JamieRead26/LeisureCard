@@ -22,7 +22,7 @@ namespace GRG.LeisureCards.Data.Test
 
         public RedLetterFactDataFixture()
         {
-            using (var txtReader = new StreamReader(ResourceStreams.GetRedLetterDataStream()))
+            using (var txtReader = new StreamReader(ResourceStreams.GetStream(ResourceStreams.RedLetterName)))
             {
                 var xmlDoc = new XmlDocument();
 

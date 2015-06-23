@@ -211,6 +211,7 @@
     <Compile Include="Authentication\LeisureCardPrincipal.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Controllers\DataImportController.cs" />
+    <Compile Include="Controllers\LcApiController.cs" />
     <Compile Include="Controllers\LeisureCardController.cs" />
     <Compile Include="Controllers\LoginHistoryController.cs" />
     <Compile Include="Controllers\RedLetterController.cs" />

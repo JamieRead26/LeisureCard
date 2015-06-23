@@ -71,7 +71,7 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
             ConfigureRepositoryIntercepts(proxyGenerator, interceptor);
             ConfigureServiceIntercepts(proxyGenerator, interceptor);
             ConfigureBusinessLogic();
-            ConfigureProviders();
+            ConfigureProviders(proxyGenerator, interceptor);
         }
 
         private void ConfigureRepositoryIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
@@ -129,6 +129,7 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
 
             For<IGoogleLocationService>()
                 .Use(() => new GoogleLocationService(true, ConfigurationManager.AppSettings["GoogleApiKey"]))
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
 
             if (bool.Parse(ConfigurationManager.AppSettings["StatelessMode"]))
@@ -152,22 +153,26 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .SetLifecycleTo<SingletonLifecycle>();
         }
 
-        public void ConfigureProviders()
+        public void ConfigureProviders(ProxyGenerator proxyGenerator, IInterceptor interceptor)
         {
             For<IAdminCodeProvider>()
                 .Use(() => new AdminCodeProvider(ConfigurationManager.AppSettings["AdminCode"]))
                 .SetLifecycleTo<SingletonLifecycle>();
 
-            var fileImportManager = new FileImportManager(
-                ConfigurationManager.AppSettings["RedLetterFtpPath"],
-                ConfigurationManager.AppSettings["RedLetterFtpUid"],
-                ConfigurationManager.AppSettings["RedLetterFtpPassword"]);
+            For<FileImportConfig>()
+                .Use(() => new FileImportConfig(
+                    ConfigurationManager.AppSettings["RedLetterFtpPath"],
+                    ConfigurationManager.AppSettings["RedLetterFtpUid"],
+                    ConfigurationManager.AppSettings["RedLetterFtpPassword"]));
 
             For<IFileImportManager>()
-                .Use(() => fileImportManager )
+                .Use<FileImportManager>()
+                .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
         }
 
         #endregion
     }
+
+   
 }

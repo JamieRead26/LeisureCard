@@ -1,59 +1,99 @@
 ﻿var adminClientController = angular.module('adminClientController', []);
 
-adminClientController.controller('AdminClientDetailsController', function ($scope, config, $http) {
-    $scope.global.bodyclass = 'admin';
+adminClientController.factory('GetTenantByKey', function ($resource, config) {
+    return $resource(config.apiUrl + '/Tenant/Get/:key');
+});
 
-    $scope.tenants = [];
-    $scope.currentTenant = {};
-    $scope.selectTenant = function () {
-        var t = $scope.currentTenant;
-        if(t){
-            $scope.tenantKey = t.Key;
-            $scope.tenantName = t.Name;
-            $scope.tenantActive = t.Active;
-            $scope.domain = t.Domain;
-            $scope.comments = t.Comments;
-            $scope.memberLoginPopupDisplayed = t.MemberLoginPopupDisplayed;
-            $scope.memberLoginPopupMandatory = t.MemberLoginPopupMandatory;
-            $scope.urnCount = t.UrnCount;
+// add urns
+adminClientController.factory('GetNewUrnsImportJournal', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/GetNewUrnsImportJournal');
+});
+adminClientController.factory('ProcessNewUrnsData', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/ProcessNewUrnsData/:cardDurationMonths');
+});
+adminClientController.factory('UploadNewUrns', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/UploadNewUrns/:tenantKey');
+});
 
-            $scope.ftpUsername = t.FtpUsername;
-            $scope.ftpAddress = t.FtpServer;
-            $scope.ftpPassword = t.FtpPassword;
-            $scope.ftpFilePath = t.FtpFilePath;
-        }
-    }
+// deactivated urns
+adminClientController.factory('UploadDeactivateUrns', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/UploadDeactivateUrns/:tenantKey');
+});
+adminClientController.factory('ProcessDeactivateUrnsData', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/ProcessDeactivateUrnsData/');
+});
+adminClientController.factory('GetDeactivateUrnsImportJournal', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/GetDeactivateUrnsImportJournal');
+});
 
-    $http.get(config.apiUrl + '/Tenant/GetAll').then(function (r) {
-        $scope.tenants = r.data.$values;
+adminClientController.controller('AdminClientUrnsController', function ($scope, $location,
+    GetNewUrnsImportJournal, ProcessNewUrnsData, UploadNewUrns,
+    UploadDeactivateUrns, ProcessDeactivateUrnsData, GetDeactivateUrnsImportJournal,
+    PushImportToArray) {
+
+    $scope.imports = [];
+
+    GetNewUrnsImportJournal.get(function (data) {
+        PushImportToArray.push($scope, data, 'Add');
     });
 
+    GetDeactivateUrnsImportJournal.get(function (data) {
+        PushImportToArray.push($scope, data, 'Deactivate');
+    });
+
+});
+
+adminClientController.controller('AdminClientDetailsController', function ($scope, $location,
+    config, $http, $routeParams, GetTenantByKey) {
+
+    $scope.global.bodyclass = 'admin';
+
+    $scope.tenant = {};
+    $scope.key = $routeParams.key;
+    $scope.keyreadonly = $scope.key != 'new';
+
+    if ($scope.key != 'new') {
+        GetTenantByKey.get({ key: $scope.key }, function (data) {
+            $scope.tenant = data;
+        });
+    }
     $scope.saveTenant = function () {
 
         $scope.tenant_success = null;
         $scope.tenant_error = null;
 
-        if ($scope.tenantKey) {
-            var tenant = {
-                Key: $scope.tenantKey,
-                Name: $scope.tenantName,
-                Active: $scope.tenantActive,
-                Domain: $scope.domain,
-                Comments: $scope.comments,
-                MemberLoginPopupDisplayed: $scope.memberLoginPopupDisplayed,
-                MemberLoginPopupMandatory: $scope.memberLoginPopupMandatory,
-                FtpUsername: $scope.ftpUsername,
-                FtpServer: $scope.ftpAddress,
-                FtpPassword: $scope.ftpPassword,
-                FtpFilePath: $scope.ftpFilePath
-            };
+        if ($scope.tenant.Key) {
+            var saveorupdate = $scope.key == 'new' ? 'Save' : 'Update';
+            var url = config.apiUrl + '/Tenant/' + saveorupdate;
 
-            $http.post(config.apiUrl + '/Tenant/Update', tenant);
-            $scope.tenant_success = 'Client updated.';
+            $http.post(url, $scope.tenant);
+
+            if ($scope.key == 'new') {
+                $scope.key = $scope.tenant.Key;
+                return $scope.tenant_success = 'New client "' + $scope.tenant.Key + '" saved.';
+            }
+            return $scope.tenant_success = 'Client "' + $scope.tenant.Key + '" updated.';
         }
         else {
-            $scope.tenant_error = 'Please select a client to update.';
+            return $scope.tenant_error = 'Please select a client to update.';
         }
+    }
+
+    $scope.closeTenant = function () {
+        if (confirm("Would you like to save your changes?")) {
+            $scope.saveTenant();
+        }
+
+        $location.path('/admin');
+    }
+
+    $scope.deleteTenant = function () {
+        if ($scope.tenant.Key) {
+            $scope.tenant['Active'] = false;
+            $scope.saveTenant();
+            return $scope.tenant_success = 'Client "' + $scope.tenant.Key + '" deleted.';
+        }
+        return $scope.tenant_error = 'Please enter a client ID.';
     }
 
 });

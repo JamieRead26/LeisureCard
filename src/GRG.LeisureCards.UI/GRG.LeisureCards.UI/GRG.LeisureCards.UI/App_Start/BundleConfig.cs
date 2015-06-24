@@ -34,8 +34,7 @@ namespace GRG.LeisureCards.UI
                         "~/Scripts/app/adminReportsController.js",
                         "~/Scripts/app/generalContentController.js",
                         "~/Scripts/app/app.js",
-                        "~/Scripts/app/directives.js",
-                        "~/Scripts/app/config.js");
+                        "~/Scripts/app/directives.js");
 
             appScriptsBundle.Builder = nullBuilder;
             appScriptsBundle.Transforms.Add(scriptTransformer);

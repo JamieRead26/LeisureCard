@@ -56,7 +56,19 @@
 
     @Scripts.Render("~/bundles/angular")
 
+
     @Scripts.Render("~/bundles/appjs")
+
+    <script>
+    app.constant('config', {
+        googleAPiKey: 'AIzaSyAvl80GCl1HRw1H_FmBIGlLk2VPcV5R5Cg',
+        tenant: 'npower',
+        //apiUrl: 'http://leisurecards.mutlitenantapi.shiftkey.uk.com:8088/' //-http://grg.leisurecards.api.shiftkey.uk.com
+        apiUrl: '//localhost:1623'
+    });
+    </script>
+
+    <script src="/Scripts/app/config.js" type="text/javascript"></script>
 
     <!--[if lte IE 8]> <script src="/Scripts/angular-ie-shiv.js"></script><![endif]-->
 

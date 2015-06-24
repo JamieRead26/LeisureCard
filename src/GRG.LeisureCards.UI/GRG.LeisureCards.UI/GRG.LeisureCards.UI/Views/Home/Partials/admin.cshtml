@@ -124,6 +124,19 @@
         <div class="success" ng-show="cardgenerate_success != null">{{ cardgenerate_success }}</div>
     </div>
 
+    <div ng-controller="AdminEditClientController">
+        <form ng-submit="submit()" class="no-bg">
+            <div class="field threecol">
+                <select ng-model="tenant" required ng-options="t.Key for t in tenants"></select>
+            </div>
+            <div class="threecol last">
+                <button type="submit">Edit Client</button>
+                <a href="/#/admin/client-details/new" class="button">Create Client</a>
+            </div>
+            <div class="clear"></div>
+        </form>
+    </div>
+
     <div ng-controller="AdminReportController" class="admin-bottom-cont">
         <div class="fourcol print-hide adminform2cont">
             <h2>Search Critera</h2>

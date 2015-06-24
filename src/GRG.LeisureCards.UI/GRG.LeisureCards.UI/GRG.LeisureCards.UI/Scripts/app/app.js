@@ -34,7 +34,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
                 }
 
             }
-            else if (!config.url == 'partial/terms') {
+            else if (config.url != 'partial/terms') {
                 $location.path('/');
             }
             return config;
@@ -74,6 +74,45 @@ app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
 });
 
+app.factory('PushImportToArray', function ($resource, config) {
+
+    return {
+        push: function ($scope, data, default_key) {
+            var _push = function (data) {
+
+                // Find any existing import records of the same UploadKey
+                var i = -1;
+                $.grep($scope.imports, function (item, index) {
+                    if (item.UploadKey == default_key)
+                        i = index;
+                });
+
+                // If any existing records were found of the same UploadKey then remove them
+                if (i != -1)
+                    $scope.imports.splice(i, 1);
+
+                // Now add the data to the list of records.
+                return $scope.imports.push(data);
+            };
+
+            if (!data.LastRun) {
+                // default 
+                return _push({
+                    LastRun: null,
+                    UploadKey: default_key,
+                    Success: null,
+                    Message: null,
+                    FileName: null,
+                    Status: null
+                });
+            }
+
+            return _push(data);
+        }
+    }
+
+});
+
 var globalController = angular.module('globalController', []);
 globalController.controller('globalCtrl', function ($scope, breadcrumbs, $location, $anchorScroll, $localStorage, config) {
     $localStorage.tenant = config.tenant;
@@ -110,7 +149,7 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'AdminReportController',
             label: 'Admin'
         }).
-        when('/admin/client-details', {
+        when('/admin/client-details/:key', {
             templateUrl: 'partial/admin_client_details',
             controller: 'AdminClientDetailsController',
             label: 'Client Details'

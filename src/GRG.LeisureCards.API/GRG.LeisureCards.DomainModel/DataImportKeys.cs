@@ -4,8 +4,8 @@
     {
         public readonly static DataImportKey RedLetter = new DataImportKey("RedLetter",  "~\\UploadFiles\\RedLetter");
         public readonly static DataImportKey TwoForOne = new DataImportKey("241", "~\\UploadFiles\\241");
-        public readonly static DataImportKey NewUrns = new DataImportKey("241", "~\\UploadFiles\\NewUrns");
-        public readonly static DataImportKey DeactivatedUrns = new DataImportKey("241", "~\\UploadFiles\\DeactivatedUrns");
+        public readonly static DataImportKey NewUrns = new DataImportKey("NewUrns", "~\\UploadFiles\\NewUrns");
+        public readonly static DataImportKey DeactivatedUrns = new DataImportKey("DeactivatedUrns", "~\\UploadFiles\\DeactivatedUrns");
 
         public static readonly DataImportKey[] All = {RedLetter, TwoForOne, NewUrns, DeactivatedUrns};
 

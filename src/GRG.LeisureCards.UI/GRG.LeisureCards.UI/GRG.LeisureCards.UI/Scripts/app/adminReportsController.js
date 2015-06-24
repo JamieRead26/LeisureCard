@@ -119,9 +119,7 @@ adminController.controller('AdminDataImportController', function ($scope,
 
     $scope.retrieveRedLetter = function () {
         $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
-        RetrieveRedLetter.get(function (data) {
-           
-        });
+        RetrieveRedLetter.get();
     }
 
     $scope.process241 = function () {

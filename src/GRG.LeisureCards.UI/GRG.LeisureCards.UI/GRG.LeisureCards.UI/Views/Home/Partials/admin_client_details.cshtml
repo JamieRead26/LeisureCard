@@ -88,47 +88,54 @@
     </div>
     <div class="clear"></div>
 
+    <div ng-controller="AdminClientUrnsController">
+        <table class="print-hide">
+            <tr>
+                <th>Option</th>
+                <th>Last Run</th>
+                <th>Status</th>
+                <th>Error Message</th>
+                <th>Reference</th>
+                <th>Duration</th>
+                <th>URNs Effected</th>
+                <th style="width: 100px;">Retrieve Data</th>
+                <th style="width: 100px;">Reload Data</th>
+                <th style="width: 100px;">Download File</th>
+                <th style="width: 160px;" class="last">Upload File</th>
+            </tr>
+            <tr ng-repeat="i in imports">
+                <td>{{ i.UploadKey }}</td>
+                <td ng-bind="i.LastRun | date:'dd/MM/yyyy HH:mm:ss'"></td>
+                <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
+                <td>{{ i.Message }}</td>
+                <td><input type="text" readonly ng-modal="reference" /></td>
+                <td>
+                    <div ng-if="i.UploadKey == 'NewUrns'">
+                        <input type="number" ng-model="number.duration" />
+                    </div>
+                </td>
+                <td></td>
+                <td>
+                    <button ng-click="i.UploadKey == 'NewUrns' ? retrieveAdd() : retrieveDeactivate()">Retrieve</button>
+                </td>
+                <td>
+                    <button ng-click="i.UploadKey == 'NewUrns' ? processAdd() : processDeactivate()">Reload</button>
+                </td>
+                <td>
+                    <div ng-if="i.FileName">
+                        <a class="button" href="{{apiUrl}}/UploadFiles/{{i.UploadKey}}/{{i.FileName}}">Download</a>
+                    </div>
+                </td>
+                <td class="last">
+                    <input type="file" file-model="{{ 'files.' + i.UploadKey }}" />
+                    <button ng-click="uploadFile(i.UploadKey)">Upload</button>
+                </td>
+            </tr>
+        </table>
 
-    <table class="print-hide" ng-controller="AdminClientUrnsController">
-        <tr>
-            <th>Option</th>
-            <th>Last Run</th>
-            <th>Status</th>
-            <th>Error Message</th>
-            <th>Reference</th>
-            <th>Duration</th>
-            <th>URNs Effected</th>
-            <th style="width: 120px;">Retrieve Data</th>
-            <th style="width: 120px;">Reload Data</th>
-            <th style="width: 120px;">Download File</th>
-            <th style="width: 220px;" class="last">Upload File</th>
-        </tr>
-        <tr ng-repeat="i in imports">
-            <td>{{ i.UploadKey }}</td>
-            <td ng-bind="i.LastRun | date:'dd/MM/yyyy HH:mm:ss'"></td>
-            <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
-            <td>{{ i.Message }}</td>
-            <td><input type="text" required /></td>
-            <td></td>
-            <td></td>
-            <td>
-                    <button ng-click="">Retrieve</button>
-            </td>
-            <td>
-                <button ng-click="">Reload</button>
-            </td>
-            <td>
-                <div ng-if="i.FileName">
-                    <a class="button" href="">Download</a>
-                </div>
-            </td>
-            <td class="last">
-                <input type="file" file-model="files.file241" />
-                <button ng-click="uploadFile(i.UploadKey)">Upload</button>
-                <div class="clear"></div>
-            </td>
-        </tr>
-    </table>
+        <div class="errors" ng-show="file_error">{{ file_error }}</div>
+        <div class="success" ng-show="file_success">{{ file_success }}</div>
+    </div>
 
     <div class="success" ng-show="tenant_success != null">{{ tenant_success }}</div>
     <div class="errors" ng-show="tenant_error != null">{{ tenant_error }}</div>

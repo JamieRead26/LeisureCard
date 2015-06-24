@@ -8,38 +8,129 @@ adminClientController.factory('GetTenantByKey', function ($resource, config) {
 adminClientController.factory('GetNewUrnsImportJournal', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetNewUrnsImportJournal');
 });
-adminClientController.factory('ProcessNewUrnsData', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/ProcessNewUrnsData/:cardDurationMonths');
-});
-adminClientController.factory('UploadNewUrns', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/UploadNewUrns/:tenantKey');
+adminClientController.factory('RetriveNewUrns', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/RetriveNewUrns');
 });
 
 // deactivated urns
-adminClientController.factory('UploadDeactivateUrns', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/UploadDeactivateUrns/:tenantKey');
-});
 adminClientController.factory('ProcessDeactivateUrnsData', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/ProcessDeactivateUrnsData/');
 });
 adminClientController.factory('GetDeactivateUrnsImportJournal', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetDeactivateUrnsImportJournal');
 });
+adminClientController.factory('RetriveDeactivateUrns', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/RetriveDeactivateUrns');
+});
 
-adminClientController.controller('AdminClientUrnsController', function ($scope, $location,
-    GetNewUrnsImportJournal, ProcessNewUrnsData, UploadNewUrns,
-    UploadDeactivateUrns, ProcessDeactivateUrnsData, GetDeactivateUrnsImportJournal,
-    PushImportToArray) {
+adminClientController.controller('AdminClientUrnsController', function ($scope, $location, config,
+    GetNewUrnsImportJournal, ProcessDeactivateUrnsData, GetDeactivateUrnsImportJournal,
+    PushImportToArray, fileUpload, RetriveDeactivateUrns, RetriveNewUrns, $http) {
 
     $scope.imports = [];
 
+    $scope.files = {};
+    $scope.files.NewUrns = {};
+    $scope.files.DeactivatedUrns = {};
+
+    $scope.apiUrl = config.apiUrl;
+
+    $scope.reference = $scope.$parent.key;
+
     GetNewUrnsImportJournal.get(function (data) {
-        PushImportToArray.push($scope, data, 'Add');
+        PushImportToArray.push($scope, data, 'NewUrns');
     });
 
     GetDeactivateUrnsImportJournal.get(function (data) {
-        PushImportToArray.push($scope, data, 'Deactivate');
+        PushImportToArray.push($scope, data, 'DeactivatedUrns');
     });
+
+    $scope.number = {
+        duration: 0
+    };
+
+    $scope.processAdd = function () {
+
+        $scope.file_error = null;
+        $scope.file_success = null;
+
+        if ($scope.number.duration) {
+            var url = config.apiUrl + '/DataImport/ProcessNewUrnsData/' + $scope.number.duration;
+            $http.get(url).then(function (r) {
+                PushImportToArray.push($scope, r.data, 'NewUrns');
+                $scope.file_success = 'The import is complete. The result is shown in the table above.';
+                setTimeout(function () { $scope.$apply('file_success = \'\''); }, 5000);
+            });
+
+            return $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
+        }
+
+        return $scope.file_error = 'You must set the card duration.';
+    }
+
+    $scope.processDeactivate = function () {
+        $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
+        ProcessDeactivateUrnsData.get(function (data) {
+            PushImportToArray.push($scope, data, 'DeactivatedUrns');
+            $scope.file_success = 'The import is complete. The result is shown in the table above.';
+            setTimeout(function () { $scope.$apply('file_success = \'\''); }, 5000);
+        });
+    }
+
+    $scope.retrieveAdd = function () {
+        $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
+        RetriveNewUrns.get();
+    }
+    
+    $scope.retrieveDeactivate = function () {
+        $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
+        RetriveDeactivateUrns.get();
+    }
+
+    $scope.uploadFile = function (key) {
+        var file = $scope.files[key];
+        
+        $scope.file_error = null;
+        $scope.file_success = null;
+
+        if (!$scope.reference) {
+            return $scope.file_error = 'Please enter a client ID.';
+        }
+
+        var path = '/DataImport/Upload' + key + '/' + $scope.reference;
+
+        if (!key || !path || !file) {
+            return console.error('Missing path, key or file.');
+        }
+
+        //console.log('file is ' + JSON.stringify(file));
+        var uploadUrl = config.apiUrl + path;
+        fileUpload.uploadFileToUrl(file, uploadUrl, function (data) {
+
+            if (!data.ExceptionMessage && data) {
+                var imports = [];
+
+                for (var i = 0; i < $scope.imports.length; i++) {
+                    if ($scope.imports[i].UploadKey !== data.UploadKey) {
+                        imports.push($scope.imports[i]);
+                    } else {
+                        imports.splice(i, 0, data);
+                    }
+                }
+
+                $scope.imports = imports;
+
+                if (!data.Message) {
+                    return $scope.file_success = 'File uploaded successfully.';
+                }
+
+                $scope.file_error = 'Warning! file uploaded successfully but server responded: ' + data.Message;
+
+            } else {
+                $scope.file_error = 'File upload failed: ' + data.ExceptionMessage;
+            }
+        });
+    };
 
 });
 

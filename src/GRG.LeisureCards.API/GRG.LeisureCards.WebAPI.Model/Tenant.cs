@@ -23,6 +23,8 @@
 
         public string FtpUsername { get; set; }
 
-        public string FtpPath { get; set; }
+        public string FtpAddFilePath { get; set; }
+
+        public string FtpDeactivateFilePath { get; set; }
     }
 }

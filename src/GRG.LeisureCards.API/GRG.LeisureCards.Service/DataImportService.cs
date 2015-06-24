@@ -209,7 +209,7 @@ namespace GRG.LeisureCards.Service
         {
             var journalEntry = _dataImportJournalEntryRepository.GetLast(importKey);
 
-            if (importKey==DataImportKey.RedLetter)
+            if (importKey==DataImportKey. RedLetter)
                 return ImportRedLetterOffers(
                     File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
                     journalEntry);

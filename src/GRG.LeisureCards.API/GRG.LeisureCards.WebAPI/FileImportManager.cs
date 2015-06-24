@@ -14,6 +14,8 @@ namespace GRG.LeisureCards.WebAPI
         Stream GetRedLetterData();
 
         DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, Func<Stream> getStream, string tenantKey = null);
+        Stream GetAddUrnsData();
+        Stream GetDeactivateUrnsData();
     }
 
     public class FileImportConfig
@@ -109,6 +111,16 @@ namespace GRG.LeisureCards.WebAPI
                     Tenant = tenant
                 };
             }
+        }
+
+        public Stream GetAddUrnsData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Stream GetDeactivateUrnsData()
+        {
+            throw new NotImplementedException();
         }
 
         //public DataImportJournalEntry ProcessDataFile(Func<byte[], string, DataImportJournalEntry> processFunc, string uploadFolder, DataImportJournalEntry dataImportjournalEntry)

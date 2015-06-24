@@ -20,6 +20,8 @@
 
         public virtual string FtpPassword { get; set; }
 
-        public virtual string FtpPath { get; set; }
+        public virtual string FtpAddFilePath { get; set; }
+
+        public virtual string FtpDeactivateFilePath { get; set; }
     }
 }

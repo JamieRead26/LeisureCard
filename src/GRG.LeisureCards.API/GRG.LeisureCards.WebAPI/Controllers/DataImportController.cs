@@ -36,6 +36,20 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             return Dispatch(()=>Acquire(DataImportKey.RedLetter, ()=> _fileImportManager.GetRedLetterData()));
         }
 
+        [HttpGet]
+        [Route("DataImport/RetrieveNewUrns/")]
+        public Model.DataImportJournalEntry RetrieveNewUrns()
+        {
+            return Dispatch(() => Acquire(DataImportKey.NewUrns, () => _fileImportManager.GetAddUrnsData()));
+        }
+
+        [HttpGet]
+        [Route("DataImport/RetrieveDeactivateUrns/")]
+        public Model.DataImportJournalEntry RetrieveDeactivateUrns()
+        {
+            return Dispatch(() => Acquire(DataImportKey.NewUrns, () => _fileImportManager.GetDeactivateUrnsData()));
+        }
+
         [HttpPost]
         [Route("DataImport/UploadRedLetter/")]
         public Model.DataImportJournalEntry UploadRedLetter()

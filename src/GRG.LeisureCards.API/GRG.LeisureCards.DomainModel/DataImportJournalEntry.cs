@@ -22,5 +22,6 @@ namespace GRG.LeisureCards.DomainModel
         public virtual Tenant Tenant { get; set; }
 
         public virtual string Supplemental { get; set; }
+        public virtual string Supplemental1 { get; set; }
     }
 }

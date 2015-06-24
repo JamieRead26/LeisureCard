@@ -20,5 +20,7 @@ namespace GRG.LeisureCards.WebAPI.Model
         public string Status { get; set; }
 
         public string Supplemental { get; set; }
+
+        public string Supplemental1 { get; set; }
     }
 }

@@ -239,6 +239,7 @@ namespace GRG.LeisureCards.Service
             {
                 var urns = _leisureCardRepository.GetAll().Select(x=>x.Code.ToUpper());
 
+                string urnRef = string.Empty;
                 int affected = 0;
                 using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
                 {
@@ -253,6 +254,9 @@ namespace GRG.LeisureCards.Service
                                 RenewalPeriodMonths = cardDurationMonths
                             });
 
+                        if (string.IsNullOrWhiteSpace(urnRef))
+                            urnRef = newUrn.Ref;
+
                         affected++;
                     }
                 }
@@ -261,6 +265,7 @@ namespace GRG.LeisureCards.Service
                 journalEntry.LastRun = DateTime.Now;
                 journalEntry.Status = "Success";
                 journalEntry.Supplemental = affected.ToString();
+                journalEntry.Supplemental1 = affected.ToString();
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 

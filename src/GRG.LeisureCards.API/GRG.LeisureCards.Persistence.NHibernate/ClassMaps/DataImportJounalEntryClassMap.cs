@@ -16,6 +16,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.Success);
             References(x => x.Tenant);
             Map(x => x.Supplemental);
+            Map(x => x.Supplemental1);
         }
     }
 }

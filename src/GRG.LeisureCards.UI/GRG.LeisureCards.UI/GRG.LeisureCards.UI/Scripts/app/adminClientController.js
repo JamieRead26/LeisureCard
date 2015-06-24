@@ -8,8 +8,8 @@ adminClientController.factory('GetTenantByKey', function ($resource, config) {
 adminClientController.factory('GetNewUrnsImportJournal', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetNewUrnsImportJournal');
 });
-adminClientController.factory('RetriveNewUrns', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/RetriveNewUrns');
+adminClientController.factory('RetrieveNewUrns', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/RetrieveNewUrns');
 });
 
 // deactivated urns
@@ -19,19 +19,19 @@ adminClientController.factory('ProcessDeactivateUrnsData', function ($resource, 
 adminClientController.factory('GetDeactivateUrnsImportJournal', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetDeactivateUrnsImportJournal');
 });
-adminClientController.factory('RetriveDeactivateUrns', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/RetriveDeactivateUrns');
+adminClientController.factory('RetrieveDeactivateUrns', function ($resource, config) {
+    return $resource(config.apiUrl + '/DataImport/RetrieveDeactivateUrns');
 });
 
 adminClientController.controller('AdminClientUrnsController', function ($scope, $location, config,
     GetNewUrnsImportJournal, ProcessDeactivateUrnsData, GetDeactivateUrnsImportJournal,
-    PushImportToArray, fileUpload, RetriveDeactivateUrns, RetriveNewUrns, $http) {
+    PushImportToArray, fileUpload, RetrieveDeactivateUrns, RetrieveNewUrns, $http) {
 
     $scope.imports = [];
 
     $scope.files = {};
     $scope.files.NewUrns = {};
-    $scope.files.DeactivatedUrns = {};
+    $scope.files.DeactivateUrns = {};
 
     $scope.apiUrl = config.apiUrl;
 
@@ -42,7 +42,7 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
     });
 
     GetDeactivateUrnsImportJournal.get(function (data) {
-        PushImportToArray.push($scope, data, 'DeactivatedUrns');
+        PushImportToArray.push($scope, data, 'DeactivateUrns');
     });
 
     $scope.number = {
@@ -71,7 +71,7 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
     $scope.processDeactivate = function () {
         $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
         ProcessDeactivateUrnsData.get(function (data) {
-            PushImportToArray.push($scope, data, 'DeactivatedUrns');
+            PushImportToArray.push($scope, data, 'DeactivateUrns');
             $scope.file_success = 'The import is complete. The result is shown in the table above.';
             setTimeout(function () { $scope.$apply('file_success = \'\''); }, 5000);
         });
@@ -79,12 +79,12 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
 
     $scope.retrieveAdd = function () {
         $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
-        RetriveNewUrns.get();
+        RetrieveNewUrns.get();
     }
     
     $scope.retrieveDeactivate = function () {
         $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
-        RetriveDeactivateUrns.get();
+        RetrieveDeactivateUrns.get();
     }
 
     $scope.uploadFile = function (key) {
@@ -98,7 +98,7 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
         }
 
         var path = '/DataImport/Upload' + key + '/' + $scope.reference;
-
+        
         if (!key || !path || !file) {
             return console.error('Missing path, key or file.');
         }

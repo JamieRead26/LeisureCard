@@ -1,11 +1,4 @@
-﻿app.constant('config', {
-    googleAPiKey: 'AIzaSyAvl80GCl1HRw1H_FmBIGlLk2VPcV5R5Cg',
-    tenant: 'npower',
-    //apiUrl: 'http://leisurecards.mutlitenantapi.shiftkey.uk.com:8088/' //-http://grg.leisurecards.api.shiftkey.uk.com
-    apiUrl: '//localhost:1623'
-});
-
-app.service('slideshow', function (config) {
+﻿app.service('slideshow', function (config) {
 
     var tenant = config.tenant;
 

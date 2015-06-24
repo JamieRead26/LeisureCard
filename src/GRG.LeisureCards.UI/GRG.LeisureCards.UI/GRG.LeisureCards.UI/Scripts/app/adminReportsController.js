@@ -37,6 +37,40 @@ adminController.factory('GetLastBadLeisureCard', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetLastBadLeisureCardImportJournal');
 });
 
+var push_current_import = function (data, default_key) {
+
+    var _push = function (data) {
+
+        // Find any existing import records of the same UploadKey
+        var i = -1;
+        $.grep($scope.imports, function (item, index) {
+            if (item.UploadKey == default_key)
+                i = index;
+        });
+
+        // If any existing records were found of the same UploadKey then remove them
+        if (i != -1)
+            $scope.imports.splice(i, 1);
+
+        // Now add the data to the list of records.
+        return $scope.imports.push(data);
+    };
+
+    if (!data.LastRun) {
+        // default 
+        return _push({
+            LastRun: null,
+            UploadKey: default_key,
+            Success: null,
+            Message: null,
+            FileName: null,
+            Status: null
+        });
+    }
+
+    return _push(data);
+};
+
 // generate cards
 adminController.factory('GenerateCards', function ($resource, config) {
     return $resource(config.apiUrl + '/LeisureCard/GenerateCards/:reference/:numberOfCards/:renewalPeriodMonths');
@@ -46,7 +80,8 @@ adminController.controller('AdminDataImportController', function ($scope,
     GetRedLetterImportJournal,
     Get241ImportJournal,
     GetLastGoodLeisureCard, GetLastBadLeisureCard,
-    fileUpload, ProcessRedLetter, RetrieveRedLetter, Process241, config) {
+    fileUpload, ProcessRedLetter, RetrieveRedLetter, Process241, config,
+    PushImportToArray) {
 
     $scope.global.bodyclass = 'admin';
 
@@ -60,46 +95,13 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.file_error = '';
     $scope.file_success = '';
 
-    var push_current_import = function (data, default_key) {
-
-        var _push = function (data) {
-
-            // Find any existing import records of the same UploadKey
-            var i = -1;
-            $.grep($scope.imports, function(item, index) {
-                if (item.UploadKey == default_key)
-                    i = index;
-            });
-
-            // If any existing records were found of the same UploadKey then remove them
-            if (i != -1)
-                $scope.imports.splice(i, 1);
-
-            // Now add the data to the list of records.
-            return $scope.imports.push(data);
-        };
-
-        if (!data.LastRun) {
-            // default 
-            return _push({
-                LastRun: null,
-                UploadKey: default_key,
-                Success: null,
-                Message: null,
-                FileName: null,
-                Status: null
-            });
-        }
-
-        return _push(data);
-    };
 
     GetRedLetterImportJournal.get(function (data) {
-        push_current_import(data, 'RedLetter');
+        PushImportToArray.push($scope, data, 'RedLetter');
     });
 
     Get241ImportJournal.get(function (data) {
-        push_current_import(data, '241');
+        PushImportToArray.push($scope, data, '241');
     });
 
     $scope.refresh = function () {
@@ -109,7 +111,7 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.processRedLetter = function () {
         $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
         ProcessRedLetter.get(function (data) {
-            push_current_import(data, 'RedLetter');
+            PushImportToArray.push($scope, data, 'RedLetter');
             $scope.file_success = 'The import is complete. The result is shown in the table above.';
             setTimeout(function() { $scope.$apply('file_success = \'\''); }, 5000);
         });
@@ -125,7 +127,7 @@ adminController.controller('AdminDataImportController', function ($scope,
     $scope.process241 = function () {
         $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
         Process241.get(function (data) {
-            push_current_import(data, '241');
+            PushImportToArray.push($scope, data, '241');
             $scope.file_success = 'The import is complete. The result is shown in the table above.';
             setTimeout(function () { $scope.$apply('file_success = \'\''); }, 5000);
         });
@@ -337,6 +339,21 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
         
        
     }
+
+});
+
+adminController.controller('AdminEditClientController', function ($scope, $http, $location, config) {
+
+    $scope.tenants = [];
+    $http.get(config.apiUrl + '/Tenant/GetAll').then(function (r) {
+        $scope.tenants = r.data.$values;
+    });
+
+    $scope.submit = function () {
+        if ($scope.tenant) {
+            $location.path('/admin/client-details/' + $scope.tenant.Key);
+        }
+    };
 
 });
 

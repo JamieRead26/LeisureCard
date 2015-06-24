@@ -12,40 +12,40 @@
 
             <div class="field">
                 <label>Client ID:</label>
-                <select ng-model="currentTenant" required ng-options="t.Key for t in tenants" ng-change="selectTenant()"></select>
+                <input type="text" ng-model="tenant.Key" ng-readonly="keyreadonly" />
             </div>
             <div class="field">
                 <label>Client Name:</label>
-                <input type="text" ng-model="tenantName" />
+                <input type="text" ng-model="tenant.Name" />
             </div>
             <div class="field">
                 <label>Client Ative:</label>
-                <input type="checkbox" ng-model="tenantActive" />
+                <input type="checkbox" ng-model="tenant.Active" />
             </div>
             <div class="field">
                 <label>Domain Name:</label>
-                <input type="text" ng-model="domain" />
+                <input type="text" ng-model="tenant.Domain" />
             </div>
             <div class="field">
                 <label>Comments:</label>
-                <input type="text" ng-model="comments" />
+                <input type="text" ng-model="tenant.Comments" />
             </div>
             <div class="field checkboxes" style="display: none;">
                 <label>
-                    <input type="checkbox" ng-model="memberLoginPopupDisplayed" />
+                    <input type="checkbox" ng-model="tenant.MemberLoginPopupDisplayed" />
                     Member Login Pop-Up Displayed
                 </label>
             </div>
             <div class="field checkboxes" style="display: none;">
                 <label>
-                    <input type="checkbox" ng-model="memberLoginPopupMandatory" />
+                    <input type="checkbox" ng-model="tenant.MemberLoginPopupMandatory" />
                     Member Login Pop-Up Agreement Required to Continue
                 </label>
             </div>
 
             <div class="field">
                 <label>Total URNs Used:</label>
-                <input type="text" readonly="readonly" ng-model="urnCount" />
+                <input type="text" readonly="readonly" ng-model="tenant.UrnCount" />
             </div>
         </div>
     </div>
@@ -53,15 +53,19 @@
         <div class="form-box">
             <div class="field">
                 <label>sFTP Address:</label>
-                <input type="text" ng-model="ftpAddress" />
+                <input type="text" ng-model="tenant.FtpServer" />
             </div>
             <div class="field">
                 <label>sFTP Username:</label>
-                <input type="text" ng-model="ftpUsername" />
+                <input type="text" ng-model="tenant.FtpUsername" />
             </div>
             <div class="field">
                 <label>sFTP Password:</label>
-                <input type="text" ng-model="ftpPassword" />
+                <input type="text" ng-model="tenant.FtpPassword" />
+            </div>
+            <div class="field">
+                <label>sFTP Dir Path:</label>
+                <input type="text" ng-model="tenant.FtpPath" />
             </div>
         </div>
         <div class="form-box" style="display: none;">
@@ -85,7 +89,7 @@
     <div class="clear"></div>
 
 
-    <table class="print-hide">
+    <table class="print-hide" ng-controller="AdminClientUrnsController">
         <tr>
             <th>Option</th>
             <th>Last Run</th>
@@ -108,9 +112,7 @@
             <td></td>
             <td></td>
             <td>
-    
                     <button ng-click="">Retrieve</button>
-  
             </td>
             <td>
                 <button ng-click="">Reload</button>
@@ -131,7 +133,13 @@
     <div class="success" ng-show="tenant_success != null">{{ tenant_success }}</div>
     <div class="errors" ng-show="tenant_error != null">{{ tenant_error }}</div>
 
-    <button ng-click="saveTenant()">Accept</button>
+    <div class="fourcol"></div>
+    <div class="fourcol">
+        <button ng-click="saveTenant()">Accept</button>
+        <a href="/#/admin" class="button">Cancel</a>
+        <button ng-click="closeTenant()">Close</button>
+        <button ng-click="deleteTenant()">Delete</button>
+    </div>
 
 </div>
 

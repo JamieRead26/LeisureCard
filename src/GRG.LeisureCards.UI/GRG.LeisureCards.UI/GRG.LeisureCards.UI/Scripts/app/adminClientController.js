@@ -35,14 +35,14 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
 
     $scope.apiUrl = config.apiUrl;
 
-    $scope.reference = $scope.$parent.key;
+    $scope.tenantKey = $scope.$parent.key;
 
     GetNewUrnsImportJournal.get(function (data) {
         PushImportToArray.push($scope, data, 'NewUrns');
     });
 
     GetDeactivateUrnsImportJournal.get(function (data) {
-        PushImportToArray.push($scope, data, 'DeactivateUrns');
+        PushImportToArray.push($scope, data, 'DeactivatedUrns');
     });
 
     $scope.number = {
@@ -93,11 +93,15 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
         $scope.file_error = null;
         $scope.file_success = null;
 
-        if (!$scope.reference) {
+        if (!$scope.tenantKey) {
             return $scope.file_error = 'Please enter a client ID.';
         }
 
-        var path = '/DataImport/Upload' + key + '/' + $scope.reference;
+        if (key == 'DeactivatedUrns') {
+            key = 'DeactivateUrns';
+        }
+
+        var path = '/DataImport/Upload' + key + '/' + $scope.tenantKey;
         
         if (!key || !path || !file) {
             return console.error('Missing path, key or file.');

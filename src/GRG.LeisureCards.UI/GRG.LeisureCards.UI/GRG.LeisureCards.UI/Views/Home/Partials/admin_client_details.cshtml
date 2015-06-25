@@ -112,11 +112,9 @@
                 <td ng-bind="i.LastRun | date:'dd/MM/yyyy HH:mm:ss'"></td>
                 <td>{{ i.Success ? 'Success' : 'Failed' }}</td>
                 <td>{{ i.Message }}</td>
-                <td>{{ i.Supplemental1 }}</td>
+                <td><input ng-if="i.UploadKey == 'NewUrns'" type="text" ng-modal="reference" /></td>
                 <td>
-                    <div ng-if="i.UploadKey == 'NewUrns'">
-                        <input type="number" ng-model="number.duration" />
-                    </div>
+                     <input ng-if="i.UploadKey == 'NewUrns'" type="number" ng-model="number.duration" />
                 </td>
                 <td>{{ i.Supplemental }}</td>
                 <td>

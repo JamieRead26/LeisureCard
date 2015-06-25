@@ -14,8 +14,8 @@ namespace GRG.LeisureCards.WebAPI
         Stream GetRedLetterData();
 
         DataImportJournalEntry StoreDataFile(DataImportKey dataImportKey, Func<Stream> getStream, string tenantKey = null);
-        Stream GetAddUrnsData();
-        Stream GetDeactivateUrnsData();
+        Stream GetAddUrnsData(string tenantKey);
+        Stream GetDeactivateUrnsData(string tenantKey);
     }
 
     public class FileImportConfig
@@ -34,6 +34,8 @@ namespace GRG.LeisureCards.WebAPI
 
     public class FileImportManager : IFileImportManager
     {
+        private static readonly object DirCreateLock = new object(); 
+
         private readonly string _redLetterFtpPath;
         private readonly string _redLetterUid;
         private readonly string _redLetterPwd;
@@ -59,6 +61,31 @@ namespace GRG.LeisureCards.WebAPI
             try
             {
                 uploadFolder = System.Web.Hosting.HostingEnvironment.MapPath(dataImportKey.UploadPath);
+
+                if (tenant != null)
+                {
+                    uploadFolder = uploadFolder + "\\" + tenant.Key;
+
+                    //This mechanism is such that if multiple nodes happen to create the same folder in a race condition one will win, the other will lose but over all both processes
+                    //will succeed.
+                    if (!Directory.Exists(uploadFolder))
+                    {
+                        try
+                        {
+                            lock (DirCreateLock)
+                            {
+                                if (!Directory.Exists(uploadFolder))
+                                    Directory.CreateDirectory(uploadFolder);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error("Unable to create upload folder : " + uploadFolder, ex);  
+                            //Ignore this error at this stage an another node may have created the folder
+                        }
+                    }
+                }
+                
                 var uploadFileName = dataImportKey.Key + "_" + DateTime.Now.ToString("O") + ".csv";
                 uploadFileName = uploadFileName.Replace(":", "_").Replace("+", "_").Replace("-", "_");
 
@@ -113,50 +140,30 @@ namespace GRG.LeisureCards.WebAPI
             }
         }
 
-        public Stream GetAddUrnsData()
+        public Stream GetAddUrnsData(string tenantKey)
         {
-            throw new NotImplementedException();
+            var tenant = _tenantRepository.Get(tenantKey);
+
+            return GetTenantData(tenant, tenant.FtpAddFilePath);
         }
 
-        public Stream GetDeactivateUrnsData()
+        public Stream GetDeactivateUrnsData(string tenantKey)
         {
-            throw new NotImplementedException();
+            var tenant = _tenantRepository.Get(tenantKey);
+
+            return GetTenantData(tenant, tenant.FtpDeactivateFilePath);
         }
 
-        //public DataImportJournalEntry ProcessDataFile(Func<byte[], string, DataImportJournalEntry> processFunc, string uploadFolder, DataImportJournalEntry dataImportjournalEntry)
-        //{
-        //    try
-        //    {
+        public Stream GetTenantData(Tenant tenant, string filePath)
+        {
+            var ftpRequest = (FtpWebRequest)WebRequest.Create(tenant.FtpServer + "/" + filePath);
+            ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
 
-        //        uploadFolder = System.Web.Hosting.HostingEnvironment.MapPath(uploadFolder);
+            // This example assumes the FTP site uses anonymous logon.
+            ftpRequest.Credentials = new NetworkCredential(tenant.FtpUsername, tenant.FtpPassword);
 
-        //                        var journalEntry = processFunc(ReadFully(memStream), dataImportjournalEntry.FileKey);
-
-        //        if (!journalEntry.Success) return journalEntry;
-        //        //Best effort clean up, if fails must not disrupt flow
-        //        try
-        //        {
-        //            var twoWeeksAgo = DateTime.Now - TimeSpan.FromDays(14);
-        //            foreach (var fileName in Directory.GetFileSystemEntries(uploadFolder))
-        //            {
-        //                if (fileName.IndexOf(fileKey) < 0 && fileName.IndexOf("placeholder") < 0 &&
-        //                    new FileInfo(fileName).CreationTime < twoWeeksAgo)
-        //                    File.Delete(fileName);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Log.Error("Unable to complete upload file clean up", ex);
-        //        }
-
-        //        return journalEntry;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Error("Exception occurred importing data file: " + uploadFolder, ex);
-        //        throw ex;
-        //    }
-        //}
+            return ftpRequest.GetResponse().GetResponseStream();
+        }
 
         public static byte[] ReadFully(Stream input)
         {

@@ -18,6 +18,20 @@ namespace GRG.LeisureCards.API.IntegrationTests
         }
 
         [Test]
+        public void RetrieveDeactivateUrns()
+        {
+            TestDataImportOp(service => service.RetrieveDeactivateUrns("GRG"), service => service.GetDeactivateUrnImportJournal());
+            TestDataImportOp(service => service.ProcessDeactivateUrnData("GRG"), service => service.GetDeactivateUrnImportJournal());
+        }
+
+        [Test]
+        public void RetrieveNewUrns()
+        {
+            TestDataImportOp(service => service.RetrieveNewUrnsData("GRG"), service => service.GetNewUrnImportJournal());
+            TestDataImportOp(service => service.ProcessNewUrnData("GRG", 12, "TEST"), service => service.GetNewUrnImportJournal());
+        }
+
+        [Test]
         public void UploadRedLetterData()
         {
             TestDataImportOp(service => service.UploadRedLetterData(ResourceStreams.GetStream(ResourceStreams.RedLetterName)),
@@ -30,7 +44,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         {
             TestDataImportOp(service => service.UploadNewUrnData("GRG", ResourceStreams.GetStream(ResourceStreams.NewUrns)),
                 service => service.GetNewUrnImportJournal());
-            TestDataImportOp(service => service.ProcessNewUrnData(12), service => service.GetNewUrnImportJournal());
+            TestDataImportOp(service => service.ProcessNewUrnData("GRG", 12, "TEST" ), service => service.GetNewUrnImportJournal());
         }
 
         [Test]
@@ -38,7 +52,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         {
             TestDataImportOp(service => service.UploadDeactivateUrnData("GRG", ResourceStreams.GetStream(ResourceStreams.DeactivateUrns)),
                 service => service.GetDeactivateUrnImportJournal());
-            TestDataImportOp(service => service.ProcessDeactivateUrnData(), service => service.GetDeactivateUrnImportJournal());
+            TestDataImportOp(service => service.ProcessDeactivateUrnData("GRG"), service => service.GetDeactivateUrnImportJournal());
         }
 
         [Test]

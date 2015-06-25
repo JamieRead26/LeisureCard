@@ -6,6 +6,11 @@ namespace GRG.LeisureCards.WebAPI.ClientContract
     public interface IDataImportService
     {
         DataImportJournalEntry RetrieveRedLetterData();
+
+        DataImportJournalEntry RetrieveNewUrnsData(string tenantKey);
+
+        DataImportJournalEntry RetrieveDeactivateUrns(string tenantKey);
+
         DataImportJournalEntry UploadRedLetterData(Stream stream);
         DataImportJournalEntry ProcessRedLetterData();
         DataImportJournalEntry GetRedLetterImportJournal();
@@ -14,9 +19,9 @@ namespace GRG.LeisureCards.WebAPI.ClientContract
         DataImportJournalEntry Get241ImportJournal();
         DataImportJournalEntry GetNewUrnImportJournal();
         DataImportJournalEntry UploadNewUrnData(string tenantKey, Stream stream);
-        DataImportJournalEntry ProcessNewUrnData(int renewalPeriodMonths);
+        DataImportJournalEntry ProcessNewUrnData(string tenantKey, int renewalPeriodMonths, string reference);
         DataImportJournalEntry GetDeactivateUrnImportJournal();
         DataImportJournalEntry UploadDeactivateUrnData(string tenantKey, Stream stream);
-        DataImportJournalEntry ProcessDeactivateUrnData();
+        DataImportJournalEntry ProcessDeactivateUrnData(string tenantKey);
     }
 }

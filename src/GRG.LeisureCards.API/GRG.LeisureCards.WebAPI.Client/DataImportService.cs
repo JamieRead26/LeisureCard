@@ -15,6 +15,16 @@ namespace GRG.LeisureCards.WebAPI.Client
             return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/RetrieveRedLetter/", Method.GET)).Data;
         }
 
+        public DataImportJournalEntry RetrieveNewUrnsData(string tenantKey)
+        {
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/RetrieveNewUrns/" + tenantKey, Method.GET)).Data;
+        }
+
+        public DataImportJournalEntry RetrieveDeactivateUrns(string tenantKey)
+        {
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/RetrieveDeactivateUrns/" + tenantKey, Method.GET)).Data;
+        }
+
         public DataImportJournalEntry UploadRedLetterData(Stream stream)
         {
             using (var memStream = new MemoryStream())
@@ -105,14 +115,14 @@ namespace GRG.LeisureCards.WebAPI.Client
             }
         }
 
-        public DataImportJournalEntry ProcessNewUrnData(int renewalPeriodMonths)
+        public DataImportJournalEntry ProcessNewUrnData(string tenantKey, int renewalPeriodMonths, string reference)
         {
-            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/ProcessNewUrnsData/" + renewalPeriodMonths, Method.GET)).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest(string.Format("DataImport/ProcessNewUrnsData/{0}/{1}/{2}",renewalPeriodMonths,reference, tenantKey), Method.GET)).Data;
         }
 
-        public DataImportJournalEntry ProcessDeactivateUrnData()
+        public DataImportJournalEntry ProcessDeactivateUrnData(string tenantKey)
         {
-            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/ProcessDeactivateUrnsData/", Method.GET)).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/ProcessDeactivateUrnsData/" + tenantKey, Method.GET)).Data;
         }
     }
 }

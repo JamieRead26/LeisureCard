@@ -66,7 +66,6 @@
     <Compile Include="..\..\Master.AssemblyInfo.cs">
       <Link>Master.AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CsvModel\NewUrn.cs" />
     <Compile Include="CsvModel\Urn.cs" />
     <Compile Include="CsvReader.cs" />
     <Compile Include="LeisureCardClassMap.cs" />

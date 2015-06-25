@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
@@ -37,17 +36,17 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("DataImport/RetrieveNewUrns/")]
-        public Model.DataImportJournalEntry RetrieveNewUrns()
+        [Route("DataImport/RetrieveNewUrns/{tenantKey}")]
+        public Model.DataImportJournalEntry RetrieveNewUrns(string tenantKey)
         {
-            return Dispatch(() => Acquire(DataImportKey.NewUrns, () => _fileImportManager.GetAddUrnsData()));
+            return Dispatch(() => Acquire(DataImportKey.NewUrns, () => _fileImportManager.GetAddUrnsData(tenantKey), tenantKey));
         }
 
         [HttpGet]
-        [Route("DataImport/RetrieveDeactivateUrns/")]
-        public Model.DataImportJournalEntry RetrieveDeactivateUrns()
+        [Route("DataImport/RetrieveDeactivateUrns/{tenantKey}")]
+        public Model.DataImportJournalEntry RetrieveDeactivateUrns(string tenantKey)
         {
-            return Dispatch(() => Acquire(DataImportKey.NewUrns, () => _fileImportManager.GetDeactivateUrnsData()));
+            return Dispatch(() => Acquire(DataImportKey.DeactivatedUrns, () => _fileImportManager.GetDeactivateUrnsData(tenantKey), tenantKey));
         }
 
         [HttpPost]
@@ -93,22 +92,27 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
         
         [HttpGet]
-        [Route("DataImport/ProcessNewUrnsData/{cardDurationMonths}")]
-        public Model.DataImportJournalEntry ProcessNewUrnsData(int cardDurationMonths)
+        [Route("DataImport/ProcessNewUrnsData/{cardDurationMonths}/{reference}/{tenantKey}")]
+        public Model.DataImportJournalEntry ProcessNewUrnsData(int cardDurationMonths, string reference, string tenantKey)
         {
-            return Dispatch(() => Process(DataImportKey.NewUrns, cardDurationMonths));
+            return Dispatch(() => ProcessForTenant(DataImportKey.NewUrns, tenantKey, cardDurationMonths, reference));
         }
         
         [HttpGet]
-        [Route("DataImport/ProcessDeactivateUrnsData/")]
-        public Model.DataImportJournalEntry ProcessDeactivateUrnsData()
+        [Route("DataImport/ProcessDeactivateUrnsData/{tenantKey}")]
+        public Model.DataImportJournalEntry ProcessDeactivateUrnsData(string tenantKey)
         {
-            return Dispatch(()=>Process(DataImportKey.DeactivatedUrns));
+            return Dispatch(() => ProcessForTenant(DataImportKey.DeactivatedUrns, tenantKey));
         }
 
         private DataImportJournalEntry Process(DataImportKey key, params object[] args)
         {
             return Dispatch(()=>Mapper.Map<Model.DataImportJournalEntry>(_dataImportService.Import(key, path => HttpContext.Current.Server.MapPath(path), args)));
+        }
+
+        private DataImportJournalEntry ProcessForTenant(DataImportKey key, string tenantKey, params object[] args)
+        {
+            return Dispatch(() => Mapper.Map<Model.DataImportJournalEntry>(_dataImportService.ImportForTenant(key, path => HttpContext.Current.Server.MapPath(path), tenantKey, args)));
         }
 
         [HttpGet]
@@ -141,12 +145,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         public Model.DataImportJournalEntry Acquire(DataImportKey key, Func<Stream> getStream, string tenant = null)
         {
-            return Dispatch(()=> Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.SaveOrUpdate(_fileImportManager.StoreDataFile(key, getStream, tenant))));
+            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.SaveOrUpdate(_fileImportManager.StoreDataFile(key, getStream, tenant)));
         }
 
         private Model.DataImportJournalEntry GetLastImportJournal(DataImportKey importKey)
         {
-            return Dispatch(()=> Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.GetLast(importKey)));
+            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.GetLast(importKey));
         }
     }
 }

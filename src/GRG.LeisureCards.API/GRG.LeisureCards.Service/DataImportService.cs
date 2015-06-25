@@ -15,6 +15,8 @@ namespace GRG.LeisureCards.Service
     public interface IDataImportService
     {
         DataImportJournalEntry Import(DataImportKey key, Func<string,string> mapPath, params object[] args );
+
+        DataImportJournalEntry ImportForTenant(DataImportKey key, Func<string, string> mapPath, string tenantKey, params object[] args);
     }
 
     public class DataImportService : IDataImportService
@@ -48,6 +50,7 @@ namespace GRG.LeisureCards.Service
         {
             journalEntry.Status = "Running";
             journalEntry.LastRun = DateTime.Now;
+            journalEntry.UploadKey = DataImportKey.RedLetter.Key;
             _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
             var inserts = new List<RedLetterProduct>();
@@ -182,6 +185,7 @@ namespace GRG.LeisureCards.Service
                 journalEntry.Success = true;
                 journalEntry.LastRun = DateTime.Now;
                 journalEntry.Status = "Success";
+                journalEntry.UploadKey = DataImportKey.TwoForOne.Key;
 
                 if (missingLocation)
                     journalEntry.Message = "Unable to determine all locations";
@@ -196,6 +200,7 @@ namespace GRG.LeisureCards.Service
                 journalEntry.LastRun = DateTime.Now;
                 journalEntry.Status = "Failure";
                 journalEntry.Message = ex.Message;
+                journalEntry.UploadKey = DataImportKey.TwoForOne.Key;
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
@@ -207,55 +212,62 @@ namespace GRG.LeisureCards.Service
         [UnitOfWork]
         public DataImportJournalEntry Import(DataImportKey importKey, Func<string, string> mapPath, params object[] args)
         {
+            return ImportForTenant(importKey, mapPath, string.Empty, args);
+        }
+
+        public DataImportJournalEntry ImportForTenant(DataImportKey importKey, Func<string, string> mapPath,
+            string tenantKey, params object[] args)
+        {
             var journalEntry = _dataImportJournalEntryRepository.GetLast(importKey);
 
-            if (importKey==DataImportKey. RedLetter)
+            var path = (String.IsNullOrWhiteSpace(tenantKey))
+                ? mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName
+                : mapPath(importKey.UploadPath) + "\\" + tenantKey + "\\" + journalEntry.FileName;
+
+            if (importKey == DataImportKey.RedLetter)
                 return ImportRedLetterOffers(
-                    File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
+                    File.OpenRead(path),
                     journalEntry);
 
             if (importKey == DataImportKey.TwoForOne)
                 return ImportTwoForOneOffers(
-                    File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
+                    File.OpenRead(path),
                     journalEntry);
 
             if (importKey == DataImportKey.NewUrns)
                 return ImportNewUrns(
-                    File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
+                    File.OpenRead(path),
                     journalEntry,
-                    (int)args[0]);
+                    (int)args[0],
+                    (string)args[1]);
 
             if (importKey == DataImportKey.DeactivatedUrns)
                 return ImportDeactivatedUrns(
-                    File.OpenRead(mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName),
+                    File.OpenRead(path),
                     journalEntry);
 
             throw new Exception("Unexpected DataImportKey : " + importKey.Key);
         }
 
-        private DataImportJournalEntry ImportNewUrns(FileStream fileStream, DataImportJournalEntry journalEntry, int cardDurationMonths)
+        private DataImportJournalEntry ImportNewUrns(FileStream fileStream, DataImportJournalEntry journalEntry, int cardDurationMonths, string reference)
         {
             try
             {
                 var urns = _leisureCardRepository.GetAll().Select(x=>x.Code.ToUpper());
 
-                string urnRef = string.Empty;
                 int affected = 0;
                 using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
                 {
-                    foreach (var newUrn in csvReader.GetRecords<NewUrn>().ToArray().Where(newUrn => !urns.Contains(newUrn.Urn.ToUpper())))
+                    foreach (var newUrn in csvReader.GetRecords<Urn>().ToArray().Where(newUrn => !urns.Contains(newUrn.Code.ToUpper())))
                     {
                         _leisureCardRepository.Save(
                             new LeisureCard
                             {
-                                Code = newUrn.Urn,
-                                Reference = newUrn.Ref,
+                                Code = newUrn.Code,
+                                Reference = reference,
                                 TenantKey = journalEntry.Tenant.Key,
                                 RenewalPeriodMonths = cardDurationMonths
                             });
-
-                        if (string.IsNullOrWhiteSpace(urnRef))
-                            urnRef = newUrn.Ref;
 
                         affected++;
                     }
@@ -265,7 +277,8 @@ namespace GRG.LeisureCards.Service
                 journalEntry.LastRun = DateTime.Now;
                 journalEntry.Status = "Success";
                 journalEntry.Supplemental = affected.ToString();
-                journalEntry.Supplemental1 = affected.ToString();
+                journalEntry.Supplemental1 = reference;
+                journalEntry.UploadKey = DataImportKey.NewUrns.Key;
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
@@ -277,19 +290,20 @@ namespace GRG.LeisureCards.Service
                 journalEntry.LastRun = DateTime.Now;
                 journalEntry.Status = "Failure";
                 journalEntry.Message = ex.Message;
+                journalEntry.UploadKey = DataImportKey.NewUrns.Key;
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
                 return journalEntry;
             }
         }
-
-
+        
         private DataImportJournalEntry ImportDeactivatedUrns(FileStream fileStream, DataImportJournalEntry journalEntry)
         {
             try
             {
                 var urns = _leisureCardRepository.GetAll();
+                int affected = 0;
 
                 using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
                 {
@@ -304,6 +318,8 @@ namespace GRG.LeisureCards.Service
                             urn.Suspended = true;
 
                             _leisureCardRepository.Update(urn);
+
+                            affected++;
                         }
                     }
                 }
@@ -311,6 +327,8 @@ namespace GRG.LeisureCards.Service
                 journalEntry.Success = true;
                 journalEntry.LastRun = DateTime.Now;
                 journalEntry.Status = "Success";
+                journalEntry.Supplemental = affected.ToString();
+                journalEntry.UploadKey = DataImportKey.DeactivatedUrns.Key;
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
@@ -322,6 +340,7 @@ namespace GRG.LeisureCards.Service
                 journalEntry.LastRun = DateTime.Now;
                 journalEntry.Status = "Failure";
                 journalEntry.Message = ex.Message;
+                journalEntry.UploadKey = DataImportKey.DeactivatedUrns.Key;
 
                 _dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 

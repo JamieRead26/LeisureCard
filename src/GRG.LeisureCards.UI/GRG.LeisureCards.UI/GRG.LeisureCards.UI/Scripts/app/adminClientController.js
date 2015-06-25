@@ -8,24 +8,15 @@ adminClientController.factory('GetTenantByKey', function ($resource, config) {
 adminClientController.factory('GetNewUrnsImportJournal', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetNewUrnsImportJournal');
 });
-adminClientController.factory('RetrieveNewUrns', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/RetrieveNewUrns');
-});
 
 // deactivated urns
-adminClientController.factory('ProcessDeactivateUrnsData', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/ProcessDeactivateUrnsData/');
-});
 adminClientController.factory('GetDeactivateUrnsImportJournal', function ($resource, config) {
     return $resource(config.apiUrl + '/DataImport/GetDeactivateUrnsImportJournal');
 });
-adminClientController.factory('RetrieveDeactivateUrns', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/RetrieveDeactivateUrns');
-});
 
 adminClientController.controller('AdminClientUrnsController', function ($scope, $location, config,
-    GetNewUrnsImportJournal, ProcessDeactivateUrnsData, GetDeactivateUrnsImportJournal,
-    PushImportToArray, fileUpload, RetrieveDeactivateUrns, RetrieveNewUrns, $http) {
+    GetNewUrnsImportJournal, GetDeactivateUrnsImportJournal,
+    PushImportToArray, fileUpload, $http) {
 
     $scope.imports = [];
 
@@ -45,17 +36,18 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
         PushImportToArray.push($scope, data, 'DeactivatedUrns');
     });
 
-    $scope.number = {
+    $scope.add = {
+        ref: '',
         duration: 0
-    };
+    }
 
     $scope.processAdd = function () {
 
         $scope.file_error = null;
         $scope.file_success = null;
-
-        if ($scope.number.duration) {
-            var url = config.apiUrl + '/DataImport/ProcessNewUrnsData/' + $scope.number.duration;
+     
+        if ($scope.add.duration && $scope.add.ref) {
+            var url = config.apiUrl + '/DataImport/ProcessNewUrnsData/' + $scope.add.duration + '/' + $scope.add.ref + '/' + $scope.tenantKey;
             $http.get(url).then(function (r) {
                 PushImportToArray.push($scope, r.data, 'NewUrns');
                 $scope.file_success = 'The import is complete. The result is shown in the table above.';
@@ -65,13 +57,15 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
             return $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
         }
 
-        return $scope.file_error = 'You must set the card duration.';
+        return $scope.file_error = 'You must set the card duration and reference.';
     }
 
     $scope.processDeactivate = function () {
         $scope.file_success = 'The import is running, please refresh page after a few minutes to see results.';
-        ProcessDeactivateUrnsData.get(function (data) {
-            PushImportToArray.push($scope, data, 'DeactivateUrns');
+
+        var url = config.apiUrl + '/DataImport/ProcessDeactivateUrnsData/' + $scope.tenantKey;
+        $http.get(url).then(function (r) {
+            PushImportToArray.push($scope, r.data, 'DeactivatedUrns');
             $scope.file_success = 'The import is complete. The result is shown in the table above.';
             setTimeout(function () { $scope.$apply('file_success = \'\''); }, 5000);
         });
@@ -79,12 +73,15 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
 
     $scope.retrieveAdd = function () {
         $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
-        RetrieveNewUrns.get();
+        var url = config.apiUrl + '/DataImport/RetrieveNewUrns/' + $scope.tenantKey;
+        $http.get(url);
     }
     
     $scope.retrieveDeactivate = function () {
         $scope.file_success = 'The file retrieval is running, please refresh page after a few minutes to see results.';
-        RetrieveDeactivateUrns.get();
+
+        var url = config.apiUrl + '/DataImport/RetrieveDeactivateUrns/' + $scope.tenantKey;
+        $http.get(url);
     }
 
     $scope.uploadFile = function (key) {

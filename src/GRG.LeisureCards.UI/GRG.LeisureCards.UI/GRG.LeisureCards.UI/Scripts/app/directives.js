@@ -18,18 +18,30 @@
                 scope.$apply(function () {
                     scope.slides = scope.slideit;
                     scope.bxslider = $('.bxslider');
+
+                    scope.options = {}
+                    if (scope.slides.length == 1) {
+                        scope.options['infiniteLoop'] = false;
+                        scope.options['pager'] = false;
+                    }
                 });
 
                 scope.$watch('slideit', function (newValue, oldValue) {
                     if (newValue) {
                         scope.slides = newValue;
+
+                        if (scope.slides.length == 1) {
+                            scope.options['infiniteLoop'] = false;
+                            scope.options['pager'] = false;
+                        }
+
                         setTimeout(function () {
-                            scope.bxslider.reloadSlider();
+                            scope.bxslider.reloadSlider(scope.options);
                         }, 0);
                     }
                 }, true);
 
-                scope.bxslider.bxSlider();
+                scope.bxslider.bxSlider(scope.options);
             });
         }
     };

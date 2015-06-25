@@ -826,7 +826,7 @@ color: #545453;
 
 .offer-left {float:left; max-width: 242px;}
 
-.offer-right {float: right; width: 280px}
+.offer-right {float: right; width: 280px; padding-right: 97px;}
 .offer-241-offer {
     position:relative;
 }
@@ -913,6 +913,9 @@ padding-top: 30px;
     font-size: 16px;
        font-family:  Tahoma, Verdana, Geneva, sans-serif;
 }
+body.terms .terms-copy ul li p {
+    margin-bottom:0px;
+}
 .terms-copy ul {
     color:#ffffff;
     margin-bottom:10px;
@@ -966,6 +969,22 @@ line-height: 18px;
 padding: 0px 10px;
 text-decoration: none;
 }
+
+body div.content .claim-terms-241 {
+    padding:20px 0 0 0;
+    h2 {
+        color:#545655;
+        font-size:15px;
+        font-weight:bold;
+        margin:0 0 15px 0;
+    }
+    p {
+        color:#545655;
+        font-size:15px;
+        margin:0 0 5px 0;
+    }
+}
+
 /* SAM MEDIA QUIRIES */
 
 @media screen and (max-width: 1140px) {
@@ -1067,16 +1086,36 @@ text-decoration: none;
     .offer-discount-details .button-claim .button {
         height: 110px;
     }
+    .offer-left {float:none; max-width: 242px;}
+    .offer-right {float: none; width: auto; padding-right: 0px;}
 }
 
 @media print {
    header,
    .breadcrumb,
    .slideshow,
+   .title-img,
    .claim-strip,
    .offers241-r img,
    footer {
        display:none;
+   }
+   body {
+       div.content {
+           .claim-terms-241 {
+               h2 {
+                   font-size:12px;
+               }
+               p {
+                   font-size:12px;
+               }
+           }
+       }
+       .button-claim {
+           img {
+               display:none;
+           }
+       }
    }
 }
 

@@ -19,13 +19,7 @@ body {
     font-family: 'Arial', sans-serif;
     font-weight: normal;
     overflow-y: scroll;
-    background: #0971ce;
-    &.offer-241 {
-        background:#02c3b5;
-    }
-    &.offer-experience {
-        background:#b3c401;
-    }
+    background: #f6e3c5;
     .admin-banner {
         display:none;
         width:100%;
@@ -94,19 +88,20 @@ body {
             li {
                 display: inline-block;
                 margin-right: 20px;
+                color:#4e4e50;
                 a {
-                   color: #ffffff;    
+                   color: #4e4e50;    
                    position: relative;
                    &:after {
                         content: '>';
                         position: absolute;
                         right: -17px;
                         top: 2px;
-                        color: #ffffff;
+                        color: #4e4e50;
                    }
                 }
                 span {
-                    color:#ffffff;
+                    color:#4e4e50;
                 }
             }
         }
@@ -173,17 +168,18 @@ body {
             box-shadow:none;
             label {
                 background:none;
+                color:#6e368c;
             }
             input[type=text] {
-                background:#0971ce;
-                color:#ffffff;
+                color:#6e368c;
+                background:#f6e3c5;
             }
-            ::-webkit-input-placeholder {color:#91cbff;}
+            ::-webkit-input-placeholder {color:#6e368c;}
             /* Firefox 18- */
-            :-moz-placeholder {color:#91cbff;}
+            :-moz-placeholder {color:#6e368c;}
             /* Firefox 19+ */
-            ::-moz-placeholder {color:#91cbff;}
-            :-ms-input-placeholder {color:#91cbff;}
+            ::-moz-placeholder {color:#6e368c;}
+            :-ms-input-placeholder {color:#6e368c;}
             }          
         }
 }
@@ -281,13 +277,16 @@ body .content {
             color:#ffffff;
         }
         p {
-            font-family:Tahoma, Arial;
+            font-family:Arial;
             font-size:20px;
-            color:#ffffff;
+            color:#4e4e50;
             margin:0px;
         }
         a {
             color:#ffffff;
+        }
+        span {
+            color:#4e4e50;
         }
     }
     .special-offers {
@@ -583,14 +582,6 @@ body.admin {
 
 
 /* SAM CSS */
-body.offer-241, body.offer-241-claim, body.offer-241-details {
-    background: #b3c401;
-}
-body.offer-discount,
-body.offer-discount-details, body.offer-discount-hoseasons, body.offer-discount-cottage {
-    background:#ee4761;
-}
-
 .end-date.ng-scope {
     margin-bottom: 7px;
 }
@@ -618,29 +609,13 @@ body.offer-discount-details, body.offer-discount-hoseasons, body.offer-discount-
 }
 
 .mask {
-background: url('../img/carousel-mask.png');
+background: url('../img/cloud-mask-np.png');
 background-repeat: no-repeat;
 background-size: 100%;
 }
 
 .bx-wrapper img {
     margin-left: 34px;
-}
-
-
-.offer-241 .mask, 
-.offer-241-claim .mask, 
-.offer-241-details .mask {
-background: url('../img/carousel-mask-green.png') no-repeat;
-background-size: 100%;
-}
-.offer-experience .mask {
-background: url('../img/carousel-mask-turq.png') no-repeat;
-background-size: 100%;
-}
-.offer-discount .mask {
-background: url('../img/carousel-mask-pink.png') no-repeat;
-background-size: 100%;
 }
 
 .title-img {
@@ -659,11 +634,11 @@ span.green {
 body div.content form.location-search {    
     border: 2px solid #FFFFFF;
     border-radius: 12px;
-    background: #b3c401; 
+    background: #f6e3c5; 
 }
 
 body div.content label.white {
-       color: #FFFFFF;
+       color: #6e368c;
        font-family:  Tahoma, Verdana, Geneva, sans-serif;
        padding-right: 8px;
        float: left;
@@ -672,6 +647,7 @@ body div.content label.white {
 body div.content form.location-search input {
     float: left;
     max-width: 225px;
+    color:#4e4e50;
 }
 
 body div.content form.location-search input.sub-button {   
@@ -707,7 +683,7 @@ body div.content form.location-search .styled-select select {
    -webkit-appearance: none;
 }
 body div.content form.location-search .styled-select {
-background: url('../img/select-arrow.jpg') no-repeat right #b3c401;
+background: url('../img/select-arrow.jpg') no-repeat right #f6e3c5;
 width: 323px;
    height: 35px;
    overflow: hidden;   
@@ -716,12 +692,12 @@ width: 323px;
   float: left;
 }
 
-body div.content form.location-search select  { color: #fff;}
+body div.content form.location-search select  { color: #4e4e50;}
 
 body div.content form.location-search select option {color:#000;}
 
 body div.content h4 {
-    color: #555555;
+    color: #4e4e50;
     padding-right: 15px;
     float: left;
     font-family:  Tahoma, Verdana, Geneva, sans-serif;
@@ -729,9 +705,9 @@ body div.content h4 {
 }
 
 
-body div.content form.location-search  .location-icon {
+body div.content form.location-search .location-icon {
   margin: -41px auto 0 auto;
-  background: #b3c401 url("/Content/grg/img/location-icon.png") no-repeat;
+  background: #f6e3c5 url("/Content/npower/img/location-icon.jpg") no-repeat;
   width: 59px;
   height: 45px;
   padding-bottom: 54px;
@@ -755,7 +731,7 @@ body div.content input[type=submit], input[type=reset], .button, button{
     }
 
 body div.content input, body div.content textarea {
-    background: #b3c401;
+    background: #f6e3c5;
     border: 2px solid #fff;
         color: #fff;
         padding: 7px 15px;
@@ -768,21 +744,21 @@ body div.content input, body div.content textarea {
 body .content a.offer {
 height: 175px;
 width: 190px;
- background: url("/Content/grg/img/home-icons.png") no-repeat 30px 0;
+ background: url("/Content/npower/img/home-icon-np1.png") no-repeat 0 0;
  margin: 0 auto;
 }
 
 body .content a.offer.two {
 height: 175px;
 width: 190px;
- background: url("/Content/grg/img/home-icons.png") no-repeat -525px 0;
+ background: url("/Content/npower/img/home-icon-np2.png") no-repeat 0 0;
  margin: 0 auto;
 }
 
 body .content a.offer.three {
 height: 175px;
 width: 190px;
- background: url("/Content/grg/img/home-icons.png") no-repeat -246px 0;
+ background: url("/Content/npower/img/home-icon-np3.png") no-repeat 0 0;
  margin: 0 auto;
 }
 
@@ -919,10 +895,6 @@ padding-top: 30px;
 }
 
 /* offer-discount-details */
-.offer-discount-details .mask, .offer-discount-hoseasons .mask, .offer-discount-cottage .mask {
-background: url('../img/carousel-mask-pink.png') no-repeat;
-background-size: 100%;
-}
 
 .discount-wrap {
     margin-top: 48px;

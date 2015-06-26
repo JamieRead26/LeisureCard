@@ -17,7 +17,7 @@ namespace GRG.LeisureCards.WebAPI
         
         private readonly Timer _timer;
         private readonly object _elapsedlock = new object();
-        private readonly List<Action> _executedToday = new List<Action>();
+        private bool _executedToday = false;
         private readonly Dictionary<Action, int> _tasks = new Dictionary<Action, int>();
 
         private int _lastElapseDay = -1;
@@ -32,21 +32,27 @@ namespace GRG.LeisureCards.WebAPI
 
         void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            if (_executedToday)
+                return;
+
             lock (_elapsedlock)
             {
                 var now = DateTime.Now;
                 if (_lastElapseDay != now.Day)
                 {
-                    _executedToday.Clear();
+                    _executedToday = false;
                     _lastElapseDay = now.Day;
                 }
 
-                foreach (var kvp in _tasks.Where(kvp => kvp.Value <= ((now.Hour*60) + now.Minute) && !_executedToday.ToArray().Contains(kvp.Key)))
+                foreach (var kvp in _tasks.Where(kvp => kvp.Value <= ((now.Hour*60) + now.Minute)))
                 {
                     try
                     {
+                        Log.Info("Executing scheduled task");
+
                         kvp.Key();
-                        _executedToday.Add(kvp.Key);
+                        _executedToday = true;
+
                     }
                     catch (Exception ex)
                     {

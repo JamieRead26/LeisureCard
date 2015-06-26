@@ -26,6 +26,7 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
 
     $scope.apiUrl = config.apiUrl;
 
+    debugger;
     $scope.tenantKey = $scope.$parent.key;
 
     GetNewUrnsImportJournal.get(function (data) {

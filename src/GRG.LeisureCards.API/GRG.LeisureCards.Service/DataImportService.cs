@@ -24,7 +24,6 @@ namespace GRG.LeisureCards.Service
         private static readonly ILog Log = LogManager.GetLogger(typeof(DataImportService));
 
         private readonly IDataImportJournalEntryRepository _dataImportJournalEntryRepository;
-        private readonly IRedLetterProductRepository _redLetterProductRepository;
         private readonly ITwoForOneRepository _twoForOneRepository;
         private readonly IUkLocationService _locationService;
         private readonly IRedLetterBulkInsert _redLetterBulkInsert;
@@ -32,14 +31,12 @@ namespace GRG.LeisureCards.Service
 
         public DataImportService(
             IDataImportJournalEntryRepository dataImportJournalEntryRepository, 
-            IRedLetterProductRepository redLetterProductRepository,
             ITwoForOneRepository twoForOneRepository,
             IUkLocationService locationService,
             IRedLetterBulkInsert redLetterBulkInsert,
             ILeisureCardRepository leisureCardRepository)
         {
             _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
-            _redLetterProductRepository = redLetterProductRepository;
             _twoForOneRepository = twoForOneRepository;
             _locationService = locationService;
             _redLetterBulkInsert = redLetterBulkInsert;

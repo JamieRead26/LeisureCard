@@ -149,6 +149,5 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
     $scope.print = function () {
         Window.print();
     };
-    alert("word");
 });
 

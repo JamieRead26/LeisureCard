@@ -229,6 +229,20 @@ body .content .special-offers {
     background:none;
 }
 body .content {
+    .claim-terms-241 {
+        padding:20px 0 0 0;
+        h2 {
+            color:#555555;
+            font-size:15px;
+            font-weight:bold;
+            margin:0 0 15px 0;
+        }
+        p {
+            color:#555555;
+            font-size:15px;
+            margin:0 0 5px 0;
+        }
+    }
     .special-offers-banner {
         text-align:center;
         border: 2px solid #ffffff;
@@ -847,7 +861,7 @@ text-decoration:none;
 }
 .claim-offer {
    text-align: center;
-   background: #d9e280;
+   background: #fbf1e2;
    border-radius: 15px;
    margin-bottom: 65px;
    max-width: 600px;
@@ -860,12 +874,12 @@ text-decoration:none;
     padding: 40px 80px 0px 80px;
 }
 .claim-offer  .offer-copy h1 {
-    color: #0971ce;
+    color: #6e368c;
     font-size: 20px;
     font-weight: bold;
 }
 .claim-offer  .offer-copy p {
-    color: #545453;
+    color: #4e4e50;
     font-size: 16px;
 }
 
@@ -901,9 +915,15 @@ text-decoration:none;
     margin-top: 48px;
 }
 .offer-discount-hoseasons .claim-offer, .offer-discount-cottage .claim-offer{
-background: #f7a3b0;
+background: #fbf1e2;
 text-align: left;
 margin-bottom: 50px;
+}
+.offer-discount-hoseasons .claim-offer h1, 
+.offer-discount-cottage .claim-offer h1,
+body.offer-discount-hoseasons div.content .claim-offer .offer-contact h4, 
+body.offer-discount-cottage div.content .claim-offer .offer-contact h4 {
+    color:#4e4e50;
 }
 
 .offer-discount-hoseasons .button-claim .button, .offer-discount-cottage .button-claim .button{

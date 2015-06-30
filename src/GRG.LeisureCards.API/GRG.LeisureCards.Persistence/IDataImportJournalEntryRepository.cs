@@ -7,5 +7,7 @@ namespace GRG.LeisureCards.Persistence
     {
         IEnumerable<DataImportJournalEntry> Get(DataImportKey importKey, int count, int toId);
         DataImportJournalEntry GetLast(DataImportKey importKey);
+
+        DataImportJournalEntry GetLast(DataImportKey importKey, string tenantKey);
     }
 }

@@ -90,14 +90,14 @@ namespace GRG.LeisureCards.WebAPI.Client
             }
         }
 
-        public DataImportJournalEntry GetNewUrnImportJournal()
+        public DataImportJournalEntry GetNewUrnImportJournal(string tenantKey)
         {
-            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/GetNewUrnsImportJournal/", Method.GET)).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/GetNewUrnsImportJournal/" + tenantKey, Method.GET)).Data;
         }
 
-        public DataImportJournalEntry GetDeactivateUrnImportJournal()
+        public DataImportJournalEntry GetDeactivateUrnImportJournal(string tenantKey)
         {
-            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/GetDeactivateUrnsImportJournal/", Method.GET)).Data;
+            return new RestClient(BaseUrl).Execute<DataImportJournalEntry>(GetRestRequest("DataImport/GetDeactivateUrnsImportJournal/" + tenantKey, Method.GET)).Data;
         }
 
         public DataImportJournalEntry UploadDeactivateUrnData(string tenantKey, Stream stream)

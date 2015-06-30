@@ -20,15 +20,15 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void RetrieveDeactivateUrns()
         {
-            TestDataImportOp(service => service.RetrieveDeactivateUrns("GRG"), service => service.GetDeactivateUrnImportJournal());
-            TestDataImportOp(service => service.ProcessDeactivateUrnData("GRG"), service => service.GetDeactivateUrnImportJournal());
+            TestDataImportOp(service => service.RetrieveDeactivateUrns("GRG"), service => service.GetDeactivateUrnImportJournal("GRG"));
+            TestDataImportOp(service => service.ProcessDeactivateUrnData("GRG"), service => service.GetDeactivateUrnImportJournal("GRG"));
         }
 
         [Test]
         public void RetrieveNewUrns()
         {
-            TestDataImportOp(service => service.RetrieveNewUrnsData("GRG"), service => service.GetNewUrnImportJournal());
-            TestDataImportOp(service => service.ProcessNewUrnData("GRG", 12, "TEST"), service => service.GetNewUrnImportJournal());
+            TestDataImportOp(service => service.RetrieveNewUrnsData("GRG"), service => service.GetNewUrnImportJournal("GRG"));
+            TestDataImportOp(service => service.ProcessNewUrnData("GRG", 12, "TEST"), service => service.GetNewUrnImportJournal("GRG"));
         }
 
         [Test]
@@ -43,16 +43,16 @@ namespace GRG.LeisureCards.API.IntegrationTests
         public void UploadNewUrnData()
         {
             TestDataImportOp(service => service.UploadNewUrnData("GRG", ResourceStreams.GetStream(ResourceStreams.NewUrns)),
-                service => service.GetNewUrnImportJournal());
-            TestDataImportOp(service => service.ProcessNewUrnData("GRG", 12, "TEST" ), service => service.GetNewUrnImportJournal());
+                service => service.GetNewUrnImportJournal("GRG"));
+            TestDataImportOp(service => service.ProcessNewUrnData("GRG", 12, "TEST" ), service => service.GetNewUrnImportJournal("GRG"));
         }
 
         [Test]
         public void UploadDeactivateUrnsData()
         {
             TestDataImportOp(service => service.UploadDeactivateUrnData("GRG", ResourceStreams.GetStream(ResourceStreams.DeactivateUrns)),
-                service => service.GetDeactivateUrnImportJournal());
-            TestDataImportOp(service => service.ProcessDeactivateUrnData("GRG"), service => service.GetDeactivateUrnImportJournal());
+                service => service.GetDeactivateUrnImportJournal("GRG"));
+            TestDataImportOp(service => service.ProcessDeactivateUrnData("GRG"), service => service.GetDeactivateUrnImportJournal("GRG"));
         }
 
         [Test]

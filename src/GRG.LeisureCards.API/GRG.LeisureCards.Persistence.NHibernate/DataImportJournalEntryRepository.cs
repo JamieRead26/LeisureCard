@@ -47,5 +47,19 @@ namespace GRG.LeisureCards.Persistence.NHibernate
 
             return result.Count == 0 ? null : result[0];
         }
+
+        public DataImportJournalEntry GetLast(DataImportKey importKey, string tenantKey)
+        {
+            var query = Session.QueryOver<DataImportJournalEntry>();
+
+            query.Where(j => j.UploadKey == importKey.Key)
+                .Where(x=>x.Tenant.Key==tenantKey)
+                .OrderBy(x => x.Id).Desc
+                .Take(1);
+
+            var result = query.List();
+
+            return result.Count == 0 ? null : result[0];
+        }
     }
 }

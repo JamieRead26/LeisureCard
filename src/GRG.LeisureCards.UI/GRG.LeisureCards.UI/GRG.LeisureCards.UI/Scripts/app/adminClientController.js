@@ -6,12 +6,12 @@ adminClientController.factory('GetTenantByKey', function ($resource, config) {
 
 // add urns
 adminClientController.factory('GetNewUrnsImportJournal', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetNewUrnsImportJournal');
+    return $resource(config.apiUrl + '/DataImport/GetNewUrnsImportJournal/:key');
 });
 
 // deactivated urns
 adminClientController.factory('GetDeactivateUrnsImportJournal', function ($resource, config) {
-    return $resource(config.apiUrl + '/DataImport/GetDeactivateUrnsImportJournal');
+    return $resource(config.apiUrl + '/DataImport/GetDeactivateUrnsImportJournal/:key');
 });
 
 adminClientController.controller('AdminClientUrnsController', function ($scope, $location, config,
@@ -26,14 +26,13 @@ adminClientController.controller('AdminClientUrnsController', function ($scope, 
 
     $scope.apiUrl = config.apiUrl;
 
-    debugger;
     $scope.tenantKey = $scope.$parent.key;
 
-    GetNewUrnsImportJournal.get(function (data) {
+    GetNewUrnsImportJournal.get({ key: $scope.tenantKey }, function (data) {
         PushImportToArray.push($scope, data, 'NewUrns');
     });
 
-    GetDeactivateUrnsImportJournal.get(function (data) {
+    GetDeactivateUrnsImportJournal.get({ key: $scope.tenantKey }, function (data) {
         PushImportToArray.push($scope, data, 'DeactivatedUrns');
     });
 

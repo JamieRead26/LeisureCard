@@ -130,17 +130,17 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("DataImport/GetNewUrnsImportJournal")]
-        public Model.DataImportJournalEntry GetNewUrnsImportJournal()
+        [Route("DataImport/GetNewUrnsImportJournal/{tenantKey}")]
+        public Model.DataImportJournalEntry GetNewUrnsImportJournal(string tenantKey)
         {
-            return Dispatch(()=>GetLastImportJournal(DataImportKey.NewUrns));
+            return Dispatch(()=>GetLastImportJournal(DataImportKey.NewUrns, tenantKey));
         }
 
         [HttpGet]
-        [Route("DataImport/GetDeactivateUrnsImportJournal")]
-        public Model.DataImportJournalEntry GetDeactivateUrnsImportJournal()
+        [Route("DataImport/GetDeactivateUrnsImportJournal/{tenantKey}")]
+        public Model.DataImportJournalEntry GetDeactivateUrnsImportJournal(string tenantKey)
         {
-            return Dispatch(()=>GetLastImportJournal(DataImportKey.DeactivatedUrns));
+            return Dispatch(()=>GetLastImportJournal(DataImportKey.DeactivatedUrns, tenantKey));
         }
 
         public Model.DataImportJournalEntry Acquire(DataImportKey key, Func<Stream> getStream, string tenant = null)
@@ -151,6 +151,11 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private Model.DataImportJournalEntry GetLastImportJournal(DataImportKey importKey)
         {
             return Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.GetLast(importKey));
+        }
+
+        private Model.DataImportJournalEntry GetLastImportJournal(DataImportKey importKey, string tenantKey)
+        {
+            return Mapper.Map<Model.DataImportJournalEntry>(_dataImportJournalEntryRepository.GetLast(importKey, tenantKey));
         }
     }
 }

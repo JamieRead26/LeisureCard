@@ -17,10 +17,10 @@ namespace GRG.LeisureCards.WebAPI.ClientContract
         DataImportJournalEntry Upload241Data(Stream stream);
         DataImportJournalEntry Process241Data();
         DataImportJournalEntry Get241ImportJournal();
-        DataImportJournalEntry GetNewUrnImportJournal();
+        DataImportJournalEntry GetNewUrnImportJournal(string tenantKey);
         DataImportJournalEntry UploadNewUrnData(string tenantKey, Stream stream);
         DataImportJournalEntry ProcessNewUrnData(string tenantKey, int renewalPeriodMonths, string reference);
-        DataImportJournalEntry GetDeactivateUrnImportJournal();
+        DataImportJournalEntry GetDeactivateUrnImportJournal(string tenantKey);
         DataImportJournalEntry UploadDeactivateUrnData(string tenantKey, Stream stream);
         DataImportJournalEntry ProcessDeactivateUrnData(string tenantKey);
     }

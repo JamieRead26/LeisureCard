@@ -30,6 +30,13 @@ body {
             margin:0 auto;
         }
     }
+    &.admin {
+        div.content {
+            h1 {
+                color:#6e368c;
+            }
+        }
+    }
     .clear {
         clear: both;
     }
@@ -203,10 +210,15 @@ body {
 body .content ul.experience-offers {
     margin-bottom:50px;
     li {
-        a{
+        a {
             background:none;
             border:1px solid #ffffff;
             height:85px;
+            color:#4e4e50;
+            &:hover {
+                background:#095ca9;
+                color:#ffffff;
+            }
             span, p {
                 font-family:Tahoma, Arial;
                 font-weight:bold;
@@ -260,14 +272,14 @@ body .content {
         h2 {
             padding:0px;
             margin:0 0 5px 0;
-            color:#cd090d;
+            color:#e4003a;
             font-size:20px;
             font-weight:bold;
         }
         p {
             padding:0px;
             margin:0px;
-            color:#ffffff;
+            color:#4e4e50;
             font-size:18px;
         }
         &.alt {
@@ -275,6 +287,9 @@ body .content {
             h2 {
                 color:#0971ce;
             }
+        }
+        a {
+            color:#4e4e50 !important;
         }
     }
     .special-offers-title {
@@ -288,7 +303,7 @@ body .content {
             font-family:Tahoma, Arial;
             font-weight:bold;
             font-size:20px;
-            color:#ffffff;
+            color:#4e4e50;
         }
         p {
             font-family:Arial;
@@ -297,7 +312,8 @@ body .content {
             margin:0px;
         }
         a {
-            color:#ffffff;
+            color:#4e4e50;
+            text-decoration:none;
         }
         span {
             color:#6e368c;
@@ -316,7 +332,7 @@ body .content {
                 list-style: none;
                 border-radius: 7px;
                 overflow: hidden;
-                background:#ce0a0e;
+                background:#e4003a;
                 a {
                     display:block;
                 }
@@ -328,7 +344,7 @@ body .content {
                     float:left;
                     width: 60%;
                     max-height:100px;
-                    background:#ce0a0e;
+                    background:#e4003a;
                     color:#ffffff;
                     padding: 10px;
                     p {
@@ -469,7 +485,7 @@ body.admin {
             p {
                 float:left;
                 width:10%;
-                color:#ffffff;
+                color:#4e4e50;
             }
             hr {
                 float:left;
@@ -508,7 +524,7 @@ body.admin {
                 label {
                     width: 28%;
                     float: left;
-                    color:#ffffff;
+                    color:#4e4e50;
                     font-size:16px;
                     margin-right:2%;
                 }
@@ -605,6 +621,9 @@ body.admin {
     border: 1px solid white !important;
     color: #95ccfd !important;
 }
+body.admin .urn-update-fields label {
+    color: #4e4e50 !important;
+}
 
 .logout {
     color: #fff;
@@ -673,7 +692,8 @@ body div.content form.location-search input.sub-button {
 }
 
 body div.content form.location-search input.sub-button:hover { 
-  background: url('../img/submit-button-arrow.png') #222 no-repeat right;
+  background: url('../img/submit-button-arrow.png') #6e368c no-repeat right;
+  color:#fff;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
@@ -900,7 +920,7 @@ text-decoration:none;
 .twelvecol.center { margin-bottom: 65px; text-align: center;}
 
 .terms-copy p {
-    color: #FFF;
+    color: #4e4e50;
     font-size: 16px;
        font-family:  Tahoma, Verdana, Geneva, sans-serif;
 }
@@ -982,7 +1002,7 @@ text-decoration: none;
     body .content ul.experience-offers {
         margin-bottom:50px;
         li {
-            a{
+            a {
                 background:none;
                 border:1px solid #ffffff;
                 height:85px;

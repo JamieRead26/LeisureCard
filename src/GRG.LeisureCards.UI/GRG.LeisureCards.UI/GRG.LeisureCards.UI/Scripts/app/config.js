@@ -84,6 +84,11 @@
         link: ''
     }];
 
+    this.contactus = [{
+        img: '/Content/' + tenant + '/img/banner-8.jpg',
+        link: ''
+    }];
+
     this.offerdiscount = [{
         img: '/Content/' + tenant + '/img/banner-11.jpg',
         link: 'http://google.co.uk'

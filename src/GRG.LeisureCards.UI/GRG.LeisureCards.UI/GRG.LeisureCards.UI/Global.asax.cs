@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Optimization;
+using GRG.LeisureCards.UI.Content;
 using GRG.LeisureCards.UI.Shizzle;
+using GRG.LeisureCards.WebAPI.Client;
 using log4net;
 using log4net.Config;
 
@@ -20,6 +23,10 @@ namespace GRG.LeisureCards.UI
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            HtmlContent.Init(
+                Server,
+                new TenantService(ConfigurationManager.AppSettings["ApiUrl"]).GetAll().Select(t => t.Key).ToArray());
 
             //BundleConfig.RegisterBundles(BundleTable.Bundles, "GRG");
         }
@@ -47,7 +54,7 @@ namespace GRG.LeisureCards.UI
             if (string.IsNullOrEmpty(incomingUrl))
                 incomingUrl = Request.Url.Host;
 
-            Log.Debug("Looking up tenant based on  : " + incomingUrl);
+            Log.Debug("Looking up tenant based on : " + incomingUrl);
 
             var tenantKey = TenantCache.Instance.GetTenant(incomingUrl).Key;
 

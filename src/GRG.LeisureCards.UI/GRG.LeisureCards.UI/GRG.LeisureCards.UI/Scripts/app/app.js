@@ -34,7 +34,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
                 }
 
             }
-            else if (config.url != 'partial/terms') {
+            else if (config.url != 'partial/terms' || config.url != 'partial/contactus') {
                 $location.path('/');
             }
             return config;
@@ -163,6 +163,11 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'TermsController',
             label: 'Terms'
         }).
+        when('/contactus', {
+             templateUrl: 'partial/contactus',
+             controller: 'ContactUsController',
+             label: 'Contact Us'
+         }).
         when('/offers', {
             templateUrl: 'partial/offers',
             controller: 'OffersHomeController',

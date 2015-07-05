@@ -47,7 +47,7 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
         value: 25
     },
     {
-        name: 'all',
+        name: 'All',
         value: 5000
     }];
 
@@ -107,11 +107,12 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     }
 
     $scope.claim = function (url) {
+        debugger;
         Offer241Claim.get({ id: $scope.id }, function (data) {
             if(!data.$resolved){
-                return alert('Something when wrong when claiming this offer.');
+                return alert('Something went wrong when claiming this offer.');
             }
-            $location.path(url);
+            $location.path(url + $scope.id);
         });
     };
 

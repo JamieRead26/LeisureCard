@@ -14,7 +14,7 @@ offersExperienceController.controller('offersExperienceController', function ($s
         {
             name: 'Driving',
             description: 'Experience driving!',
-            link: '/Home?source=rld&affid=212&dealid=28582'
+            link: '/Experience/Driving?source=rld&affid=212&dealid=28582'
         },
         {
             name: 'Famous Circuits',

@@ -180,6 +180,8 @@
     <Content Include="Content\grg\css\offers.min.css">
       <DependentUpon>offers.css</DependentUpon>
     </Content>
+    <Content Include="Content\grg\html\footer\footer.html" />
+    <Content Include="Content\grg\html\terms\terms.html" />
     <Content Include="Content\grg\img\banner-1.jpg" />
     <Content Include="Content\grg\img\buttonArrow.jpg" />
     <Content Include="Content\grg\img\carousel-mask.png" />
@@ -199,6 +201,8 @@
     <Content Include="Content\npower\241Category\Treasurehunt_small.png" />
     <Content Include="Content\npower\css\offers.css" />
     <Content Include="Content\npower\css\offers.min.css" />
+    <Content Include="Content\npower\html\footer\footer.html" />
+    <Content Include="Content\npower\html\terms\terms.html" />
     <Content Include="Content\npower\img\2-4-1-offers.png" />
     <Content Include="Content\npower\img\admin-banner.jpg" />
     <Content Include="Content\npower\img\back-to-top.png" />
@@ -291,6 +295,7 @@
     <Content Include="Content\base\css\header.scss" />
     <Content Include="Content\base\css\mixin.scss" />
     <Content Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Partials\contactus.cshtml" />
     <Content Include="Views\Home\Partials\login.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount.cshtml" />
     <Content Include="Views\Home\Partials\offers_241.cshtml" />
@@ -337,6 +342,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Content\HtmlContent.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

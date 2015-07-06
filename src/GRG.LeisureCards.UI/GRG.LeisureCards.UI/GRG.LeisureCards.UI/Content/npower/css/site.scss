@@ -1084,15 +1084,3 @@ text-decoration: none;
     .offer-right {float: none; width: auto; padding-right: 0px;}
 }
 
-@media print {
-   header,
-   .breadcrumb,
-   .slideshow,
-   .claim-strip,
-   .offers241-r img,
-   footer {
-       display:none;
-   }
-}
-
-

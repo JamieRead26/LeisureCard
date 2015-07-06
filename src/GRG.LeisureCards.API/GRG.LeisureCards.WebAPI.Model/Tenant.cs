@@ -2,7 +2,7 @@
 {
     public class Tenant
     {
-        public string Key { get; set; }
+        public string TenantKey { get; set; }
         
         public string Name { get; set; }
 

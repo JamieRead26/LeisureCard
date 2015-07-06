@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C247CA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApiClient", "WebApiClient", "{45DEF707-19FD-4FE9-803B-20709F960DDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.WebAPI.Model", "..\..\GRG.LeisureCards.API\GRG.LeisureCards.WebAPI.Model\GRG.LeisureCards.WebAPI.Model.csproj", "{19F9B535-A681-4EE3-B954-347011C3FDEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{79311C7C-A059-472C-B271-0FDD80D210D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79311C7C-A059-472C-B271-0FDD80D210D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79311C7C-A059-472C-B271-0FDD80D210D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19F9B535-A681-4EE3-B954-347011C3FDEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F9B535-A681-4EE3-B954-347011C3FDEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F9B535-A681-4EE3-B954-347011C3FDEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F9B535-A681-4EE3-B954-347011C3FDEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +49,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4F14B810-CA75-408D-B21E-D6F693D2047A} = {45DEF707-19FD-4FE9-803B-20709F960DDE}
 		{79311C7C-A059-472C-B271-0FDD80D210D9} = {45DEF707-19FD-4FE9-803B-20709F960DDE}
+		{19F9B535-A681-4EE3-B954-347011C3FDEC} = {45DEF707-19FD-4FE9-803B-20709F960DDE}
 	EndGlobalSection
 EndGlobal

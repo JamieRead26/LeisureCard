@@ -262,7 +262,7 @@ namespace GRG.LeisureCards.Service
                             {
                                 Code = newUrn.Code,
                                 Reference = reference,
-                                TenantKey = journalEntry.Tenant.Key,
+                                TenantKey = journalEntry.Tenant.TenantKey,
                                 RenewalPeriodMonths = cardDurationMonths
                             });
 

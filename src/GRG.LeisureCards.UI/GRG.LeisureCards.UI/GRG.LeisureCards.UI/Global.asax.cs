@@ -26,7 +26,7 @@ namespace GRG.LeisureCards.UI
 
             HtmlContent.Init(
                 Server,
-                new TenantService(ConfigurationManager.AppSettings["ApiUrl"]).GetAll().Select(t => t.Key).ToArray());
+                new TenantService(ConfigurationManager.AppSettings["ApiUrl"]).GetAll().Select(t => t.TenantKey).ToArray());
 
             //BundleConfig.RegisterBundles(BundleTable.Bundles, "GRG");
         }
@@ -56,7 +56,7 @@ namespace GRG.LeisureCards.UI
 
             Log.Debug("Looking up tenant based on : " + incomingUrl);
 
-            var tenantKey = TenantCache.Instance.GetTenant(incomingUrl).Key;
+            var tenantKey = TenantCache.Instance.GetTenant(incomingUrl).TenantKey;
 
             Session["TenantKey"] = tenantKey;
 

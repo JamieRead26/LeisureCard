@@ -45,8 +45,7 @@ namespace GRG.LeisureCards.Data
             {
                 _customSqlTypeStrings = new MsSqlCustomSqlTypeStrings();
                 return MsSqlConfiguration.MsSql2012
-                     .ConnectionString(c => c
-                     .FromConnectionStringWithKey(connectionDetails.MsSqlConnectionString));
+                    .ConnectionString(connectionDetails.MsSqlConnectionString);
             }
 
             throw new Exception("Invalid DB connection details");

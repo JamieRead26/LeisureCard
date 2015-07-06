@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace GRG.LeisureCards.Data
+﻿namespace GRG.LeisureCards.Data
 {
     public class MsSqlCustomSqlTypeStrings : CustomSqlTypeStringsBase
     {

@@ -127,7 +127,7 @@
     <div ng-controller="AdminEditClientController">
         <form ng-submit="submit()" class="no-bg">
             <div class="field threecol">
-                <select ng-model="tenant" required ng-options="t.Key for t in tenants"></select>
+                <select ng-model="tenant" required ng-options="t.TenantKey for t in tenants"></select>
             </div>
             <div class="threecol last">
                 <button type="submit">Edit Client</button>

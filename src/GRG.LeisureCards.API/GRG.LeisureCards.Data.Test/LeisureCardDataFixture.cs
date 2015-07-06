@@ -21,14 +21,14 @@ namespace GRG.LeisureCards.Data.Test
                     Code = "InactiveClient", 
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.Inactive.Key
+                    TenantKey = tenantFixture.Inactive.TenantKey
                 },
                 new LeisureCard
                 {
                     Code = "Unregistered", 
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.GRG.Key
+                    TenantKey = tenantFixture.GRG.TenantKey
                 },
                 new LeisureCard
                 {
@@ -38,7 +38,7 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now,
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.GRG.Key
+                    TenantKey = tenantFixture.GRG.TenantKey
                 },
                 new LeisureCard
                 {
@@ -48,7 +48,7 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now,
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.GRG.Key
+                    TenantKey = tenantFixture.GRG.TenantKey
                 },
                 new LeisureCard
                 {
@@ -58,7 +58,7 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(1),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.GRG.Key
+                    TenantKey = tenantFixture.GRG.TenantKey
                 },
                 new LeisureCard
                 {
@@ -68,7 +68,7 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(2),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.GRG.Key
+                    TenantKey = tenantFixture.GRG.TenantKey
                 },
                 new LeisureCard
                 {
@@ -78,7 +78,7 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(3),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.GRG.Key
+                    TenantKey = tenantFixture.GRG.TenantKey
                 },
                 new LeisureCard
                 {
@@ -88,7 +88,7 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(3),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.PopupNotMandatory.Key
+                    TenantKey = tenantFixture.PopupNotMandatory.TenantKey
                 },
                 new LeisureCard
                 {
@@ -98,14 +98,14 @@ namespace GRG.LeisureCards.Data.Test
                     RegistrationDate = DateTime.Now + TimeSpan.FromDays(3),
                     UploadedDate = DateTime.Now,
                     MembershipTier = membershipTierDataFixture.Gold,
-                    TenantKey = tenantFixture.PopupMandatory.Key
+                    TenantKey = tenantFixture.PopupMandatory.TenantKey
                 },
                 new LeisureCard
                 {
                     Code = "Cancelled", 
                     Suspended = true, 
                     UploadedDate = DateTime.Now,
-                    TenantKey = tenantFixture.GRG.Key
+                    TenantKey = tenantFixture.GRG.TenantKey
                 }
             };
 

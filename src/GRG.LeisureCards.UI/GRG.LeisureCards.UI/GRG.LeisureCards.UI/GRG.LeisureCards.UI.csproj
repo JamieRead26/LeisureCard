@@ -52,10 +52,6 @@
     <Reference Include="BundleTransformer.SassAndScss">
       <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.52\lib\net40\BundleTransformer.SassAndScss.dll</HintPath>
     </Reference>
-    <Reference Include="GRG.LeisureCards.WebAPI.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\GRG.LeisureCards.API\GRG.LeisureCards.WebAPI.Model\bin\Debug\GRG.LeisureCards.WebAPI.Model.dll</HintPath>
-    </Reference>
     <Reference Include="IronRuby">
       <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.52\lib\net40\IronRuby.dll</HintPath>
     </Reference>
@@ -379,6 +375,10 @@
     <ProjectReference Include="..\..\..\GRG.LeisureCards.API\GRG.LeisureCards.WebAPI.Client\GRG.LeisureCards.WebAPI.Client.csproj">
       <Project>{79311c7c-a059-472c-b271-0fdd80d210d9}</Project>
       <Name>GRG.LeisureCards.WebAPI.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GRG.LeisureCards.API\GRG.LeisureCards.WebAPI.Model\GRG.LeisureCards.WebAPI.Model.csproj">
+      <Project>{19f9b535-a681-4ee3-b954-347011c3fdec}</Project>
+      <Name>GRG.LeisureCards.WebAPI.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

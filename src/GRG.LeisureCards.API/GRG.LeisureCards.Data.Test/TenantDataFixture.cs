@@ -16,12 +16,12 @@ namespace GRG.LeisureCards.Data.Test
 
         public override object[] GetEntities(IFixtureContainer fixtureContainer)
         {
-            GRG = new Tenant { Key = "GRG", Name = "Grass Roots Group", Active = true, Domain = "grg.leisurecards.shiftkey.uk.com", FtpServer = "ftp://grg.leisurecards.shiftkey.uk.com/", FtpAddFilePath = "/GRG/newUrns.csv", FtpDeactivateFilePath = "/GRG/deactiveUrns.csv", FtpUsername = "anon"};
-            Base = new Tenant { Key = "Base", Name = "Base Implementation", Active = true, Domain = "base.leisurecards.shiftkey.uk.com" };
-            NPower = new Tenant { Key = "NPower", Name = "NPower", Active = true, Domain = "npower.leisurecards.shiftkey.uk.com" };
-            Inactive = new Tenant { Key = "Inactive", Name = "Inactive", Active = false };
-            PopupNotMandatory = new Tenant { Key = "PopupNotMandatory", Name = "Inactive", Active = true, MemberLoginPopupDisplayed = true };
-            PopupMandatory = new Tenant { Key = "PopupMandatory", Name = "Inactive", Active = true, MemberLoginPopupDisplayed = true, MemberLoginPopupMandatory = true };
+            GRG = new Tenant { TenantKey = "GRG", Name = "Grass Roots Group", Active = true, Domain = "grg.leisurecards.shiftkey.uk.com", FtpServer = "ftp://grg.leisurecards.shiftkey.uk.com/", FtpAddFilePath = "/GRG/newUrns.csv", FtpDeactivateFilePath = "/GRG/deactiveUrns.csv", FtpUsername = "anon"};
+            Base = new Tenant { TenantKey = "Base", Name = "Base Implementation", Active = true, Domain = "base.leisurecards.shiftkey.uk.com" };
+            NPower = new Tenant { TenantKey = "NPower", Name = "NPower", Active = true, Domain = "npower.leisurecards.shiftkey.uk.com" };
+            Inactive = new Tenant { TenantKey = "Inactive", Name = "Inactive", Active = false };
+            PopupNotMandatory = new Tenant { TenantKey = "PopupNotMandatory", Name = "Inactive", Active = true, MemberLoginPopupDisplayed = true };
+            PopupMandatory = new Tenant { TenantKey = "PopupMandatory", Name = "Inactive", Active = true, MemberLoginPopupDisplayed = true, MemberLoginPopupMandatory = true };
             
             return new[]{GRG, Base, NPower, Inactive, PopupMandatory, PopupNotMandatory};
         }

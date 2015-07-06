@@ -53,7 +53,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             var query = Session.QueryOver<DataImportJournalEntry>();
 
             query.Where(j => j.UploadKey == importKey.Key)
-                .Where(x=>x.Tenant.Key==tenantKey)
+                .Where(x=>x.Tenant.TenantKey==tenantKey)
                 .OrderBy(x => x.Id).Desc
                 .Take(1);
 

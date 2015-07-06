@@ -349,7 +349,7 @@ adminController.controller('AdminEditClientController', function ($scope, $http,
 
     $scope.submit = function () {
         if ($scope.tenant) {
-            $location.path('/admin/client-details/' + $scope.tenant.Key);
+            $location.path('/admin/client-details/' + $scope.tenant.TenantKey);
         }
     };
 

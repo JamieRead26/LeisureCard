@@ -2,7 +2,7 @@
 {
     public class Tenant
     {
-        public virtual string Key { get; set; }
+        public virtual string TenantKey { get; set; }
         public virtual string Name { get; set; }
 
         public virtual string Domain { get; set; }

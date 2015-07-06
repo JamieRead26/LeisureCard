@@ -134,7 +134,7 @@ namespace GRG.LeisureCards.Service
                     Reference = reference,
                     RenewalPeriodMonths = renewalPeriodMonths,
                     UploadedDate = now,
-                    TenantKey = tenant.Key
+                    TenantKey = tenant.TenantKey
                 });
             }
 

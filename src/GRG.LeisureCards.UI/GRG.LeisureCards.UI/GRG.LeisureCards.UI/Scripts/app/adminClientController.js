@@ -144,6 +144,7 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
     $scope.key = $routeParams.key;
     $scope.keyreadonly = $scope.key != 'new';
 
+    debugger;
     if ($scope.key != 'new') {
         GetTenantByKey.get({ key: $scope.key }, function (data) {
             $scope.tenant = data;
@@ -154,17 +155,18 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
         $scope.tenant_success = null;
         $scope.tenant_error = null;
 
-        if ($scope.tenant.Key) {
+        debugger;
+        if ($scope.tenant.TenantKey) {
             var saveorupdate = $scope.key == 'new' ? 'Save' : 'Update';
             var url = config.apiUrl + '/Tenant/' + saveorupdate;
 
             $http.post(url, $scope.tenant);
 
             if ($scope.key == 'new') {
-                $scope.key = $scope.tenant.Key;
-                return $scope.tenant_success = 'New client "' + $scope.tenant.Key + '" saved.';
+                $scope.key = $scope.tenant.TenantKey;
+                return $scope.tenant_success = 'New client "' + $scope.tenant.TenantKey + '" saved.';
             }
-            return $scope.tenant_success = 'Client "' + $scope.tenant.Key + '" updated.';
+            return $scope.tenant_success = 'Client "' + $scope.tenant.TenantKey + '" updated.';
         }
         else {
             return $scope.tenant_error = 'Please select a client to update.';
@@ -179,11 +181,12 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
         $location.path('/admin');
     }
 
+    debugger;
     $scope.deleteTenant = function () {
-        if ($scope.tenant.Key) {
+        if ($scope.tenant.TenantKey) {
             $scope.tenant['Active'] = false;
             $scope.saveTenant();
-            return $scope.tenant_success = 'Client "' + $scope.tenant.Key + '" deleted.';
+            return $scope.tenant_success = 'Client "' + $scope.tenant.TenantKey + '" deleted.';
         }
         return $scope.tenant_error = 'Please enter a client ID.';
     }

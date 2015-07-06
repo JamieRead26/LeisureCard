@@ -64,7 +64,7 @@ namespace GRG.LeisureCards.WebAPI
 
                 if (tenant != null)
                 {
-                    uploadFolder = uploadFolder + "\\" + tenant.Key;
+                    uploadFolder = uploadFolder + "\\" + tenant.TenantKey;
 
                     //This mechanism is such that if multiple nodes happen to create the same folder in a race condition one will win, the other will lose but over all both processes
                     //will succeed.

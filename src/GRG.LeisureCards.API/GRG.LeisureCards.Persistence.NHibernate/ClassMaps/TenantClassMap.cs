@@ -7,7 +7,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
     {
         public TenantClassMap()
         {
-            Id(x => x.Key);
+            Id(x => x.TenantKey);
             Map(x => x.Name);
             Map(x => x.Domain);
             Map(x => x.Comments);

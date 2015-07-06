@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.AccessControl;
 using FluentNHibernate.Cfg.Db;
 
 namespace GRG.LeisureCards.Data
@@ -45,7 +44,9 @@ namespace GRG.LeisureCards.Data
             if (connectionDetails.DbType.ToUpper().Trim() == "MSSQL2012")
             {
                 _customSqlTypeStrings = new MsSqlCustomSqlTypeStrings();
-                return MsSqlConfiguration.MsSql2012.ConnectionString(connectionDetails.MsSqlConnectionString);
+                return MsSqlConfiguration.MsSql2012
+                     .ConnectionString(c => c
+                     .FromConnectionStringWithKey(connectionDetails.MsSqlConnectionString));
             }
 
             throw new Exception("Invalid DB connection details");

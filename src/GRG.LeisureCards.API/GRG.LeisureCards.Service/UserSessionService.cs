@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using GRG.LeisureCards.DomainModel;
+using GRG.LeisureCards.Persistence;
+using GRG.LeisureCards.Persistence.NHibernate;
 
 namespace GRG.LeisureCards.Service
 {
@@ -13,53 +15,70 @@ namespace GRG.LeisureCards.Service
 
     public class DbUserSessionService : IUserSessionService
     {
+        private readonly string _adminCode;
+        private readonly ISessionRepository _sessionRepository;
         private readonly TimeSpan _sessionDuration;
 
-        public DbUserSessionService(int sessionDurationMinutes)
+        public DbUserSessionService(
+            string adminCode,
+            int sessionDurationMinutes, 
+            ISessionRepository sessionRepository)
         {
+            _adminCode = adminCode.ToUpper().Trim();
+            _sessionRepository = sessionRepository;
             _sessionDuration =
                 TimeSpan.FromMinutes(sessionDurationMinutes);
         }
 
+        [UnitOfWork]
         public string GetToken(LeisureCard card)
         {
-            //lock (card.Code)
-            //{
-            //    var session = _sessions.SingleOrDefault(c => c.CardCode == card.Code);
+            lock (card.Code)
+            {
+                var session = _sessionRepository.GetLiveByCardCode(card.Code);
 
-            //    if (session != null) return session.Token;
+                if (session != null) return session.Token;
 
-            //    session = new Session(_sessionDuration, card);
+                session = new DomainModel.Session
+                {
+                    Token = Guid.NewGuid().ToString(),
+                    CardCode = card.Code,
+                    ExpiryUtc = DateTime.UtcNow + _sessionDuration,
+                    IsAdmin = card.Code.ToUpper().Trim() == _adminCode,
+                    TenantKey = card.TenantKey
+                };
 
+                _sessionRepository.Save(session);
 
-            //    _sessions.Add(session);
-
-            //    return session.Token;
-            //}
-
-            throw new NotImplementedException();
+                return session.Token;
+            }
         }
 
+        [UnitOfWork]
         public ISession GetSession(string token)
         {
-            //lock (token)
-            //{
-            //    var session = _sessions.FirstOrDefault(t => t.Token == token);
+            lock (token)
+            {
+                var session = _sessionRepository.Get(token);
 
-            //    if (session == null)
-            //        return null;
+                if (session == null)
+                    return null;
 
-            //    if (session.HasExpired)
-            //    {
-            //        _sessions.Remove(session);
-            //        return null;
-            //    }
+                if (session.ExpiryUtc < DateTime.UtcNow)
+                {
+                    _sessionRepository.Delete(session);
+                    return null;
+                }
 
-            //    session.Renew();
-            //    return session;
-            //}
+                session.ExpiryUtc = DateTime.UtcNow + _sessionDuration;
+                _sessionRepository.Update(session);
 
-            throw new NotImplementedException();
+                return new Session(
+                    _sessionDuration,
+                    session.CardCode,
+                    session.TenantKey,
+                    session.Token);
+            }
         }
     }
 
@@ -110,39 +129,50 @@ namespace GRG.LeisureCards.Service
                 return session;
             }
         }
+    }
+    public class Session : ISession
+    {
+        private readonly TimeSpan _sessionDuration;
 
-        public class Session : ISession
+        public Session(TimeSpan sessionDuration, LeisureCard card)
         {
-            private readonly TimeSpan _sessionDuration;
+            _sessionDuration = sessionDuration;
+            CardCode = card.Code;
+            ExpiryUtc = DateTime.UtcNow + _sessionDuration;
+            Token = Guid.NewGuid().ToString();
+            TenantKey = card.TenantKey;
+        }
 
-            public Session(TimeSpan sessionDuration, LeisureCard card)
-            {
-                _sessionDuration = sessionDuration;
-                CardCode = card.Code;
-                ExpiryUtc = DateTime.UtcNow + _sessionDuration;
-                Token = Guid.NewGuid().ToString();
-                TenantKey = card.TenantKey;
-            }
+        public Session(TimeSpan sessionDuration,
+            string cardCode,
+            string tenantKey,
+            string token)
+        {
+            _sessionDuration = sessionDuration;
+            CardCode = cardCode;
+            ExpiryUtc = DateTime.UtcNow + _sessionDuration;
+            Token = token;
+            TenantKey = tenantKey;
+        }
 
-            public void Renew()
-            {
-                ExpiryUtc = DateTime.UtcNow + _sessionDuration;
-            }
+        public void Renew()
+        {
+            ExpiryUtc = DateTime.UtcNow + _sessionDuration;
+        }
 
-            public string Token { get; private set; }
-            public DateTime ExpiryUtc { get; private set; }
-            public string CardCode { get; private set; }
-            public string TenantKey { get; private set; }
+        public string Token { get; private set; }
+        public DateTime ExpiryUtc { get; private set; }
+        public string CardCode { get; private set; }
+        public string TenantKey { get; private set; }
 
-            public bool HasExpired
-            {
-                get { return ExpiryUtc < DateTime.UtcNow; }
-            }
+        public bool HasExpired
+        {
+            get { return ExpiryUtc < DateTime.UtcNow; }
+        }
 
-            public bool IsAdmin
-            {
-                get { return CardCode == AdminLeisureCard.Instance.Code; }
-            }
+        public bool IsAdmin
+        {
+            get { return CardCode == AdminLeisureCard.Instance.Code; }
         }
     }
 }

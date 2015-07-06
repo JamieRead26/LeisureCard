@@ -14,15 +14,15 @@ namespace GRG.LeisureCards.API.IntegrationTests
 
             Assert.IsTrue(service.GetAll().Any());
 
-            var tenant = new Tenant {Key = "123"};
+            var tenant = new Tenant {TenantKey = "123"};
             service.Save(tenant);
 
-            Assert.IsFalse(service.GetAll().First(x=>x.Key=="123").Active);
+            Assert.IsFalse(service.GetAll().First(x => x.TenantKey == "123").Active);
 
             tenant.Active = true;
             service.Update(tenant);
 
-            tenant = service.GetAll().First(x => x.Key == "123");
+            tenant = service.GetAll().First(x => x.TenantKey == "123");
 
             Assert.IsTrue(tenant.Active);
             Assert.AreEqual(0, tenant.UrnCount);

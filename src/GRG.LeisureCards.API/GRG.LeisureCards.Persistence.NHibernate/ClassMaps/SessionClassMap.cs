@@ -7,11 +7,11 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
     {
         public SessionClassMap()
         {
-            Id(x => x.CardCode);
-            Map(x => x.Token);
+            Map(x => x.CardCode);
+            Id(x => x.Token);
             Map(x => x.ExpiryUtc);
             Map(x => x.IsAdmin);
-            Map(x => x.CardRenewalDate);
+            Map(x => x.TenantKey);
         }
     }
 }

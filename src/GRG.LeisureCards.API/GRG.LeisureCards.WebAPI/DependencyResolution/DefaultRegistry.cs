@@ -115,6 +115,10 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
             For<ITenantRepository>().Use<TenantRepository>()
             .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
             .SetLifecycleTo<SingletonLifecycle>();
+
+            For<ISessionRepository>().Use<SessionRepository>()
+             .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+             .SetLifecycleTo<SingletonLifecycle>();
         }
 
         private void ConfigureServiceIntercepts(ProxyGenerator proxyGenerator, IInterceptor interceptor)
@@ -135,7 +139,11 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
             if (bool.Parse(ConfigurationManager.AppSettings["StatelessMode"]))
             {
                 For<IUserSessionService>()
-                    .Use(new DbUserSessionService(int.Parse(ConfigurationManager.AppSettings["SessionDurationMinutes"])))
+                    .Use(container=>new DbUserSessionService(
+                        ConfigurationManager.AppSettings["AdminCode"],
+                        int.Parse(ConfigurationManager.AppSettings["SessionDurationMinutes"]),
+                        container.GetInstance<ISessionRepository>()))
+                     .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                     .SetLifecycleTo<SingletonLifecycle>();
             }
             else

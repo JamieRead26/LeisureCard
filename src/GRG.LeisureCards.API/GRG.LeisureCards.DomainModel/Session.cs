@@ -6,8 +6,8 @@ namespace GRG.LeisureCards.DomainModel
     {
         public virtual string Token { get; set; }
         public virtual string CardCode { get; set; }
-        public virtual bool ExpiryUtc { get; set; }
+        public virtual DateTime ExpiryUtc { get; set; }
         public virtual bool IsAdmin { get; set; }
-        public virtual DateTime? CardRenewalDate { get; set; }
+        public virtual string TenantKey { get; set; }
     }
 }

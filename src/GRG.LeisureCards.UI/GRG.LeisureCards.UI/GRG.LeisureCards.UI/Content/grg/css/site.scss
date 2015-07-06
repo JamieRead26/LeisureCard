@@ -1090,33 +1090,3 @@ body div.content .claim-terms-241 {
     .offer-right {float: none; width: auto; padding-right: 0px;}
 }
 
-@media print {
-   header,
-   .breadcrumb,
-   .slideshow,
-   .title-img,
-   .claim-strip,
-   .offers241-r img,
-   footer {
-       display:none;
-   }
-   body {
-       div.content {
-           .claim-terms-241 {
-               h2 {
-                   font-size:12px;
-               }
-               p {
-                   font-size:12px;
-               }
-           }
-       }
-       .button-claim {
-           img {
-               display:none;
-           }
-       }
-   }
-}
-
-

@@ -284,6 +284,7 @@ body .content {
         }
         &.alt {
             background:url(../img/ed-banner-tag-2.jpg) 0 0 no-repeat;
+            margin:0px;
             h2 {
                 color:#0971ce;
             }
@@ -320,10 +321,10 @@ body .content {
         }
     }
     .special-offers {
-        padding:30px 0;
+        padding:30px 0 10px 0;
         ul {
             li {
-                width: 49%;
+                width: 32%;
                 max-height:111px;
                 float: left;
                 margin-right: 2%;
@@ -338,7 +339,7 @@ body .content {
                 }
                 img {
                     float:left;
-                    width: 28%;
+                    width: 40%;
                 }
                 div.special-offer-copy {
                     float:left;
@@ -347,12 +348,22 @@ body .content {
                     background:#e4003a;
                     color:#ffffff;
                     padding: 10px;
+                    position:relative;
                     p {
                         margin: 0 0 5px 0;
+                        font-size:12px;
+                    }
+                    .oe-star {
+                        position:absolute;
+                        left:-47px;
+                        top:0px;
+                        img {
+                            width:auto;
+                        }
                     }
                 }
             }
-            li:nth-child(2n) {
+            li:nth-child(3n) {
                 margin-right:0px;
             }
         }
@@ -372,9 +383,6 @@ body .content {
         }
         p {
             margin:0 0 5px 0;
-        }
-        img {
-            padding:0 0 40px;
         }
     }
     .offers241-r {
@@ -654,6 +662,10 @@ background-size: 100%;
 .title-img {
     text-align: center;
     padding-bottom: 50px;
+    p {
+        margin:10px 0 0 0;
+        color:#4e4e50;
+    }
 }
 
 .offers-home .title-img {
@@ -800,6 +812,10 @@ body.offers-home .content div.special-offers-text {
     padding-bottom: 70px;
 }
 
+body.offer-experience .special-offers-text {
+    padding:40px 0 0 0;
+}
+
 body .content .home-icons-wrap {
     max-width: 714px;
       margin: 0 auto;
@@ -892,6 +908,19 @@ text-decoration:none;
     text-align: left;   
     margin: 0 auto;
     padding: 40px 80px 0px 80px;
+    h2 {
+        color: #6e368c;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom:10px;
+    }
+    ol {
+        padding:0 0 20px 20px;
+        li {
+            color: #4e4e50;
+            font-size: 16px;
+        }
+    }
 }
 .claim-offer  .offer-copy h1 {
     color: #6e368c;
@@ -901,6 +930,14 @@ text-decoration:none;
 .claim-offer  .offer-copy p {
     color: #4e4e50;
     font-size: 16px;
+}
+.claim-offer  .claim-offer-copy {
+    padding: 0px 80px 20px 80px;
+    text-align: left;
+    p {
+        color: #4e4e50;
+        font-size: 16px;
+    }
 }
 
 .redeem-img {
@@ -927,6 +964,9 @@ text-decoration:none;
 .terms-copy ul {
     color:#ffffff;
     margin-bottom:10px;
+}
+body.terms footer {
+    margin:40px 0 0 0;
 }
 
 /* offer-discount-details */
@@ -995,6 +1035,23 @@ text-decoration: none;
     }
     .row .sixcol.offers241-l {
         padding:0px;
+    }
+    body .content .special-offers {
+        ul {
+            li {
+                width:48%;
+                margin-right:2%;
+                &:nth-child(3n) {
+                    margin-right:2%;
+                }
+                &:nth-child(2n) {
+                    margin-right:0%;
+                }
+                img {
+                    width: 28%;
+                }
+            }
+        }
     }
     
 }
@@ -1083,4 +1140,22 @@ text-decoration: none;
     .offer-left {float:none; max-width: 242px;}
     .offer-right {float: none; width: auto; padding-right: 0px;}
 }
-
+@media screen and (max-width: 580px) {
+body .content .special-offers {
+        ul {
+            li {
+                width:100%;
+                margin-right:0%;
+                &:nth-child(3n) {
+                    margin-right:0%;
+                }
+                &:nth-child(2n) {
+                    margin-right:0%;
+                }
+                img {
+                    width: 28%;
+                }
+            }
+        }
+    }
+}

@@ -20,7 +20,7 @@ namespace GRG.LeisureCards.Service
         private readonly string _apiKey;
 
         #region Constants
-        const string API_LATLONG_FROM_ADDRESS = "maps.googleapis.com/maps/api/geocode/xml?address={0}&sensor=false";
+        const string API_LATLONG_FROM_ADDRESS = "maps.googleapis.com/maps/api/geocode/xml?address={0}&sensor=false&channel=LeisureCard";
         #endregion
 
 

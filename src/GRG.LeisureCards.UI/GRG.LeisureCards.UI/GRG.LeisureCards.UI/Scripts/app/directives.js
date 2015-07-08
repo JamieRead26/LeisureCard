@@ -114,7 +114,7 @@ app.service('loadGoogleMapAPI', ['$window', '$q', 'config',
         function loadScript() {
             // Use global document since Angular's $document is weak
             var script = document.createElement('script');
-            script.src = '//maps.googleapis.com/maps/api/js?sensor=false&language=en&callback=initMap&key=' + config.googleAPiKey;
+            script.src = '//maps.googleapis.com/maps/api/js?sensor=false&language=en&callback=initMap';
 
             document.body.appendChild(script);
         }

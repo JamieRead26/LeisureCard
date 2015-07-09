@@ -132,7 +132,7 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .SetLifecycleTo<SingletonLifecycle>();
 
             For<IGoogleLocationService>()
-                .Use(() => new GoogleLocationService(true, ConfigurationManager.AppSettings["GoogleApiKey"]))
+                .Use(() => new GoogleLocationService(ConfigurationManager.AppSettings["GoogleApiUrlTemplate"]))
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
 

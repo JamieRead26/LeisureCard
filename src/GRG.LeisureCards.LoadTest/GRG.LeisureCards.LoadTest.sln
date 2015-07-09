@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRG.LeisureCards.LoadTest", "GRG.LeisureCards.LoadTest\GRG.LeisureCards.LoadTest.csproj", "{2436B133-9DF2-4326-BA23-973182E5799D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CE130AFF-674A-4AA0-AEB9-7487683E3E71}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2436B133-9DF2-4326-BA23-973182E5799D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2436B133-9DF2-4326-BA23-973182E5799D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2436B133-9DF2-4326-BA23-973182E5799D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2436B133-9DF2-4326-BA23-973182E5799D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -331,6 +331,7 @@
     <Content Include="Views\Home\Partials\logout.cshtml" />
     <Content Include="Views\Home\Partials\admin_client_details.cshtml" />
     <Content Include="Views\Home\Partials\terms_popup.cshtml" />
+    <Content Include="Views\Home\Partials\offers_241_claim_printable.cshtml" />
     <None Include="Views\Shared\Footer.cshtml" />
     <None Include="Views\Shared\Header.cshtml" />
     <None Include="Scripts\angular.intellisense.js" />

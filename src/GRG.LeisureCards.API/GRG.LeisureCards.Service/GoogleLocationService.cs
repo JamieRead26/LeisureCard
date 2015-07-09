@@ -17,35 +17,18 @@ namespace GRG.LeisureCards.Service
 
     public class GoogleLocationService : IGoogleLocationService
     {
-        private readonly string _apiKey;
+        private readonly string _googleApiUrlTemplate;
 
-        #region Constants
-        const string API_LATLONG_FROM_ADDRESS = "maps.googleapis.com/maps/api/geocode/xml?address={0}&sensor=false";
-        #endregion
-
-
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="GoogleLocationService"/> class.
         /// </summary>
         /// <param name="useHttps">Indicates whether to call the Google API over HTTPS or not.</param>
-        public GoogleLocationService(bool useHttps, string apiKey)
+        public GoogleLocationService(string googleApiUrlTemplate)
         {
-            _apiKey = apiKey;
-            UseHttps = useHttps;
+            _googleApiUrlTemplate = googleApiUrlTemplate;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GoogleLocationService"/> class. Default calling the API over regular
-        /// HTTP (not HTTPS).
-        /// </summary>
-        public GoogleLocationService(string apiKey)
-            : this(false, apiKey)
-        { }
-        #endregion
 
-
-        #region Properties
         /// <summary>
         /// Gets a value indicating whether to use the Google API over HTTPS.
         /// </summary>
@@ -54,28 +37,6 @@ namespace GRG.LeisureCards.Service
         /// </value>
         public bool UseHttps { get; private set; }
 
-
-        private string UrlProtocolPrefix
-        {
-            get
-            {
-                return UseHttps ? "https://" : "http://";
-            }
-        }
-
-        protected string APIUrlLatLongFromAddress
-        {
-            get
-            {
-                var url = (string.IsNullOrWhiteSpace(_apiKey))
-                    ? UrlProtocolPrefix + API_LATLONG_FROM_ADDRESS
-                    : UrlProtocolPrefix + API_LATLONG_FROM_ADDRESS + "&key=" + _apiKey;
-
-                return url;
-
-            }
-        }
-        #endregion
 
 
         /// <summary>
@@ -86,7 +47,7 @@ namespace GRG.LeisureCards.Service
         /// <exception cref="System.Net.WebException"></exception>
         public MapPoint GetLatLongFromAddress(string commaSeparatedAddress)
         {
-            var url = string.Format(APIUrlLatLongFromAddress, Uri.EscapeDataString(commaSeparatedAddress));
+            var url = string.Format(_googleApiUrlTemplate, Uri.EscapeDataString(commaSeparatedAddress));
 
             XDocument doc = XDocument.Load(url);
 

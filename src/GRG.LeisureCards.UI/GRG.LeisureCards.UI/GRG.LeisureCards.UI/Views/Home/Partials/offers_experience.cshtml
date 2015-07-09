@@ -6,9 +6,14 @@
 
     <div class="special-offers-title"><img src="~/Content/@Session["TenantKey"]/img/ed-title.jpg" /></div>
 
+    <div class="special-offers-text">
+        <a target="_blank" href="https://www.redletterdays.co.uk/Home?source=rld&affid=212&dealid=28582"><h1>Red Letter Days</h1></a>
+        <p>Discover unique gift ideas for friends, family and loved ones and buy a gift experience they'll never forget! If you are looking for an unusual gift, Red Letter Days has adrenaline-packed adventures, heavenly pampering indulgences, romantic getaways, sporting fun activity days and mind-expanding cultural events. Our unique gift experiences are perfect for birthday presents, anniversary gifts, Christmas gifts and Valentine's Day gifts - or just to say a well deserved "thank you".</p>
+    </div>
+
     <div class="special-offers-banner">
         <h2>Amazing Special Offers</h2>
-        <p>As a leisure card holder you will receive an EXTRA 20% off all sale prices!</p>
+        @Html.Raw(ViewBag.topBannerCopy)
         <div class="special-offers-banner-star"><img src="~/Content/@Session["TenantKey"]/img/star.png"></div>
     </div>
 
@@ -19,7 +24,9 @@
                 <a href="{{ s.Url }}?source=rld&affid=212&dealid=28582" target="_blank">
                     <img ng-src="{{ s.ThumbnailUrl }}" />
                     <div class="special-offer-copy">
+                        @Html.Raw(ViewBag.star)
                         <p>{{ s.Title }}</p>
+                        <p style="text-decoration:underline;">Find out more</p>
                         <!--<p>{{ s.InspirationalDescription }}</p>-->
                         <div class="tidy"></div>
                     </div>
@@ -30,14 +37,10 @@
         <div class="clear"></div>
 
     </div>
-    <div class="special-offers-text">
-        <a target="_blank" href="https://www.redletterdays.co.uk/Home?source=rld&affid=212&dealid=28582"><h1>Red Letter Days</h1></a>
-        <p>Discover unique gift ideas for friends, family and loved ones and buy a gift experience they'll never forget! If you are looking for an unusual gift, Red Letter Days has adrenaline-packed adventures, heavenly pampering indulgences, romantic getaways, sporting fun activity days and mind-expanding cultural events. Our unique gift experiences are perfect for birthday presents, anniversary gifts, Christmas gifts and Valentine's Day gifts - or just to say a well deserved "thank you".</p>
-    </div>
 
     <div class="special-offers-banner alt">
         <h2>Don't Miss Out</h2>
-        <p>20% DISCOUNT on all <a style="color: #fff;" target="_blank" href="https://www.redletterdays.co.uk/Home?source=rld&affid=212&dealid=28582">Red Letter Days</a> offers with your Leisure Card!</p>
+        @Html.Raw(ViewBag.bottomBannerCopy)
     </div>
 
     <ul class="experience-offers">

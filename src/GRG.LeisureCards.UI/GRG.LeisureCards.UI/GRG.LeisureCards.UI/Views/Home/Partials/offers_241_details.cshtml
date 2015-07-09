@@ -15,6 +15,9 @@
             </p>
         </div>
         <div class="claim-strip"><a ng-click="claim('/offers/241/claim/')" href="#" target="_blank"><img src="~/Content/@Session["TenantKey"]/img/claim-code-button.png" /></a></div>
+        <div class="offers241-l-inner">
+            @Html.Raw(ViewBag.note)
+        </div>
     </div>
     <div class="sixcol last offers241-r">
         <img src="~/Content/@Session["TenantKey"]/241Category/{{ offer.CategoryKey }}_large.png" />

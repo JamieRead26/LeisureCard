@@ -6,7 +6,7 @@
     <div class=" claim-offer" ng-controller="offersDiscountCottageController">        
         <img src="~/Content/@Session["TenantKey"]/img/cottages-for-you.jpg" />
         <div class="offer-copy">
-            <h1>Cottages4you</h1>
+            <h1>@Html.Raw(ViewBag.tenpercentoff)Cottages4you</h1>
             <p>
                 We have joined forces with cottages4you to bring you 10% off at over 13,000 self-catering holiday cottages, villas and gites in the UK and overseas. Whether you're looking for a cosy romantic retreat, a fun-filled family getaway, or somewhere large, lavish and filled with luxury, you'll find a great selection of properties to suit everyone.
             </p>

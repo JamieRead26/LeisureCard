@@ -4,6 +4,7 @@
 <div class="twelvecol">
     <div class="title-img">
         <img src="~/Content/@Session["TenantKey"]/img/redeem-your-discount.png" />
+        <p>Valid until: {{ validUntil }}</p>
     </div>
 </div>
 <div class="clear"></div>
@@ -15,19 +16,26 @@
             <p>
                 Your 2 for 1 days out voucher<br/><br/>
                 NAME...............................<br/><br/>
-                Valid until: {{ validUntil }}
             </p>
             <h1>{{ offer.OutletName }}</h1>
             <p ng-show="offer.BookingInstructions">{{ offer.BookingInstructions }}</p>
             <p ng-show="offer.ClaimCode">Your claim code is: {{ offer.ClaimCode }}</p>
+            <h2>How to redeem</h2>
+            <ol>
+                <li>Check your venue's location</li>
+                <li>Claim your chosen reward</li>
+                <li>Print your voucher</li>
+                <li>Book your reward, either online or give your chosen venue a call</li>
+                <li>Hand in your voucher on arrival and have fun!</li>
+            </ol>
         </div>
         <p class="ng-binding button-claim" >
             <img src="~/Content/@Session["TenantKey"]/img/redeem-here.jpg" onclick="print()" />
-            <br/><br/>
         </p>
-
+        <div class="claim-offer-copy">
+            @Html.Raw(ViewBag.note)
+        </div>
     </div>
-    
     <div class="claim-terms-241">
         <h2>Days Out Terms and Conditions</h2>
         <p>1. This voucher entitles the bearer to 2 for 1 entry into participating attractions across the UK. This offer is open to all UK residents. The offer is not available to employees of the Promotion Supplier or agencies appointed by the Promotion Supplier and their immediate family members</p>

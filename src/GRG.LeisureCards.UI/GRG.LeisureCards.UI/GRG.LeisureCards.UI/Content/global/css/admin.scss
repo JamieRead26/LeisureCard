@@ -88,9 +88,16 @@ body.admin .content  {
 }
 
 @media print {
-    header, footer, .print-hide, div.auth, .breadcrumb, .slideshow {display: none !important;}
+    header, footer, .print-hide, div.auth, .breadcrumb, 
+    .slideshow, .button-claim, .title-img img {display: none !important;}
+    
+    .offer-copy p, .offer-copy h1, .offer-copy h2, .offer-copy ol li {font-size: 14px !important; margin-bottom: 10px !important;}
+    .claim-terms-241 p, .claim-terms-241 h2 {font-size: 12px !important; color: #000 !important; padding: 0 10px !important;}
+    .title-img {padding-bottom: 20px !important;}
     .scroll-h {overflow-y: auto !important; max-height: none !important; }
+    .offer-copy {padding: 20px 40px !important;}
     div {width:100% !important;}
+    
 }
 
 .urn-update-fields {

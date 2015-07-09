@@ -24,7 +24,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
     return {
         request: function (config) {
             delete $rootScope.errorKey;
-
+           
             config.headers = config.headers || {};
             if ($cookies.SessionToken) {
                 config.headers['SessionToken'] = $cookies.SessionToken;
@@ -34,7 +34,7 @@ app.factory('authInterceptor', function ($rootScope, $q, $cookies, $location, $t
                 }
 
             }
-            else if (config.url != 'partial/terms' || config.url != 'partial/contactus') {
+            else if (config.url != 'partial/terms' && config.url != 'partial/contactus') {
                 $location.path('/');
             }
             return config;

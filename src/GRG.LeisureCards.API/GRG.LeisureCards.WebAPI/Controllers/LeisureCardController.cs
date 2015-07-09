@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using GRG.LeisureCards.DomainModel;
@@ -51,6 +52,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                         IsAdmin = result.LeisureCard == AdminLeisureCard.Instance
                     };
                 }
+
+                HttpContext.Current.Response.AppendHeader("SessionToken", result.SessionInfo.SessionToken);
 
                 var returnVal = Mapper.Map<Model.LeisureCardRegistrationResponse>(result);
 

@@ -107,7 +107,6 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     }
 
     $scope.claim = function (url) {
-        debugger;
         Offer241Claim.get({ id: $scope.id }, function (data) {
             if(!data.$resolved){
                 return alert('Something went wrong when claiming this offer.');
@@ -118,7 +117,7 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
 
 });
 
-offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, Offer241GetById, slideshow) {
+offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, Offer241GetById, Offer241Claim, slideshow) {
 
     var now = new Date();
     now.setDate(now.getDate() + 14);
@@ -149,6 +148,16 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
 
     $scope.print = function () {
         Window.print();
+    };
+
+    $scope.claim = function (url) {
+        Offer241Claim.get({ id: $scope.id }, function (data) {
+            if (!data.$resolved) {
+                return alert('Something went wrong when claiming this offer.');
+            }
+            debugger;
+            $location.path(url + $scope.id);
+        });
     };
 });
 

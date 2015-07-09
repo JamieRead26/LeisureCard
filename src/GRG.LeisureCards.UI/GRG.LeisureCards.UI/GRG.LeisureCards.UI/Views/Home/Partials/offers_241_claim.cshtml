@@ -29,9 +29,9 @@
                 <li>Hand in your voucher on arrival and have fun!</li>
             </ol>
         </div>
-        <p class="ng-binding button-claim" >
-            <img src="~/Content/@Session["TenantKey"]/img/redeem-here.jpg" onclick="print()" />
-        </p>
+        <p class="ng-binding button-claim">
+            <a ng-click="claim('/offers/241/claim/')" href="#" target="_blank"><img src="~/Content/@Session["TenantKey"]/img/redeem-here.jpg" /></a>
+</p>
         <div class="claim-offer-copy">
             @Html.Raw(ViewBag.note)
         </div>

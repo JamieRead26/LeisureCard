@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Web.Http;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
@@ -40,7 +41,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                 {
                     LeisureCardCode = card.CardCode,
                     OfferCategory = _offerCategoryRepository.ShortBreaks,
-                    OfferTitle = title
+                    OfferTitle = title,
+                    SelectedDateTime = DateTime.Now
                 });
 
                 return Ok();

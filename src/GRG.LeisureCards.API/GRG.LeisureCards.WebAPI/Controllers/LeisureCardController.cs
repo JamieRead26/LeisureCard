@@ -51,10 +51,10 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                         SessionToken = _userSessionService.GetToken(result.LeisureCard),
                         IsAdmin = result.LeisureCard == AdminLeisureCard.Instance
                     };
+
+                    HttpContext.Current.Response.AppendHeader("SessionToken", result.SessionInfo.SessionToken);
                 }
-
-                HttpContext.Current.Response.AppendHeader("SessionToken", result.SessionInfo.SessionToken);
-
+                
                 var returnVal = Mapper.Map<Model.LeisureCardRegistrationResponse>(result);
 
                 return returnVal;

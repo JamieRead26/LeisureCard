@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace GRG.LeisureCards.Data
 {
@@ -12,18 +13,27 @@ namespace GRG.LeisureCards.Data
 
             lock (Lock)
             {
-                if (Done) return;
+                try
+                {
+                    if (Done) return;
 
-                var database = new Bootstrap4NHibernate.Database(
-                    Database.GetPersistenceConfigurer(connectionDetails), 
-                    classMapAssembly,
-                    configuration => { },
-                    true);
+                    var database = new Bootstrap4NHibernate.Database(
+                        Database.GetPersistenceConfigurer(connectionDetails),
+                        classMapAssembly,
+                        configuration => { },
+                        true);
 
-                if (runTestFixtures)
-                    database.Populate(Assembly.GetExecutingAssembly());
+                    if (runTestFixtures)
+                        database.Populate(Assembly.GetExecutingAssembly());
 
-                Done = true;
+                    Done = true;
+                }
+                catch (Exception ex)
+                {
+                    
+                    throw ex;
+                }
+               
             }
         }
     }

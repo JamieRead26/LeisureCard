@@ -65,7 +65,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                     LeisureCardCode = session.CardCode,
                     OfferCategory = _offerCategoryRepository.TwoForOne,
                     OfferId = id.ToString(),
-                    OfferTitle = offer.Description
+                    OfferTitle = offer.Description,
+                    SelectedDateTime = DateTime.Now
                 });
             });
         }

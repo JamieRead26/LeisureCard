@@ -43,7 +43,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             }
         }
 
-        [SetUp]
+      /*  [SetUp]
         public void FixtureSetUp()
         {
             if (Done)
@@ -59,6 +59,6 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 Done = true;
             }
             
-        }
+        }*/
     }
 }

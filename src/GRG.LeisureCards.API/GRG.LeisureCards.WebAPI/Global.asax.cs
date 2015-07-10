@@ -2,8 +2,6 @@
 using System.Configuration;
 using System.Reflection;
 using System.Web.Http;
-using GRG.LeisureCards.Data;
-using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
 using System.Web;
 using System.Web.Mvc;
 using log4net;
@@ -21,10 +19,7 @@ namespace GRG.LeisureCards.WebAPI
             Log.Info("Leisure Cards API Web App Started");
 
             AreaRegistration.RegisterAllAreas();
-//#if DEBUG
-            if (bool.Parse(ConfigurationSettings.AppSettings["ResetDB"]))
-                DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, true);
-//#endif
+
             Mappings.Mapping.Register();
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }

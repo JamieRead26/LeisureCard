@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace GRG.LeisureCards.Persistence
 {
@@ -19,5 +21,7 @@ namespace GRG.LeisureCards.Persistence
         void Delete(TEntity entity);
 
         TEntity Get(TKey key);
+
+        ICollection<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
     }
 }

@@ -71,10 +71,7 @@
     <Compile Include="MembershipTier.cs" />
     <Compile Include="OfferCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedLetterFact.cs" />
-    <Compile Include="RedLetterKeyword.cs" />
     <Compile Include="RedLetterProduct.cs" />
-    <Compile Include="RedLetterVenue.cs" />
     <Compile Include="SelectedOffer.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SessionInfo.cs" />

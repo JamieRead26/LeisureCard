@@ -107,11 +107,12 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     }
 
     $scope.claim = function (url) {
+        debugger;
         Offer241Claim.get({ id: $scope.id }, function (data) {
             if(!data.$resolved){
                 return alert('Something went wrong when claiming this offer.');
             }
-            $location.path(url + $scope.id);
+            $window.open('/#' + url + $scope.id);
         });
     };
 

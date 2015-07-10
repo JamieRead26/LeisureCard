@@ -79,16 +79,7 @@
     <Compile Include="ClassMaps\LocationClassMap.cs" />
     <Compile Include="ClassMaps\MembershipTierClassMap.cs" />
     <Compile Include="ClassMaps\OfferCategoryClassMap.cs" />
-    <Compile Include="ClassMaps\RedLetterFactClassMap.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ClassMaps\RedLetterKeywordClassMap.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ClassMaps\RedLetterProductClassMap.cs" />
-    <Compile Include="ClassMaps\RedLetterVenueClassMap.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ClassMaps\SelectedOfferClassMap.cs" />
     <Compile Include="ClassMaps\SessionClassMap.cs" />
     <Compile Include="ClassMaps\TenantClassMap.cs" />

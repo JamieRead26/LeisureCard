@@ -97,13 +97,7 @@
     <Compile Include="MembershipTierDataFixture.cs" />
     <Compile Include="OfferCategoryDataFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RedLetterFactDataFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="RedLetterProductDataFixture.cs" />
-    <Compile Include="RedLetterVenueDataFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="SelectedOfferDataFixture.cs" />
     <Compile Include="TwoForOneOfferDataFixture.cs">
       <SubType>Code</SubType>

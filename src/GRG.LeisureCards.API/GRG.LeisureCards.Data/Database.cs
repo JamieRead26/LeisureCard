@@ -65,7 +65,16 @@ namespace GRG.LeisureCards.Data
         public int PostGresPort { get; set; }
         public string PostGresUserName { get; set; }
         public string PostGresPassword { get; set; }
-
+        
         public string MsSqlConnectionString { get; set; }
+
+        public override string ToString()
+        {
+            if (DbType.IndexOf("MS")>-1)
+                return MsSqlConnectionString;
+
+            return string.Format("{0}:{1};{2};{3};{4}", PostGresHost, PostGresPort, PostGresDatabase, PostGresUserName,
+                PostGresPassword);
+        }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
@@ -50,6 +53,11 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         public virtual TEntity Get(TKey key)
         {
             return Session.Get<TEntity>(key);
+        }
+
+        public ICollection<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Session.Query<TEntity>().Where(predicate).ToArray();
         }
     }
 }

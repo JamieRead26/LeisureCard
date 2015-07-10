@@ -35,13 +35,6 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("FindByKeyword/{keyword}")]
-        public List<RedLetterProductSummary> Find(string keyword)
-        {
-            return Dispatch(()=>  _redLetterProductRepository.FindByKeyword(keyword).Select(Mapper.Map<RedLetterProductSummary>).ToList());
-        }
-        
-        [HttpGet]
         [Route("Get/{id}")]
         public RedLetterProductSummary Get(int id)
         {

@@ -72,7 +72,8 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                 //    LeisureCardCode = session.CardCode,
                 //    OfferCategory = _offerCategoryRepository.TwoForOne,
                 //    OfferId = id.ToString(),
-                //    OfferTitle = offer.Description
+                //    OfferTitle = offer.Description,
+                //    SelectedDateTime = DateTime.Now
                 //});
 
                 var pdfWriter = new TwoForOneVoucherPDFWriter(
@@ -96,8 +97,6 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                     Content = new StreamContent(stream)
                 };
                
-                    OfferTitle = offer.Description,
-                    SelectedDateTime = DateTime.Now
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                 return result;
             });

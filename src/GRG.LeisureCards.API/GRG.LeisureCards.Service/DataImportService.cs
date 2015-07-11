@@ -263,7 +263,8 @@ namespace GRG.LeisureCards.Service
                                 Code = newUrn.Code,
                                 Reference = reference,
                                 TenantKey = journalEntry.Tenant.TenantKey,
-                                RenewalPeriodMonths = cardDurationMonths
+                                RenewalPeriodMonths = cardDurationMonths,
+                                UploadedDate = DateTime.Now
                             });
 
                         affected++;

@@ -34,12 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bootstrap4NHibernate">
-      <HintPath>..\packages\Bootstrap4NHibernate.1.0.3\lib\net45\Bootstrap4NHibernate.dll</HintPath>
+    <Reference Include="Bootstrap4NHibernate, Version=1.0.4.27930, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bootstrap4NHibernate.1.0.4\lib\net45\Bootstrap4NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Bootstrap4NHibernate.Data">
-      <HintPath>..\packages\Bootstrap4NHibernate.1.0.3\lib\net45\Bootstrap4NHibernate.Data.dll</HintPath>
+    <Reference Include="Bootstrap4NHibernate.Data, Version=1.0.4.27930, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bootstrap4NHibernate.1.0.4\lib\net45\Bootstrap4NHibernate.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentNHibernate">

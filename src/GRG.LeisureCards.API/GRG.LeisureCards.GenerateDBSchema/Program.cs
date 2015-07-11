@@ -16,8 +16,8 @@ namespace GRG.LeisureCards.GenerateDBSchema
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("WARNING: THIS WILL DELETE ALL DATA AND RESET TARGET DATABASE SCHEMA");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("Proceed with reset? (Y/n): ");
-            if (Console.ReadLine()=="Y")
+            if (args.Length==0) Console.Write("Proceed with reset? (Y/n): ");
+            if (args[0]=="NOCONF" || Console.ReadLine()=="Y")
             {
                 try
                 {
@@ -27,17 +27,23 @@ namespace GRG.LeisureCards.GenerateDBSchema
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("");
-                    Console.WriteLine("ERROR: " + ex.Message);
-                    Console.WriteLine("-----------");
-                    Console.WriteLine(ex.StackTrace);
+                    do
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("ERROR: " + ex.Message);
+                        Console.WriteLine("-----------");
+                        Console.WriteLine(ex.StackTrace);
+                    } while ((ex=ex.InnerException)!=null);
                 }
             }
 
+            if (args.Length == 0)
+            {
 #if DEBUG
-            Console.WriteLine("Press ENTER to exit");
-            Console.ReadLine();
+                Console.WriteLine("Press ENTER to exit");
+                Console.ReadLine();
 #endif
+            }
         }
     }
 }

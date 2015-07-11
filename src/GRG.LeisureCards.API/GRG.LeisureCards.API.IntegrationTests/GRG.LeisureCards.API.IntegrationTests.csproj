@@ -32,6 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bootstrap4NHibernate, Version=1.0.4.27930, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bootstrap4NHibernate.1.0.4\lib\net45\Bootstrap4NHibernate.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Bootstrap4NHibernate.Data, Version=1.0.4.27930, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bootstrap4NHibernate.1.0.4\lib\net45\Bootstrap4NHibernate.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.2.0.1.0\lib\net40\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -40,6 +48,10 @@
     </Reference>
     <Reference Include="Mono.Security">
       <HintPath>..\packages\Npgsql.2.2.5\lib\net45\Mono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="MPM.PDAG, Version=2.0.0.25344, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MPM.PDAG.2.0.0\lib\net45\MPM.PDAG.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>

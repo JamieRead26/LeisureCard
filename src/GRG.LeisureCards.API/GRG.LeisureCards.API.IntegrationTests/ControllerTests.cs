@@ -1,7 +1,8 @@
 ﻿using System.Reflection;
-using GRG.LeisureCards.WebAPI.ClientContract;
 using GRG.LeisureCards.Data;
+using GRG.LeisureCards.Data.Test;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
+using GRG.LeisureCards.WebAPI.ClientContract;
 using GRG.LeisureCards.WebAPI.Client;
 using NUnit.Framework;
 
@@ -43,7 +44,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             }
         }
 
-      /*  [SetUp]
+        [SetUp]
         public void FixtureSetUp()
         {
             if (Done)
@@ -54,11 +55,13 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 if (Done)
                     return;
 
-                DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails);
+                DataBootstrap.PrepDb(Assembly.GetAssembly(
+                    typeof(LeisureCardClassMap)), 
+                    Config.DbConnectionDetails, 
+                    Assembly.GetAssembly(typeof(LeisureCardDataFixture)));
 
                 Done = true;
             }
-            
-        }*/
+        }
     }
 }

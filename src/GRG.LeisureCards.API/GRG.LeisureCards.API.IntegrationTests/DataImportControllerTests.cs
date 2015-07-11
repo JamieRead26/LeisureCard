@@ -10,7 +10,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
     public class DataImportControllerTests : ControllerTests
     {
         [Test]
-        [Ignore("Too long as pull large file")]
+        [Ignore("FTP Required")]
         public void RetrieveRedLetterData()
         {
             TestDataImportOp(service => service.RetrieveRedLetterData(), service => service.GetRedLetterImportJournal());
@@ -18,6 +18,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         }
 
         [Test]
+        [Ignore("FTP Required")]
         public void RetrieveDeactivateUrns()
         {
             TestDataImportOp(service => service.RetrieveDeactivateUrns("GRG"), service => service.GetDeactivateUrnImportJournal("GRG"));
@@ -25,6 +26,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         }
 
         [Test]
+        [Ignore("FTP Required")]
         public void RetrieveNewUrns()
         {
             TestDataImportOp(service => service.RetrieveNewUrnsData("GRG"), service => service.GetNewUrnImportJournal("GRG"));

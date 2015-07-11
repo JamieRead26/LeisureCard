@@ -4,13 +4,13 @@ namespace GRG.LeisureCards.Data
 {
     public static class DataBootstrap
     {
-        public static void PrepDb(Assembly classMapAssembly, DbConnectionDetails connectionDetails = null, Assembly dataFixtureAssembly = null)
+        public static void PrepDb(Assembly classMapAssembly, DbConnectionDetails connectionDetails = null, Assembly dataFixtureAssembly = null, bool resetSchema = true)
         {
             var database = new Bootstrap4NHibernate.Database(
                 Database.GetPersistenceConfigurer(connectionDetails),
                 classMapAssembly,
                 configuration => { },
-                true);
+                resetSchema);
 
             if (dataFixtureAssembly!=null)
                 database.Populate(dataFixtureAssembly);

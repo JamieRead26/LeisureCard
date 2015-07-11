@@ -22,7 +22,7 @@ namespace GRG.LeisureCards.GenerateDBSchema
                 try
                 {
                     Console.Write("Resetting target db...");
-                    DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails);
+                    DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, Assembly.GetAssembly(typeof(TenantDataFixture)));
                     Console.WriteLine("done.");
                 }
                 catch (Exception ex)

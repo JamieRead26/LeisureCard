@@ -23,6 +23,8 @@ build/
 **/packages/
 
 **/UploadFiles/**/*.csv
+
+**.*Myles.txt
  
 # MSTest test Results
 [Tt]est[Rr]esult*/

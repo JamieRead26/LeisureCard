@@ -9,5 +9,6 @@ namespace GRG.LeisureCards.Service
         bool HasExpired { get; }
         bool IsAdmin { get; }
         DateTime ExpiryUtc { get;  }
+        string TenantKey { get; }
     }
 }

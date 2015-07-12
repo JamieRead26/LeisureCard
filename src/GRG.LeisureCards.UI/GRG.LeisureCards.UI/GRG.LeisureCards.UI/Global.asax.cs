@@ -59,6 +59,7 @@ namespace GRG.LeisureCards.UI
             var tenantKey = TenantCache.Instance.GetTenant(incomingUrl).TenantKey;
 
             Session["TenantKey"] = tenantKey;
+            Session["ApiBaseUrl"] = ConfigurationManager.AppSettings["ApiUrl"];
 
             BundleConfig.RegisterBundles(BundleTable.Bundles, tenantKey);
         }

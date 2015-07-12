@@ -290,6 +290,10 @@
       <Project>{1373ba44-72ce-45fc-a1d0-6de5346089c8}</Project>
       <Name>GRG.LeisureCards.DomainModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GRG.LeisureCards.PDFDocuments\GRG.LeisureCards.PDFDocuments.csproj">
+      <Project>{26f44924-97d4-4408-aaba-4db019080829}</Project>
+      <Name>GRG.LeisureCards.PDFDocuments</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GRG.LeisureCards.PDF\GRG.LeisureCards.PDF.csproj">
       <Project>{5f8374f3-93db-4f92-a804-960ff68bf315}</Project>
       <Name>GRG.LeisureCards.PDF</Name>

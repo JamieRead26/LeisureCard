@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
@@ -26,14 +27,20 @@ namespace GRG.LeisureCards.WebAPI.Filters
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
             IEnumerable<string> vals;
+            var sessionToken = string.Empty;
 
-            if (!context.Request.Headers.TryGetValues("SessionToken", out vals))
+            if (context.Request.Headers.TryGetValues("SessionToken", out vals))
+                sessionToken = vals.First();
+            else if (context.Request.GetQueryNameValuePairs().Any(kvp => kvp.Key == "SessionToken"))
+                sessionToken = context.Request.GetQueryNameValuePairs().First(kvp => kvp.Key == "SessionToken").Value;
+       
+            if (sessionToken==string.Empty)
             {
-                context.ErrorResult = new AuthenticationFailureResult("No SessionToken header", context.Request);
+                context.ErrorResult = new AuthenticationFailureResult("No SessionToken in request", context.Request);
                 return;
             }
 
-            var session = _userSessionService.GetSession(vals.First());
+            var session = _userSessionService.GetSession(sessionToken);
 
             if (session == null)
             {
@@ -53,7 +60,7 @@ namespace GRG.LeisureCards.WebAPI.Filters
                 return;
             }
 
-            context.Principal = new LeisureCardPrincipal(session.CardCode, new SessionInfo { SessionToken = vals.First(), CardExpiryDate = session.ExpiryUtc, IsAdmin = session.IsAdmin });
+            context.Principal = new LeisureCardPrincipal(session.CardCode, new SessionInfo { SessionToken = sessionToken, CardExpiryDate = session.ExpiryUtc, IsAdmin = session.IsAdmin });
         }
 
         public async Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)

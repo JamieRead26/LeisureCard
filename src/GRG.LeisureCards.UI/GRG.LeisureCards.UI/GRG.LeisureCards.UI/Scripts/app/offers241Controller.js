@@ -118,8 +118,9 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
 
 });
 
-offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, Offer241GetById, Offer241Claim, slideshow) {
+offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, $cookies, Offer241GetById, Offer241Claim, slideshow) {
 
+    debugger;
     var now = new Date();
     now.setDate(now.getDate() + 14);
 
@@ -134,12 +135,14 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
     $scope.global.bodyclass = 'offer-241-claim';
     $scope.id = $routeParams.id;
     $scope.validUntil = strDateTime;
+    $scope.SessionToken = $cookies.SessionToken;
 
     Offer241GetById.get({ id: $scope.id }, function (data) {
 
         var url = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank" class="button">Claim Reward</a>') : '';
        
         $scope.offer = {
+            Id : data.Id,
             OutletName: data.OutletName,
             BookingInstructions: data.BookingInstructions,
             ClaimCode: data.ClaimCode,

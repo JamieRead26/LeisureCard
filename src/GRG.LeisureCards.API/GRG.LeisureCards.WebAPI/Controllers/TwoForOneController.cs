@@ -6,10 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web.Mvc;
 using AutoMapper;
-using GRG.LeisureCards.PDF.DocumentTemplates;
 using GRG.LeisureCards.PDF.PDFWriters;
+using GRG.LeisureCards.PDFDocuments;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
@@ -20,13 +19,14 @@ using SelectedOffer = GRG.LeisureCards.DomainModel.SelectedOffer;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
-   // [SessionAuthFilter]
+    [SessionAuthFilter]
     public class TwoForOneController : LcApiController
     {
         private readonly ITwoForOneRepository _twoForOneRepository;
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly IOfferCategoryRepository _offerCategoryRepository;
         private readonly IUserSessionService _userSessionService;
+        private readonly IHtmlTemplateFactory _htmlTemplateFactory;
         private readonly IUkLocationService _locationService;
 
         public TwoForOneController(
@@ -34,12 +34,14 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             ISelectedOfferRepository selectedOfferRepository,
             IOfferCategoryRepository offerCategoryRepository,
             IUkLocationService locationService,
-            IUserSessionService userSessionService)
+            IUserSessionService userSessionService,
+            IHtmlTemplateFactory htmlTemplateFactory)
         {
             _twoForOneRepository = twoForOneRepository;
             _selectedOfferRepository = selectedOfferRepository;
             _offerCategoryRepository = offerCategoryRepository;
             _userSessionService = userSessionService;
+            _htmlTemplateFactory = htmlTemplateFactory;
             _locationService = locationService;
         }
 
@@ -63,28 +65,27 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         {
             return Dispatch(() =>
             {
-                //var sessionInfo = ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
-               // var session = _userSessionService.GetSession(sessionInfo.SessionToken);
+                var sessionInfo = ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
+                var session = _userSessionService.GetSession(sessionInfo.SessionToken);
                 var offer = _twoForOneRepository.Get(id);
 
-                //_selectedOfferRepository.SaveOrUpdate(new SelectedOffer
-                //{
-                //    LeisureCardCode = session.CardCode,
-                //    OfferCategory = _offerCategoryRepository.TwoForOne,
-                //    OfferId = id.ToString(),
-                //    OfferTitle = offer.Description,
-                //    SelectedDateTime = DateTime.Now
-                //});
+                _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
+                {
+                    LeisureCardCode = session.CardCode,
+                    OfferCategory = _offerCategoryRepository.TwoForOne,
+                    OfferId = id.ToString(),
+                    OfferTitle = offer.Description,
+                    SelectedDateTime = DateTime.Now
+                });
 
                 var pdfWriter = new TwoForOneVoucherPDFWriter(
                     ConfigurationManager.AppSettings["UiWebRootUrl"],
-                    "GRG",    //TODO: _userSessionService.GetSession(sessionInfo.SessionToken).
+                    session.TenantKey,
                     (DateTime.Now+TimeSpan.FromDays(14)).ToString("dd MMMM yyyy"),
                     offer.BookingInstructions,
                     offer.ClaimCode,
                     offer.OutletName,
-                    new HtmlTemplates().VoucherContent
-                    );
+                    _htmlTemplateFactory.GetHtmlTemplates(session.TenantKey).VoucherContent);
 
                 var stream = new MemoryStream();
 

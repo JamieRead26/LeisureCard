@@ -55,7 +55,9 @@
       <Name>GRG.LeisureCards.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="NPower\TwoForOneVoucher.html" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Global\TwoForOneVoucher.html" />
   </ItemGroup>

@@ -2,9 +2,116 @@
 
 <style>
 
-    body {
-    background-color: #550000;
+.claim-terms-241 {
+    padding: 20px 0 0 0;
 }
+
+.claim-terms-241 h2 {
+    color:#555555;
+    font-size:15px;
+    font-weight:bold;
+    margin:0 0 15px 0;
+}
+
+.claim-terms-241 p {
+    color:#555555;
+    font-size:15px;
+    margin:0 0 5px 0;
+}
+
+body {
+    background: #F6E3C5;
+    margin: 0;
+}
+
+/*claim offer*/
+.claim-strip {
+    padding-top: 15px;
+}
+.claim-wrap {
+    margin-bottom: 50px;
+}
+.claim-offer {
+   text-align: center;
+   background: #fbf1e2;
+   border-radius: 15px;
+   margin-bottom: 65px;
+   max-width: 600px;
+   margin: 0 auto;
+   font-family:  Tahoma, Verdana, Geneva, sans-serif;
+}
+.claim-offer .offer-copy {
+    text-align: left;   
+    margin: 0 auto;
+    padding: 40px 80px 0px 80px;
+}
+
+ .claim-offer .offer-copy h2 {
+    color: #6e368c;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom:10px;
+}
+
+ .claim-offer .offer-copy ol {
+    padding:0 0 20px 20px;
+}
+
+ .claim-offer .offer-copy li {
+    color: #4e4e50;
+    font-size: 16px;
+}
+
+.claim-offer  .offer-copy h1 {
+    color: #6e368c;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.claim-offer  .offer-copy p {
+    color: #4e4e50;
+    font-size: 16px;
+}
+
+.claim-offer .claim-offer-copy {
+    padding: 0px 80px 20px 80px;
+    text-align: left;
+}
+
+.claim-offer  .claim-offer-copy p {
+    color: #4e4e50;
+    font-size: 16px;
+}
+
+.redeem-img {
+    padding-bottom: 40px;
+}
+
+.button-claim .button {
+    background: url('../img/redeem-here.jpg') no-repeat;
+    background-size: 100%;
+    width: 100%;
+    height: 193px;
+    font-size: 0px;
+    border: 0;
+    margin-bottom: 30px;
+}
+
+.twelvecol.center { margin-bottom: 65px; text-align: center;}
+
+.terms-copy p {
+    color: #4e4e50;
+    font-size: 16px;
+       font-family:  Tahoma, Verdana, Geneva, sans-serif;
+}
+.terms-copy ul {
+    color:#ffffff;
+    margin-bottom:10px;
+}
+body.terms footer {
+    margin:40px 0 0 0;
+}
+
 
 </style>
 
@@ -16,59 +123,74 @@
 
 <body>
 
-    <div class="twelvecol">
-        <div class="title-img">
-            <img src="#[UiRootUrl]/Content/#[TenantKey]/img/redeem-your-discount.png" />
-        </div>
-    </div>
+<img src="http://localhost:57214/Content/NPower/img/241-voucher-header.jpg" width="100%"/>
 
-    <div class="clear"></div>
+      
+        <div class="container">
+            
+            <div class="row">
 
-    <div class="claim-wrap">
-        <div class="claim-offer" ng-controller="offers241ClaimController">
+                <div class="claim-wrap">
+                    <div class="claim-offer" ng-controller="offers241ClaimController">
 
-            <div class="offer-copy">
-                <p>
-                    Your 2 for 1 days out voucher<br /><br />
-                    NAME...............................<br /><br />
-                    Valid until: #[ValidUntil]
-                </p>
-                <h1>#[OutletName]</h1>
-                <p ng-show="offer.BookingInstructions">#[BookingInstructions]</p>
-                <p ng-show="offer.ClaimCode">Your claim code is: #[ClaimCode]</p>
+                        <div class="offer-copy">
+                            <p>
+                                Your 2 for 1 days out voucher<br/><br/>
+                                NAME...............................<br/><br/>
+                                Valid until: #[ValidUntil]
+                            </p>
+                            <h1>#[OutletName]</h1>
+                            <p ng-show="offer.BookingInstructions">#[BookingInstructions]</p>
+                            <p ng-show="offer.ClaimCode">Your claim code is: #[ClaimCode]</p>
+                        </div>
+                        <!--<p class="ng-binding button-claim">
+                            <img src="#[UiRootUrl]/Content/#[TenantKey]/img/redeem-here.jpg" onclick="print()"/>
+                            <br/><br/>
+                        </p>-->
+
+                    </div>
+
+                    <div class="claim-terms-241">
+
+                        <table width="100%">
+                            <tr>
+                                <td width="15%"></td>
+                                <td width="70%">
+
+                                    <h2>Days Out Terms and Conditions</h2>
+                                    <p>1. This voucher entitles the bearer to 2 for 1 entry into participating attractions across the UK. This offer is open to all UK residents. The offer is not available to employees of the Promotion Supplier or agencies appointed by the Promotion Supplier and their immediate family members</p>
+                                    <p>2. Offer is subject to availability.</p>
+                                    <p>3. Each participating location will have variable opening times, admission prices and may be closed at certain times of the year. Please ensure you check directly with the attraction in advance</p>
+                                    <p>
+                                        4. The offer is only valid at participating attractions by visiting the website <a href="http://www.leisure-card.co.uk">www.leisure-card.co.uk</a>
+                                    </p>
+                                    <p>5. voucher must be presented at the ticket office of the attraction before purchasing additional ticket to allow one free entry</p>
+                                    <p>6. cannot be used in conjunction with vouchers or any other promotional discount or offer</p>
+                                    <p>7. the promotion supplier and the promoter further reserve the right to withdraw this offer without notice</p>
+                                    <p>
+                                        8. no responsibility can be accepted for lost, damaged, illegible, incomplete or mislaid vouchers and the promotion supplier accepts no liability whatsoever (excluding liability for death or personal
+                                        injury caused by its negligence or for fraudulent misrepresentation) for any loss or damage whatsoever resulting from any goods or services purchased with the voucher; or any inability to use the voucher for reasons outside of the promotion suppliers control.
+                                    </p>
+                                    <p>9. only one voucher can be used per person, not valid for group admissions</p>
+                                    <p>10. the attractions reserve the right to refuse admission. general terms and conditions of the attraction also apply</p>
+                                    <p>11. tickets purchased with this voucher must be redeemed on the same day</p>
+                                    <p>12. the voucher has no monetary value, is non transferable and cannot be redeemed in whole or part for cash</p>
+                                    <p>13. these terms and conditions shall be governed by the laws of england and wales and the courts of england shall have exclusive jurisdiction</p>
+                                    <p>14. the promotion supplier is not responsible for any offer misrepresentation (written or verbal) on warranties by anyone />group other than the Promotion Supplier</p>
+                                    <p>15. Promotion Supplier: Grass Roots Group, Pennyroyal Court, Station Road, Tring, Herts. HP23 5QY</p>
+
+                                </td>
+                                <td width="15%"></td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                </div>
             </div>
-            <p class="ng-binding button-claim">
-                <img src="#[UiRootUrl]/Content/#[TenantKey]/img/redeem-here.jpg" onclick="print()" />
-                <br /><br />
-            </p>
-
+            <div class="clear"></div>
         </div>
 
-        <div class="claim-terms-241">
-
-            <h2>Days Out Terms and Conditions</h2>
-            <p>1. This voucher entitles the bearer to 2 for 1 entry into participating attractions across the UK. This offer is open to all UK residents. The offer is not available to employees of the Promotion Supplier or agencies appointed by the Promotion Supplier and their immediate family members</p>
-            <p>2. Offer is subject to availability.</p>
-            <p>3. Each participating location will have variable opening times, admission prices and may be closed at certain times of the year. Please ensure you check directly with the attraction in advance</p>
-            <p>4. The offer is only valid at participating attractions by visiting the website <a href="http://www.leisure-card.co.uk">www.leisure-card.co.uk</a></p>
-            <p>5. voucher must be presented at the ticket office of the attraction before purchasing additional ticket to allow one free entry</p>
-            <p>6. cannot be used in conjunction with vouchers or any other promotional discount or offer</p>
-            <p>7. the promotion supplier and the promoter further reserve the right to withdraw this offer without notice</p>
-            <p>
-                8. no responsibility can be accepted for lost, damaged, illegible, incomplete or mislaid vouchers and the promotion supplier accepts no liability whatsoever (excluding liability for death or personal
-                injury caused by its negligence or for fraudulent misrepresentation) for any loss or damage whatsoever resulting from any goods or services purchased with the voucher; or any inability to use the voucher for reasons outside of the promotion suppliers control.
-            </p>
-            <p>9. only one voucher can be used per person, not valid for group admissions</p>
-            <p>10. the attractions reserve the right to refuse admission. general terms and conditions of the attraction also apply</p>
-            <p>11. tickets purchased with this voucher must be redeemed on the same day</p>
-            <p>12. the voucher has no monetary value, is non transferable and cannot be redeemed in whole or part for cash</p>
-            <p>13. these terms and conditions shall be governed by the laws of england and wales and the courts of england shall have exclusive jurisdiction</p>
-            <p>14. the promotion supplier is not responsible for any offer misrepresentation (written or verbal) on warranties by anyone />group other than the Promotion Supplier</p>
-            <p>15. Promotion Supplier: Grass Roots Group, Pennyroyal Court, Station Road, Tring, Herts. HP23 5QY</p>
-
-        </div>
-
-    </div>
-
-</body>
+    </body>
 </html>

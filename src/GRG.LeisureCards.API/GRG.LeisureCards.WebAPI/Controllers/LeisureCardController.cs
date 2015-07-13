@@ -37,18 +37,18 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("LeisureCard/Login/{code}")]
-        public Model.LeisureCardRegistrationResponse Login(string code)
+        [Route("LeisureCard/Login/{code}/{tenantKey}")]
+        public Model.LeisureCardRegistrationResponse Login(string code, string tenantKey)
         {
             return Dispatch(() =>{
-                var result = _leisureCardService.Login(code);
+                var result = _leisureCardService.Login(code, tenantKey);
 
                 if (result.Status == "Ok")
                 {
                     result.SessionInfo = new SessionInfo
                     {
                         CardExpiryDate = result.LeisureCard.ExpiryDate.Value,
-                        SessionToken = _userSessionService.GetToken(result.LeisureCard),
+                        SessionToken = _userSessionService.GetToken(result.LeisureCard, tenantKey),
                         IsAdmin = result.LeisureCard == AdminLeisureCard.Instance
                     };
 

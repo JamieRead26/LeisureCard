@@ -20,7 +20,7 @@ offers241Controller.factory('Offer241Claim', function ($resource, config) {
     return $resource(config.apiUrl + '/TwoForOne/ClaimOffer/:id');
 });
 
-offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll, slideshow, $http, config) {
+offers241Controller.controller('offers241Controller', function ($scope, Offer241GetAll, slideshow, $http, $location, $routeParams, config) {
 
     $scope.offers = {};
     $scope.global.bodyclass = 'offer-241';
@@ -51,17 +51,27 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
         value: 5000
     }];
 
-    /*Offer241GetAll.then(function (r) {
-        $scope.offers = r.data.$values;
-    });*/
+    $scope.location = $routeParams.location;
+    $scope.miles = $.grep($scope.options, function (o) { return o.value == $routeParams.miles; });
+    
+    if($scope.miles.length == 0){
+        $scope.miles = $scope.options[2];
+    }
+
+    if ($scope.location && $scope.miles) {
+        $location.hash('241search');
+        $scope.miles = $scope.miles[0];
+
+        var url = config.apiUrl + '/TwoForOne/FindByLocation/' + $scope.location + '/' + $scope.miles.value;
+        $http.get(url).then(function (r) {
+            $scope.offers = r.data.$values;
+        });
+    }
 
     $scope.submit = function () {
         if ($scope.location) {
 
-            var url = config.apiUrl + '/TwoForOne/FindByLocation/' + $scope.location + '/' + $scope.miles.value;
-            $http.get(url).then(function (r) {
-                $scope.offers = r.data.$values;
-            });
+            $location.path('/offers/241').search({ location: $scope.location, miles: $scope.miles.value });
 
         } else {
             $scope.errors = 'You must provide a location.';

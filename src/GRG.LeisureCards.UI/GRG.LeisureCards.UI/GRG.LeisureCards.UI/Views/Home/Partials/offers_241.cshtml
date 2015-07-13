@@ -2,10 +2,9 @@
     Layout = "";
 }
 <div ng-controller="offers241Controller" class="twelvecol">
-<div class="twelvecol ">
     <div class="title-img"><img src="~/Content/@Session["TenantKey"]/img/2-4-1-offers.png" />
     </div>
-    <form ng-submit="submit()" class="location-search">
+    <form ng-submit="submit()" class="location-search" id="241search">
         <div class="location-icon"></div>
         <div class="search-left">
             <h4>Location Search</h4>
@@ -18,7 +17,7 @@
             <h4>Distance</h4>
 
             <div class="styled-select">
-                <select ng-init="miles = options[2]" ng-model="miles" ng-options="option.name for option in options"></select>
+                <select ng-model="miles" ng-options="option.name for option in options"></select>
             </div>
 
                 <div class="errors" ng-show="errors != null">{{ errors }}</div>

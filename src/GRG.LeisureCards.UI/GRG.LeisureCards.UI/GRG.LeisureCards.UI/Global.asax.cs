@@ -60,6 +60,8 @@ namespace GRG.LeisureCards.UI
 
             Session["TenantKey"] = tenantKey;
             Session["ApiBaseUrl"] = ConfigurationManager.AppSettings["ApiUrl"];
+            Session["GoogleScriptName"] = string.Format("google_analytics_{0}.js",
+                ConfigurationManager.AppSettings["Release"]);
 
             BundleConfig.RegisterBundles(BundleTable.Bundles, tenantKey);
         }

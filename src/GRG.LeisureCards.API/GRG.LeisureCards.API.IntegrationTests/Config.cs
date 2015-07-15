@@ -8,6 +8,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         public const string BaseAddress = "http://localhost:1623";//  "http://LeisureCards";//    "http://52.17.232.144:1623/";//  // "http://52.17.166.61/LeisureCardAPI"; 
         public const string AdminCode = "Admin";
         public const string UserCode = "Registered1";
+        public const string TenantKey = "GRG";
 
         private static string SessionToken = null;
         private static string AdminSessionToken = null;

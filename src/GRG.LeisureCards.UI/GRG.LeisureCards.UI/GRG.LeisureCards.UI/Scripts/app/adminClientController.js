@@ -194,8 +194,8 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
 });
 
 adminClientController.controller('AdminPopupReportController', function ($scope, config, $http) {
-    /*
-    not complete
+    
+    /*not complete
 
     $scope.getHeader = function () { return ['Card Number', 'Activation Date'] };
     $scope.getReport = function () {
@@ -219,7 +219,7 @@ adminClientController.controller('AdminPopupReportController', function ($scope,
             });
         }
         return data;
-    };
-    */
+    };*/
+    
 
 });

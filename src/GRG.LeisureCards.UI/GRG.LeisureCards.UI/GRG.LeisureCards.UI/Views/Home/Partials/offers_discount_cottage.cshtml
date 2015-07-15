@@ -16,11 +16,8 @@
         <!--- <p class="button-claim"><a ng-click="claim()" ng-href="/#/offers/discount/claim/cottage" class="button" target="_blank">Claim Code</a></p> -->
         <p class="button-claim"><a ng-click="claim()" href="http://www.chooseacottage.co.uk/DAY" class="button" target="_blank">Claim Code</a></p>
         <div class="offer-contact">
-            <h4>Book Online</h4>
-            <strong><a target="_blank" href="http://www.chooseacottage.co.uk/DAY">www.chooseacottage.co.uk</a></strong>
-
-            <h4>Prefer to talk?</h4>
-            <p>Booking line open until 9pm today: Tel. <strong>0345 268 0760</strong></p>
+            @Html.Raw(ViewBag.redirectWarning)
+            @Html.Raw(ViewBag.bookTalk)
         </div>
     </div>
 </div>

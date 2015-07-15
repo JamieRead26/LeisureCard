@@ -7,8 +7,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using AutoMapper;
-using GRG.LeisureCards.PDF.PDFWriters;
-using GRG.LeisureCards.PDFDocuments;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.Authentication;
@@ -26,7 +24,6 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly IOfferCategoryRepository _offerCategoryRepository;
         private readonly IUserSessionService _userSessionService;
-        private readonly IHtmlTemplateFactory _htmlTemplateFactory;
         private readonly IUkLocationService _locationService;
 
         public TwoForOneController(
@@ -34,14 +31,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
             ISelectedOfferRepository selectedOfferRepository,
             IOfferCategoryRepository offerCategoryRepository,
             IUkLocationService locationService,
-            IUserSessionService userSessionService,
-            IHtmlTemplateFactory htmlTemplateFactory)
+            IUserSessionService userSessionService)
         {
             _twoForOneRepository = twoForOneRepository;
             _selectedOfferRepository = selectedOfferRepository;
             _offerCategoryRepository = offerCategoryRepository;
             _userSessionService = userSessionService;
-            _htmlTemplateFactory = htmlTemplateFactory;
             _locationService = locationService;
         }
 
@@ -61,9 +56,9 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [System.Web.Http.HttpGet]
         [System.Web.Http.Route("TwoForOne/ClaimOffer/{Id}")]
-        public HttpResponseMessage ClaimOffer(int id)
+        public void ClaimOffer(int id)
         {
-            return Dispatch(() =>
+            Dispatch(() =>
             {
                 var sessionInfo = ((LeisureCardPrincipal) RequestContext.Principal).SessionInfo;
                 var session = _userSessionService.GetSession(sessionInfo.SessionToken);
@@ -78,28 +73,28 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                     SelectedDateTime = DateTime.Now
                 });
 
-                var pdfWriter = new TwoForOneVoucherPDFWriter(
-                    ConfigurationManager.AppSettings["UiWebRootUrl"],
-                    session.TenantKey,
-                    (DateTime.Now+TimeSpan.FromDays(14)).ToString("dd MMMM yyyy"),
-                    offer.BookingInstructions,
-                    offer.ClaimCode,
-                    offer.OutletName,
-                    _htmlTemplateFactory.GetHtmlTemplates(session.TenantKey).VoucherContent);
+                //var pdfWriter = new TwoForOneVoucherPDFWriter(
+                //    ConfigurationManager.AppSettings["UiWebRootUrl"],
+                //    session.TenantKey,
+                //    (DateTime.Now+TimeSpan.FromDays(14)).ToString("dd MMMM yyyy"),
+                //    offer.BookingInstructions,
+                //    offer.ClaimCode,
+                //    offer.OutletName,
+                //    _htmlTemplateFactory.GetHtmlTemplates(session.TenantKey).VoucherContent);
 
-                var stream = new MemoryStream();
+                //var stream = new MemoryStream();
 
-                pdfWriter.Write(stream);
+                //pdfWriter.Write(stream);
 
-                stream.Position = 0;
+                //stream.Position = 0;
 
-                var result = new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StreamContent(stream)
-                };
+                //var result = new HttpResponseMessage(HttpStatusCode.OK)
+                //{
+                //    Content = new StreamContent(stream)
+                //};
                
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-                return result;
+                //result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                //return result;
             });
         }
 

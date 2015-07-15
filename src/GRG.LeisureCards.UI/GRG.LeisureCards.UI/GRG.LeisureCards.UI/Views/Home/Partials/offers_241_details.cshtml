@@ -5,17 +5,33 @@
 
 <p><a href="#" ng-click="go_back()">Go back to list</a></p>
 
+
 <div class="twelvecol" ng-controller="offers241DetailsController">
+
+    <p><a ng-click="goBack()" href="#" target="_blank">Go back to list</a></p>
 
     <div class="sixcol offers241-l">
         <div class="offers241-l-inner">
             <h1>{{ offer.OutletName }}</h1>
-            <p ng-repeat="(key, value) in removeNull(offer)">
+            <p ng-repeat="(key, value) in removeNull({
+               a : offer.Description,
+               b : offer.DisabledAccess,
+               c : offer.Phone,
+               d : offer.Website
+               })">
                 <!--{{ key }}: --><span ng-bind-html="value"></span>
             </p>
         </div>
         <div class="claim-strip"><a ng-click="claim('/offers/241/claim/')" href="#" target="_blank"><img src="~/Content/@Session["TenantKey"]/img/claim-code-button.png" /></a></div>
         <div class="offers241-l-inner">
+            <p ng-repeat="(key, value) in removeNull({
+               a : offer.Address1, 
+               b : offer.Address2,
+               c : offer.TownCity,
+               d : offer.County,
+               e : offer.PostCode })">
+                <!--{{ key }}: --><span ng-bind-html="value"></span>
+            </p>
             @Html.Raw(ViewBag.note)
         </div>
     </div>

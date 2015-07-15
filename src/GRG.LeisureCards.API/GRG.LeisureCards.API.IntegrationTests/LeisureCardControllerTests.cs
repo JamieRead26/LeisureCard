@@ -11,13 +11,13 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void Registration_Ok()
         {
-            RegistrationTest("Unregistered", "Ok");
+            RegistrationTest("Unregistered", "GRG", "Ok");
         }
 
         [Test]
         public void Registration_Ok_PopupNotMandatory()
         {
-            var response = RegistrationTest("PopupNotMandatory", "Ok");
+            var response = RegistrationTest("PopupNotMandatory", "GRG", "Ok");
 
             Assert.IsTrue(response.DisplayMemberLoginPopup);
             Assert.IsFalse(response.MemberLoginPopupAcceptanceMandatory);
@@ -26,7 +26,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void Registration_Ok_PopupMandatory()
         {
-            var response = RegistrationTest("PopupMandatory", "Ok");
+            var response = RegistrationTest("PopupMandatory", "GRG", "Ok");
 
             Assert.IsTrue(response.DisplayMemberLoginPopup);
             Assert.IsTrue(response.MemberLoginPopupAcceptanceMandatory);
@@ -37,37 +37,37 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void Registration_InactiveClient()
         {
-            RegistrationTest("InactiveClient", "ClientInactive");
+            RegistrationTest("InactiveClient", "GRG", "ClientInactive");
         }
 
         [Test]
         public void Registration_Ok_Admin()
         {
-            RegistrationTest("Admin", "Ok");
+            RegistrationTest("Admin", "GRG", "Ok");
         }
 
         [Test]
         public void Registration_CardAlreadyRegistered()
         {
-            RegistrationTest("Registered1", "Ok");
+            RegistrationTest("Registered1", "GRG", "Ok");
         }
 
         [Test]
         public void Registration_CardSuspended()
         {
-            RegistrationTest("Cancelled", "CardSuspended");
+            RegistrationTest("Cancelled", "GRG", "CardSuspended");
         }
 
         [Test]
         public void Registration_CardNotFound()
         {
-            RegistrationTest("xxx", "CodeNotFound");
+            RegistrationTest("xxx", "GRG", "CodeNotFound");
         }
 
-        public LeisureCardRegistrationResponse RegistrationTest(string code, string expectedStatus)
+        public LeisureCardRegistrationResponse RegistrationTest(string code, string tenantKey, string expectedStatus)
         {
             ISession session;
-            var response = LoginService.Login(code, out session);
+            var response = LoginService.Login(code, tenantKey, out session);
 
             Assert.AreEqual(expectedStatus, response.Status);
 

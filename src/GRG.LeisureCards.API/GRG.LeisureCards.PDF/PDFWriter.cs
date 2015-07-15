@@ -11,7 +11,7 @@ namespace GRG.LeisureCards.PDF
     {
         private string _htmldata;
 
-        protected void Init(DocumentTemplate<TContent> template, TContent content, int mtop = 60, int mbottom = 60, int mleft = 60, int mright = 60, string baseUrl = "")
+        protected void Init(DocumentTemplate<TContent> template, TContent content, int mtop = 0, int mbottom = 0, int mleft = 0, int mright = 0, string baseUrl = "")
         {
             _htmldata = template.BindContent(content);
         }
@@ -22,7 +22,7 @@ namespace GRG.LeisureCards.PDF
 
             using (var input = new MemoryStream(bytes))
             {
-                var document = new Document(PageSize.LETTER, 50, 50, 50, 50);
+                var document = new Document(PageSize.A4, 0, 0, 0, 0);
 
                 var writer = PdfWriter.GetInstance(document, stream);
                 writer.CompressionLevel = PdfStream.NO_COMPRESSION;

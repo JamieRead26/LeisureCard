@@ -183,6 +183,15 @@
       <DependentUpon>offers.css</DependentUpon>
     </Content>
     <Content Include="Content\grg\html\footer\footer.html" />
+    <Content Include="Content\grg\html\login\pleaseEnter.html" />
+    <Content Include="Content\grg\html\offers\homeCopy.html" />
+    <Content Include="Content\grg\html\offers_discount_cottage\bookTalk.html" />
+    <Content Include="Content\grg\html\offers_discount_hoseasons\bookTalk.html" />
+    <Content Include="Content\grg\html\offers_experience\bottomBannerCopy.html" />
+    <Content Include="Content\grg\scripts\google_analytics_live.js" />
+    <Content Include="Content\grg\scripts\google_analytics_none.js" />
+    <Content Include="Content\npower\html\offers_experience\redirectWarning.html" />
+    <Content Include="Content\grg\html\offers_experience\topBannerCopy.html" />
     <Content Include="Content\grg\html\terms\terms.html" />
     <Content Include="Content\grg\img\banner-1.jpg" />
     <Content Include="Content\grg\img\buttonArrow.jpg" />
@@ -203,7 +212,22 @@
     <Content Include="Content\npower\241Category\Treasurehunt_small.png" />
     <Content Include="Content\npower\css\offers.css" />
     <Content Include="Content\npower\css\offers.min.css" />
+    <Content Include="Content\npower\html\contactus\contactusCopy.html" />
     <Content Include="Content\npower\html\footer\footer.html" />
+    <Content Include="Content\npower\html\login\loginCopy.html" />
+    <Content Include="Content\npower\html\login\pleaseEnter.html" />
+    <Content Include="Content\npower\html\offers\homeCopy.html" />
+    <Content Include="Content\npower\html\offers_241_claim\note.html" />
+    <Content Include="Content\npower\html\offers_241_details\note.html" />
+    <Content Include="Content\npower\html\offers_discount_cottage\bookTalk.html" />
+    <Content Include="Content\npower\html\offers_discount_cottage\redirectWarning.html" />
+    <Content Include="Content\npower\html\offers_discount_cottage\tenpercentoff.html" />
+    <Content Include="Content\npower\html\offers_discount_hoseasons\bookTalk.html" />
+    <Content Include="Content\npower\html\offers_discount_hoseasons\redirectWarning.html" />
+    <Content Include="Content\npower\html\offers_discount_hoseasons\tenpercentoff.html" />
+    <Content Include="Content\npower\html\offers_experience\bottomBannerCopy.html" />
+    <Content Include="Content\npower\html\offers_experience\star.html" />
+    <Content Include="Content\npower\html\offers_experience\topBannerCopy.html" />
     <Content Include="Content\npower\html\terms\terms.html" />
     <Content Include="Content\npower\img\2-4-1-offers.png" />
     <Content Include="Content\npower\img\admin-banner.jpg" />
@@ -250,6 +274,7 @@
     <Content Include="Content\npower\img\logo.jpg" />
     <Content Include="Content\npower\img\logo.png" />
     <Content Include="Content\npower\img\mask-blank.png" />
+    <Content Include="Content\npower\img\241-voucher-header.jpg" />
     <Content Include="Content\npower\img\offer-mask.png" />
     <Content Include="Content\npower\img\offers241-r-top.jpg" />
     <Content Include="Content\npower\img\redeem-here.jpg" />
@@ -262,6 +287,10 @@
     <Content Include="Content\npower\img\travelandwk-r.jpg" />
     <Content Include="Content\npower\img\tw-title.jpg" />
     <Content Include="Content\npower\img\welcome-to-leisure-card.png" />
+    <Content Include="Content\npower\scripts\config.js" />
+    <Content Include="Content\npower\scripts\google_analytics_live.js" />
+    <Content Include="Content\npower\scripts\google_analytics_none.js" />
+    <Content Include="Content\npower\scripts\google_analytics_uat.js" />
     <Content Include="Scripts\angular-autocomplete.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-ie-shiv.js" />
@@ -275,7 +304,7 @@
     <Content Include="Scripts\app\adminClientController.js" />
     <Content Include="Scripts\app\adminReportsController.js" />
     <Content Include="Scripts\app\app.js" />
-    <Content Include="Scripts\app\config.js" />
+    <Content Include="Content\grg\scripts\config.js" />
     <Content Include="Scripts\app\directives.js" />
     <Content Include="Scripts\app\generalContentController.js" />
     <Content Include="Scripts\app\offersDiscountController.js" />
@@ -344,6 +373,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Content\grg\scripts\google_analytics_uat.js" />
     <Compile Include="Content\HtmlContent.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">

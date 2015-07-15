@@ -19,7 +19,7 @@ namespace GRG.LeisureCards.Service
 
     public interface ILeisureCardService
     {
-        LeisureCardRegistrationResponse Login(string cardCode);
+        LeisureCardRegistrationResponse Login(string cardCode, string tenantKey);
         CardGenerationLog GenerateCards(string reference, int numberOfCards, int renewalPeriodMonths, string tenantKey);
         void AcceptMembershipTerms(string cardCode);
     }
@@ -50,7 +50,7 @@ namespace GRG.LeisureCards.Service
         }
 
         [UnitOfWork]
-        public LeisureCardRegistrationResponse Login(string cardCode)
+        public LeisureCardRegistrationResponse Login(string cardCode, string tenantKey)
         {
             if (_adminCodeProvider.IsAdminCode(cardCode))
                 return new LeisureCardRegistrationResponse { 
@@ -62,7 +62,10 @@ namespace GRG.LeisureCards.Service
             if (leisureCard == null)
                 return new LeisureCardRegistrationResponse {Status = RegistrationResult.CodeNotFound.ToString()};
 
-            var tenant = _tenantRepository.Get(leisureCard.TenantKey);
+            if (tenantKey != leisureCard.TenantKey)
+                throw new Exception("Tenant key mis-match on login");
+
+            var tenant = _tenantRepository.Get(tenantKey);
             
             if (!tenant.Active)
                 return new LeisureCardRegistrationResponse { Status = RegistrationResult.ClientInactive.ToString() };

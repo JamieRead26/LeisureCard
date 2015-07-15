@@ -77,6 +77,10 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
             $scope.errors = 'You must provide a location.';
         }
     };
+
+    $scope.goBack = function() {
+        window.history.back();
+    }
 });
 
 offers241Controller.controller('offers241DetailsController', function ($scope, $sce, $window, $routeParams,
@@ -92,17 +96,19 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
         var website = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>') : '';
 
         $scope.offer = {
-            Address1: data.Address1,
-            Address2: data.Address2,
+            
             County: data.County,
             Description: data.Description,
             DisabledAccess: data.DisabledAccess,
             OutletName: data.OutletName,
             Phone: data.Phone,
-            PostCode: data.PostCode,
-            TownCity: data.TownCity,
             Website: website,
-            CategoryKey : data.CategoryKey
+            CategoryKey: data.CategoryKey,
+            Address1: data.Address1,
+            Address2: data.Address2,
+            TownCity: data.TownCity,
+            County: data.County,
+            PostCode: data.PostCode
         };
     });
     

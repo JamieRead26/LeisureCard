@@ -13,10 +13,11 @@ namespace GRG.LeisureCards.WebAPI.Client
             _baseurl = baseurl;
         }
 
-        public LeisureCardRegistrationResponse Login(string code, out ISession session)
+        public LeisureCardRegistrationResponse Login(string code, string tenantKey, out ISession session)
         {
             var request = new RestRequest("LeisureCard/Login/{code}", Method.GET);
             request.AddParameter("code", code);
+            request.AddParameter("tenantKey", tenantKey);
             request.AddHeader("accepts", "application/json");
 
             var response = new RestClient(_baseurl).Execute<LeisureCardRegistrationResponse>(request);

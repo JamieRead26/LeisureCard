@@ -9,7 +9,7 @@ namespace GRG.LeisureCards.Service
 {
     public interface IUserSessionService
     {
-        string GetToken(LeisureCard card);
+        string GetToken(LeisureCard card, string tenantKey);
         ISession GetSession(string token);
     }
 
@@ -31,7 +31,7 @@ namespace GRG.LeisureCards.Service
         }
 
         [UnitOfWork]
-        public string GetToken(LeisureCard card)
+        public string GetToken(LeisureCard card, string tenantKey)
         {
             lock (card.Code)
             {
@@ -45,7 +45,7 @@ namespace GRG.LeisureCards.Service
                     CardCode = card.Code,
                     ExpiryUtc = DateTime.UtcNow + _sessionDuration,
                     IsAdmin = card.Code.ToUpper().Trim() == _adminCode,
-                    TenantKey = card.TenantKey
+                    TenantKey = tenantKey
                 };
 
                 _sessionRepository.Save(session);
@@ -94,7 +94,7 @@ namespace GRG.LeisureCards.Service
                 TimeSpan.FromMinutes(sessionDurationMinutes);
         }
 
-        public string GetToken(LeisureCard card)
+        public string GetToken(LeisureCard card, string tenantKey)
         {
             lock (card.Code)
             {
@@ -102,7 +102,7 @@ namespace GRG.LeisureCards.Service
 
                 if (session != null) return session.Token;
 
-                session = new Session(_sessionDuration, card);
+                session = new Session(_sessionDuration, card, tenantKey);
                 
                 _sessions.Add(session);
 
@@ -134,13 +134,13 @@ namespace GRG.LeisureCards.Service
     {
         private readonly TimeSpan _sessionDuration;
 
-        public Session(TimeSpan sessionDuration, LeisureCard card)
+        public Session(TimeSpan sessionDuration, LeisureCard card, string tenantKey)
         {
             _sessionDuration = sessionDuration;
             CardCode = card.Code;
             ExpiryUtc = DateTime.UtcNow + _sessionDuration;
             Token = Guid.NewGuid().ToString();
-            TenantKey = card.TenantKey;
+            TenantKey = tenantKey;
         }
 
         public Session(TimeSpan sessionDuration,

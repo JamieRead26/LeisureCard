@@ -20,8 +20,7 @@ using System.Reflection;
 using Castle.DynamicProxy;
 using FluentNHibernate.Cfg;
 using GRG.LeisureCards.Data;
-using GRG.LeisureCards.PDF.DocumentTemplates;
-using GRG.LeisureCards.PDFDocuments;
+
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
 using GRG.LeisureCards.Persistence.NHibernate.ClassMaps;
@@ -180,9 +179,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
 
-            For<IHtmlTemplateFactory>()
-                .Use<HtmlTemplateFactory>()
-                .SetLifecycleTo<SingletonLifecycle>();
+            //For<IHtmlTemplateFactory>()
+            //    .Use<HtmlTemplateFactory>()
+            //    .SetLifecycleTo<SingletonLifecycle>();
         }
 
         #endregion

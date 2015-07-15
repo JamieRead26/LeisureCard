@@ -26,7 +26,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             get
             {
                 if (_adminSession == null)
-                    LoginService.Login(Config.AdminCode, out _adminSession);
+                    LoginService.Login(Config.AdminCode, Config.TenantKey, out _adminSession);
 
                 return _adminSession;
             }
@@ -38,7 +38,7 @@ namespace GRG.LeisureCards.API.IntegrationTests
             get
             {
                 if (_userSession == null)
-                    LoginService.Login(Config.UserCode, out _userSession);
+                    LoginService.Login(Config.UserCode, Config.TenantKey, out _userSession);
 
                 return _userSession;
             }

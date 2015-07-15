@@ -1,7 +1,7 @@
 var loginController = angular.module('loginController', []);
 
 loginController.factory('Login', function ($resource, config) {
-    return $resource(config.apiUrl + '/LeisureCard/Login/:id');
+    return $resource(config.apiUrl + '/LeisureCard/Login/:id/' + config.tenant);
 });
 
 loginController.controller('LoginController', function ($scope, $cookies, $location, $localStorage, Login, slideshow, ngDialog, $http, config) {

@@ -1022,6 +1022,11 @@ line-height: 18px;
 padding: 0px 10px;
 text-decoration: none;
 }
+
+body.admin div.content input, 
+body.admin div.content textarea {
+    color:#000000;
+}
 /* SAM MEDIA QUIRIES */
 
 @media screen and (max-width: 1140px) {

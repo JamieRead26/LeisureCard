@@ -989,11 +989,16 @@ body.offer-discount-cottage div.content .claim-offer .offer-contact h4 {
     color:#4e4e50;
 }
 
-.offer-discount-hoseasons .button-claim .button, .offer-discount-cottage .button-claim .button{
-background: url('../img/claim-discount-button.jpg') no-repeat;
+.offer-discount-hoseasons .button-claim .button, .offer-discount-cottage .button-claim .button {
 background-size: 100%;
 height: 129px;
 margin-bottom: 0;
+}
+.offer-discount-hoseasons .button-claim .button {
+    background: url('../img/cdb-hoseasons-npower.jpg') no-repeat;
+}
+.offer-discount-cottage .button-claim .button {
+    background: url('../img/cdb-cottage-npower.jpg') no-repeat;
 }
 
 .offer-discount-hoseasons .claim-offer .offer-contact, .offer-discount-cottage .claim-offer .offer-contact{

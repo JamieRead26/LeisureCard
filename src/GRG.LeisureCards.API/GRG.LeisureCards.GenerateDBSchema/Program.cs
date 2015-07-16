@@ -16,25 +16,28 @@ namespace GRG.LeisureCards.GenerateDBSchema
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("WARNING: THIS WILL DELETE ALL DATA AND RESET TARGET DATABASE SCHEMA");
             Console.ForegroundColor = ConsoleColor.White;
-            if (args.Length==0) Console.Write("Proceed with reset? (Y/n): ");
-            if (args[0]=="NOCONF" || Console.ReadLine()=="Y")
+            if (args.Length == 0 || args[0]!="NOCONF")
             {
-                try
+                Console.Write("Proceed with reset? (Y/n): ");
+                if (Console.ReadLine() != "Y")
+                    return;
+            }
+
+            try
+            {
+                Console.Write("Resetting target db...");
+                DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, Assembly.GetAssembly(typeof(TenantDataFixture)));
+                Console.WriteLine("done.");
+            }
+            catch (Exception ex)
+            {
+                do
                 {
-                    Console.Write("Resetting target db...");
-                    DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, Assembly.GetAssembly(typeof(TenantDataFixture)));
-                    Console.WriteLine("done.");
-                }
-                catch (Exception ex)
-                {
-                    do
-                    {
-                        Console.WriteLine("");
-                        Console.WriteLine("ERROR: " + ex.Message);
-                        Console.WriteLine("-----------");
-                        Console.WriteLine(ex.StackTrace);
-                    } while ((ex=ex.InnerException)!=null);
-                }
+                    Console.WriteLine("");
+                    Console.WriteLine("ERROR: " + ex.Message);
+                    Console.WriteLine("-----------");
+                    Console.WriteLine(ex.StackTrace);
+                } while ((ex=ex.InnerException)!=null);
             }
 
             if (args.Length == 0)

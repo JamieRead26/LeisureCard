@@ -15,7 +15,7 @@
     <RootNamespace>GRG.LeisureCards.UI</RootNamespace>
     <AssemblyName>GRG.LeisureCards.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -57,6 +57,10 @@
     </Reference>
     <Reference Include="IronRuby.Libraries">
       <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.52\lib\net40\IronRuby.Libraries.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.6\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -326,6 +330,7 @@
     <Content Include="Content\base\css\header.scss" />
     <Content Include="Content\base\css\mixin.scss" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Content\npower\PDF\npower_voucher.pdf" />
     <None Include="Views\Home\Partials\contactus.cshtml" />
     <Content Include="Views\Home\Partials\login.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount.cshtml" />
@@ -366,9 +371,10 @@
     <Content Include="Scripts\jquery.bxslider.min.js" />
     <Content Include="Scripts\app\authController.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Web.config">
+    <Content Include="Web.config" />
+    <None Include="Web.config_OLD">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -376,6 +382,7 @@
     <Content Include="Content\grg\scripts\google_analytics_uat.js" />
     <Compile Include="Content\HtmlContent.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -394,8 +401,14 @@
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <None Include="Web.Debug.config_OLD">
+      <DependentUpon>Web.config_OLD</DependentUpon>
+    </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config_OLD">
+      <DependentUpon>Web.config_OLD</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -433,7 +446,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57214</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57214/</IISUrl>
+          <IISUrl>http://leisurecardsnpower</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://LeisureCards.GRG</CustomServerUrl>

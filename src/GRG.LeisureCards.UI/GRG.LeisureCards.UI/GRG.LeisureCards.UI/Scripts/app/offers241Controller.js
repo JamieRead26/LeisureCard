@@ -90,7 +90,7 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     $scope.offer = {};
     $scope.global.bodyclass = 'offer-241-details';
     $scope.global.slideshow = slideshow.offer241details;
-    
+    //$scope.session = $cookies.SessionToken;
     Offer241GetById.get({ id: $scope.id }, function (data) {
     
         var website = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>') : '';
@@ -150,7 +150,7 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
     $scope.global.bodyclass = 'offer-241-claim';
     $scope.id = $routeParams.id;
     $scope.validUntil = strDateTime;
-    $scope.SessionToken = $cookies.SessionToken;
+    $scope.sessionToken = $cookies.SessionToken;
 
     Offer241GetById.get({ id: $scope.id }, function (data) {
 

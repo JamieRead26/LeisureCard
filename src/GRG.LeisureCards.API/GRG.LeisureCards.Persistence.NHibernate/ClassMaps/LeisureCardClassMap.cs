@@ -14,7 +14,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.ExpiryDate);
             Map(x => x.UploadedDate);
             Map(x => x.Deleted);
-            Map(x => x.Reference);
+            Map(x => x.Reference).Index("IdxRef");
             Map(x => x.RenewalPeriodMonths);
             Map(x => x.MembershipTermsAccepted);
             References(x => x.MembershipTier);

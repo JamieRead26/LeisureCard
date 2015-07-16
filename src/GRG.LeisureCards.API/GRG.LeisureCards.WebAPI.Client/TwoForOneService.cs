@@ -18,6 +18,14 @@ namespace GRG.LeisureCards.WebAPI.Client
                     .Data;
         }
 
+        public TwoForOneOffer Get(int offerId)
+        {
+            var request = GetRestRequest("TwoForOne/get/{id}", Method.GET);
+            request.AddParameter("id", offerId);
+
+            return new RestClient(BaseUrl).Execute<TwoForOneOffer>(request).Data;
+        }
+
         public IEnumerable<TwoForOneOfferGeoSearchResult> FindByLocation(string townOrPostcode, int radiusMiles)
         {
             var request = GetRestRequest("TwoForOne/FindByLocation/{postCodeOrTown}/{radiusMiles}", Method.GET);

@@ -13,7 +13,6 @@
             <h1>@Html.Raw(ViewBag.titlePreface){{ offer.OutletName }}</h1>
             <p ng-repeat="(key, value) in removeNull({
                a : offer.Description,
-               b : offer.DisabledAccess,
                c : offer.Phone,
                d : offer.Website
                })">

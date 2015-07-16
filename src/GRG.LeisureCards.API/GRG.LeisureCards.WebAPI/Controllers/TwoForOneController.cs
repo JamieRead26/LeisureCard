@@ -51,7 +51,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [System.Web.Http.Route("TwoForOne/Get/{Id}")]
         public TwoForOneOffer Get(int id)
         {
-            return Dispatch(()=>  Mapper.Map<TwoForOneOffer>(_twoForOneRepository.Get(id)));
+            return Dispatch(()=>Mapper.Map<TwoForOneOffer>(_twoForOneRepository.Get(id)));
         }
 
         [System.Web.Http.HttpGet]
@@ -72,29 +72,6 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                     OfferTitle = offer.Description,
                     SelectedDateTime = DateTime.Now
                 });
-
-                //var pdfWriter = new TwoForOneVoucherPDFWriter(
-                //    ConfigurationManager.AppSettings["UiWebRootUrl"],
-                //    session.TenantKey,
-                //    (DateTime.Now+TimeSpan.FromDays(14)).ToString("dd MMMM yyyy"),
-                //    offer.BookingInstructions,
-                //    offer.ClaimCode,
-                //    offer.OutletName,
-                //    _htmlTemplateFactory.GetHtmlTemplates(session.TenantKey).VoucherContent);
-
-                //var stream = new MemoryStream();
-
-                //pdfWriter.Write(stream);
-
-                //stream.Position = 0;
-
-                //var result = new HttpResponseMessage(HttpStatusCode.OK)
-                //{
-                //    Content = new StreamContent(stream)
-                //};
-               
-                //result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-                //return result;
             });
         }
 

@@ -7,11 +7,7 @@
         <img src="~/Content/@Session["TenantKey"]/img/cottages-for-you.jpg" />
         <div class="offer-copy">
             <h1>@Html.Raw(ViewBag.tenpercentoff)Cottages4you</h1>
-            <p>
-                We have joined forces with cottages4you to bring you 10% off at over 13,000 self-catering holiday cottages, villas and gites in the UK and overseas. Whether you're looking for a cosy romantic retreat, a fun-filled family getaway, or somewhere large, lavish and filled with luxury, you'll find a great selection of properties to suit everyone.
-            </p>
-            <p>Many properties offer a short break of 2, 3 and 4 nights or stay for a week or longer.</p>
-
+            @Html.Raw(ViewBag.discountCottagesCopy)
         </div>
         <!--- <p class="button-claim"><a ng-click="claim()" ng-href="/#/offers/discount/claim/cottage" class="button" target="_blank">Claim Code</a></p> -->
         <p class="button-claim"><a ng-click="claim()" href="http://www.chooseacottage.co.uk/DAY" class="button" target="_blank">Claim Code</a></p>

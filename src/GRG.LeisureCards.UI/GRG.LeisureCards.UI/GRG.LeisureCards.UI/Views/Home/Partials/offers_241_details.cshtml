@@ -10,7 +10,7 @@
 
     <div class="sixcol offers241-l">
         <div class="offers241-l-inner">
-            <h1>{{ offer.OutletName }}</h1>
+            <h1>@Html.Raw(ViewBag.titlePreface){{ offer.OutletName }}</h1>
             <p ng-repeat="(key, value) in removeNull({
                a : offer.Description,
                b : offer.DisabledAccess,

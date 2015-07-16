@@ -12,10 +12,7 @@
     <div class="claim-offer" ng-controller="offers241ClaimController">
 
         <div class="offer-copy">
-            <p>
-                Your 2 for 1 days out voucher<br /><br />
-                NAME...............................<br /><br />
-            </p>
+            @Html.Raw(ViewBag.claimHeading)
             <h1>{{ offer.OutletName }}</h1>
             <ul ng-show="offer.BookingInstructions1">
                 <li ng-repeat="(key, value) in removeNull({

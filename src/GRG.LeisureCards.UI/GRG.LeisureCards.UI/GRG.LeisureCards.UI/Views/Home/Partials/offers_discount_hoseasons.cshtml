@@ -7,11 +7,7 @@
         <img src="~/Content/@Session["TenantKey"]/img/hoseasons-banner.jpg" />
         <div class="offer-copy">
             <h1>@Html.Raw(ViewBag.tenpercentoff)Hoseasons</h1>
-            <p>
-                Hoseasons have been providing fantastic UK family holidays for more than half a century! Our choice of UK holidays is unrivalled, choose a boating break on the broads or choose a park or lodge break in a traditional seaside resort.
-                We even have apartments in city locations perfect to enjoy culture, shopping and theatre breaks. With Leisure Card you get 10% off all bookings.
-            </p>
-
+            @Html.Raw(ViewBag.hoseasonsCopy)
         </div>
         <!--- <p class="button-claim"><a ng-click="claim()" ng-href="/#/offers/discount/claim/hoseasons" class="button" target="_blank">Claim Code</a></p> --->
         <p class="button-claim"><a ng-click="claim()" href="http://partners.hoseasons.co.uk/DAY" class="button" target="_blank">Claim Code</a></p>

@@ -9,7 +9,7 @@
         <div class="search-left">
             <h4>Location Search</h4>
             <div class="field">
-                <label class="white">Search by Address<br/>Postcode or Town</label>
+                @Html.Raw(ViewBag.searchBy)
                 <input type="text" ng-model="location"/>
             </div>
         </div>

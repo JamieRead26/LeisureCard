@@ -23,5 +23,7 @@ namespace GRG.LeisureCards.Persistence
         TEntity Get(TKey key);
 
         ICollection<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+
+        ICollection<TEntity> Find(Expression<Func<TEntity, bool>> predicate, int max);
     }
 }

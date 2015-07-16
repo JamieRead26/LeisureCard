@@ -14,7 +14,13 @@
         public virtual string Description { get; set; }
         public virtual string DisabledAccess { get; set; }
         public virtual string ClaimCode { get; set; }
-        public virtual string BookingInstructions { get; set; }
+        public virtual string BookingInstructions1 { get; set; }
+        public virtual string BookingInstructions2 { get; set; }
+        public virtual string BookingInstructions3 { get; set; }
+        public virtual string BookingInstructions4 { get; set; }
+        public virtual string BookingInstructions5 { get; set; }
+        public virtual string BookingInstructions6 { get; set; }
+        public virtual string BookingInstructions7 { get; set; }
         public virtual double? Latitude { get; set; }
         public virtual double? Longitude { get; set; }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using GRG.LeisureCards.WebAPI.Client;
 using GRG.LeisureCards.WebAPI.ClientContract;
 using GRG.LeisureCards.WebAPI.Model;
 using NUnit.Framework;
@@ -17,27 +19,49 @@ namespace GRG.LeisureCards.API.IntegrationTests
         [Test]
         public void Registration_Ok_PopupNotMandatory()
         {
-            var response = RegistrationTest("PopupNotMandatory", "GRG", "Ok");
+            var response = RegistrationTest("PopupNotMandatory", "PopupNotMandatory", "Ok");
 
             Assert.IsTrue(response.DisplayMemberLoginPopup);
             Assert.IsFalse(response.MemberLoginPopupAcceptanceMandatory);
         }
 
         [Test]
+        public void GetCardNumbersForUpdate_FullUrnCode()
+        {
+            Assert.AreEqual(
+                1,
+                AdminSession.GetLeisureCardService().GetCardNumbersForUpdate("PopupMandatory").Count());
+        }
+
+        [Test]
+        public void GetCardNumbersForUpdate_PartialUrnCode()
+        {
+            Assert.AreEqual(
+                1,
+                AdminSession.GetLeisureCardService().GetCardNumbersForUpdate("PopupMand").Count());
+        }
+
+        [Test]
+        public void GetCardNumbersForUpdate_FullReferenceCode()
+        {
+            Assert.AreEqual(
+                2,
+                AdminSession.GetLeisureCardService().GetCardNumbersForUpdate("IntTest").Count());
+        }
+
+        [Test]
         public void Registration_Ok_PopupMandatory()
         {
-            var response = RegistrationTest("PopupMandatory", "GRG", "Ok");
+            var response = RegistrationTest("PopupMandatory", "PopupMandatory", "Ok");
 
             Assert.IsTrue(response.DisplayMemberLoginPopup);
             Assert.IsTrue(response.MemberLoginPopupAcceptanceMandatory);
-
-            UserSession.GetLeisureCardService().AcceptTerms();
         }
 
         [Test]
         public void Registration_InactiveClient()
         {
-            RegistrationTest("InactiveClient", "GRG", "ClientInactive");
+            RegistrationTest("InactiveClient", "Inactive", "ClientInactive");
         }
 
         [Test]

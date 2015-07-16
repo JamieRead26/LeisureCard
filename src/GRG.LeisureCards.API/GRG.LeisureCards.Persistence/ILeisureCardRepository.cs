@@ -12,5 +12,7 @@ namespace GRG.LeisureCards.Persistence
         int CountUrns(string tenantKey);
         IEnumerable<LeisureCard> GetLoginPopupReportIncludingNotAccepted(string tenantKey, DateTime @from, DateTime to);
         IEnumerable<LeisureCard> GetLoginPopupReport(string tenantKey, DateTime @from, DateTime to);
+        bool Exists(string code);
+        ICollection<LeisureCard> GetPrototypeByRef(string searchTerm, int max);
     }
 }

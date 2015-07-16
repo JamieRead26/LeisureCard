@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GRG.LeisureCards.DomainModel;
+using NHibernate.Criterion;
+using NHibernate.Linq;
 
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
@@ -58,6 +61,46 @@ namespace GRG.LeisureCards.Persistence.NHibernate
                 .Where(u => u.TenantKey == tenantKey)
                 .Where(u => u.MembershipTermsAccepted.HasValue)
                 .List();
+        }
+
+        public bool Exists(string code)
+        {
+            return Session.Query<LeisureCard>().Any(c=>c.Code==code);
+        }
+
+        public ICollection<LeisureCard> GetPrototypeByRef(string searchTerm, int max)
+        {
+            return Session.QueryOver<LeisureCard>()
+                .Take(10)
+                .List();
+
+            //// alias for inner query
+            //LeisureCard inner = null;
+            //// this alias is for outer query, and will be used in 
+            //// inner query as a condition in the HAVING clause
+            //LeisureCard outer = null;
+
+            //var minIdSubquery = QueryOver.Of(() => inner)
+            //    .SelectList(l => l
+            //        .SelectGroup(() => inner.Reference) // here we GROUP BY
+            //        .SelectMin(() => inner.Code)
+            //    )
+            //    // HAVING to get just Min(id) match
+            //    .Where(Restrictions.EqProperty(
+            //      Projections.Min<LeisureCard>(i => i.Code),
+            //      Projections.Property(() => outer.Code)
+            //    ));
+
+            //// outer query
+            //var result = Session.QueryOver(() => outer)
+            //    .Where(c=>c.Reference.IndexOf(searchTerm)>-1)
+            //    .WithSubquery
+            //    // we can now use EXISTS, because we applied match in subquery
+            //    .WhereExists(minIdSubquery)
+            //    .Take(max)
+            //    .List();
+
+            //return result;
         }
 
         public override void Delete(LeisureCard entity)

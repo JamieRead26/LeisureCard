@@ -20,6 +20,7 @@ namespace GRG.LeisureCards.Data.Test
                 {
                     Code = "InactiveClient", 
                     UploadedDate = DateTime.Now,
+                    Reference = "IntTest",
                     MembershipTier = membershipTierDataFixture.Gold,
                     TenantKey = tenantFixture.Inactive.TenantKey
                 },
@@ -27,6 +28,7 @@ namespace GRG.LeisureCards.Data.Test
                 {
                     Code = "Unregistered", 
                     UploadedDate = DateTime.Now,
+                    Reference = "IntTest",
                     MembershipTier = membershipTierDataFixture.Gold,
                     TenantKey = tenantFixture.GRG.TenantKey
                 },

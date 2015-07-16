@@ -1,9 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using GRG.LeisureCards.WebAPI.Model;
 using RestSharp;
 
 namespace GRG.LeisureCards.WebAPI.Client
 {
-    public class Service
+    public class Service 
     {
         protected readonly string BaseUrl;
         protected readonly string SessionToken;

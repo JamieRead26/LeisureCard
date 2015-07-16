@@ -14,7 +14,13 @@
         public string Description { get; set; }
         public string DisabledAccess { get; set; }
         public string ClaimCode { get; set; }
-        public string BookingInstructions { get; set; }
+        public string BookingInstructions1 { get; set; }
+        public string BookingInstructions2 { get; set; }
+        public string BookingInstructions3 { get; set; }
+        public string BookingInstructions4 { get; set; }
+        public string BookingInstructions5 { get; set; }
+        public string BookingInstructions6 { get; set; }
+        public string BookingInstructions7 { get; set; }
         public string CategoryKey { get; set; }
 
         public string Latitude { get; set; }

@@ -17,7 +17,18 @@
                 NAME...............................<br /><br />
             </p>
             <h1>{{ offer.OutletName }}</h1>
-            <p ng-show="offer.BookingInstructions">{{ offer.BookingInstructions }}</p>
+            <ul ng-show="offer.BookingInstructions1">
+                <li ng-repeat="(key, value) in removeNull({
+                   a : offer.BookingInstructions1,
+                   b : offer.BookingInstructions2,
+                   c : offer.BookingInstructions3,
+                   d : offer.BookingInstructions4,
+                   e : offer.BookingInstructions5,
+                   f : offer.BookingInstructions6,
+                   g : offer.BookingInstructions7})">
+                    <!--{{ key }}: --><span ng-bind-html="value"></span>
+                </li>
+            </ul>
             <p ng-show="offer.ClaimCode">Your claim code is: {{ offer.ClaimCode }}</p>
             <h2>How to redeem</h2>
             <ol>
@@ -44,9 +55,9 @@
         <p>5. voucher must be presented at the ticket office of the attraction before purchasing additional ticket to allow one free entry</p>
         <p>6. cannot be used in conjunction with vouchers or any other promotional discount or offer</p>
         <p>7. the promotion supplier and the promoter further reserve the right to withdraw this offer without notice</p>
-        <p>8. no responsibility can be accepted for lost, damaged, illegible, incomplete or mislaid vouchers and the promotion supplier accepts no liability whatsoever (excluding liability for death or personal
-        <p>injury caused by its negligence or for fraudulent misrepresentation) for any loss or damage
-        <p>whatsoever resulting from any goods or services purchased with the voucher; or any inability to use the voucher for reasons outside of the promotion suppliers control.</p>
+        <p>8. no responsibility can be accepted for lost, damaged, illegible, incomplete or mislaid vouchers and the promotion supplier accepts no liability whatsoever (excluding liability for death or personal 
+        injury caused by its negligence or for fraudulent misrepresentation) for any loss or damage 
+        whatsoever resulting from any goods or services purchased with the voucher; or any inability to use the voucher for reasons outside of the promotion suppliers control.</p>
         <p>9. only one voucher can be used per person, not valid for group admissions</p>
         <p>10. the attractions reserve the right to refuse admission. general terms and conditions of the attraction also apply</p>
         <p>11. tickets purchased with this voucher must be redeemed on the same day</p>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GRG.LeisureCards.WebAPI.Model;
 
 namespace GRG.LeisureCards.WebAPI.ClientContract
@@ -9,5 +10,6 @@ namespace GRG.LeisureCards.WebAPI.ClientContract
         SessionInfo GetSessionInfo();
         CardGenerationResponse GenerateCards(string reference, int numOfcards, int renewalPeriodMonths);
         void AcceptTerms();
+        IEnumerable<LeisureCard> GetCardNumbersForUpdate(string searchTerm);
     }
 }

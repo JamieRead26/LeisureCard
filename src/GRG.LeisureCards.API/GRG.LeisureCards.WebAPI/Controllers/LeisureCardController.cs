@@ -142,33 +142,29 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LeisureCard/GetAllCardNumbers")]
         public IEnumerable<Model.LeisureCard> GetAllCardNumbers()
         {
-            return Dispatch(()=>_leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>));
+            return Dispatch(() => new Model.LeisureCard[0]);
+         // _leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>));
         }
 
         [HttpGet]
         [SessionAuthFilter(true)]
-        [Route("LeisureCard/GetCardNumbersForUpdate")]
-        public IEnumerable<Model.LeisureCard> GetCardNumbersForUpdate()
+        [Route("LeisureCard/GetCardNumbersForUpdate/{searchTerm}")]
+        public IEnumerable<Model.LeisureCard> GetCardNumbersForUpdate(string searchTerm)
         {
             return Dispatch(() =>
             {
-                var allCards = _leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>).ToList();
+                var urns = _leisureCardRepository.Find(c => c.Code.IndexOf(searchTerm) > -1, 100);
 
-                foreach (var reference in allCards.Select(c => c.Reference).ToList().Distinct())
-                {
-                    var card = allCards.First(c => c.Reference == reference);
+                if (!urns.Any())
+                    urns = _leisureCardRepository.Find(c=>c.Code.IndexOf(searchTerm.ToUpper())>-1, 100);
 
-                    allCards.Add(new Model.LeisureCard
-                    {
-                        Code = reference,
-                        ExpiryDate = card.ExpiryDate,
-                        Suspended = card.Suspended,
-                        RenewalDate = card.RenewalDate,
-                        Status = card.Status
-                    });
-                }
+                if (!urns.Any())
+                    urns = _leisureCardRepository.GetPrototypeByRef(searchTerm, 100);
+                
+                if (!urns.Any())
+                    urns = _leisureCardRepository.GetPrototypeByRef(searchTerm.ToUpper(), 100);
 
-                return allCards;
+                return urns.Select(Mapper.Map<Model.LeisureCard>);
             });
         }
 

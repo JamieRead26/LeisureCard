@@ -136,7 +136,6 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
 
 offers241Controller.controller('offers241ClaimController', function ($scope, $sce, $routeParams, $cookies, Offer241GetById, Offer241Claim, slideshow) {
 
-    debugger;
     var now = new Date();
     now.setDate(now.getDate() + 14);
 
@@ -157,10 +156,17 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
 
         var url = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank" class="button">Claim Reward</a>') : '';
        
+        debugger;
         $scope.offer = {
             Id : data.Id,
             OutletName: data.OutletName,
-            BookingInstructions: data.BookingInstructions,
+            BookingInstructions1: data.BookingInstructions1,
+            BookingInstructions2: data.BookingInstructions2,
+            BookingInstructions3: data.BookingInstructions3,
+            BookingInstructions4: data.BookingInstructions4,
+            BookingInstructions5: data.BookingInstructions5,
+            BookingInstructions6: data.BookingInstructions6,
+            BookingInstructions7: data.BookingInstructions7,
             ClaimCode: data.ClaimCode,
             Website: url
         };

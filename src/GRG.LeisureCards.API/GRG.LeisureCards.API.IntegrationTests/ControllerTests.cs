@@ -58,7 +58,8 @@ namespace GRG.LeisureCards.API.IntegrationTests
                 DataBootstrap.PrepDb(Assembly.GetAssembly(
                     typeof(LeisureCardClassMap)), 
                     Config.DbConnectionDetails, 
-                    Assembly.GetAssembly(typeof(LeisureCardDataFixture)));
+                    Assembly.GetAssembly(typeof(LeisureCardDataFixture)),
+                    true);
 
                 Done = true;
             }

@@ -19,7 +19,13 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
             Map(x => x.Website);
             Map(x => x.Description).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
             Map(x => x.DisabledAccess).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText)); 
-            Map(x => x.BookingInstructions).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
+            Map(x => x.BookingInstructions1).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
+            Map(x => x.BookingInstructions2).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
+            Map(x => x.BookingInstructions3).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
+            Map(x => x.BookingInstructions4).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
+            Map(x => x.BookingInstructions5).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
+            Map(x => x.BookingInstructions6).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
+            Map(x => x.BookingInstructions7).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
             Map(x => x.ClaimCode);
             Map(x => x.Latitude);
             Map(x => x.Longitude);

@@ -118,8 +118,6 @@ namespace GRG.LeisureCards.Service
 
             var tenant = _tenantRepository.Get(tenantKey);
 
-            var allCardCodes = _leisureCardRepository.GetAllIncludingDeleted().Select(c=>c.Code).ToArray();
-            
             for (var i = 0; i < numberOfCards; i++)
             {
                 string newCode;
@@ -127,11 +125,11 @@ namespace GRG.LeisureCards.Service
                 {
                     newCode = Guid.NewGuid().ToString().Substring(0, 20).ToUpper();
                 } 
-                while (allCardCodes.Contains(newCode));
+                while (_leisureCardRepository.Exists(newCode));
 
                 var now = DateTime.Now;
 
-                _leisureCardRepository.SaveOrUpdate( new LeisureCard
+                _leisureCardRepository.Save( new LeisureCard
                 {
                     Code = newCode,
                     Reference = reference,

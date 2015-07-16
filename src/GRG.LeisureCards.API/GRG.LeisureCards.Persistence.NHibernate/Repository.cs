@@ -59,5 +59,13 @@ namespace GRG.LeisureCards.Persistence.NHibernate
         {
             return Session.Query<TEntity>().Where(predicate).ToArray();
         }
+
+        public ICollection<TEntity> Find(Expression<Func<TEntity, bool>> predicate, int max)
+        {
+            return Session.Query<TEntity>()
+                .Where(predicate)
+                .Take(max)
+                .ToArray();
+        }
     }
 }

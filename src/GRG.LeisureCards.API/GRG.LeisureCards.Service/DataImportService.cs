@@ -250,12 +250,11 @@ namespace GRG.LeisureCards.Service
         {
             try
             {
-                var urns = _leisureCardRepository.GetAll().Select(x=>x.Code.ToUpper());
 
                 int affected = 0;
                 using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
                 {
-                    foreach (var newUrn in csvReader.GetRecords<Urn>().ToArray().Where(newUrn => !urns.Contains(newUrn.Code.ToUpper())))
+                    foreach (var newUrn in csvReader.GetRecords<Urn>().ToArray().Where(newUrn => !_leisureCardRepository.Exists(newUrn.Code)))
                     {
                         _leisureCardRepository.Save(
                             new LeisureCard
@@ -300,25 +299,17 @@ namespace GRG.LeisureCards.Service
         {
             try
             {
-                var urns = _leisureCardRepository.GetAll();
-                int affected = 0;
+                var affected = 0;
 
                 using (var csvReader = CsvReader.Create(new StreamReader(fileStream)))
                 {
-                    foreach (var deactiveUrn in csvReader.GetRecords<Urn>())
+                    foreach (var urn in csvReader.GetRecords<Urn>().Select(urn2Deactivate => _leisureCardRepository.Get(urn2Deactivate.Code)).Where(urn => urn != null))
                     {
-                        var urn =
-                            urns.FirstOrDefault(
-                                x => string.Equals(x.Code, deactiveUrn.Code, StringComparison.CurrentCultureIgnoreCase));
-                       
-                        if (urn != null)
-                        {
-                            urn.Suspended = true;
+                        urn.Suspended = true;
 
-                            _leisureCardRepository.Update(urn);
+                        _leisureCardRepository.Update(urn);
 
-                            affected++;
-                        }
+                        affected++;
                     }
                 }
 

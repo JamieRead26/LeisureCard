@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GRG.LeisureCards.WebAPI.ClientContract;
 using GRG.LeisureCards.WebAPI.Model;
 using RestSharp;
@@ -39,6 +40,14 @@ namespace GRG.LeisureCards.WebAPI.Client
         public void AcceptTerms()
         {
             new RestClient(BaseUrl).Execute<CardGenerationResponse>(GetRestRequest("LeisureCard/AcceptTerms", Method.GET));
+        }
+
+        public IEnumerable<LeisureCard> GetCardNumbersForUpdate(string searchTerm)
+        {
+            var request = GetRestRequest("LeisureCard/GetCardNumbersForUpdate/{searchTerm}", Method.GET);
+            request.AddParameter("searchTerm", searchTerm);
+
+            return new RestClient(BaseUrl).Execute<List<LeisureCard>>(request).Data;
         }
     }
 }

@@ -216,7 +216,6 @@ adminController.controller('AdminCardGenerateController', function ($scope, $roo
 
         GenerateCards.get(postData, function (data) {
             if (data.Success) {
-                $rootScope.$broadcast('cards_generated');
                 return $scope.cardgenerate_success = 'Cards "' + data.CardGenerationLog.Ref + '" generated successfully.'
             }
             return $scope.cardgenerate_error = data.ErrorMessage;
@@ -232,8 +231,8 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
     $scope.card_numbers = [];
     $scope.suspended = false;
 
-    var refreshCardsForUpdate = function () {
-        var url = config.apiUrl + '/LeisureCard/GetCardNumbersForUpdate';
+    var refreshCardsForUpdate = function (query) {
+        var url = config.apiUrl + '/LeisureCard/GetCardNumbersForUpdate/' + query;
         $http.get(url).then(function (r) {
             $scope.card_numbers.length = 0; // Empty array
             
@@ -249,10 +248,6 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
             }
         });
     }
-
-    refreshCardsForUpdate();
-
-    $rootScope.$on('cards_generated', refreshCardsForUpdate);
     
     $scope.reset = function () {
         $scope.suspended = false;
@@ -263,6 +258,10 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
     }
 
     $scope.change = function (cardNumber) {
+        if (cardNumber) {
+            refreshCardsForUpdate();
+        }
+        
         var card = $scope.cards[cardNumber];
         if (card) {
             $scope.cardNumber = card.Code;
@@ -291,7 +290,6 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
 
         $scope.cardupdate_error = null;
 
-        //debugger;
         if ($scope.renewalDate!=null && $scope.renewalDate!='' && !valid_iso_date($scope.renewalDate)) {
             return $scope.cardupdate_error = 'Renewal date must match format dd-mm-yyyy';
         }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using GRG.LeisureCards.WebAPI.Client;
-using iTextSharp.text.pdf;
+using org.pdfclown.files;
+using Stream = org.pdfclown.bytes.Stream;
 
 namespace GRG.LeisureCards.UI.Controllers
 {
@@ -14,13 +16,7 @@ namespace GRG.LeisureCards.UI.Controllers
         public ActionResult Get241VoucherPdf(int offerId, string sessionToken)
         {
             var offerService = new TwoForOneService(ConfigurationManager.AppSettings["ApiUrl"], sessionToken);
-            
-            var path = Server.MapPath(string.Format("~/content/{0}/PDF/npower_voucher.pdf", Session["TenantKey"]));
-            var reader = new PdfReader(path);
-
             var offer = offerService.Get(offerId);
-            var filename = Server.MapPath(string.Format("~/content/{0}.pdf", Guid.NewGuid()));
-
             var bookingInsPara = new StringBuilder();
 
             foreach (var ins in new[]
@@ -37,22 +33,27 @@ namespace GRG.LeisureCards.UI.Controllers
                 bookingInsPara.Append(ins + @"\r\n");
             }
 
-            using (var output = System.IO.File.OpenWrite(filename))
-            using (var stamper = new PdfStamper(reader, output))
-            {
-                stamper.AcroFields.SetField("expiry_date", (DateTime.Now+TimeSpan.FromDays(14)).ToString("d"));
-                stamper.AcroFields.SetField("outlet_name", offer.OutletName);
-                stamper.AcroFields.SetField("booking_ins_1", bookingInsPara.ToString());
+            var file = new org.pdfclown.files.File(Server.MapPath(string.Format("~/content/{0}/PDF/npower_voucher.pdf", Session["TenantKey"])));
+     
+            file.Document.Form.Fields["expiry_date"].Value = (DateTime.Now + TimeSpan.FromDays(14)).ToString("d");
+            file.Document.Form.Fields["expiry_date"].ReadOnly = true;
 
-                if (!string.IsNullOrWhiteSpace(offer.ClaimCode))
-                    stamper.AcroFields.SetField("claim_code", "CODE: " + offer.ClaimCode);
-                else
-                    stamper.AcroFields.SetField("claim_code", "");
+            file.Document.Form.Fields["outlet_name"].Value = offer.OutletName;
+            file.Document.Form.Fields["outlet_name"].ReadOnly = true;
 
-                stamper.FormFlattening = true;
-            }
-            
-            return new FileStreamResult(System.IO.File.OpenRead(filename), "application/pdf");
+            file.Document.Form.Fields["booking_ins_1"].Value = bookingInsPara.ToString();
+            file.Document.Form.Fields["booking_ins_1"].ReadOnly = true;
+
+            file.Document.Form.Fields["claim_code"].Value = string.IsNullOrWhiteSpace(offer.ClaimCode)
+                ? ""
+                : "CODE: " + offer.ClaimCode;
+            file.Document.Form.Fields["claim_code"].ReadOnly = true;
+
+            var output = new MemoryStream();
+            file.Save(new Stream(output), SerializationModeEnum.Standard);
+            output.Position = 0;
+
+            return File(output, "application/pdf");
         }
     }
 }

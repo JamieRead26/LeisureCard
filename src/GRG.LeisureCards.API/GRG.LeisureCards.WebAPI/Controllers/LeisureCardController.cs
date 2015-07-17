@@ -142,8 +142,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LeisureCard/GetAllCardNumbers")]
         public IEnumerable<Model.LeisureCard> GetAllCardNumbers()
         {
-            return Dispatch(() => new Model.LeisureCard[0]);
-         // _leisureCardRepository.GetAll().Select(Mapper.Map<Model.LeisureCard>));
+            return Dispatch(() => _leisureCardRepository.Find(c=>true, 1000).Select(Mapper.Map<Model.LeisureCard>));
         }
 
         [HttpGet]

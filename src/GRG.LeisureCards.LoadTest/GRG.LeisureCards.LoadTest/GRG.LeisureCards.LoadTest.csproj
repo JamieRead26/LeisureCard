@@ -47,12 +47,18 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddSessionTokenPlugIn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicSiteTest.cs" />
+    <Compile Include="RemoveRequestPlugIn.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="WebTest1.webtest">
+    <None Include="WebTest3.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

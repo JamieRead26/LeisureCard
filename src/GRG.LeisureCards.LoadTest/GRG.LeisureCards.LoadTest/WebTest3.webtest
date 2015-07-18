@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="WebTest3" Id="a6367c17-836b-4089-9d2d-33cbe5e3569a" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest3.4306b904-a271-4d98-905b-6a151cd74bdd.rec.webtestresult" ResultsLocale="">
+  <Items>
+    <Request Method="GET" Guid="60684e1d-5812-4646-a248-4a4e93ba5e1f" Version="1.1" Url="http://leisurecardsnpower/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="55b1a5bf-0648-4dd4-8c55-fe69da719985" Version="1.1" Url="http://leisurecardsnpower/partial/login" ThinkTime="4" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Accept" Value="application/json, text/plain, */*" />
+            <Header Name="Referer" Value="http://leisurecardsnpower/" />
+          </Headers>
+        </Request>
+      </DependentRequests>
+    </Request>
+    <Request Method="GET" Guid="03ffda3f-c28d-4503-96c5-358472e1017b" Version="1.1" Url="http://leisurecardsapi//LeisureCard/Login/12345678/NPower" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <ExtractionRules>
+        <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractHttpHeader, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="SessionToken" DisplayName="Extract HTTP Header" Description="Extract the value of an HTTP header and place it into the test context.">
+          <RuleParameters>
+            <RuleParameter Name="Header" Value="SessionToken" />
+            <RuleParameter Name="Required" Value="True" />
+          </RuleParameters>
+        </ExtractionRule>
+      </ExtractionRules>
+    </Request>
+    <Request Method="GET" Guid="13d639db-f197-4dfa-9582-98265e9203be" Version="1.1" Url="http://leisurecardsnpower/partial/offers" ThinkTime="2" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="a9eb6873-9c9d-48c1-bd47-c705b9fade0f" Version="1.1" Url="http://leisurecardsnpower/partial/offers_241" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="OPTIONS" Guid="9d7fa766-4430-4557-a98e-890667465980" Version="1.1" Url="http://leisurecardsapi//TwoForOne/GetAll" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="GET" Guid="84cca574-67d2-4b1d-9a3d-da54396ddec6" Version="1.1" Url="http://leisurecardsapi//TwoForOne/GetAll" ThinkTime="8" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="OPTIONS" Guid="943e5fe7-e41b-4700-a3be-6b6cedcc6119" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="OPTIONS" Guid="8f15e211-41af-4293-8f2c-60e530056f8e" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="OPTIONS" Guid="e55ac17c-afe6-4bf3-b5a7-26dd881de7c0" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="OPTIONS" Guid="7fca4eb6-4e23-462b-b80d-4ce35032b439" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="GET" Guid="ba866c4b-dfe4-4769-9c88-7d8a163ba3ab" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="8a12c11e-0e8d-4e4b-8244-7b11cdf706bd" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="0eeac850-f510-4c82-8cbb-f18cd23f7c9b" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="d782e7b6-5399-49f1-b632-5dc7b8c93e35" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="3" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="7351c44e-fc9b-4970-bde4-414da694cfd8" Version="1.1" Url="http://leisurecardsnpower/partial/offers_241_details" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="e32365aa-919b-4265-a9b1-7b2a4f7af09d" Version="1.1" Url="http://maps.googleapis.com/maps/api/js" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="sensor" Value="false" RecordedValue="false" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="language" Value="en" RecordedValue="en" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="initMap" RecordedValue="initMap" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="OPTIONS" Guid="549a0e26-51c9-4faa-ae5d-b7fbda492a11" Version="1.1" Url="http://leisurecardsapi//TwoForOne/Get/5" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="OPTIONS" Guid="a8bc588a-e5ef-40c3-812a-c7dc5dc4e8d2" Version="1.1" Url="http://leisurecardsapi//TwoForOne/Get/5" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="GET" Guid="8bf31db9-0e4b-4432-8f3c-1ea4c2332d4e" Version="1.1" Url="http://leisurecardsnpower/Content/NPower/241Category/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="fa194d95-83fc-479d-a19f-7281d525082f" Version="1.1" Url="http://leisurecardsapi//TwoForOne/Get/5" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="2654bb58-a6df-412a-87d4-2a38e5f7b342" Version="1.1" Url="http://leisurecardsapi//TwoForOne/Get/5" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="2d443243-b1f2-49ab-88fa-b7e0570b7239" Version="1.1" Url="http://maps.googleapis.com/maps/gen_204" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="target" Value="api" RecordedValue="api" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="ev" Value="api_viewport" RecordedValue="api_viewport" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="cad" Value="host:leisurecardsnpower,v:21,r:1,mt:m,c:-34.396976%2C150.644,sp:0.12635x0.18642,size:543x446,relsize:0.16,token:40pqbd6vkv,src:apiv3,ts:9bjevq" RecordedValue="host:leisurecardsnpower,v:21,r:1,mt:m,c:-34.396976%2C150.644,sp:0.12635x0.18642,size:543x446,relsize:0.16,token:40pqbd6vkv,src:apiv3,ts:9bjevq" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="f06f64af-e5d6-4ed6-b82a-66c905f93aab" Version="1.1" Url="http://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfT8E0i7KZn-EPnyo3HZu7kw.woff" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="ca8f6d09-1bb5-4ded-babf-911c3dc83cc5" Version="1.1" Url="http://fonts.gstatic.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="6a9951e8-a6a0-437f-89ea-a0da56d18697" Version="1.1" Url="http://fonts.gstatic.com/s/roboto/v15/RxZJdnzeo3R5zSexge8UUT8E0i7KZn-EPnyo3HZu7kw.woff" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="830224b0-14e4-4969-80e8-1391171b519a" Version="1.1" Url="http://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="4ac1be45-b50e-491a-b9ed-acf1b67473d1" Version="1.1" Url="http://maps.googleapis.com/maps/api/js/ViewportInfoService.GetViewportInfo" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="" Value="1m6" RecordedValue="1m6" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="1m2" RecordedValue="1m2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="1d-34.59394610130113" RecordedValue="1d-34.59394610130113" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="2d150.3535276133979" RecordedValue="2d150.3535276133979" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="2m2" RecordedValue="2m2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="1d-34.20226884449311" RecordedValue="1d-34.20226884449311" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="2d150.93472612350013" RecordedValue="2d150.93472612350013" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="2u12" RecordedValue="2u12" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="4sen" RecordedValue="4sen" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="5e0" RecordedValue="5e0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="6sm%40313000000" RecordedValue="6sm%40313000000" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="7b0" RecordedValue="7b0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="8e0" RecordedValue="8e0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="9b0" RecordedValue="9b0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="_xdc_._jb3xmg" RecordedValue="_xdc_._jb3xmg" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="token" Value="111265" RecordedValue="111265" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="98caff5d-0e8b-4c2f-b24c-5b90053f1248" Version="1.1" Url="http://mt0.googleapis.com/vt" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="pb" Value="!1m4!1m3!1i12!2i3760!3i2464!1m4!1m3!1i12!2i3760!3i2465!1m4!1m3!1i12!2i3761!3i2464!1m4!1m3!1i12!2i3761!3i2465!1m4!1m3!1i12!2i3760!3i2466!1m4!1m3!1i12!2i3761!3i2466!1m4!1m3!1i12!2i3762!3i2464!1m4!1m3!1i12!2i3762!3i2465!1m4!1m3!1i12!2i3763!3i2464!1m4!1m3!1i12!2i3763!3i2465!1m4!1m3!1i12!2i3762!3i2466!1m4!1m3!1i12!2i3763!3i2466!2m3!1e0!2sm!3i313208537!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e3" RecordedValue="!1m4!1m3!1i12!2i3760!3i2464!1m4!1m3!1i12!2i3760!3i2465!1m4!1m3!1i12!2i3761!3i2464!1m4!1m3!1i12!2i3761!3i2465!1m4!1m3!1i12!2i3760!3i2466!1m4!1m3!1i12!2i3761!3i2466!1m4!1m3!1i12!2i3762!3i2464!1m4!1m3!1i12!2i3762!3i2465!1m4!1m3!1i12!2i3763!3i2464!1m4!1m3!1i12!2i3763!3i2465!1m4!1m3!1i12!2i3762!3i2466!1m4!1m3!1i12!2i3763!3i2466!2m3!1e0!2sm!3i313208537!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e3" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="_xdc_._wgxwtw" RecordedValue="_xdc_._wgxwtw" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="token" Value="129609" RecordedValue="129609" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="d5dfa79b-6474-44ef-93ee-5badc113a16f" Version="1.1" Url="http://csi.gstatic.com/csi" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="v" Value="2" RecordedValue="2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="s" Value="mapsapi3" RecordedValue="mapsapi3" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="action" Value="apiboot" RecordedValue="apiboot" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="rt" Value="jl.33,mc.50,mb.155,smv.331,dm.331,prt.331,plt.314,ep.579,vt.852,mt.852" RecordedValue="jl.33,mc.50,mb.155,smv.331,dm.331,prt.331,plt.314,ep.579,vt.852,mt.852" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="size" Value="547x450" RecordedValue="547x450" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="maptype" Value="m" RecordedValue="m" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="67cc80fd-7b76-4173-9a18-5902f4568506" Version="1.1" Url="http://maps.googleapis.com/maps/api/js/AuthenticationService.Authenticate" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="" Value="1shttp%3A%2F%2Fleisurecardsnpower%2F%23%2Foffers%2F241%2F5" RecordedValue="1shttp%3A%2F%2Fleisurecardsnpower%2F%23%2Foffers%2F241%2F5" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="5e1" RecordedValue="5e1" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="_xdc_._5mmuf1" RecordedValue="_xdc_._5mmuf1" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="token" Value="873" RecordedValue="873" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="162ab294-f2c9-499a-a163-ca1ef710a4a5" Version="1.1" Url="http://maps.googleapis.com/maps/api/js/GeocodeService.Search" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="" Value="4sCT7%200BH" RecordedValue="4sCT7%200BH" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="7sUS" RecordedValue="7sUS" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="9sen" RecordedValue="9sen" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="_xdc_._qghvv3" RecordedValue="_xdc_._qghvv3" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="token" Value="40637" RecordedValue="40637" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="8454ceb1-21fe-429f-84e1-bb71b68ee326" Version="1.1" Url="http://csi.gstatic.com/csi" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="v" Value="2" RecordedValue="2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="s" Value="mapsapi3" RecordedValue="mapsapi3" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="action" Value="apiboot2" RecordedValue="apiboot2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="rt" Value="main.35,firstmap.50" RecordedValue="main.35,firstmap.50" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="0c2d6336-a207-4e1c-a88d-bae9dd8f2b35" Version="1.1" Url="http://maps.googleapis.com/maps/gen_204" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="target" Value="api" RecordedValue="api" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="ev" Value="api_viewport" RecordedValue="api_viewport" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="cad" Value="host:leisurecardsnpower,v:21,r:1,mt:m,c:51.36672%2C1.316269,sp:0.09560x0.18642,size:543x446,relsize:0.16,token:40pqbd6vkv,src:apiv3,ts:9bjflz" RecordedValue="host:leisurecardsnpower,v:21,r:1,mt:m,c:51.36672%2C1.316269,sp:0.09560x0.18642,size:543x446,relsize:0.16,token:40pqbd6vkv,src:apiv3,ts:9bjflz" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="9c12757a-e260-4f77-a05c-0514db1f8ce2" Version="1.1" Url="http://maps.googleapis.com/maps/gen_204" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="target" Value="api" RecordedValue="api" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="ev" Value="api_maprft" RecordedValue="api_maprft" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="cad" Value="host:leisurecardsnpower,v:21,r:1,t:498,smni:1,src:apiv3,token:40pqbd6vkv,ts:9bjfm1" RecordedValue="host:leisurecardsnpower,v:21,r:1,t:498,smni:1,src:apiv3,token:40pqbd6vkv,ts:9bjfm1" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="0a6de27c-e070-4ad9-aaa3-0f6f246740b8" Version="1.1" Url="http://mt0.googleapis.com/vt" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="pb" Value="!1m4!1m3!1i12!2i2061!3i1363!1m4!1m3!1i12!2i2062!3i1363!1m4!1m3!1i12!2i2063!3i1363!1m4!1m3!1i12!2i2061!3i1364!1m4!1m3!1i12!2i2061!3i1365!1m4!1m3!1i12!2i2062!3i1364!1m4!1m3!1i12!2i2062!3i1365!1m4!1m3!1i12!2i2063!3i1364!1m4!1m3!1i12!2i2063!3i1365!1m4!1m3!1i12!2i2064!3i1363!1m4!1m3!1i12!2i2064!3i1364!1m4!1m3!1i12!2i2064!3i1365!2m3!1e0!2sm!3i313208537!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e3" RecordedValue="!1m4!1m3!1i12!2i2061!3i1363!1m4!1m3!1i12!2i2062!3i1363!1m4!1m3!1i12!2i2063!3i1363!1m4!1m3!1i12!2i2061!3i1364!1m4!1m3!1i12!2i2061!3i1365!1m4!1m3!1i12!2i2062!3i1364!1m4!1m3!1i12!2i2062!3i1365!1m4!1m3!1i12!2i2063!3i1364!1m4!1m3!1i12!2i2063!3i1365!1m4!1m3!1i12!2i2064!3i1363!1m4!1m3!1i12!2i2064!3i1364!1m4!1m3!1i12!2i2064!3i1365!2m3!1e0!2sm!3i313208537!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e3" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="_xdc_._43ndww" RecordedValue="_xdc_._43ndww" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="token" Value="23613" RecordedValue="23613" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="e70a221e-562f-4a4e-a304-27156fcb7a9d" Version="1.1" Url="http://maps.googleapis.com/maps/api/js/ViewportInfoService.GetViewportInfo" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="" Value="1m6" RecordedValue="1m6" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="1m2" RecordedValue="1m2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="1d51.22200137235361" RecordedValue="1d51.22200137235361" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="2d1.0324703524102005" RecordedValue="2d1.0324703524102005" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="2m2" RecordedValue="2m2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="1d51.51835860313804" RecordedValue="1d51.51835860313804" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="2d1.5965050819677344" RecordedValue="2d1.5965050819677344" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="2u12" RecordedValue="2u12" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="4sen" RecordedValue="4sen" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="5e0" RecordedValue="5e0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="6sm%40313000000" RecordedValue="6sm%40313000000" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="7b0" RecordedValue="7b0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="8e0" RecordedValue="8e0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="9b0" RecordedValue="9b0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="_xdc_._ksxlpp" RecordedValue="_xdc_._ksxlpp" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="token" Value="111176" RecordedValue="111176" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="9f4e5c04-561b-4790-87f7-29701c8458ff" Version="1.1" Url="http://csi.gstatic.com/csi" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="v" Value="2" RecordedValue="2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="s" Value="mapsapi3" RecordedValue="mapsapi3" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="action" Value="map" RecordedValue="map" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="rt" Value="visuallycomplete.281" RecordedValue="visuallycomplete.281" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="e" Value="staticmap" RecordedValue="staticmap" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="b8b27978-5a45-4ec3-9c4f-d785a467d26b" Version="1.1" Url="http://mt0.googleapis.com/vt" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="pb" Value="!1m4!1m3!1i12!2i2061!3i1363!1m4!1m3!1i12!2i2062!3i1363!1m4!1m3!1i12!2i2063!3i1363!1m4!1m3!1i12!2i2061!3i1364!1m4!1m3!1i12!2i2061!3i1365!1m4!1m3!1i12!2i2062!3i1364!1m4!1m3!1i12!2i2062!3i1365!1m4!1m3!1i12!2i2063!3i1364!1m4!1m3!1i12!2i2063!3i1365!1m4!1m3!1i12!2i2064!3i1363!1m4!1m3!1i12!2i2064!3i1364!1m4!1m3!1i12!2i2064!3i1365!2m3!1e0!2sm!3i313209258!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e3" RecordedValue="!1m4!1m3!1i12!2i2061!3i1363!1m4!1m3!1i12!2i2062!3i1363!1m4!1m3!1i12!2i2063!3i1363!1m4!1m3!1i12!2i2061!3i1364!1m4!1m3!1i12!2i2061!3i1365!1m4!1m3!1i12!2i2062!3i1364!1m4!1m3!1i12!2i2062!3i1365!1m4!1m3!1i12!2i2063!3i1364!1m4!1m3!1i12!2i2063!3i1365!1m4!1m3!1i12!2i2064!3i1363!1m4!1m3!1i12!2i2064!3i1364!1m4!1m3!1i12!2i2064!3i1365!2m3!1e0!2sm!3i313209258!3m9!2sen!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e3" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="_xdc_._qh81mq" RecordedValue="_xdc_._qh81mq" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="token" Value="47099" RecordedValue="47099" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="e2fe16ed-3387-439d-a28b-9dc2e2dfbe73" Version="1.1" Url="http://maps.googleapis.com/maps/gen_204" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="target" Value="api" RecordedValue="api" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="ev" Value="api_maprft" RecordedValue="api_maprft" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="cad" Value="host:leisurecardsnpower,v:21,r:1,t:1164,smni:1,src:apiv3,token:40pqbd6vkv,ts:9bjg4j" RecordedValue="host:leisurecardsnpower,v:21,r:1,t:1164,smni:1,src:apiv3,token:40pqbd6vkv,ts:9bjg4j" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="OPTIONS" Guid="7ac79ecc-2fe9-403f-99df-3b8c66d640a0" Version="1.1" Url="http://leisurecardsapi//TwoForOne/ClaimOffer/5" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="GET" Guid="68a17c34-9bd8-49c4-aedb-3acfaed99da2" Version="1.1" Url="http://leisurecardsapi//TwoForOne/ClaimOffer/5" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="d816dee9-ebd9-41cf-bd1a-231cfbd71fc4" Version="1.1" Url="http://leisurecardsnpower/pdf/241voucher/5/5b53c5fb-9adb-477e-a741-24aefb8ecd00" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="8bc3b408-a8f9-4d50-a79c-e88d3cc100ee" Version="1.1" Url="http://leisurecardsnpower/pdf/241voucher/5/5b53c5fb-9adb-477e-a741-24aefb8ecd00" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="413c89e2-7ebd-4fb3-a701-d25ae673b7df" Version="1.1" Url="http://csi.gstatic.com/csi" ThinkTime="3" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="v" Value="2" RecordedValue="2" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="s" Value="mapsapi3" RecordedValue="mapsapi3" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="action" Value="geocoder" RecordedValue="geocoder" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="rt" Value="gsc.104" RecordedValue="gsc.104" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="2c65aed8-af47-44dc-aa11-2d27dc4e8fc2" Version="1.1" Url="http://maps.googleapis.com/maps/api/js/QuotaService.RecordEvent" ThinkTime="24" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+      <QueryStringParameters>
+        <QueryStringParameter Name="" Value="1shttp%3A%2F%2Fleisurecardsnpower%2F%23%2Foffers%2F241%2F5" RecordedValue="1shttp%3A%2F%2Fleisurecardsnpower%2F%23%2Foffers%2F241%2F5" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="4e1" RecordedValue="4e1" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="5e0" RecordedValue="5e0" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="6u1" RecordedValue="6u1" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="" Value="7s9bjj5f" RecordedValue="7s9bjj5f" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="callback" Value="_xdc_._f62gz9" RecordedValue="_xdc_._f62gz9" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="token" Value="112715" RecordedValue="112715" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="e1762525-9045-4c57-87f0-17be8f301fe5" Version="1.1" Url="http://leisurecardsnpower/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://leisurecardsnpower/#/offers/241?location=Aylesbury&amp;miles=5000#241search" ReportingName="" IgnoreHttpStatusCode="False">
+      <QueryStringParameters>
+        <QueryStringParameter Name="location" Value="Aylesbury" RecordedValue="Aylesbury" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="miles" Value="5000" RecordedValue="5000" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+    <Request Method="GET" Guid="8aaa16c5-c394-4ace-b237-dc71cae28eef" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/#/offers/241?location=Aylesbury&amp;miles=5000#241search" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="3bb2d90a-5be6-4bfb-a025-eeea41bfe8de" Version="1.1" Url="http://leisurecardsapi//TwoForOne/FindByLocation/Aylesbury/5000" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/#/offers/241?location=Aylesbury&amp;miles=5000#241search" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="40016241-73e7-4e63-92a3-be2f7021b451" Version="1.1" Url="http://leisurecardsnpower/" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <DependentRequests>
+        <Request Method="GET" Guid="96db293c-cd77-4a58-b985-e76b24119843" Version="1.1" Url="http://leisurecardsnpower/partial/login" ThinkTime="4" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+          <Headers>
+            <Header Name="Accept" Value="application/json, text/plain, */*" />
+            <Header Name="Referer" Value="http://leisurecardsnpower/" />
+          </Headers>
+        </Request>
+      </DependentRequests>
+    </Request>
+    <Request Method="GET" Guid="45491628-bdac-42a1-8a97-e99e71943b93" Version="1.1" Url="http://leisurecardsapi//LeisureCard/Login/12345678/NPower" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="1f0f3beb-fb25-4352-bdae-db79c97d7831" Version="1.1" Url="http://leisurecardsnpower/partial/offers" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="c37b8cc5-b936-43e2-9840-be4f48bc7aa5" Version="1.1" Url="http://leisurecardsnpower/partial/offers_discount" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="874d124e-d55f-4d21-8cf9-a828c245eaaa" Version="1.1" Url="http://leisurecardsnpower/partial/offers_discount_cottage" ThinkTime="2" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="df7435c8-bd30-430f-bfbe-17b12cbb4d6c" Version="1.1" Url="http://leisurecardsnpower/" ThinkTime="1" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://leisurecardsnpower/#/offers/discount" ReportingName="" IgnoreHttpStatusCode="False" />
+    <Request Method="GET" Guid="d2651d73-f699-465b-9e7d-29570c94e787" Version="1.1" Url="http://leisurecardsnpower/partial/offers_discount_hoseasons" ThinkTime="5" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/#/offers/discount" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="23fe5db7-2067-4d4b-8793-19fd16dfc404" Version="1.1" Url="http://leisurecardsnpower/partial/offers_experience" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/#/offers/discount" />
+      </Headers>
+    </Request>
+    <Request Method="OPTIONS" Guid="c7d28b4f-be27-4abb-a54e-4975d5112663" Version="1.1" Url="http://leisurecardsapi//RedLetter/GetRandomSpecialOffers/6" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="OPTIONS" Guid="ccb774c3-69ee-4def-84bc-0af4f8d34bac" Version="1.1" Url="http://leisurecardsapi//RedLetter/GetRandomSpecialOffers/6" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <StringHttpBody ContentType="" InsertByteOrderMark="False">
+      </StringHttpBody>
+    </Request>
+    <Request Method="GET" Guid="b2d38752-1b19-47e2-a200-3a33310a11f6" Version="1.1" Url="http://leisurecardsapi//RedLetter/GetRandomSpecialOffers/6" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/#/offers/discount" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="de3cfa9a-affa-4300-9aeb-0dd175ea200c" Version="1.1" Url="http://leisurecardsapi//RedLetter/GetRandomSpecialOffers/6" ThinkTime="4" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/#/offers/discount" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="0c70bcf5-c7f9-47a1-9719-ba34c5772ede" Version="1.1" Url="http://leisurecardsapi//RedLetter/GetRandomSpecialOffers/6" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/#/offers/discount" />
+      </Headers>
+    </Request>
+    <Request Method="GET" Guid="bf138b7f-c947-4730-8f2d-9608d83e4f47" Version="1.1" Url="http://leisurecardsapi//RedLetter/GetRandomSpecialOffers/6" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Accept" Value="application/json, text/plain, */*" />
+        <Header Name="Referer" Value="http://leisurecardsnpower/#/offers/discount" />
+      </Headers>
+    </Request>
+  </Items>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
+      <RuleParameters>
+        <RuleParameter Name="Tolerance" Value="0" />
+      </RuleParameters>
+    </ValidationRule>
+  </ValidationRules>
+  <WebTestPlugins>
+    <WebTestPlugin Classname="GRG.LeisureCards.LoadTest.AddSessionTokenPlugIn, GRG.LeisureCards.LoadTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="Add API Session Token Header" Description="Adds session token header to each API request" />
+    <WebTestPlugin Classname="GRG.LeisureCards.LoadTest.RemoveRequestPlugIn, GRG.LeisureCards.LoadTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="RemoveRequestPlugIn" Description="" />
+  </WebTestPlugins>
+</WebTest>

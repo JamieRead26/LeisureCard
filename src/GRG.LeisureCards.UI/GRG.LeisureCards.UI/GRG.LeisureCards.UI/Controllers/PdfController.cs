@@ -30,7 +30,7 @@ namespace GRG.LeisureCards.UI.Controllers
                 offer.BookingInstructions7,
             }.Where(i=>!string.IsNullOrWhiteSpace(i)))
             {
-                bookingInsPara.Append(ins + @"\r\n");
+                bookingInsPara.Append(ins + " \n");
             }
 
             var file = new org.pdfclown.files.File(Server.MapPath(string.Format("~/content/{0}/PDF/npower_voucher.pdf", Session["TenantKey"])));

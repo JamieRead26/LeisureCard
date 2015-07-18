@@ -150,21 +150,7 @@ namespace GRG.LeisureCards.WebAPI.Controllers
         [Route("LeisureCard/GetCardNumbersForUpdate/{searchTerm}")]
         public IEnumerable<Model.LeisureCard> GetCardNumbersForUpdate(string searchTerm)
         {
-            return Dispatch(() =>
-            {
-                var urns = _leisureCardRepository.Find(c => c.Code.IndexOf(searchTerm) > -1, 100);
-
-                if (!urns.Any())
-                    urns = _leisureCardRepository.Find(c=>c.Code.IndexOf(searchTerm.ToUpper())>-1, 100);
-
-                if (!urns.Any())
-                    urns = _leisureCardRepository.GetPrototypeByRef(searchTerm, 100);
-                
-                if (!urns.Any())
-                    urns = _leisureCardRepository.GetPrototypeByRef(searchTerm.ToUpper(), 100);
-
-                return urns.Select(Mapper.Map<Model.LeisureCard>);
-            });
+            return Dispatch(() => _leisureCardRepository.FindByCodeAndRef(searchTerm, 100).Select(Mapper.Map<Model.LeisureCard>));
         }
 
         [HttpGet]

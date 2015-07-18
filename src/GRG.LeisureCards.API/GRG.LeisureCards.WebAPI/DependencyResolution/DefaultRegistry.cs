@@ -128,6 +128,10 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
 
+            For<ISelectedOfferService>().Use<SelectedOfferService>()
+               .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
+               .SetLifecycleTo<SingletonLifecycle>();
+
             For<IDataImportService>().Use<DataImportService>()
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();

@@ -9,11 +9,12 @@ namespace GRG.LeisureCards.Persistence.NHibernate.ClassMaps
         public SelectedOfferClassMap()
         {
             Id(x => x.Id);
-            Map(x => x.OfferId);
+            Map(x => x.OfferId).UniqueKey("OfferId_SessionToken");
             Map(x => x.OfferTitle).CustomSqlType(Database.GetCustomSqlTypeString(CustomSqlType.NText));
             References(x => x.OfferCategory);
             Map(x => x.LeisureCardCode);
             Map(x => x.SelectedDateTime);
+            Map(x => x.SessionToken).UniqueKey("OfferId_SessionToken");
         }
     }
 }

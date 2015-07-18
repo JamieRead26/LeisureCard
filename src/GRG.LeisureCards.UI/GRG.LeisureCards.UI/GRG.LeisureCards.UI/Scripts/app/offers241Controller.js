@@ -84,13 +84,12 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
 });
 
 offers241Controller.controller('offers241DetailsController', function ($scope, $sce, $window, $routeParams,
-    Offer241GetById, Offer241Claim, slideshow, $location) {
+    Offer241GetById, Offer241Claim, slideshow, $cookies) {
 
     $scope.id = $routeParams.id;
     $scope.offer = {};
     $scope.global.bodyclass = 'offer-241-details';
     $scope.global.slideshow = slideshow.offer241details;
-    //$scope.session = $cookies.SessionToken;
     Offer241GetById.get({ id: $scope.id }, function (data) {
     
         var website = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>') : '';
@@ -123,12 +122,11 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     }
 
     $scope.claim = function (url) {
-        debugger;
         Offer241Claim.get({ id: $scope.id }, function (data) {
             if(!data.$resolved){
                 return alert('Something went wrong when claiming this offer.');
             }
-            $window.open('/#' + url + $scope.id);
+            $window.open("/pdf/241voucher/" + $scope.id + "/" + $cookies.SessionToken);
         });
     };
 
@@ -156,7 +154,6 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
 
         var url = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank" class="button">Claim Reward</a>') : '';
        
-        debugger;
         $scope.offer = {
             Id : data.Id,
             OutletName: data.OutletName,
@@ -181,7 +178,6 @@ offers241Controller.controller('offers241ClaimController', function ($scope, $sc
             if (!data.$resolved) {
                 return alert('Something went wrong when claiming this offer.');
             }
-            debugger;
             $location.path(url + $scope.id);
         });
     };

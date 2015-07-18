@@ -15,5 +15,7 @@ namespace GRG.LeisureCards.DomainModel
         public virtual string OfferTitle { get; set; }
 
         public virtual string OfferId { get; set; }
+
+        public virtual string SessionToken { get; set; }
     }
 }

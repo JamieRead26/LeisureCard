@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using AutoMapper;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
@@ -13,7 +8,6 @@ using GRG.LeisureCards.WebAPI.Authentication;
 using GRG.LeisureCards.WebAPI.Filters;
 using GRG.LeisureCards.WebAPI.Model;
 using ApiModel = GRG.LeisureCards.WebAPI.Model;
-using SelectedOffer = GRG.LeisureCards.DomainModel.SelectedOffer;
 
 namespace GRG.LeisureCards.WebAPI.Controllers
 {
@@ -21,22 +15,22 @@ namespace GRG.LeisureCards.WebAPI.Controllers
     public class TwoForOneController : LcApiController
     {
         private readonly ITwoForOneRepository _twoForOneRepository;
-        private readonly ISelectedOfferRepository _selectedOfferRepository;
         private readonly IOfferCategoryRepository _offerCategoryRepository;
         private readonly IUserSessionService _userSessionService;
+        private readonly ISelectedOfferService _selectedOfferService;
         private readonly IUkLocationService _locationService;
 
         public TwoForOneController(
             ITwoForOneRepository twoForOneRepository, 
-            ISelectedOfferRepository selectedOfferRepository,
             IOfferCategoryRepository offerCategoryRepository,
             IUkLocationService locationService,
-            IUserSessionService userSessionService)
+            IUserSessionService userSessionService,
+            ISelectedOfferService selectedOfferService)
         {
             _twoForOneRepository = twoForOneRepository;
-            _selectedOfferRepository = selectedOfferRepository;
             _offerCategoryRepository = offerCategoryRepository;
             _userSessionService = userSessionService;
+            _selectedOfferService = selectedOfferService;
             _locationService = locationService;
         }
 
@@ -64,14 +58,12 @@ namespace GRG.LeisureCards.WebAPI.Controllers
                 var session = _userSessionService.GetSession(sessionInfo.SessionToken);
                 var offer = _twoForOneRepository.Get(id);
 
-                _selectedOfferRepository.SaveOrUpdate(new SelectedOffer
-                {
-                    LeisureCardCode = session.CardCode,
-                    OfferCategory = _offerCategoryRepository.TwoForOne,
-                    OfferId = id.ToString(),
-                    OfferTitle = offer.Description,
-                    SelectedDateTime = DateTime.Now
-                });
+                _selectedOfferService.RecordClaim(
+                    session.CardCode,
+                    _offerCategoryRepository.TwoForOne,
+                    id.ToString(),
+                    offer.Description,
+                    session.Token);
             });
         }
 

@@ -152,6 +152,14 @@ namespace GRG.LeisureCards.Service
                             offerToPersist.Phone = offer.Phone;
                             offerToPersist.TownCity = offer.TownCity;
                             offerToPersist.Website = offer.Website;
+                            offerToPersist.DisabledAccess = offer.DisabledAccess;
+                            offerToPersist.BookingInstructions1 = offer.BookingInstructions1;
+                            offerToPersist.BookingInstructions2 = offer.BookingInstructions2;
+                            offerToPersist.BookingInstructions3 = offer.BookingInstructions3;
+                            offerToPersist.BookingInstructions4 = offer.BookingInstructions4;
+                            offerToPersist.BookingInstructions5 = offer.BookingInstructions5;
+                            offerToPersist.BookingInstructions6 = offer.BookingInstructions6;
+                            offerToPersist.BookingInstructions7 = offer.BookingInstructions7;
                             offers.Remove(offer.Id);
                         }
                         else
@@ -203,7 +211,6 @@ namespace GRG.LeisureCards.Service
 
                 return journalEntry;
             }
-            
         }
 
         [UnitOfWork]

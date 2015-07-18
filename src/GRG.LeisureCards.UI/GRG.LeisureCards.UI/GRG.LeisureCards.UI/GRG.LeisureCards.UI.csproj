@@ -223,7 +223,6 @@
     <Content Include="Content\npower\html\login\pleaseEnter.html" />
     <Content Include="Content\npower\html\offers\homeCopy.html" />
     <Content Include="Content\npower\html\offers_241_claim\note.html" />
-    <Content Include="Content\npower\html\offers_241_details\note.html" />
     <Content Include="Content\npower\html\offers_discount_cottage\bookTalk.html" />
     <Content Include="Content\npower\html\offers_discount_cottage\redirectWarning.html" />
     <Content Include="Content\npower\html\offers_discount_cottage\tenpercentoff.html" />
@@ -415,6 +414,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\grg\241Category\" />
+    <Folder Include="Content\npower\html\offers_241_details\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

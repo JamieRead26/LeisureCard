@@ -18,9 +18,14 @@ namespace GRG.LeisureCards.GenerateDBSchema
             Console.ForegroundColor = ConsoleColor.White;
             if (args.Length == 0 || args[0]!="NOCONF")
             {
-                Console.Write("Proceed with reset? (Y/n): ");
-                if (Console.ReadLine() != "Y")
+                Console.Write("Proceed with reset? (y/n): ");
+                if (Console.ReadLine().ToUpper() != "Y")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("DB RESET CANCELLED");
+                    Console.ForegroundColor = ConsoleColor.White;
                     return;
+                }
             }
 
             try

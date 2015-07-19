@@ -469,5 +469,6 @@
   <WebTestPlugins>
     <WebTestPlugin Classname="GRG.LeisureCards.LoadTest.AddSessionTokenPlugIn, GRG.LeisureCards.LoadTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="Add API Session Token Header" Description="Adds session token header to each API request" />
     <WebTestPlugin Classname="GRG.LeisureCards.LoadTest.RemoveRequestPlugIn, GRG.LeisureCards.LoadTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="RemoveRequestPlugIn" Description="" />
+    <WebTestPlugin Classname="GRG.LeisureCards.LoadTest.ReplaceSessionTokenInUrlPlugIn, GRG.LeisureCards.LoadTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DisplayName="ReplaceSessionTokenInUrlPlugIn" Description="" />
   </WebTestPlugins>
 </WebTest>

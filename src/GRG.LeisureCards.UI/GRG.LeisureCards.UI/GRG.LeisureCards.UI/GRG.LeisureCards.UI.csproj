@@ -382,6 +382,7 @@
     <Content Include="Content\grg\scripts\google_analytics_uat.js" />
     <Compile Include="Content\HtmlContent.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LcController.cs" />
     <Compile Include="Controllers\PdfController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

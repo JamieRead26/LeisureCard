@@ -14,7 +14,7 @@ namespace GRG.LeisureCards.LoadTest
             {
                 if (dependent.Url.Contains("CategoryKey"))
                 {
-                remove.Add(dependent);
+                    remove.Add(dependent);
                 }
             }
             foreach (WebTestRequest dependent in remove)

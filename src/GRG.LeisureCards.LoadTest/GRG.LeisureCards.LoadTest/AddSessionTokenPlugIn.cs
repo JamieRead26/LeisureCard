@@ -9,8 +9,6 @@ namespace GRG.LeisureCards.LoadTest
     {
         public override void PreRequestDataBinding(object sender, PreRequestDataBindingEventArgs e)
         {
-          // if (e.Request.Url.IndexOf((string)e.WebTest.Context["API"])==0)
-
             object sessionToken;
             if (e.WebTest.Context.TryGetValue("SessionToken", out sessionToken))
                 e.Request.Headers.Add("SessionToken", (string)sessionToken);

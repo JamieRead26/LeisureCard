@@ -219,12 +219,15 @@ namespace GRG.LeisureCards.Service
             return ImportForTenant(importKey, mapPath, string.Empty, args);
         }
 
-        public DataImportJournalEntry ImportForTenant(DataImportKey importKey, Func<string, string> mapPath,
-            string tenantKey, params object[] args)
+        public DataImportJournalEntry ImportForTenant(
+            DataImportKey importKey, 
+            Func<string, string> mapPath,
+            string tenantKey, 
+            params object[] args)
         {
             var journalEntry = _dataImportJournalEntryRepository.GetLast(importKey);
 
-            var path = (String.IsNullOrWhiteSpace(tenantKey))
+            var path = (string.IsNullOrWhiteSpace(tenantKey))
                 ? mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName
                 : mapPath(importKey.UploadPath) + "\\" + tenantKey + "\\" + journalEntry.FileName;
 

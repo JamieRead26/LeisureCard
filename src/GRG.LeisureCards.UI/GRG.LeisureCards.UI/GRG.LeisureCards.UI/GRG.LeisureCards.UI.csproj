@@ -15,7 +15,7 @@
     <RootNamespace>GRG.LeisureCards.UI</RootNamespace>
     <AssemblyName>GRG.LeisureCards.UI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -450,7 +450,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57214</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://leisurecardsnpower</IISUrl>
+          <IISUrl>http://localhost:57214/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://LeisureCards.GRG</CustomServerUrl>

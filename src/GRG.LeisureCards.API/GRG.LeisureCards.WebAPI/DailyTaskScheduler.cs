@@ -30,8 +30,6 @@ namespace GRG.LeisureCards.WebAPI
 
         void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Log.Info("_timer_Elapsed");
-
             var day = DateTime.Now.Day;
             if (_lastExecutedDay==day)
                 return;

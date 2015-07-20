@@ -21,8 +21,8 @@ namespace GRG.LeisureCards.GenerateDBSchema
 
             if (Config.Release == Release.UAT)
             {
-                GRG.Domain = "leisureure-card-uat.grgtest.co.uk";
-                NPower.Domain = "npower.leisurecards.shiftkey.uk.com";
+                GRG.Domain = "leisure-card-uat.grgtest.co.uk";
+                NPower.Domain = "npowerthankyou-uat.grgtest.co.uk";
             }
 
             return new[] { GRG, NPower };

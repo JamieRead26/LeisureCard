@@ -8,12 +8,21 @@ using GRG.LeisureCards.Data;
 
 namespace GRG.LeisureCards.GenerateDBSchema
 {
+    public enum Release
+    {
+        Prod,
+        UAT
+    }
+
     public static class Config
     {
         public static readonly DbConnectionDetails DbConnectionDetails;
+        public static readonly Release Release;
 
         static Config()
         {
+            Release = (Release) Enum.Parse(typeof (Release), ConfigurationManager.AppSettings["Release"]);
+
             DbConnectionDetails = new DbConnectionDetails
             {
                 DbType = ConfigurationManager.AppSettings["DbType"].ToUpper().Trim(),

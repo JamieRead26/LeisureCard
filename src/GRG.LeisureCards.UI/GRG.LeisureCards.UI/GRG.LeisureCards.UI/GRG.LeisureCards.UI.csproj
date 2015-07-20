@@ -193,6 +193,7 @@
     <Content Include="Content\grg\html\offers_discount_cottage\bookTalk.html" />
     <Content Include="Content\grg\html\offers_discount_hoseasons\bookTalk.html" />
     <Content Include="Content\grg\html\offers_experience\bottomBannerCopy.html" />
+    <Content Include="Content\grg\favicon.ico" />
     <Content Include="Content\grg\scripts\google_analytics_live.js" />
     <Content Include="Content\grg\scripts\google_analytics_none.js" />
     <Content Include="Content\npower\html\offers_experience\redirectWarning.html" />
@@ -291,6 +292,7 @@
     <Content Include="Content\npower\img\travelandwk-r.jpg" />
     <Content Include="Content\npower\img\tw-title.jpg" />
     <Content Include="Content\npower\img\welcome-to-leisure-card.png" />
+    <Content Include="Content\npower\favicon.ico" />
     <Content Include="Content\npower\scripts\config.js" />
     <Content Include="Content\npower\scripts\google_analytics_live.js" />
     <Content Include="Content\npower\scripts\google_analytics_none.js" />

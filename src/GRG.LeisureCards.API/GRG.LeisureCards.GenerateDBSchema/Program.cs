@@ -16,25 +16,33 @@ namespace GRG.LeisureCards.GenerateDBSchema
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("WARNING: THIS WILL DELETE ALL DATA AND RESET TARGET DATABASE SCHEMA");
             Console.ForegroundColor = ConsoleColor.White;
-            if (args.Length==0) Console.Write("Proceed with reset? (Y/n): ");
-            if (args[0]=="NOCONF" || Console.ReadLine()=="Y")
+            if (args.Length == 0 || args[0]!="NOCONF")
             {
-                try
+                Console.Write("Proceed with reset? (y/n): ");
+                if (Console.ReadLine().ToUpper() != "Y")
                 {
-                    Console.Write("Resetting target db...");
-                    DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, Assembly.GetAssembly(typeof(TenantDataFixture)));
-                    Console.WriteLine("done.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("DB RESET CANCELLED");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    return;
                 }
-                catch (Exception ex)
+            }
+
+            try
+            {
+                Console.Write("Resetting target db...");
+                DataBootstrap.PrepDb(Assembly.GetAssembly(typeof(LeisureCardClassMap)), Config.DbConnectionDetails, Assembly.GetAssembly(typeof(TenantDataFixture)));
+                Console.WriteLine("done.");
+            }
+            catch (Exception ex)
+            {
+                do
                 {
-                    do
-                    {
-                        Console.WriteLine("");
-                        Console.WriteLine("ERROR: " + ex.Message);
-                        Console.WriteLine("-----------");
-                        Console.WriteLine(ex.StackTrace);
-                    } while ((ex=ex.InnerException)!=null);
-                }
+                    Console.WriteLine("");
+                    Console.WriteLine("ERROR: " + ex.Message);
+                    Console.WriteLine("-----------");
+                    Console.WriteLine(ex.StackTrace);
+                } while ((ex=ex.InnerException)!=null);
             }
 
             if (args.Length == 0)

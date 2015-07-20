@@ -16,10 +16,10 @@
     <add key="webpages:Enabled" value="false" />
     <add key="ClientValidationEnabled" value="true" />
     <add key="UnobtrusiveJavaScriptEnabled" value="true" />
-    <add key="ApiUrl" value="http://leisurecardsapi/" />
+    <add key="ApiUrl" value="http://LeisureCardsAPI" />
     <add key="IncomingUrl" value="" />
     
-    <add key="Release" value="uat"/> <!--none | uat | live-->
+    <add key="Release" value="uat" /> <!--none | uat | live-->
   </appSettings>
   <system.web>
     <compilation debug="true" targetFramework="4.5" />

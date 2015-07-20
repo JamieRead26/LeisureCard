@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Leisure Card</title>
-    
+
 
     <!--[if lt IE 9]>
-      <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="@System.Configuration.ConfigurationManager.AppSettings["ApiUrl"]/proxy.html"></script>
-      <script src="/Scripts/html5shiv.min.js"></script>
-      <script src="/Scripts/respond.min.js"></script>
+        <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="@System.Configuration.ConfigurationManager.AppSettings["ApiUrl"]/proxy.html"></script>
+        <script src="/Scripts/html5shiv.min.js"></script>
+        <script src="/Scripts/respond.min.js"></script>
     <![endif]-->
 
 
@@ -17,6 +17,7 @@
 
 
 </head>
+<link rel="shortcut icon" href="content/@Session["TenantKey"]/favicon.ico" />
 <body ng-app="leisureApp" ng-controller="globalCtrl" ng-class="global.bodyclass" id="ng-app">
 
     @{Html.RenderPartial("Header");}
@@ -63,7 +64,7 @@
 
     <script>
     app.constant('config', {
-        googleAPiKey: 'AIzaSyAvl80GCl1HRw1H_FmBIGlLk2VPcV5R5Cg',
+        googleAPiKey: 'XANK5axYP6II2BXhoT3bTiTsvLE=',
         tenant: '@Session["TenantKey"]',
         apiUrl: '@System.Configuration.ConfigurationManager.AppSettings["ApiUrl"]'
         });

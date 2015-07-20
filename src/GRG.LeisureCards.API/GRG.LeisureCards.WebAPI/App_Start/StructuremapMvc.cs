@@ -22,7 +22,8 @@ using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Service;
 using GRG.LeisureCards.WebAPI.App_Start;
-
+using log4net;
+using NHibernate.Cfg;
 using WebActivatorEx;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(StructuremapMvc), "Start")]
@@ -35,6 +36,8 @@ namespace GRG.LeisureCards.WebAPI.App_Start {
 	using GRG.LeisureCards.WebAPI.DependencyResolution;
 
     using StructureMap;
+
+    
     
 	public static class StructuremapMvc {
         #region Public Properties
@@ -44,6 +47,8 @@ namespace GRG.LeisureCards.WebAPI.App_Start {
         #endregion
 		
 		#region Public Methods and Operators
+
+        private static readonly ILog Log = LogManager.GetLogger(typeof(StructuremapMvc));
 		
 		public static void End() {
             StructureMapDependencyScope.Dispose();
@@ -59,16 +64,21 @@ namespace GRG.LeisureCards.WebAPI.App_Start {
             var fileImportManager = container.GetInstance<IFileImportManager>();
             var dataImportJournalEntryRepository = container.GetInstance<IDataImportJournalEntryRepository>();
 
+            
+            var minutes = int.Parse(ConfigurationManager.AppSettings["RedLetterAutoDownloadDayMinutes"]);
+            Log.Info("Initialisaing daily task scheduler with RedLetterAutoDownloadDayMinutes = " +minutes);
+
             DailyTaskScheduler.Instance.ScheduleTask(() =>
-            {
-                var journalEntry = fileImportManager.StoreDataFile(DataImportKey.RedLetter,()=>fileImportManager.GetRedLetterData());
+                {
+                    var journalEntry = fileImportManager.StoreDataFile(DataImportKey.RedLetter,()=>fileImportManager.GetRedLetterData());
 
-                dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
+                    dataImportJournalEntryRepository.SaveOrUpdate(journalEntry);
 
-                if (journalEntry.Success)
-                    dataImportService.Import(DataImportKey.RedLetter, path => HttpContext.Current.Server.MapPath(path));
-            },
-            int.Parse(ConfigurationManager.AppSettings["RedLetterAutoDownloadDayMinutes"]));
+                    if (journalEntry.Success)
+                        dataImportService.Import(DataImportKey.RedLetter, path => WebApiApplication.AppRoot + path.Substring(1));
+                },
+                minutes
+            );
         }
 
         #endregion

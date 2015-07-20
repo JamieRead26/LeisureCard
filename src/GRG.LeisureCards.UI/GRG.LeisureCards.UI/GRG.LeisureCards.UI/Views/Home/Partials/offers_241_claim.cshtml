@@ -37,7 +37,9 @@
             </ol>
         </div>
         <p class="ng-binding button-claim">
-            <img src="~/Content/@Session["TenantKey"]/img/redeem-here.jpg" onclick="print()" />
+            <a href="/pdf/241voucher/{{ offer.Id }}/{{ sessionToken }}">
+                <img src="~/Content/@Session["tenantkey"]/img/redeem-here.jpg"/>
+            </a>
         </p>
         <div class="claim-offer-copy">
             @Html.Raw(ViewBag.note)

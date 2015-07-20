@@ -68,39 +68,39 @@ namespace GRG.LeisureCards.Persistence.NHibernate
             return Session.Query<LeisureCard>().Any(c=>c.Code==code);
         }
 
-        public ICollection<LeisureCard> GetPrototypeByRef(string searchTerm, int max)
+        public IEnumerable<LeisureCard> FindByCodeAndRef(string searchTerm, int max)
         {
-            return Session.QueryOver<LeisureCard>()
-                .Take(10)
-                .List();
+            IEnumerable<LeisureCard> urns = Session.QueryOver<LeisureCard>()
+               .WhereRestrictionOn(x => x.Code).IsLike(searchTerm +"%")  
+               .Take(max)
+               .List();
 
-            //// alias for inner query
-            //LeisureCard inner = null;
-            //// this alias is for outer query, and will be used in 
-            //// inner query as a condition in the HAVING clause
-            //LeisureCard outer = null;
 
-            //var minIdSubquery = QueryOver.Of(() => inner)
-            //    .SelectList(l => l
-            //        .SelectGroup(() => inner.Reference) // here we GROUP BY
-            //        .SelectMin(() => inner.Code)
-            //    )
-            //    // HAVING to get just Min(id) match
-            //    .Where(Restrictions.EqProperty(
-            //      Projections.Min<LeisureCard>(i => i.Code),
-            //      Projections.Property(() => outer.Code)
-            //    ));
+            // alias for inner query
+            LeisureCard inner = null;
+            // this alias is for outer query, and will be used in 
+            // inner query as a condition in the HAVING clause
+            LeisureCard outer = null;
 
-            //// outer query
-            //var result = Session.QueryOver(() => outer)
-            //    .Where(c=>c.Reference.IndexOf(searchTerm)>-1)
-            //    .WithSubquery
-            //    // we can now use EXISTS, because we applied match in subquery
-            //    .WhereExists(minIdSubquery)
-            //    .Take(max)
-            //    .List();
+            var minIdSubquery = QueryOver.Of(() => inner)
+                .SelectList(l => l
+                    .SelectGroup(() => inner.Reference) // here we GROUP BY
+                    .SelectMin(() => inner.Code)
+                )
+                // HAVING to get just Min(id) match
+                .Where(Restrictions.EqProperty(
+                  Projections.Min<LeisureCard>(i => i.Code),
+                  Projections.Property(() => outer.Code)
+                ));
 
-            //return result;
+            // outer query
+            // outer query
+            urns = urns.Union(Session.QueryOver(() => outer)
+                .WithSubquery
+                // we can now use EXISTS, because we applied match in subquery
+                .WhereExists(minIdSubquery).List());
+
+            return urns.ToList();
         }
 
         public override void Delete(LeisureCard entity)

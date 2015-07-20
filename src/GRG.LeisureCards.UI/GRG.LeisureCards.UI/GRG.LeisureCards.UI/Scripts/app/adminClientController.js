@@ -144,7 +144,6 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
     $scope.key = $routeParams.key;
     $scope.keyreadonly = $scope.key != 'new';
 
-    debugger;
     if ($scope.key != 'new') {
         GetTenantByKey.get({ key: $scope.key }, function (data) {
             $scope.tenant = data;
@@ -155,7 +154,6 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
         $scope.tenant_success = null;
         $scope.tenant_error = null;
 
-        debugger;
         if ($scope.tenant.TenantKey) {
             var saveorupdate = $scope.key == 'new' ? 'Save' : 'Update';
             var url = config.apiUrl + '/Tenant/' + saveorupdate;
@@ -181,7 +179,6 @@ adminClientController.controller('AdminClientDetailsController', function ($scop
         $location.path('/admin');
     }
 
-    debugger;
     $scope.deleteTenant = function () {
         if ($scope.tenant.TenantKey) {
             $scope.tenant['Active'] = false;

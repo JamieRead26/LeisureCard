@@ -13,7 +13,6 @@
             <h1>@Html.Raw(ViewBag.titlePreface){{ offer.OutletName }}</h1>
             <p ng-repeat="(key, value) in removeNull({
                a : offer.Description,
-               b : offer.DisabledAccess,
                c : offer.Phone,
                d : offer.Website
                })">
@@ -30,7 +29,6 @@
                e : offer.PostCode })">
                 <!--{{ key }}: --><span ng-bind-html="value"></span>
             </p>
-            @Html.Raw(ViewBag.note)
         </div>
     </div>
     <div class="sixcol last offers241-r">

@@ -13,6 +13,18 @@ namespace GRG.LeisureCards.GenerateDBSchema
             GRG = new Tenant { TenantKey = "GRG", Name = "Grass Roots Group", Active = true, Domain = "leisurecards.grg.com" };
             NPower = new Tenant { TenantKey = "NPower", Name = "NPower", Active = true, Domain = "leisurecards.npower.com" };
 
+            if (Config.Release == Release.Prod)
+            {
+                GRG.Domain = "www.leisure-card.co.uk";
+                NPower.Domain = "www.npowerdaysout.com";
+            }
+
+            if (Config.Release == Release.UAT)
+            {
+                GRG.Domain = "leisureure-card-uat.grgtest.co.uk";
+                NPower.Domain = "npower.leisurecards.shiftkey.uk.com";
+            }
+
             return new[] { GRG, NPower };
         }
     }

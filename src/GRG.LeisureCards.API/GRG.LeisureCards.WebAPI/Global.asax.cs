@@ -11,6 +11,8 @@ namespace GRG.LeisureCards.WebAPI
 {
     public class WebApiApplication : HttpApplication
     {
+        public static string AppRoot;
+
         private static readonly ILog Log = LogManager.GetLogger(typeof(WebApiApplication));
 
         public void Application_Start()
@@ -22,6 +24,9 @@ namespace GRG.LeisureCards.WebAPI
 
             Mappings.Mapping.Register();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+           AppRoot = HttpContext.Current.Server.MapPath("~");
+
         }
         protected void Application_BeginRequest(object sender, EventArgs e)
         {

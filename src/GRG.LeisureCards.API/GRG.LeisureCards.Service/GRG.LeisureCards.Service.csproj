@@ -78,6 +78,7 @@
     <Compile Include="LeisureCardService.cs" />
     <Compile Include="RedLetterDataService.cs" />
     <Compile Include="ReportService.cs" />
+    <Compile Include="TwoForOneService.cs" />
     <Compile Include="UkLocationService.cs" />
     <Compile Include="Model\UkLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

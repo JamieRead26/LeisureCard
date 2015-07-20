@@ -232,7 +232,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
     $scope.suspended = false;
 
     var refreshCardsForUpdate = function (query) {
-        var url = config.apiUrl + '/LeisureCard/GetCardNumbersForUpdate/' + query;
+        var url = config.apiUrl + 'LeisureCard/GetCardNumbersForUpdate/' + query;
         $http.get(url).then(function (r) {
             $scope.card_numbers.length = 0; // Empty array
             
@@ -259,7 +259,7 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
 
     $scope.change = function (cardNumber) {
         if (cardNumber) {
-            refreshCardsForUpdate();
+            refreshCardsForUpdate(cardNumber);
         }
         
         var card = $scope.cards[cardNumber];

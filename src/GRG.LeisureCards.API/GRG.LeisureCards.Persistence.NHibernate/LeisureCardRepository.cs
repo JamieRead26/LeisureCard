@@ -5,6 +5,8 @@ using GRG.LeisureCards.DomainModel;
 using NHibernate.Criterion;
 using NHibernate.Linq;
 
+//using NHibernate.Linq;
+
 namespace GRG.LeisureCards.Persistence.NHibernate
 {
     public class LeisureCardRepository : Repository<LeisureCard, string>, ILeisureCardRepository
@@ -70,13 +72,6 @@ namespace GRG.LeisureCards.Persistence.NHibernate
 
         public IEnumerable<LeisureCard> FindByCodeAndRef(string searchTerm, int max)
         {
-            IEnumerable<LeisureCard> urns = Session.QueryOver<LeisureCard>()
-               .WhereRestrictionOn(x => x.Code).IsLike(searchTerm +"%")  
-               .Take(max)
-               .List();
-
-
-            // alias for inner query
             LeisureCard inner = null;
             // this alias is for outer query, and will be used in 
             // inner query as a condition in the HAVING clause
@@ -87,6 +82,7 @@ namespace GRG.LeisureCards.Persistence.NHibernate
                     .SelectGroup(() => inner.Reference) // here we GROUP BY
                     .SelectMin(() => inner.Code)
                 )
+
                 // HAVING to get just Min(id) match
                 .Where(Restrictions.EqProperty(
                   Projections.Min<LeisureCard>(i => i.Code),
@@ -94,13 +90,23 @@ namespace GRG.LeisureCards.Persistence.NHibernate
                 ));
 
             // outer query
-            // outer query
-            urns = urns.Union(Session.QueryOver(() => outer)
+            IEnumerable<LeisureCard> urns = (Session.QueryOver(() => outer)
                 .WithSubquery
                 // we can now use EXISTS, because we applied match in subquery
-                .WhereExists(minIdSubquery).List());
+                .WhereExists(minIdSubquery)
+                .Where(Restrictions.On<LeisureCard>(x => x.Reference).IsLike(searchTerm, MatchMode.Start))
+                .Take(max)
+                .List());
 
-            return urns.ToList();
+            if (urns.Count() < 100)
+            {
+                urns = urns.Union(Session.QueryOver<LeisureCard>()
+                .Where(Restrictions.On<LeisureCard>(x => x.Code).IsLike(searchTerm, MatchMode.Start))
+                .Take(100)
+                .List());
+            }
+
+            return urns;
         }
 
         public override void Delete(LeisureCard entity)

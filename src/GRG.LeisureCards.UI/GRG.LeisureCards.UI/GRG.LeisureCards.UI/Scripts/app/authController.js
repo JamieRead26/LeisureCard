@@ -56,6 +56,8 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
                 else if (data.Status == 'Ok') {
                  
                     // show login popup
+                    //data.DisplayMemberLoginPopup = true;
+                    //data.MemberLoginPopupAcceptanceMandatory = true;
                     if (data.DisplayMemberLoginPopup) {
 
                         $scope.terms_required = data.MemberLoginPopupAcceptanceMandatory;

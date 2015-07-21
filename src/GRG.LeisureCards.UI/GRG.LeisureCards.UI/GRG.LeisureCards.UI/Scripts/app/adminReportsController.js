@@ -236,14 +236,27 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
         $http.get(url).then(function (r) {
             $scope.card_numbers.length = 0; // Empty array
             
+            var query;
             var cards = r.data.$values;
+            var url = r.config.url.split('/');
+            if(url.length){
+                query = url[url.length - 1];
+            }
+
             if(cards){
                 // pushes cards to key values
+                // by code or ref depending on match
                 for (var i = 0; i < cards.length; i++) {
                     var code = cards[i].Code;
-
-                    $scope.cards[code] = cards[i];
-                    $scope.card_numbers.push(code);
+                    var ref = cards[i].Reference;
+                    var key = code;
+                
+                    if(query){
+                        key = ref.indexOf(query) == 0 ? ref : code;
+                    }
+                  
+                    $scope.cards[key] = cards[i];
+                    $scope.card_numbers.push(key);
                 }
             }
         });
@@ -261,8 +274,9 @@ adminController.controller('AdminUpdateCardController', function ($scope, $rootS
         if (cardNumber) {
             refreshCardsForUpdate(cardNumber);
         }
-        
+
         var card = $scope.cards[cardNumber];
+
         if (card) {
             $scope.cardNumber = card.Code;
 

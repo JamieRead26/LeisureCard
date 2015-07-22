@@ -20,7 +20,7 @@
             </p>
             @Html.Raw(ViewBag.redirectWarning)
         </div>
-        <div class="claim-strip"><a ng-click="claim()" ng-href="{{ pdf_link }}" target="_blank"><img src="~/Content/@Session["TenantKey"]/img/claim-code-button.png" /></a></div>
+        <div class="claim-strip"><a ng-click="claim()" name="iefix" ng-href="{{ pdf_link }}" target="_blank"><img src="~/Content/@Session["TenantKey"]/img/claim-code-button.png" /></a></div>
         <div class="offers241-l-inner">
             <p ng-repeat="(key, value) in removeNull({
                a : offer.Address1, 

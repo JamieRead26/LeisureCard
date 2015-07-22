@@ -41,7 +41,7 @@ body {
         clear: both;
     }
     .fl {
-        float: left;
+        float: left; 
         width: 49%;
     }
     .fr {
@@ -50,6 +50,7 @@ body {
     }
     a {
         color: $links;
+        word-break: break-word;
         &:hover {
             text-decoration: none;
         }

@@ -30,6 +30,7 @@ body {
     }
     a {
         color: $links;
+        word-break: break-word;
         &:hover {
             text-decoration: none;
         }

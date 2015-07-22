@@ -19,7 +19,7 @@
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-4.png',
+        img: '/Content/' + tenant + '/img/npower-banner-4.jpg',
         link: 'http://google.co.uk'
     },
     {
@@ -71,11 +71,11 @@
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-14.png',
+        img: '/Content/' + tenant + '/img/npower-banner-14.jpg',
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-15.png',
+        img: '/Content/' + tenant + '/img/npower-banner-15.jpg',
         link: 'http://google.co.uk'
     },
     {

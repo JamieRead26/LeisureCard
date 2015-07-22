@@ -460,7 +460,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-
   <Import Project="..\packages\Select.Pdf.15.2.0.0\build\Select.Pdf.targets" Condition="Exists('..\packages\Select.Pdf.15.2.0.0\build\Select.Pdf.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

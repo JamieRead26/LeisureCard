@@ -17,9 +17,9 @@
 
     @Styles.Render("~/bundles/css")
 
-
+    <link rel="shortcut icon" href="~/Content/@Session["TenantKey"]/favicon.ico" />
 </head>
-<link rel="shortcut icon" href="content/@Session["TenantKey"]/favicon.ico" />
+
 <body ng-app="leisureApp" ng-controller="globalCtrl" ng-class="global.bodyclass" id="ng-app">
 
     @{Html.RenderPartial("Header");}

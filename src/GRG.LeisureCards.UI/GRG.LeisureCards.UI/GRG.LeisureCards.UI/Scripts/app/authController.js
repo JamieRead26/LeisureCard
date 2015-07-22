@@ -33,11 +33,17 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
 
         if ($scope.terms.terms_checked) {
             $http.get(config.apiUrl + '/LeisureCard/AcceptTerms');
+            loginUser($scope.session, $scope.card);
+            ngDialog.close();
+            return;
         }
 
-        loginUser($scope.session, $scope.card);
-        ngDialog.close();
+        if ($scope.terms_required) {
+            return $scope.terms_error = 'Please agree to the terms.';
+        }
+        
     }
+
 
     $scope.login = function () {
         if ($scope.card_number) {
@@ -56,8 +62,6 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
                 else if (data.Status == 'Ok') {
                  
                     // show login popup
-                    //data.DisplayMemberLoginPopup = true;
-                    //data.MemberLoginPopupAcceptanceMandatory = true;
                     if (data.DisplayMemberLoginPopup) {
 
                         $scope.terms_required = data.MemberLoginPopupAcceptanceMandatory;

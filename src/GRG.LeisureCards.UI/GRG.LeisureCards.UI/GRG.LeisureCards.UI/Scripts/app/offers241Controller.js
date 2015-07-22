@@ -59,7 +59,7 @@ offers241Controller.controller('offers241Controller', function ($scope, Offer241
     }
 
     if ($scope.location && $scope.miles) {
-        $location.hash('241search');
+
         $scope.miles = $scope.miles[0];
 
         var url = config.apiUrl + '/TwoForOne/FindByLocation/' + $scope.location + '/' + $scope.miles.value;
@@ -90,6 +90,9 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
     $scope.offer = {};
     $scope.global.bodyclass = 'offer-241-details';
     $scope.global.slideshow = slideshow.offer241details;
+
+    $scope.pdf_link = "/pdf/241voucher/" + $scope.id + "/" + $cookies.SessionToken;
+
     Offer241GetById.get({ id: $scope.id }, function (data) {
     
         var website = data.Website ? $sce.trustAsHtml('<a href="http://' + data.Website + '" target="_blank">' + data.Website + '</a>') : '';
@@ -126,7 +129,6 @@ offers241Controller.controller('offers241DetailsController', function ($scope, $
             if(!data.$resolved){
                 return alert('Something went wrong when claiming this offer.');
             }
-            $window.open("/pdf/241voucher/" + $scope.id + "/" + $cookies.SessionToken);
         });
     };
 

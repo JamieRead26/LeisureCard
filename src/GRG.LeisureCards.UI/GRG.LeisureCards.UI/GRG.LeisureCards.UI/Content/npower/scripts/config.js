@@ -3,19 +3,19 @@
     var tenant = config.tenant;
 
     this.login = [{       
-        img: '/Content/' + tenant + '/img/npower-banner-1.png',
+        img: '/Content/' + tenant + '/img/npower-banner-1.jpg',
         link: 'http://google.co.uk'
     }];
     this.offershome = [{
-        img: '/Content/' + tenant + '/img/npower-banner-1.png',
+        img: '/Content/' + tenant + '/img/npower-banner-1.jpg',
         link: ''
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-2.png',
+        img: '/Content/' + tenant + '/img/npower-banner-2.jpg',
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-3.png',
+        img: '/Content/' + tenant + '/img/npower-banner-3.jpg',
         link: 'http://google.co.uk'
     },
     {
@@ -23,51 +23,51 @@
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-5.png',
+        img: '/Content/' + tenant + '/img/npower-banner-5.jpg',
         link: 'http://google.co.uk'
     }];
 
     this.offer241 = [{
-        img: '/Content/' + tenant + '/img/npower-banner-6.png',
+        img: '/Content/' + tenant + '/img/npower-banner-6.jpg',
         link: ''
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-7.png',
+        img: '/Content/' + tenant + '/img/npower-banner-7.jpg',
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-8.png',
+        img: '/Content/' + tenant + '/img/npower-banner-8.jpg',
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-9.png',
+        img: '/Content/' + tenant + '/img/npower-banner-9.jpg',
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-10.png',
+        img: '/Content/' + tenant + '/img/npower-banner-10.jpg',
         link: 'http://google.co.uk'
     }];
 
     this.offer241details = [{
-        img: '/Content/' + tenant + '/img/npower-banner-10.png',
+        img: '/Content/' + tenant + '/img/npower-banner-10.jpg',
         link: ''
     }];
 
     this.offer241claim = [{
-        img: '/Content/' + tenant + '/img/npower-banner-10.png',
+        img: '/Content/' + tenant + '/img/npower-banner-10.jpg',
         link: ''
     }];
 
     this.offerexperience = [{
-        img: '/Content/' + tenant + '/img/npower-banner-11.png',
+        img: '/Content/' + tenant + '/img/npower-banner-11.jpg',
         link: ''
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-12.png',
+        img: '/Content/' + tenant + '/img/npower-banner-12.jpg',
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-13.png',
+        img: '/Content/' + tenant + '/img/npower-banner-13.jpg',
         link: 'http://google.co.uk'
     },
     {
@@ -79,12 +79,12 @@
         link: 'http://google.co.uk'
     },
     {
-        img: '/Content/' + tenant + '/img/npower-banner-16.png',
+        img: '/Content/' + tenant + '/img/npower-banner-16.jpg',
         link: 'http://google.co.uk'
     }];
 
     this.terms = [{
-        img: '/Content/' + tenant + '/img/npower-banner-17.png',
+        img: '/Content/' + tenant + '/img/npower-banner-17.jpg',
         link: ''
     }];
 

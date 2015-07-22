@@ -4,9 +4,11 @@
 
 <form ng-submit="check_terms()">
     <label>
-        <input type="checkbox" ng-required="{{ terms_required }}" ng-model="terms.terms_checked" />
+        <input type="checkbox" ng-model="terms.terms_checked" />
         Please check to confirm agreement to the <a href="/#/terms" target="target">Terms &amp; Conditions</a>.
     </label>
+
+    <div style="color: red;" ng-show="terms_error != null">{{ terms_error }}</div>
     <div class="field">
         <input type="submit" value="Enter" />
     </div>

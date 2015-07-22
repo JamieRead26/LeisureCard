@@ -8,7 +8,7 @@
     <form ng-controller="LoginController" ng-submit="login()" class="home loginform">
         @Html.Raw(ViewBag.pleaseEnter)
         <div class="field">
-            <input type="text" placeholder="Card number" ng-model="card_number" />
+            @Html.Raw(ViewBag.input)
             <div class="errors" ng-show="errors != null">{{ errors }}</div>
             <input type="submit" value="Enter" />
         </div>

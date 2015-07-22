@@ -42,8 +42,8 @@ namespace GRG.LeisureCards.UI.Controllers
                 file.Document.Form.Fields["expiry_date"].Value = (DateTime.Now + TimeSpan.FromDays(14)).ToString("d");
                 file.Document.Form.Fields["expiry_date"].ReadOnly = true;
 
-                file.Document.Form.Fields["outlet_name"].Value = offer.OutletName;
-                file.Document.Form.Fields["outlet_name"].ReadOnly = true;
+                file.Document.Form.Fields["outlet_name 2"].Value = offer.OutletName;
+                file.Document.Form.Fields["outlet_name 2"].ReadOnly = true;
 
                 file.Document.Form.Fields["booking_ins_1"].Value = bookingInsPara.ToString();
                 file.Document.Form.Fields["booking_ins_1"].ReadOnly = true;

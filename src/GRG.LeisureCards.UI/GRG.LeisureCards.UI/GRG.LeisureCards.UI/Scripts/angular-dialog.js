@@ -311,6 +311,10 @@
 
                     getFocusableElements: function ($dialog) {
                         var dialogEl = $dialog[0];
+                      
+                        // hack ie8 doesnt support a[href], input:not([disabled])
+                        // remove focusableElementSelector var to enable full usage
+                        var focusableElementSelector = "a, input";
 
                         var rawElements = dialogEl.querySelectorAll(focusableElementSelector);
 

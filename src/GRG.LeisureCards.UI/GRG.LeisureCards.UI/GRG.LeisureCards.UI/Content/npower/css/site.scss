@@ -997,9 +997,11 @@ margin-bottom: 0;
 }
 .offer-discount-hoseasons .button-claim .button {
     background: url('../img/cdb-hoseasons-npower.jpg') no-repeat;
+    background-size:100%;
 }
 .offer-discount-cottage .button-claim .button {
     background: url('../img/cdb-cottage-npower.jpg') no-repeat;
+    background-size:100%;
 }
 
 .offer-discount-hoseasons .claim-offer .offer-contact, .offer-discount-cottage .claim-offer .offer-contact{
@@ -1068,6 +1070,11 @@ body.admin div.content textarea {
         }
     }
     
+}
+@media screen and (max-width: 1140px) {
+    .bx-wrapper img {
+        margin-left:0px;
+    }
 }
 @media screen and (max-width: 750px) {
     body .content ul.experience-offers {

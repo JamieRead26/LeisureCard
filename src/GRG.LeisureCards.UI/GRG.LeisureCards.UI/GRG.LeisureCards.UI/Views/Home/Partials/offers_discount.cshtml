@@ -2,6 +2,8 @@
     Layout = "";
 }
 
+@Html.Raw(ViewBag.floodlight)
+
 <div class="special-offers-title"><img src="~/Content/@Session["TenantKey"]/img/tw-title.jpg" /></div>
 
 <div id="offers-discount-wrap" ng-controller="offersDiscountController">

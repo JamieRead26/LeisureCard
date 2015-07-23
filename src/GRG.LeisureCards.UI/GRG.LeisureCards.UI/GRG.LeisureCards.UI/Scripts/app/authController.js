@@ -81,7 +81,7 @@ loginController.controller('LoginController', function ($scope, $cookies, $locat
             });
 
         } else {
-            $scope.errors = 'You must provide a card number.';
+            $scope.errors = 'Please provide an npower account number.';
         }
 
     };

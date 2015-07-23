@@ -2,10 +2,10 @@
 {
     public class DataImportKey
     {
-        public readonly static DataImportKey RedLetter = new DataImportKey("RedLetter",  "~\\UploadFiles\\RedLetter");
-        public readonly static DataImportKey TwoForOne = new DataImportKey("241", "~\\UploadFiles\\241");
-        public readonly static DataImportKey NewUrns = new DataImportKey("NewUrns", "~\\UploadFiles\\NewUrns");
-        public readonly static DataImportKey DeactivatedUrns = new DataImportKey("DeactivatedUrns", "~\\UploadFiles\\DeactivatedUrns");
+        public readonly static DataImportKey RedLetter = new DataImportKey("RedLetter",  "\\RedLetter");
+        public readonly static DataImportKey TwoForOne = new DataImportKey("241", "\\241");
+        public readonly static DataImportKey NewUrns = new DataImportKey("NewUrns", "\\NewUrns");
+        public readonly static DataImportKey DeactivatedUrns = new DataImportKey("DeactivatedUrns", "\\DeactivatedUrns");
 
         public static readonly DataImportKey[] All = {RedLetter, TwoForOne, NewUrns, DeactivatedUrns};
 

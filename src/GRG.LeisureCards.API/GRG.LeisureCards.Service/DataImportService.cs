@@ -19,6 +19,23 @@ namespace GRG.LeisureCards.Service
         DataImportJournalEntry ImportForTenant(DataImportKey key, Func<string, string> mapPath, string tenantKey, params object[] args);
     }
 
+    public class FileImportConfig
+    {
+        public string UploadFilesRoot { get; set; }
+        public string RedLetterFtpPath { get; set; }
+        public string RedLetterFtpUid { get; set; }
+        public string RedLetterFtpPassword { get; set; }
+
+        public FileImportConfig(string redLetterFtpPath, string redLetterFtpUid, string redLetterFtpPassword,
+            string uploadFilesRoot)
+        {
+            UploadFilesRoot = uploadFilesRoot;
+            RedLetterFtpPath = redLetterFtpPath;
+            RedLetterFtpUid = redLetterFtpUid;
+            RedLetterFtpPassword = redLetterFtpPassword;
+        }
+    }
+
     public class DataImportService : IDataImportService
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(DataImportService));
@@ -28,19 +45,22 @@ namespace GRG.LeisureCards.Service
         private readonly IUkLocationService _locationService;
         private readonly IRedLetterBulkInsert _redLetterBulkInsert;
         private readonly ILeisureCardRepository _leisureCardRepository;
+        private readonly string _uploadFilesRoot;
 
         public DataImportService(
             IDataImportJournalEntryRepository dataImportJournalEntryRepository, 
             ITwoForOneRepository twoForOneRepository,
             IUkLocationService locationService,
             IRedLetterBulkInsert redLetterBulkInsert,
-            ILeisureCardRepository leisureCardRepository)
+            ILeisureCardRepository leisureCardRepository,
+            FileImportConfig fileImportConfig)
         {
             _dataImportJournalEntryRepository = dataImportJournalEntryRepository;
             _twoForOneRepository = twoForOneRepository;
             _locationService = locationService;
             _redLetterBulkInsert = redLetterBulkInsert;
             _leisureCardRepository = leisureCardRepository;
+            _uploadFilesRoot = fileImportConfig.UploadFilesRoot;
         }
 
         public DataImportJournalEntry ImportRedLetterOffers(Stream fileStream, DataImportJournalEntry journalEntry)
@@ -228,8 +248,8 @@ namespace GRG.LeisureCards.Service
             var journalEntry = _dataImportJournalEntryRepository.GetLast(importKey);
 
             var path = (string.IsNullOrWhiteSpace(tenantKey))
-                ? mapPath(importKey.UploadPath) + "\\" + journalEntry.FileName
-                : mapPath(importKey.UploadPath) + "\\" + tenantKey + "\\" + journalEntry.FileName;
+                ? _uploadFilesRoot + importKey.UploadPath + "\\" + journalEntry.FileName
+                : _uploadFilesRoot + importKey.UploadPath + "\\" + tenantKey + "\\" + journalEntry.FileName;
 
             if (importKey == DataImportKey.RedLetter)
                 return ImportRedLetterOffers(

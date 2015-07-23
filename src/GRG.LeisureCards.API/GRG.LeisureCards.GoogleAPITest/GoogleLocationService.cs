@@ -5,19 +5,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
 
-namespace GRG.LeisureCards.Service
+namespace GRG.LeisureCards.GoogleAPITest
 {
-    public interface IGoogleLocationService
-    {
-        /// <summary>
-        /// Gets the latitude and longitude that belongs to an address.
-        /// </summary>
-        /// <param name="commaSeparatedAddress">The address.</param>
-        /// <returns></returns>
-        MapPoint GetLatLongFromAddress(string commaSeparatedAddress);
-    }
-
-    public class GoogleLocationService : IGoogleLocationService
+    public class GoogleLocationService 
     {
         private readonly string _googleApiUrlTemplate;
         private readonly string _cryptoKey;
@@ -26,6 +16,7 @@ namespace GRG.LeisureCards.Service
         /// Initializes a new instance of the <see cref="GoogleLocationService"/> class.
         /// </summary>
         /// <param name="useHttps">Indicates whether to call the Google API over HTTPS or not.</param>
+        /// <param name="cryptoKey"></param>
         public GoogleLocationService(string googleApiUrlTemplate, string cryptoKey)
         {
             _googleApiUrlTemplate = googleApiUrlTemplate;
@@ -53,8 +44,7 @@ namespace GRG.LeisureCards.Service
         {
             var url = string.Format(_googleApiUrlTemplate, Uri.EscapeDataString(commaSeparatedAddress));
 
-            if (!string.IsNullOrWhiteSpace(_cryptoKey))
-                url = Sign(url, _cryptoKey);
+            url = Sign(url, _cryptoKey);
 
             XDocument doc = XDocument.Load(url);
 
@@ -72,6 +62,11 @@ namespace GRG.LeisureCards.Service
                 return new MapPoint() { Latitude = latitude, Longitude = longitude };
             }
             return null;
+        }
+
+        double ParseUK(string value)
+        {
+            return Double.Parse(value, new CultureInfo("en-gb"));
         }
 
         public static string Sign(string url, string keyString)
@@ -94,11 +89,6 @@ namespace GRG.LeisureCards.Service
 
             // Add the signature to the existing URI.
             return uri.Scheme + "://" + uri.Host + uri.LocalPath + uri.Query + "&signature=" + signature;
-        }
-
-        double ParseUK(string value)
-        {
-            return Double.Parse(value, new CultureInfo("en-gb"));
         }
     }
 

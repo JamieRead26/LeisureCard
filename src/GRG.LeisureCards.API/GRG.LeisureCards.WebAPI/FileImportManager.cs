@@ -5,6 +5,7 @@ using System.Threading;
 using GRG.LeisureCards.DomainModel;
 using GRG.LeisureCards.Persistence;
 using GRG.LeisureCards.Persistence.NHibernate;
+using GRG.LeisureCards.Service;
 using log4net;
 
 namespace GRG.LeisureCards.WebAPI
@@ -18,19 +19,7 @@ namespace GRG.LeisureCards.WebAPI
         Stream GetDeactivateUrnsData(string tenantKey);
     }
 
-    public class FileImportConfig
-    {
-        public string RedLetterFtpPath { get; set; }
-        public string RedLetterFtpUid { get; set; }
-        public string RedLetterFtpPassword { get; set; }
-
-        public FileImportConfig(string redLetterFtpPath, string redLetterFtpUid, string redLetterFtpPassword)
-        {
-            RedLetterFtpPath = redLetterFtpPath;
-            RedLetterFtpUid = redLetterFtpUid;
-            RedLetterFtpPassword = redLetterFtpPassword;
-        }
-    }
+    
 
     public class FileImportManager : IFileImportManager
     {
@@ -41,12 +30,14 @@ namespace GRG.LeisureCards.WebAPI
         private readonly string _redLetterPwd;
         private readonly ITenantRepository _tenantRepository;
         private static readonly ILog Log = LogManager.GetLogger(typeof(FileImportManager));
+        private readonly string _upoadFilesRoot;
 
         public FileImportManager(FileImportConfig config, ITenantRepository tenantRepository)
         {
             _redLetterFtpPath = config.RedLetterFtpPath;
             _redLetterUid = config.RedLetterFtpUid;
             _redLetterPwd = config.RedLetterFtpPassword;
+            _upoadFilesRoot = config.UploadFilesRoot;
             _tenantRepository = tenantRepository;
         }
 
@@ -60,7 +51,7 @@ namespace GRG.LeisureCards.WebAPI
             string uploadFolder = string.Empty;
             try
             {
-                uploadFolder = System.Web.Hosting.HostingEnvironment.MapPath(dataImportKey.UploadPath);
+                uploadFolder = _upoadFilesRoot + dataImportKey.UploadPath;
 
                 if (tenant != null)
                 {

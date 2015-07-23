@@ -2,6 +2,8 @@
     Layout = "";
 }
 
+@Html.Raw(ViewBag.floodlight)
+
 <div class="twelvecol">
     <div class="title-img"><img src="~/Content/@Session["TenantKey"]/img/welcome-to-leisure-card.png" /></div>
     @Html.Raw(ViewBag.homeCopy)

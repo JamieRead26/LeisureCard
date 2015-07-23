@@ -137,7 +137,9 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .SetLifecycleTo<SingletonLifecycle>();
 
             For<IGoogleLocationService>()
-                .Use(() => new GoogleLocationService(ConfigurationManager.AppSettings["GoogleApiUrlTemplate"]))
+                .Use(() => new GoogleLocationService(
+                    ConfigurationManager.AppSettings["GoogleApiUrlTemplate"],
+                    ConfigurationManager.AppSettings["GoogleCryptoKey"]))
                 .DecorateWith(i => proxyGenerator.CreateInterfaceProxyWithTargetInterface(i, interceptor))
                 .SetLifecycleTo<SingletonLifecycle>();
 
@@ -176,7 +178,8 @@ namespace GRG.LeisureCards.WebAPI.DependencyResolution
                 .Use(() => new FileImportConfig(
                     ConfigurationManager.AppSettings["RedLetterFtpPath"],
                     ConfigurationManager.AppSettings["RedLetterFtpUid"],
-                    ConfigurationManager.AppSettings["RedLetterFtpPassword"]));
+                    ConfigurationManager.AppSettings["RedLetterFtpPassword"],
+                    ConfigurationManager.AppSettings["UploadFilesFolder"]));
 
             For<IFileImportManager>()
                 .Use<FileImportManager>()

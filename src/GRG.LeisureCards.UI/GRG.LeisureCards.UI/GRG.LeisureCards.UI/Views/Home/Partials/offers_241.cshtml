@@ -2,8 +2,8 @@
     Layout = "";
 }
 <div ng-controller="offers241Controller" class="twelvecol">
-    <div class="title-img"><img src="~/Content/@Session["TenantKey"]/img/2-4-1-offers.png" />
-    </div>
+    <div class="title-img"><img src="~/Content/@Session["TenantKey"]/img/2-4-1-offers.png" /></div>
+    @Html.Raw(ViewBag.voucherDisc)
     <form ng-submit="submit()" class="location-search" id="241search">
         <div class="location-icon"></div>
         <div class="search-left">

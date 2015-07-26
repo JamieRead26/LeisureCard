@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "";
+}
+
+<div class="twelvecol terms-copy">
+    <div class="title-img">
+        <img src="~/Content/@Session["TenantKey"]/img/terms-title.jpg"/>
+    </div>
+
+    @Html.Raw(ViewBag.Terms)
+
+</div>

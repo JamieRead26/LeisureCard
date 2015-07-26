@@ -66,7 +66,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Master.AssemblyInfo.cs">
+    <Compile Include="..\Master.AssemblyInfo.cs">
       <Link>Master.AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BusinessLogic\CardRenewalLogic.cs" />

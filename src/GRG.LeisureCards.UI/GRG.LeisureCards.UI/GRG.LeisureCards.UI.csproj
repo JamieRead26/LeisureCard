@@ -53,6 +53,15 @@
     <Reference Include="BundleTransformer.SassAndScss">
       <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.52\lib\net40\BundleTransformer.SassAndScss.dll</HintPath>
     </Reference>
+    <Reference Include="GRG.LeisureCards.WebAPI.Client">
+      <HintPath>..\lib\GRG.LeisureCards.WebAPI.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="GRG.LeisureCards.WebAPI.ClientContract">
+      <HintPath>..\lib\GRG.LeisureCards.WebAPI.ClientContract.dll</HintPath>
+    </Reference>
+    <Reference Include="GRG.LeisureCards.WebAPI.Model">
+      <HintPath>..\lib\GRG.LeisureCards.WebAPI.Model.dll</HintPath>
+    </Reference>
     <Reference Include="IronRuby">
       <HintPath>..\packages\BundleTransformer.SassAndScss.1.9.52\lib\net40\IronRuby.dll</HintPath>
     </Reference>
@@ -390,9 +399,6 @@
     <Content Include="Scripts\app\authController.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Web.config" />
-    <None Include="Web.config_OLD">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -416,38 +422,17 @@
     <Content Include="Content\base\css\site.scss" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="web.Config.UAT" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="Web.Debug.config_OLD">
-      <DependentUpon>Web.config_OLD</DependentUpon>
-    </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config_OLD">
-      <DependentUpon>Web.config_OLD</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\grg\241Category\" />
     <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\GRG.LeisureCards.API\GRG.leisureCards.WebAPI.ClientContract\GRG.leisureCards.WebAPI.ClientContract.csproj">
-      <Project>{4f14b810-ca75-408d-b21e-d6f693d2047a}</Project>
-      <Name>GRG.leisureCards.WebAPI.ClientContract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GRG.LeisureCards.API\GRG.LeisureCards.WebAPI.Client\GRG.LeisureCards.WebAPI.Client.csproj">
-      <Project>{79311c7c-a059-472c-b271-0fdd80d210d9}</Project>
-      <Name>GRG.LeisureCards.WebAPI.Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GRG.LeisureCards.API\GRG.LeisureCards.WebAPI.Model\GRG.LeisureCards.WebAPI.Model.csproj">
-      <Project>{19f9b535-a681-4ee3-b954-347011c3fdec}</Project>
-      <Name>GRG.LeisureCards.WebAPI.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

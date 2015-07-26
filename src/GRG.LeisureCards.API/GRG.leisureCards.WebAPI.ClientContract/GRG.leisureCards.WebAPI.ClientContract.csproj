@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Master.AssemblyInfo.cs">
+      <Link>Master.AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="IDataImportService.cs" />
     <Compile Include="ILeisureCardService.cs" />
     <Compile Include="ILoginHistoryService.cs" />

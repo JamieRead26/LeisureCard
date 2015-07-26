@@ -55,9 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Master.AssemblyInfo.cs">
-      <Link>Master.AssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceStreams.cs" />
   </ItemGroup>

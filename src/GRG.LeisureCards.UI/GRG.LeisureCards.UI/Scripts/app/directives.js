@@ -137,7 +137,8 @@ app.directive('googleMap', ['$rootScope', 'loadGoogleMapAPI',
             restrict: 'C',
             scope: {
                 mapId: '@id',
-                postcode: '@',   
+                postcode: '@',
+                country: '@',
             },
             link: function ($scope, elem, attrs) {
 
@@ -147,29 +148,25 @@ app.directive('googleMap', ['$rootScope', 'loadGoogleMapAPI',
                     // Initialize the map
                     $scope.initialize = function () {
 
-                        $scope.location = new google.maps.LatLng(-34.397, 150.644); // placeholder location
+                        $scope.location = new google.maps.LatLng(53.636847, -3.060867); // placeholder location
                         $scope.mapOptions = {
-                            zoom: 12,
+                            zoom: 5,
                             center: $scope.location
                         };
 
                         $scope.map = new google.maps.Map(document.getElementById($scope.mapId), $scope.mapOptions);
-
-                        new google.maps.Marker({
-                            position: $scope.location,
-                            map: $scope.map,
-                        });
-
+                                                
                         function codeAddress() {
                             var geocoder = new google.maps.Geocoder();
 
-                            geocoder.geocode({ 'address': $scope.postcode }, function (results, status) {
+                            geocoder.geocode({ 'address': $scope.postcode + ", " + $scope.country }, function (results, status) {
                                 if (status == google.maps.GeocoderStatus.OK) {
                                     $scope.map.setCenter(results[0].geometry.location);
                                     var marker = new google.maps.Marker({
                                         map: $scope.map,
                                         position: results[0].geometry.location
                                     });
+                                    $scope.map.setZoom(12);
                                 } else {
                                     console.error('Geocode was not successful for the following reason: ' + status);
                                 }

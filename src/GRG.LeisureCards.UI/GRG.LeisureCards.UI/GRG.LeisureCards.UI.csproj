@@ -91,6 +91,9 @@
       <HintPath>..\packages\PDFClown.0.1.2\lib\net40\PDFClown.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\lib\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -357,7 +360,8 @@
     <Content Include="Content\base\css\header.scss" />
     <Content Include="Content\base\css\mixin.scss" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Content\npower\PDF\npower_voucher.pdf" />
+    <Content Include="Content\npower\PDF\voucher.pdf" />
+    <Content Include="Content\grg\PDF\voucher.pdf" />
     <None Include="Views\Home\Partials\contactus.cshtml" />
     <Content Include="Views\Home\Partials\login.cshtml" />
     <Content Include="Views\Home\Partials\offers_discount.cshtml" />

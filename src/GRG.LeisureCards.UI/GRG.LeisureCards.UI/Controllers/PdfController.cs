@@ -42,7 +42,7 @@ namespace GRG.LeisureCards.UI.Controllers
                     Log.Debug("Rendering PDF voucher for mobile, Offer ID: " +offer.Id);
                     var reader =
                         new PdfReader(
-                            Server.MapPath(string.Format("~/content/{0}/PDF/npower_voucher.pdf", Session["TenantKey"])));
+                            Server.MapPath(string.Format("~/content/{0}/PDF/voucher.pdf", Session["TenantKey"])));
                     var tempfile = string.Format(Server.MapPath(string.Format("~/content/{0}.pdf", Guid.NewGuid())));
 
                     try
@@ -82,7 +82,7 @@ namespace GRG.LeisureCards.UI.Controllers
                 {
                     var file =
                         new File(
-                            Server.MapPath(string.Format("~/content/{0}/PDF/npower_voucher.pdf", Session["TenantKey"])));
+                            Server.MapPath(string.Format("~/content/{0}/PDF/voucher.pdf", Session["TenantKey"])));
 
                     file.Document.Form.Fields["expiry_date"].Value = (DateTime.Now + TimeSpan.FromDays(14)).ToString("d");
                     file.Document.Form.Fields["expiry_date"].ReadOnly = true;

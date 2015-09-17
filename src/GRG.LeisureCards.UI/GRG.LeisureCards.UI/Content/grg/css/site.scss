@@ -16,7 +16,7 @@ body {
     margin: 0;
     padding: 0;
     font-size: 15px; 
-    font-family: 'Arial', sans-serif;
+    font-family:Tahoma, Arial;
     font-weight: normal;
     overflow-y: scroll;
     background: #0971ce;
@@ -76,7 +76,7 @@ body {
             background: #0971ce;
             border-radius:0px;
             padding:5px 100px 5px 5px;
-            background:url(/Content/img/buttonArrow.jpg) no-repeat;
+            background:url(../img/buttonArrow.jpg) no-repeat;
             background-position: 95% center;
             color:#ffffff;
         }
@@ -201,6 +201,7 @@ body {
     right:30%;
     z-index:9999;
     width:auto;
+    display:none;
 }
 .bx-controls-direction {
     display:none;
@@ -212,6 +213,10 @@ body .content ul.experience-offers {
             background:none;
             border:1px solid #ffffff;
             height:85px;
+            padding:27px 20px;
+            &:hover {
+                background:#0971ce;
+            }
             span, p {
                 font-family:Tahoma, Arial;
                 font-weight:bold;
@@ -219,7 +224,6 @@ body .content ul.experience-offers {
             }
         }
         margin:0px;
-
         width:24%;
         height:85px;
         margin-right:1.3%;
@@ -260,6 +264,7 @@ body .content {
             margin:0px;
             color:#ffffff;
             font-size:18px;
+            font-weight:bold;
         }
         &.alt {
             background:url(../img/ed-banner-tag-2.jpg) 0 0 no-repeat;
@@ -280,12 +285,13 @@ body .content {
             font-weight:bold;
             font-size:20px;
             color:#ffffff;
+            margin:20px 0;
         }
         p {
             font-family:Tahoma, Arial;
             font-size:20px;
             color:#ffffff;
-            margin:0px;
+            margin:0 0 27px 0;
         }
         a {
             color:#ffffff;
@@ -295,8 +301,8 @@ body .content {
         padding:30px 0;
         ul {
             li {
-                width: 49%;
-                max-height:111px;
+                width: 32%;
+                height:84px;
                 float: left;
                 margin-right: 2%;
                 margin-bottom:20px;
@@ -310,7 +316,7 @@ body .content {
                 }
                 img {
                     float:left;
-                    width: 28%;
+                    width: 40%;
                 }
                 div.special-offer-copy {
                     float:left;
@@ -319,12 +325,15 @@ body .content {
                     background:#ce0a0e;
                     color:#ffffff;
                     padding: 10px;
+                    position: relative;
                     p {
                         margin: 0 0 5px 0;
+                        font-size:12px;
+                        font-weight:bold;
                     }
                 }
             }
-            li:nth-child(2n) {
+            li:nth-child(3n) {
                 margin-right:0px;
             }
         }
@@ -342,8 +351,18 @@ body .content {
             font-size:20px;
             color:#0971ce;
         }
+        h2 {
+            font-family:Tahoma, Arial;
+            font-weight:bold;
+            font-size:16px;
+            color:#0971ce;
+        }
         p {
             margin:0 0 5px 0;
+            color:#545453;
+            a {
+                color:#545453;
+            }
         }
         img {
             padding:0 0 40px;
@@ -581,7 +600,28 @@ body.admin {
         }
     }
 }
-
+body {
+    div.content {
+        form.home {
+            input[type=submit] {
+                background: url('../img/buttonArrow.jpg') no-repeat 95% 50%;
+            }
+        }
+        p.disclaimer {
+            font-family:Tahoma, Arial;
+            font-size:14px;
+            color:#ffffff;
+            margin:0 0 60px 0;
+        }
+    }
+    .offers241-r-catimg {
+        display:none;
+    }
+    .rldHeader {
+        padding:27px 0;
+        width:250px;
+    }
+}
 
 /* SAM CSS */
 body.offer-241, body.offer-241-claim, body.offer-241-details {
@@ -688,7 +728,7 @@ body div.content form.location-search input.sub-button {
 }
 
 body div.content form.location-search input.sub-button:hover { 
-  background: url('../img/submit-button-arrow.png') #222 no-repeat right;
+  background: url('../img/submit-button-arrow.png') #0971ce no-repeat right;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
@@ -989,6 +1029,17 @@ body div.content .claim-terms-241 {
         margin:0 0 5px 0;
     }
 }
+.goback241 {
+    color:#ffffff;
+}
+body .content .special-offers ul li .oe-star {
+    position: absolute;
+    left: -47px;
+    top: 0px;
+    img {
+        width:auto;
+    }
+}
 
 /* SAM MEDIA QUIRIES */
 
@@ -1008,6 +1059,22 @@ body div.content .claim-terms-241 {
         padding:0px;
     }
     
+}
+@media screen and (max-width: 1024px) {
+body .content .special-offers {
+    ul {
+        li {
+            width: 49%;
+            margin-right:2%;
+        }
+        li:nth-child(3n) {
+            margin-right:2%;
+        }
+        li:nth-child(2n) {
+            margin-right:0%;         
+        }  
+    }
+}
 }
 @media screen and (max-width: 750px) {
     body .content ul.experience-offers {
@@ -1072,26 +1139,46 @@ body div.content .claim-terms-241 {
 
 
 @media screen and (max-width: 600px) {
-    body {
-        div.content { 
-            .special-offers-banner {
-                background:url(../img/ed-banner-tag-1-small.jpg) 0 0 no-repeat;
-                padding: 20px 70px;
-                &.alt {
-                    background:url(../img/ed-banner-tag-2-small.jpg) 0 0 no-repeat;
-                }
+body {
+    div.content { 
+        .special-offers-banner {
+            background:url(../img/ed-banner-tag-1-small.jpg) 0 0 no-repeat;
+            padding: 20px 70px;
+            &.alt {
+                background:url(../img/ed-banner-tag-2-small.jpg) 0 0 no-repeat;
             }
-            form {
-                &.home {
-                    margin:0px;
-                }
+        }
+        form {
+            &.home {
+                margin:0px;
             }
         }
     }
-    .offer-discount-details .button-claim .button {
-        height: 110px;
+}
+.offer-discount-details .button-claim .button {
+    height: 110px;
+}
+.offer-left {float:none; max-width: 242px;}
+.offer-right {float: none; width: auto; padding-right: 0px;}
+body .content .special-offers {
+    ul {
+        li {
+            width: 100%;
+            margin-right:0%;
+            img {
+                width:30%;
+            }
+            div.special-offer-copy {
+                width:70%;
+            }
+        }
+        li:nth-child(3n) {
+            margin-right:0%;
+        }
+        li:nth-child(2n) {
+            margin-right:0%;         
+        }  
     }
-    .offer-left {float:none; max-width: 242px;}
-    .offer-right {float: none; width: auto; padding-right: 0px;}
+}
 }
 

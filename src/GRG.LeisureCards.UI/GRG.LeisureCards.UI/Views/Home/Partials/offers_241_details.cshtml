@@ -4,7 +4,7 @@
 
 @Html.Raw(ViewBag.floodlight)
 
-<p><a href="#" ng-click="go_back()">Go back to list</a></p>
+<p><a href="#" ng-click="go_back()" class="goback241">Go back to list</a></p>
 
 
 <div class="twelvecol" ng-controller="offers241DetailsController">
@@ -23,6 +23,7 @@
         </div>
         <div class="claim-strip"><a ng-click="claim()" name="iefix" ng-href="{{ pdf_link }}" target="_blank"><img src="~/Content/@Session["TenantKey"]/img/claim-code-button.png" /></a></div>
         <div class="offers241-l-inner">
+            @Html.Raw(ViewBag.addressTitle)
             <p ng-repeat="(key, value) in removeNull({
                a : offer.Address1, 
                b : offer.Address2,
@@ -34,7 +35,7 @@
         </div>
     </div>
     <div class="sixcol last offers241-r">
-        <img src="~/Content/@Session["TenantKey"]/241Category/{{ offer.CategoryKey }}_large.png" />
+        <img class="offers241-r-catimg" src="~/Content/@Session["TenantKey"]/241Category/{{ offer.CategoryKey }}_large.png" />
         <div id="offers241-r-top">
             <h1>Location</h1>
             <div class="tidy"></div>

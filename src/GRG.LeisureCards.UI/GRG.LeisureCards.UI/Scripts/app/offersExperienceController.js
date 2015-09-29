@@ -97,7 +97,7 @@ offersExperienceController.controller('offersExperienceController', function ($s
             link: '/ideas/celebrities-and-heroes?source=rld&affid=212&dealid=28582'
         },
         {
-            name: 'Other Gifts',
+            name: 'Traditional Gifts',
             description: '',
             link: '/Experience/Other-Gifts?source=rld&affid=212&dealid=28582'
         }

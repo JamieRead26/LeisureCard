@@ -340,10 +340,10 @@ body .content {
     }
     .offers241-l {
         background:#d9e280;
-        border-radius: 10px;
-        height: 842px;
+        border-radius:10px;
+        margin-top:2%;
         .offers241-l-inner {
-            padding:40px 40px 0 40px;
+            padding:40px 40px 20px 40px;
         }
         h1 {
             font-family:Tahoma, Arial;
@@ -363,9 +363,6 @@ body .content {
             a {
                 color:#545453;
             }
-        }
-        img {
-            padding:0 0 40px;
         }
     }
     .offers241-r {

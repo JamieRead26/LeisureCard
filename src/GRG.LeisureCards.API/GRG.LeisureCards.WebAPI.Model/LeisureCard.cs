@@ -24,6 +24,8 @@ namespace GRG.LeisureCards.WebAPI.Model
 
         public DateTime? MembershipTermsAccepted { get; set; }
 
+        public string TenantKey { get; set; }
+
        // public bool IsMembershipTermsAccepted { get; set; }
     }
 }

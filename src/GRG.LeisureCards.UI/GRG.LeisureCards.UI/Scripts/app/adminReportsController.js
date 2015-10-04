@@ -380,7 +380,7 @@ adminController.controller('AdminReportController', function ($scope, $filter, $
     $scope.report_type = 'card_activation';
 
     $scope.reportChange = function () {
-        $scope.hide_dates = $scope.report_type == 'urn_report' || $scope.report_type == 'missing_location';
+        $scope.hide_dates = $scope.report_type == 'missing_location';
     }
 
     var validateResultsReturned = function (array) {
@@ -404,9 +404,16 @@ adminController.controller('AdminReportController', function ($scope, $filter, $
 
         var url, postData;
 
-        if ($scope.report_type != 'urn_report' && $scope.report_type != 'missing_location') {
-            var postData = ($filter('date')($scope.from_date, "yyyy-MM-dd") || '2000-01-01') + '/' +
-                           ($filter('date')($scope.to_date, "yyyy-MM-dd") || '3000-01-01');
+        var to = ($filter('date')($scope.to_date, "yyyy-MM-dd") || '3000-01-01');
+        var from = ($filter('date')($scope.from_date, "yyyy-MM-dd") || '2000-01-01');
+
+        if ($scope.report_type != 'missing_location') {
+            var postData =  from + '/' + to;
+        }
+
+        if ($scope.report_type == 'urn_report' && from == '2000-01-01' && to == '3000-01-01') {
+            alert('Please enter date range for the report')
+            return;
         }
 	    
 	    switch ($scope.report_type) {
@@ -423,7 +430,7 @@ adminController.controller('AdminReportController', function ($scope, $filter, $
 	    	    url = config.apiUrl + '/Reports/GetCardGenerationHistory/' + postData;
 	    		break;
 	    	case 'urn_report':
-	    	    url = config.apiUrl + '/LeisureCard/GetAllCardNumbers';
+	    	    url = config.apiUrl + '/LeisureCard/GetAllCardNumbers/' + postData;
 	    		break;
 	        case 'missing_location':
 	            url = config.apiUrl + '/TwoForOne/GetAll/';
@@ -501,7 +508,8 @@ adminController.controller('AdminReportController', function ($scope, $filter, $
             'Expiry Date', 
             'Renewal Date', 
             'Registration Date', 
-            'Uploaded Date'];
+            'Uploaded Date',
+            'Tenant'];
         return data;
     };
     $scope.getAllCardsReport = function () {
@@ -516,7 +524,8 @@ adminController.controller('AdminReportController', function ($scope, $filter, $
                 'Expiry Date': report[i].ExpiryDate,
                 'Renewal Date': report[i].RenewalDate,
                 'Registration Date': report[i].RegistrationDate,
-                'Uploaded Date': report[i].UploadedDate
+                'Uploaded Date': report[i].UploadedDate,
+                'Tenant' : report[i].TenantKey
             });
         }
         return data;

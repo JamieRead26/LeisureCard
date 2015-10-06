@@ -139,10 +139,10 @@ namespace GRG.LeisureCards.WebAPI.Controllers
 
         [HttpGet]
         [SessionAuthFilter(true)]
-        [Route("LeisureCard/GetAllCardNumbers")]
-        public IEnumerable<Model.LeisureCard> GetAllCardNumbers()
+        [Route("LeisureCard/GetAllCardNumbers/{from}/{to}")]
+        public IEnumerable<Model.LeisureCard> GetAllCardNumbers(DateTime from, DateTime to)
         {
-            return Dispatch(() => _leisureCardRepository.Find(c=>true, 1000).Select(Mapper.Map<Model.LeisureCard>));
+            return Dispatch(() => _leisureCardRepository.Find(c=>c.UploadedDate>=from&&c.UploadedDate<=to, 1000000).Select(Mapper.Map<Model.LeisureCard>));
         }
 
         [HttpGet]

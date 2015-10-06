@@ -1,4 +1,4 @@
-﻿/// <autosync enabled="true" />
+﻿/// <autosync enabled="false" />
 /// <reference path="angular.js" />
 /// <reference path="jquery.bxslider.min.js" />
 /// <reference path="app/app.js" />
@@ -34,3 +34,4 @@
 /// <reference path="../content/npower/scripts/google_analytics_uat.js" />
 /// <reference path="../content/grg/scripts/google_analytics_none.js" />
 /// <reference path="../content/npower/scripts/google_analytics_none.js" />
+

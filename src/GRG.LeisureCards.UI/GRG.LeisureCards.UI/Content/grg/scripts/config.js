@@ -42,6 +42,10 @@
     {
         img: '/Content/' + tenant + '/img/banner-9.jpg',
         link: 'http://google.co.uk'
+    },
+    {
+        img: '/Content/' + tenant + '/img/banner-22.jpg',
+        link: 'http://google.co.uk'
     }];
 
     this.offer241details = [{
